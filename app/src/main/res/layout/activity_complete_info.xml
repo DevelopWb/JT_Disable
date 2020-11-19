@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/verified_notice_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:text="@string/complete_info_notice"
+                android:textColor="@color/red"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/stroke_gray_square_bg"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <ImageView
+                        style="@style/regist_tag_style"
+                        android:src="@mipmap/regist_tag_branch" />
+                    <AutoCompleteTextView
+                        android:id="@+id/branch_complete_tv"
+                        style="@style/login_edit_tv_style"
+                        android:cacheColorHint="#00000000"
+                        android:dropDownHorizontalOffset="0dp"
+                        android:ems="10"
+                        android:hint="请选择部门"
+                        android:gravity="center_vertical"/>
+                </LinearLayout>
+
+                <View style="@style/divider_style"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <ImageView
+                        style="@style/regist_tag_style"
+                        android:src="@mipmap/regist_tag_branch" />
+
+                    <TextView
+                        android:id="@+id/regist_child_branch_tv"
+                        style="@style/login_edit_tv_style"
+                        android:drawableEnd="@mipmap/arrow_right"
+                        android:gravity="center_vertical"
+                        android:hint="请选择二级部门"
+                        android:paddingRight="5dp" />
+                </LinearLayout>
+
+                <View style="@style/divider_style"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <ImageView
+                        style="@style/regist_tag_style"
+                        android:src="@mipmap/regist_tag_work" />
+
+                    <TextView
+                        android:id="@+id/regist_work_tv"
+                        style="@style/login_edit_tv_style"
+                        android:drawableEnd="@mipmap/arrow_right"
+                        android:gravity="center_vertical"
+                        android:hint="请选择职务"
+                        android:paddingRight="5dp" />
+                </LinearLayout>
+                <View style="@style/divider_style"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <ImageView
+                        style="@style/regist_tag_style"
+                        android:src="@mipmap/regist_tag_gridding" />
+
+                    <TextView
+                        android:id="@+id/regist_gridding_tv"
+                        style="@style/login_edit_tv_style"
+                        android:drawableEnd="@mipmap/arrow_right"
+                        android:gravity="center_vertical"
+                        android:hint="请选择责任网格"
+                        android:paddingRight="5dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/ok_tv"
+                style="@style/bt_bg_style"
+                android:layout_marginTop="20dp"
+                android:text="提交" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/item_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="标题"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:layout_marginBottom="10dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="150dp">
+        <ImageView
+            android:id="@+id/item_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"/>
+        <ImageView
+            android:id="@+id/item_video_tag"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/news_video_tag"/>
+        <TextView
+            android:id="@+id/item_video_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="15dp"
+            android:textSize="8dp"
+            android:textColor="@color/white"
+            android:text="05:54"
+            android:background="@drawable/bg_news_video_time"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:visibility="gone"/>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/item_des"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="中国军视网 \u30001评论 \u3000刚刚"
+        android:textColor="@color/black"
+        android:textSize="10dp"
+        android:alpha="0.6"
+        android:layout_marginTop="5dp"/>
+
+    <View style="@style/divider_light_style"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"/>
+</LinearLayout>
