@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.juntai.wisdom.im" >
+    package="com.juntai.disabled.im" >
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
@@ -37,7 +37,7 @@
         <!--融云    end-->
         <!--融云通知-->
         <receiver
-            android:name=".ry.MyNotificationReceiver"
+            android:name="com.juntai.disabled.im.ry.MyNotificationReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="io.rong.push.intent.MESSAGE_ARRIVED"/>
@@ -91,7 +91,7 @@
         <!--音视频相关 end-->
         <!--会话-->
         <activity
-            android:name=".ChatActivity"
+            android:name="com.juntai.disabled.im.ChatActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
@@ -105,7 +105,7 @@
         </activity>
         <!--会话列表-->
         <activity
-            android:name=".MsgActivity"
+            android:name="com.juntai.disabled.im.MsgActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
@@ -126,7 +126,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SubConversationListActivity"
+            android:name="com.juntai.disabled.im.SubConversationListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
 

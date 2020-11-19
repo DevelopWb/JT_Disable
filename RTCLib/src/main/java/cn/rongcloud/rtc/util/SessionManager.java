@@ -3,7 +3,7 @@ package cn.rongcloud.rtc.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.juntai.wisdom.basecomponent.utils.BaseAppUtils;
+import com.juntai.disabled.basecomponent.utils.BaseAppUtils;
 
 /**
  * Created by Huichao on 2016/11/24.

@@ -7,7 +7,7 @@
     android:gravity="center_vertical"
     android:background="@color/white"
     android:padding="10dp">
-    <com.juntai.wisdom.basecomponent.widght.BaseEditText
+    <com.juntai.disabled.basecomponent.widght.BaseEditText
         android:id="@+id/edittext_comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

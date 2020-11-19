@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.juntai.wisdom.bdmap">
+    package="com.juntai.disabled.bdmap">
 
 
     <!-- 这个权限用于进行网络定位-->
@@ -40,7 +40,7 @@
 
 
         <service
-            android:name=".service.LocateAndUpload"
+            android:name="com.juntai.disabled.bdmap.service.LocateAndUpload"
             android:priority="1000"
             android:enabled="true"
             android:exported="true" />
@@ -52,7 +52,7 @@
             android:process=":remote" />
 
         <!--即时通讯 位置选择-->
-        <activity android:name=".act.LocationSeltionActivity" >
+        <activity android:name="com.juntai.disabled.bdmap.act.LocationSeltionActivity" >
             <intent-filter>
                 <action android:name="${applicationId}.im.location.seltion"/>
                 <category android:name="android.intent.category.DEFAULT"/>
@@ -60,7 +60,7 @@
         </activity>
 
         <!--即时通讯 位置查看-->
-        <activity android:name=".act.LocationLookActivity" >
+        <activity android:name="com.juntai.disabled.bdmap.act.LocationLookActivity" >
             <intent-filter>
                 <action android:name="${applicationId}.im.location.look"/>
                 <category android:name="android.intent.category.DEFAULT"/>
