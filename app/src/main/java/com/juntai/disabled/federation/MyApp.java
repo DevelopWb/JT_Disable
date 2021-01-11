@@ -116,7 +116,13 @@ public class MyApp extends BaseApplication {
     public static UserBean getUser() {
         return Hawk.get(AppUtils.SP_KEY_USER);
     }
-
+    public static boolean isLogin() {
+        if (getUser() == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
     public static void setUser(UserBean userBean) {
         Hawk.put(AppUtils.SP_KEY_USER, userBean);
     }

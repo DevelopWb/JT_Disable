@@ -5,27 +5,26 @@ public class AppHttpPath {
      * base
      */
     //    public static final String BASE = "http://61.156.157.132:27080/dongGuanPoliceStation/";
-    public static final String BASE = "https://www.dgjpcs.cn/server/dongGuanPoliceStation/";
-    //    public static final String BASE = "http://192.168.124.118:8082/dongGuanPoliceStation/";
+    public static final String BASE = "http://www.juntaikeji.com:19120/dongGuanPoliceStation2/";
+    //    public static final String BASE = "http://192.168.124.118:8080/dongGuanPolice/";
 
     /**
      * 车辆流直播
      */
-    public static final String CAR_STREAM = "rtmp://www.juntaikeji.net:1955/live/";
-
-    public static final String BASE_IMAGE = "http://61.156.157.132:8092";
+    public static final String CAR_STREAM ="rtmp://www.juntaikeji.net:1955/live/";
 
     /**
      * 巡检缩略图
      */
-    public static final String INSPECTION_THUMBNAI_IMAGE = "http://61.156.157.132:30080/crm/u/appConnector" +
-            "/getThumbnailImg.shtml";//"http://61.156.157.132:32180"
+    public static final String INSPECTION_THUMBNAI_IMAGE = "http://61.156.157.132:30080/crm/u/appConnector/getThumbnailImg.shtml";//"http://61.156.157.132:32180"
 
     /**
      * 巡检原始图片地址
      */
-    public static final String INSPECTION_ORIGINAL_IMAGE = "http://61.156.157.132:30080/crm/u/appConnector/getImg" +
-            ".shtml";//"http://61.156.157.132:32180"
+    public static final String INSPECTION_ORIGINAL_IMAGE = "http://61.156.157.132:30080/crm/u/appConnector/getImg.shtml";//"http://61.156.157.132:32180"
+
+
+    public static final String BASE_IMAGE = "http://61.156.157.132:8092";
 
 
     /**

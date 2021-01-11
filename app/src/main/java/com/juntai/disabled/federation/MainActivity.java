@@ -550,13 +550,30 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
-    public void receiveStringMsg(String test) {
-        if (ActionConfig.UN_READ_MESSAG_TAG.equals(test)){
+    public void receiveMsg(String test) {
+        if (ActionConfig.UN_READ_MESSAG_TAG.equals(test)) {
             //刷新未读标记
             adapter.setUnReadMsg(MyApp.getUnReadCountBean().getMessageCount() + MyApp.getUnReadCountBean().getImCount());
+        } else if (ActionConfig.BROAD_LOGIN_AFTER.equals(test)) {
+            initForLogin();
+        } else if (ActionConfig.BROAD_LOGIN_OUT.equals(test)) {
+            //退出登录
+            mHandler.removeCallbacks(runnable);
+            mHandler.removeCallbacksAndMessages(null);
         }
     }
-
+    /**
+     * 登录后初始化，获取融云用户列表及开启轨迹上传任务
+     */
+    private void initForLogin() {
+        getIMUsers();
+        /**登录IM*/
+        ModuleIm_Init.connectIM(MyApp.getUserRongYunToken());
+        if (MyApp.getUser().getData().getSettleStatus() == 2) {
+            //主线程中调用：
+            mHandler.postDelayed(runnable, 1000 * 1);//延时1秒
+        }
+    }
     /**
      * 查询本地数据并上传
      */
