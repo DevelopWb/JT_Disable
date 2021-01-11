@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.baidu.mapapi.model.LatLng;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MapClusterItem;
@@ -35,7 +36,6 @@ public class MapBottomListDialog extends DialogFragment implements BaseQuickAdap
     private List<MapClusterItem> list = new ArrayList<>();
     private String type = null;
     View view;
-    NavigationDialog navigationDialog;
 
     @NonNull
     @Override
@@ -43,14 +43,13 @@ public class MapBottomListDialog extends DialogFragment implements BaseQuickAdap
         LayoutInflater inflater = getActivity().getLayoutInflater();
         view = inflater.inflate(R.layout.bottom_list_layout, null);
         Dialog dialog = new Dialog(getActivity(), R.style.CusDialog);
-        navigationDialog = new NavigationDialog();
         dialog.setContentView(view);
         dialog.setTitle("标题");
         dialog.setCanceledOnTouchOutside(true);
         //Do something
         // 设置宽度为屏宽、位置靠近屏幕底部
         Window window = dialog.getWindow();
-//        window.setWindowAnimations(R.style.dialogWindowAnim);
+        //        window.setWindowAnimations(R.style.dialogWindowAnim);
         window.setBackgroundDrawableResource(R.color.transparent);
         WindowManager.LayoutParams wlp = window.getAttributes();
         wlp.gravity = Gravity.BOTTOM;
@@ -59,25 +58,26 @@ public class MapBottomListDialog extends DialogFragment implements BaseQuickAdap
         window.setAttributes(wlp);
         bottomListRv = view.findViewById(R.id.bottom_list_rv);
         bottomListRv.setLayoutManager(new LinearLayoutManager(getContext()));
-//        bottomListRv.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
+        //        bottomListRv.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration
+        //        .VERTICAL));
         Bundle bundle = getArguments();
         if (bundle != null) {
             list = (List<MapClusterItem>) bundle.getSerializable("data");
-            if(list.size()>0 && MapClusterItem.NEWS.equals(list.get(0).getType())){
+            if (list.size() > 0 && MapClusterItem.NEWS.equals(list.get(0).getType())) {
                 Collections.sort(list);
             }
-            ClusterClickAdapter clusterClickAdapter = new ClusterClickAdapter(R.layout.item_case,list);
+            ClusterClickAdapter clusterClickAdapter = new ClusterClickAdapter(R.layout.item_case, list);
             bottomListRv.setAdapter(clusterClickAdapter);
             clusterClickAdapter.setOnItemClickListener(this::onItemClick);
             type = list.get(0).getType();
-            if(MapClusterItem.CASE.equals(list.get(0).getType())){
+            if (MapClusterItem.CASE.equals(list.get(0).getType())) {
                 clusterClickAdapter.setOnItemChildClickListener((adapter, view, position) -> {
                     if (view.getId() == R.id.item_right) {//导航
-                        navigationDialog.showMenu(
-                                getFragmentManager(),
-                                ((MapClusterItem) adapter.getData().get(position)).mcase.getLatitude(),
-                                ((MapClusterItem) adapter.getData().get(position)).mcase.getLongitude(),
-                                ((MapClusterItem) adapter.getData().get(position)).mcase.getAddress());
+                        if (mapBottomListItemClickListenner != null) {
+                            mapBottomListItemClickListenner.onNavagition(new LatLng(((MapClusterItem) adapter.getData().get(position)).mcase.getLatitude(),
+                                    ((MapClusterItem) adapter.getData().get(position)).mcase.getLongitude()),
+                                    ((MapClusterItem) adapter.getData().get(position)).mcase.getAddress());
+                        }
                     }
                 });
             }
@@ -88,7 +88,7 @@ public class MapBottomListDialog extends DialogFragment implements BaseQuickAdap
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         MapClusterItem mapClusterItem;
-        mapClusterItem = (MapClusterItem)adapter.getData().get(position);
+        mapClusterItem = (MapClusterItem) adapter.getData().get(position);
         this.selectedItem = mapClusterItem;
         dismiss();
     }
@@ -99,6 +99,8 @@ public class MapBottomListDialog extends DialogFragment implements BaseQuickAdap
 
     public interface MapBottomListItemClickListenner {
         void onBottomListItemClick(MapClusterItem item);
+
+        void onNavagition(LatLng latLng, String addr);
     }
 
     @Override

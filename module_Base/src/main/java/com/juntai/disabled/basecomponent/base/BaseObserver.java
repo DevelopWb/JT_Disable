@@ -4,7 +4,7 @@ import android.content.Intent;
 
 import com.google.gson.JsonParseException;
 import com.juntai.disabled.basecomponent.app.BaseApplication;
-import com.juntai.disabled.basecomponent.bean.OpenLiveBean;
+import com.juntai.disabled.basecomponent.bean.BaseStreamBean;
 import com.juntai.disabled.basecomponent.mvp.BaseIView;
 import com.juntai.disabled.basecomponent.utils.ActionConfig;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
@@ -54,7 +54,7 @@ public abstract class BaseObserver<T> extends DisposableObserver<T> {
     public void onNext(T bean) {
         try {
             BaseResult model = (BaseResult) bean;
-            if (model instanceof OpenLiveBean) {
+            if (model instanceof BaseStreamBean) {
                 model.success = true;
                 model.status = 200;
             }

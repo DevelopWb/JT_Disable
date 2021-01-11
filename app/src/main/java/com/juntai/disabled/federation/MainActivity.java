@@ -34,6 +34,7 @@ import com.juntai.disabled.basecomponent.utils.NotificationTool;
 import com.juntai.disabled.basecomponent.utils.SPTools;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.bdmap.service.LocateAndUpload;
+import com.juntai.disabled.federation.base.BaseAppActivity;
 import com.juntai.disabled.federation.home_page.business.HandlerBusinessFragment;
 import com.juntai.disabled.federation.base.MainPageContract;
 import com.juntai.disabled.federation.base.MainPagePresent;
@@ -77,7 +78,7 @@ import io.reactivex.schedulers.Schedulers;
 import io.rong.pushperm.ResultCallback;
 import io.rong.pushperm.RongPushPremissionsCheckHelper;
 
-public class MainActivity extends UpdateActivity<MainPagePresent> implements ViewPager.OnPageChangeListener,
+public class MainActivity extends BaseAppActivity<MainPagePresent> implements ViewPager.OnPageChangeListener,
         View.OnClickListener, MainPageContract.IMainPageView {
     private MainPagerAdapter adapter;
     private LinearLayout mainLayout;
@@ -549,7 +550,7 @@ public class MainActivity extends UpdateActivity<MainPagePresent> implements Vie
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
-    public void receiveMsg(String test) {
+    public void receiveStringMsg(String test) {
         if (ActionConfig.UN_READ_MESSAG_TAG.equals(test)){
             //刷新未读标记
             adapter.setUnReadMsg(MyApp.getUnReadCountBean().getMessageCount() + MyApp.getUnReadCountBean().getImCount());

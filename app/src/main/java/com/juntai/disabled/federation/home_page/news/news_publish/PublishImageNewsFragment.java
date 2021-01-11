@@ -180,7 +180,7 @@ public class PublishImageNewsFragment extends BaseMvpFragment<NewsPresent> imple
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Hawk.delete(AppUtils.SP_NEWS_SAVE_DRAFTS + MyApp.getAccount());
-                            EventManager.getLibraryEvent().post(drafts);
+                            EventManager.getEventBus().post(drafts);
                         }
                     }).show();
         }
@@ -402,7 +402,7 @@ public class PublishImageNewsFragment extends BaseMvpFragment<NewsPresent> imple
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 //通知后台
-                                EventManager.getLibraryEvent().post(newsDraftsBean);
+                                EventManager.getEventBus().post(newsDraftsBean);
                                 getActivity().finish();
                             }
                         }).show();

@@ -18,6 +18,7 @@ import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.bean.message.UnReadCountBean;
+import com.juntai.disabled.federation.entrance.LoginActivity;
 import com.juntai.disabled.federation.entrance.complete_info.CompleteInfoActivity;
 import com.juntai.disabled.federation.greenDao.DaoMaster;
 import com.juntai.disabled.federation.greenDao.DaoSession;
@@ -53,6 +54,7 @@ public class MyApp extends BaseApplication {
     public BDLocation bdLocation;
     public static long lastClickTime;//上次点击按钮时间
     public static int timeLimit = 1000;
+    public static int BASE_REQUESR = 10086;
     private static DaoSession daoSession;
     private static final String DATA_BASE_NAME = "db_dgjxb";//数据库名称
 
@@ -163,7 +165,12 @@ public class MyApp extends BaseApplication {
     public static String getUserHeadImg() {
         return getUser().getData().getHeadPortrait();
     }
-
+    /**
+     * 跳转登录
+     */
+    public static void goLogin() {
+        app.getNowActivity().startActivity(new Intent(app, LoginActivity.class));
+    }
     /**
      * 获取未读消息数
      * @return

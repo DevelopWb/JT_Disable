@@ -55,6 +55,7 @@ import com.juntai.disabled.bdmap.utils.clusterutil.clustering.ClusterManager;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.MainActivity;
+import com.juntai.disabled.federation.base.BaseAppFragment;
 import com.juntai.disabled.federation.bean.BannerNewsBean;
 import com.juntai.disabled.federation.bean.case_bean.CaseDesBean;
 import com.juntai.disabled.federation.bean.MapClusterItem;
@@ -109,7 +110,7 @@ import java.util.Map;
  * @aouther Ma
  * @date 2019/3/14
  */
-public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapContract.View,
+public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapContract.View,
         View.OnClickListener,
         LocateAndUpload.Callback,
         ClusterManager.OnClusterClickListener<MapClusterItem>,
@@ -133,7 +134,6 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
     private List<LatLng> heatMapItems = new ArrayList<>();
     HeatMap mHeatMap = null;
     //==============================================
-    NavigationDialog navigationDialog;
     private SharedPreferencesUtil mapSP = null;
     private MyOrientationListener myOrientationListener = null;
     private float direct = 0, locationRadius = 0;
@@ -222,7 +222,6 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
         DistanceUtilBtn = getView(R.id.distance_util_btn);
         DistanceUtilBtn.setOnClickListener(this);
         myLocation = new LatLng(0, 0);
-        navigationDialog = new NavigationDialog();
         //侧滑布局====================================================
         initDrawerlayout();
         sideLayout = getView(R.id.cehuabuju);
@@ -764,11 +763,8 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
         ImageLoadUtil.loadImageCache(getContext(), mCase.getPhotoOne(),
                 (ImageView) infowindowPeople.findViewById(R.id.case_img));
         infowindowPeople.findViewById(R.id.case_navigation).setOnClickListener(v -> {
-            navigationDialog.showMenu(
-                    getActivity().getSupportFragmentManager(),
-                    mCase.getLatitude(),
-                    mCase.getLongitude(),
-                    mCase.getAddress());
+            getBaseAppActivity().navigationLogic(new LatLng( mCase.getLatitude(),
+                    mCase.getLongitude()),mCase.getAddress());
         });
         infowindowPeople.findViewById(R.id.case_follow).setOnClickListener(v -> {
             startActivity(new Intent(mContext, CaseInfoActivity.class).putExtra("id",
@@ -1275,6 +1271,11 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
         clickType = 1;
         onClusterItemClick(item);
         releaseBottomListDialog();
+    }
+
+    @Override
+    public void onNavagition(LatLng latLng, String addr) {
+        getBaseAppActivity().navigationLogic(latLng,addr);
     }
 
     /**

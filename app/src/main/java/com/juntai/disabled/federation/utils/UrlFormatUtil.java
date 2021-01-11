@@ -19,7 +19,15 @@ public class UrlFormatUtil {
         }
         return url;
     }
-
+    /**
+     * 内容图片url拼接
+     *
+     * @param path
+     * @return
+     */
+    public static String formatPicUrl(String path) {
+        return AppHttpPath.BASE_IMAGE + path;
+    }
 
     /**
      * 车辆直播流

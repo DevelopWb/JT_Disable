@@ -1,5 +1,6 @@
 package com.juntai.disabled.federation.bean;
 
+
 import com.juntai.disabled.basecomponent.base.BaseResult;
 
 import java.io.Serializable;
@@ -70,13 +71,13 @@ public class UserBean extends BaseResult {
          *         "grid": 6,
          *         "gridName": "永恒华府",
          *         "settleStatus": 2
-         *
          */
 
         private int userId;//用户id
         private String account;//账号
         private String password;//密码
         private String nickname;//昵称
+        private String phoneNumber;//手机号
         private String headPortrait;//头像
         private int realNameStatus;//实名认证状态（0未提交；1提交审核中；2审核通过；3审核失败）
         private int settleStatus;//信息审核状态（0未提交；1提交审核中；2审核通过；3审核失败）
@@ -99,6 +100,14 @@ public class UserBean extends BaseResult {
         private int grid;//网格id
         private String gridName;//网格名称
         private String idNumber;//身份证号
+
+        public String getPhoneNumber() {
+            return phoneNumber == null ? "未绑定" : phoneNumber;
+        }
+
+        public void setPhoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber == null ? "" : phoneNumber;
+        }
 
         public String getIdNumber() {
             return idNumber == null? "" : idNumber;

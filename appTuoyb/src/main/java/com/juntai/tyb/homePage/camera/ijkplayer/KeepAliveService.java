@@ -6,7 +6,6 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.juntai.disabled.basecomponent.base.BaseObserver;
-import com.juntai.disabled.basecomponent.bean.OpenLiveBean;
 import com.juntai.tyb.AppNetModule;
 
 public class KeepAliveService extends Service {

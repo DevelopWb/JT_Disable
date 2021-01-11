@@ -64,7 +64,10 @@ public interface IRenderView {
      * 设置视频界面大小
      */
     void setVideoSize(int videoWidth, int videoHeight);
-
+    /**
+     * 设置视频裁剪方式
+     */
+    void setFather(int width,int height);
     /**
      * 设置视频裁剪方式
      */

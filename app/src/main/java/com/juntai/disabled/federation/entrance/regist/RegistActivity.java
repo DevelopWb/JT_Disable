@@ -19,7 +19,6 @@ import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.entrance.LoginActivity;
 import com.juntai.disabled.federation.entrance.sendcode.SmsCheckCodeActivity;
 import com.juntai.disabled.federation.mine.UserAgreementActivity;
-import com.juntai.disabled.federation.utils.PubUtil;
 import com.juntai.disabled.federation.utils.StringTools;
 
 import cn.smssdk.SMSSDK;

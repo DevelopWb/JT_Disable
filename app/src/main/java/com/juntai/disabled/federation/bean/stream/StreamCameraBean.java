@@ -3,7 +3,7 @@ package com.juntai.disabled.federation.bean.stream;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.juntai.wisdom.basecomponent.base.BaseResult;
 
 import java.util.List;
 

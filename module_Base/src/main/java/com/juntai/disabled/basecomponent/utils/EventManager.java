@@ -26,5 +26,7 @@ public class EventManager {
             libraryEvent.removeAllStickyEvents();
         }
     }
-
+    public static void sendStringMsg(String str) {
+        libraryEvent.post(str);
+    }
 }

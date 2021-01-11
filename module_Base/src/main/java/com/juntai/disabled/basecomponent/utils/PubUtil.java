@@ -2,31 +2,30 @@ package com.juntai.disabled.basecomponent.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
+import android.support.design.widget.TabLayout;
 import android.text.TextUtils;
+import android.util.TypedValue;
+import android.view.View;
+import android.widget.LinearLayout;
 
+import java.io.File;
+import java.lang.reflect.Field;
 import java.util.regex.Pattern;
 
 /**
  * @Author: tobato
  * @Description: 作用描述
- * @CreateDate: 2020/7/12 17:20
+ * @CreateDate: 2020/3/9 14:11
  * @UpdateUser: 更新者
- * @UpdateDate: 2020/7/12 17:20
+ * @UpdateDate: 2020/3/9 14:11
  */
 public class PubUtil {
+    public  static  final  String  ONE_CLICK_EVENT = "one_click_event";//单次点击事件
+    public  static  final  String  ERROR_NOTICE = "请检查网络连接";//服务器异常的提醒
 
-    /**
-     * 拨打电话（直接拨打电话）
-     *
-     * @param phoneNum 电话号码
-     */
-    public static void callPhone(Context context, String phoneNum) {
-        Intent intent = new Intent(Intent.ACTION_DIAL);
-        Uri data = Uri.parse("tel:" + phoneNum);
-        intent.setData(data);
-        context.startActivity(intent);
-    }
+
 
     /**
      * 验证手机格式
@@ -42,6 +41,16 @@ public class PubUtil {
     }
 
     /**
+     * 验证用户名只包含字母，数字，中文,下划线
+     *\u4E00-\u9FA5A标识中文  \w是下划线
+     * @param account
+     * @return
+     */
+    public static boolean checkAccountMark(String account) {
+        String all = "^[a-zA-Z0-9\\u4e00-\\u9fa5\\w]+$";
+        return Pattern.matches(all, account);
+    }
+    /**
      * 验证密码 字母 数字 下划线 必须有两种
      * \u4E00-\u9FA5A标识中文  \w是下划线 {5,21}代表最小6位 最大21位
      *
@@ -51,5 +60,67 @@ public class PubUtil {
     public static boolean checkPwdMark(String account) {
         String all =  "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{5,21}\\w$";
         return Pattern.matches(all, account);
+    }
+    /**
+     * 验证身份证号码
+     *
+     * @param idCard 居民身份证号码15位或18位，最后一位可能是数字或字母
+     * @return 验证成功返回true，验证失败返回false
+     */
+    public static boolean checkIdCard(String idCard) {
+        String regex = "[1-9]\\d{13,16}[a-zA-Z0-9]{1}";
+        return Pattern.matches(regex, idCard);
+    }
+    /**
+     * 设置tablayout底部导航条的宽度
+     *
+     * @param tabs
+     * @param leftDip  距离左边的边距
+     * @param rightDip 距离右边的边距
+     */
+    public static void setIndicator(TabLayout tabs, int leftDip, int rightDip) {
+        try {
+            Field tabStrip = tabs.getClass().getDeclaredField("mTabStrip");
+            tabStrip.setAccessible(true);
+            LinearLayout llTab = null;
+            llTab = (LinearLayout) tabStrip.get(tabs);
+            int left = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, leftDip, Resources.getSystem().getDisplayMetrics());
+            int right = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, rightDip, Resources.getSystem().getDisplayMetrics());
+
+            for (int i = 0; i < llTab.getChildCount(); i++) {
+                View child = llTab.getChildAt(i);
+                child.setPadding(0, 0, 0, 0);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1);
+                params.leftMargin = left;
+                params.rightMargin = right;
+                child.setLayoutParams(params);
+                child.invalidate();
+            }
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 通知系统相册更新图库
+     * @param context
+     * @param imagePath
+     */
+    public static void sendBroadcastToAlbum(Context context, String imagePath) {
+        if (context != null && imagePath != null && imagePath.length() > 0) {
+            File imageFile = new File(imagePath);
+            if (imageFile.exists()) {
+                Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                Uri uri = Uri.fromFile(imageFile);
+                if (uri != null && context != null) {
+                    intent.setData(uri);
+                    context.sendBroadcast(intent);
+                }
+            }
+        }
     }
 }

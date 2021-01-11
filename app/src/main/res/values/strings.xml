@@ -76,5 +76,5 @@
     <!--    完善信息-->
     <string name="complete_info_notice">请确保填写信息真实有效，如若有误，则可能无法收到有效推送信息。</string>
     <string name="success_tag">我们会在1至3个工作日审核您的申请信息。您可以到 个人中心—我的调解申请列表中查看结果。</string>
-
+    <string name="online">在\u3000线：</string>
 </resources>

@@ -80,7 +80,8 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
     private TextView titleName, titleRightTv;
     private boolean autoHideKeyboard = true;
     public FrameLayout frameLayout;
-
+    public static int ActivityResult = 1001;//activity返回值
+    public static int BASE_REQUEST_RESULT = 10086;//请求的回执
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -459,7 +460,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
         TextView noticeTv = view.findViewById(R.id.none_tv);
         noticeTv.setText(text);
         ImageView imageView = view.findViewById(R.id.none_image);
-        if (0==imageId) {
+        if (-1==imageId) {
             imageView.setVisibility(View.GONE);
         }else {
             imageView.setImageResource(imageId);
@@ -480,7 +481,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
     //单点登录
     public  void singleLogin(){}
     @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
-    public void receiveMsg(String msg) {
+    public void receiveBaseStringMsg(String msg) {
         switch (msg) {
             case EventManager.SINGLE_LOGIN:
                 //单点登录
@@ -642,5 +643,28 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
         Drawable drawable = getResources().getDrawable(drawableId);
         drawable.setBounds(0, 0, DisplayUtil.dp2px(this, width), DisplayUtil.dp2px(this, height));//第一个 0 是距左边距离，第二个 0 是距上边距离，40 分别是长宽
         textView.setCompoundDrawables(drawable, null, null, null);//放左边
+    }
+
+    /**
+     * 设置顶部图标
+     * @param textView
+     * @param drawableId
+     */
+    public void initViewTopDrawable(TextView textView, int drawableId, int width, int height) {
+        Drawable drawable = getResources().getDrawable(drawableId);
+        drawable.setBounds(0, 0, DisplayUtil.dp2px(this, width), DisplayUtil.dp2px(this, height));//第一个 0 是距左边距离，第二个 0 是距上边距离，40 分别是长宽
+        textView.setCompoundDrawables(null, drawable, null, null);//放顶部
+    }
+
+    /**
+     * 设置右边图标
+     *
+     * @param textView
+     * @param drawableId
+     */
+    public void initViewRightDrawable(TextView textView, int drawableId, int width, int height) {
+        Drawable drawable = getResources().getDrawable(drawableId);
+        drawable.setBounds(0, 0, DisplayUtil.dp2px(this, width), DisplayUtil.dp2px(this, height));//第一个 0 是距左边距离，第二个 0 是距上边距离，40 分别是长宽
+        textView.setCompoundDrawables(null, null, drawable, null);//只放右边
     }
 }

@@ -158,7 +158,7 @@ public class MyMessageActivity extends BaseActivity implements ViewPager.OnPageC
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
-    public void receiveMsg(String test) {
+    public void receiveStringMsg(String test) {
         if (ActionConfig.UN_READ_MESSAG_TAG.equals(test)){
             //刷新未读标记
             setUnRead();

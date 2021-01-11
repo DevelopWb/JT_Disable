@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.baidu.location.BDLocation;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.utils.DialogUtil;
@@ -19,6 +20,7 @@ import com.juntai.disabled.basecomponent.utils.RxTask;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
+import com.juntai.disabled.federation.base.BaseAppActivity;
 import com.juntai.disabled.federation.bean.MyMenuBean;
 import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.entrance.BackPwdActivity;
@@ -47,7 +49,7 @@ import cn.sharesdk.wechat.friends.Wechat;
  * @aouther ZhangZhenlong
  * @date 2020/3/9
  */
-public class MySettingActivity extends UpdateActivity<EntrancePresent> implements EntranceContract.IEntranceView {
+public class MySettingActivity extends BaseAppActivity<EntrancePresent> implements EntranceContract.IEntranceView {
     SettingMenuAdapter settingMenuAdapter;
     List<MyMenuBean> menuBeans = new ArrayList<>();
 
@@ -257,6 +259,8 @@ public class MySettingActivity extends UpdateActivity<EntrancePresent> implement
     public void updateBind(){
         mPresenter.bindQQOrWeChat(MyApp.getAccount(), WeChatId, WeChatName, QQId, QQName, EntranceContract.BIND_QQ_OR_WECHAT);
     }
+
+
 
     @Override
     protected void onDestroy() {

@@ -1,19 +1,36 @@
 package com.juntai.disabled.federation.home_page.camera;
+
+
+import android.content.Context;
+import android.support.constraint.ConstraintLayout;
+import android.view.View;
+
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
-import com.juntai.disabled.basecomponent.bean.OpenLiveBean;
-import com.juntai.disabled.basecomponent.mvp.IModel;
+import com.juntai.disabled.basecomponent.bean.BaseStreamBean;
 import com.juntai.disabled.basecomponent.mvp.BaseIView;
+import com.juntai.disabled.basecomponent.mvp.BasePresenter;
+import com.juntai.disabled.basecomponent.mvp.IModel;
+import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
+import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.AppNetModule;
 import com.juntai.disabled.federation.MyApp;
-import com.juntai.disabled.federation.base.BaseAppPresent;
 import com.juntai.disabled.federation.bean.BaseDataBean;
 import com.juntai.disabled.federation.bean.CommentListBean;
+import com.juntai.disabled.federation.bean.stream.CameraOnlineBean;
+import com.juntai.disabled.federation.bean.stream.CaptureBean;
+import com.juntai.disabled.federation.bean.stream.PlayUrlBean;
+import com.juntai.disabled.federation.bean.stream.RecordInfoBean;
 import com.juntai.disabled.federation.bean.stream.StreamCameraDetailBean;
-import com.juntai.disabled.federation.utils.RxScheduler;
+import com.juntai.disabled.federation.bean.stream.VideoInfoBean;
 
+import java.text.SimpleDateFormat;
+import java.util.Map;
+
+import okhttp3.FormBody;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 /**
@@ -23,7 +40,7 @@ import okhttp3.RequestBody;
  * @UpdateUser: 更新者
  * @UpdateDate: 2020/5/30 9:49
  */
-public class PlayPresent extends BaseAppPresent<IModel, PlayContract.IPlayView> implements PlayContract.IPlayPresent {
+public class PlayPresent extends BasePresenter<IModel, PlayContract.IPlayView> implements PlayContract.IPlayPresent {
     private BaseIView iView;
 
     @Override
@@ -35,19 +52,17 @@ public class PlayPresent extends BaseAppPresent<IModel, PlayContract.IPlayView> 
         this.iView = iView;
     }
 
-
     @Override
-    public void openStream(String channelid, String type, String videourltype,String tag) {
-         AppNetModule.createrRetrofit()
-                .openStream(channelid,type,videourltype)
+    public void openStream(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .openStream(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<OpenLiveBean>(null) {
+                .subscribe(new BaseObserver<PlayUrlBean>(null) {
                     @Override
-                    public void onSuccess(OpenLiveBean o) {
+                    public void onSuccess(PlayUrlBean o) {
                         if (getView() != null) {
-                            getView().onSuccess(tag, o);
+                            getView().onSuccess(tag, o.getData());
                         }
-
                     }
 
                     @Override
@@ -57,16 +72,29 @@ public class PlayPresent extends BaseAppPresent<IModel, PlayContract.IPlayView> 
                         }
                     }
                 });
+    }
+
+    /**
+     * 获取builder
+     *
+     * @return
+     */
+    public MultipartBody.Builder getPublishMultipartBody() {
+        return new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("account", MyApp.getAccount()==null?"":MyApp.getAccount())
+                .addFormDataPart("token", MyApp.getUserToken()==null?"":MyApp.getUserToken())
+                .addFormDataPart("userId", MyApp.getUid()==-1?"":String.valueOf(MyApp.getUid()));
     }
 
     @Override
     public void capturePic(String channelid, String type, String tag) {
         AppNetModule.createrRetrofit()
-                .capturePic(channelid,type)
+                .capturePic(channelid, type)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<OpenLiveBean>(PlayContract.GET_STREAM_CAMERA_THUMBNAIL.equals(tag)?null:getView()) {
+                .subscribe(new BaseObserver<CaptureBean>(null) {
                     @Override
-                    public void onSuccess(OpenLiveBean o) {
+                    public void onSuccess(CaptureBean o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }
@@ -83,7 +111,7 @@ public class PlayPresent extends BaseAppPresent<IModel, PlayContract.IPlayView> 
     }
 
     @Override
-    public void getStreamCameraDetail(RequestBody requestBody,String tag) {
+    public void getStreamCameraDetail(RequestBody requestBody, String tag) {
         AppNetModule.createrRetrofit()
                 .getStreamCameraDetail(requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
@@ -105,28 +133,7 @@ public class PlayPresent extends BaseAppPresent<IModel, PlayContract.IPlayView> 
                 });
     }
 
-    @Override
-    public void uploadStreamCameraCapturePic(RequestBody requestBody, String tag) {
-        AppNetModule.createrRetrofit()
-                .uploadStreamCameraCapturePic(requestBody)
-                .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<BaseResult>(null) {
-                    @Override
-                    public void onSuccess(BaseResult o) {
-                        if (getView() != null) {
-                            getView().onSuccess(tag, o);
-                        }
 
-                    }
-
-                    @Override
-                    public void onError(String msg) {
-                        if (getView() != null) {
-                            getView().onError(tag, msg);
-                        }
-                    }
-                });
-    }
     @Override
     public void uploadStreamCameraThumbPic(RequestBody requestBody, String tag) {
         AppNetModule.createrRetrofit()
@@ -151,8 +158,213 @@ public class PlayPresent extends BaseAppPresent<IModel, PlayContract.IPlayView> 
     }
 
     @Override
+    public void searchVideos(String begintime, String endtime, String channelid, String tag) {
+        AppNetModule.createrRetrofit()
+                .searchVideos(begintime, endtime, channelid)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<VideoInfoBean>(getView()) {
+                    @Override
+                    public void onSuccess(VideoInfoBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void operateYunTai(String ptztype, int ptzparam, String channelid, String tag) {
+        AppNetModule.createrRetrofit()
+                .operateYunTai(ptztype, ptzparam, channelid)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseStreamBean>(getView()) {
+                    @Override
+                    public void onSuccess(BaseStreamBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void playHisVideo(Map<String, String> queryMap, String tag) {
+        AppNetModule.createrRetrofit()
+                .getVideosUrl(queryMap)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<RecordInfoBean>(getView()) {
+                    @Override
+                    public void onSuccess(RecordInfoBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void operateRecordVideo(String sessionid, String vodctrltype, String vodctrlparam, String tag) {
+        AppNetModule.createrRetrofit()
+                .operateRecordVideo(sessionid, vodctrltype, vodctrlparam)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseStreamBean>(getView()) {
+                    @Override
+                    public void onSuccess(BaseStreamBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void addPrePosition(RequestBody requestBody, String tag) {
+        //        AppNetModule.createrRetrofit()
+        //                .addPrePosition(requestBody)
+        //                .compose(RxScheduler.ObsIoMain(getView()))
+        //                .subscribe(new BaseObserver<BaseResult>(getView()) {
+        //                    @Override
+        //                    public void onSuccess(BaseResult o) {
+        //                        if (getView() != null) {
+        //                            getView().onSuccess(tag, o);
+        //                        }
+        //
+        //                    }
+        //
+        //                    @Override
+        //                    public void onError(String msg) {
+        //                        if (getView() != null) {
+        //                            getView().onError(tag, msg);
+        //                        }
+        //                    }
+        //                });
+    }
+    @Override
+    public void delPrePosition(RequestBody requestBody, String tag) {
+        //        AppNetModule.createrRetrofit()
+        //                .delPrePosition(requestBody)
+        //                .compose(RxScheduler.ObsIoMain(getView()))
+        //                .subscribe(new BaseObserver<BaseResult>(getView()) {
+        //                    @Override
+        //                    public void onSuccess(BaseResult o) {
+        //                        if (getView() != null) {
+        //                            getView().onSuccess(tag, o);
+        //                        }
+        //
+        //                    }
+        //
+        //                    @Override
+        //                    public void onError(String msg) {
+        //                        if (getView() != null) {
+        //                            getView().onError(tag, msg);
+        //                        }
+        //                    }
+        //                });
+    }
+
+    @Override
+    public void getPrePositions(RequestBody requestBody, String tag) {
+        //        AppNetModule.createrRetrofit()
+        //                .getPrePositions(requestBody)
+        //                .compose(RxScheduler.ObsIoMain(getView()))
+        //                .subscribe(new BaseObserver<PreSetBean>(getView()) {
+        //                    @Override
+        //                    public void onSuccess(PreSetBean o) {
+        //                        if (getView() != null) {
+        //                            getView().onSuccess(tag, o);
+        //                        }
+        //
+        //                    }
+        //
+        //                    @Override
+        //                    public void onError(String msg) {
+        //                        if (getView() != null) {
+        //                            getView().onError(tag, msg);
+        //                        }
+        //                    }
+        //                });
+    }
+
+    @Override
+    public void getOnlineAmount(String parameter, String tag) {
+        AppNetModule.createrRetrofit()
+                .getOnlineAmount(parameter)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<CameraOnlineBean>(getView()) {
+                    @Override
+                    public void onSuccess(CameraOnlineBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    @Override
+    public void stopStream(String sessionid, String tag) {
+        AppNetModule.createrRetrofit()
+                .stopStream(sessionid)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseStreamBean>(getView()) {
+                    @Override
+                    public void onSuccess(BaseStreamBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    @Override
     public void getCommentList(int commentedId, int pageSize, int currentPage, String tag) {
-        BaseIView viewCallBack = null;
+        BaseIView  viewCallBack = null;
         if (getView()==null) {
             if (iView != null) {
                 viewCallBack = iView;
@@ -183,7 +395,7 @@ public class PlayPresent extends BaseAppPresent<IModel, PlayContract.IPlayView> 
 
     @Override
     public void getCommentChildList(int commentedId, int unreadId, int pageSize, int currentPage, String tag) {
-        BaseIView viewCallBack = null;
+        BaseIView  viewCallBack = null;
         if (getView()==null) {
             if (iView != null) {
                 viewCallBack = iView;
@@ -253,43 +465,62 @@ public class PlayPresent extends BaseAppPresent<IModel, PlayContract.IPlayView> 
                 });
     }
 
-//    /**
-//     * 开始计时
-//     * @param tag
-//     */
-//    public void timeBegin(String tag) {
-//        if (disposable == null) {
-//            disposable = Observable.interval(0, 1000, TimeUnit.MILLISECONDS)
-//                    .take(6)
-//                    .subscribeOn(Schedulers.io())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe(new Consumer<Long>() {
-//                        @Override
-//                        public void accept(Long aLong) throws Exception {
-//                            ToastUtils.toast(CarLiveActivity.this,"计时"+aLong);
-//                        }
-//                    }, new Consumer<Throwable>() {
-//                        @Override
-//                        public void accept(Throwable throwable) throws Exception {
-//                            throwable.printStackTrace();
-//                        }
-//                    }, new Action() {
-//                        @Override
-//                        public void run() throws Exception {
-//                            ToastUtils.toast(CarLiveActivity.this,"计时结束");
-//                        }
-//                    });
-//        }
-//
-//    }
-//
-//    /**
-//     * 结束计时
-//     */
-//    public void timeStop() {
-//        if (disposable != null) {
-//            disposable.dispose();
-//        }
-//    }
+    @Override
+    public void addShareRecord(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .shareToWechat(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
 
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 获取builder
+     *
+     * @return
+     */
+    public FormBody.Builder getBaseBuilder() {
+        FormBody.Builder builder = new FormBody.Builder();
+        builder.add("account", MyApp.getAccount()==null?"":MyApp.getAccount())
+                .add("token", MyApp.getUserToken()==null?"":MyApp.getUserToken());
+        return builder;
+    }
+
+
+
+    /**
+     * @param oldTime
+     * @return
+     */
+    public String formatTimeToYun(long oldTime) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String time = sdf.format(oldTime);
+        return time.replace(" ", "T");
+    }
+
+    /**
+     * 配置view的margin属性
+     */
+    public void setMarginOfConstraintLayout(View view, Context context, int left, int top, int right, int bottom) {
+        left = DisplayUtil.dp2px(context, left);
+        top = DisplayUtil.dp2px(context, top);
+        right = DisplayUtil.dp2px(context, right);
+        bottom = DisplayUtil.dp2px(context, bottom);
+        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) view.getLayoutParams();
+        layoutParams.setMargins(left, top, right, bottom);
+        view.setLayoutParams(layoutParams);
+    }
 }

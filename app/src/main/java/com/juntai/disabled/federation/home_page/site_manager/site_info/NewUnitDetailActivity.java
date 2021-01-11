@@ -94,7 +94,7 @@ public class NewUnitDetailActivity extends BaseActivity implements ViewPager.OnP
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
-    public void receiveMsg(String test) {
+    public void receiveStringMsg(String test) {
         if (ActionConfig.REFRASH_SITE_EMPLOYEE_LIST.equals(test)){
             //刷新
             if (nowFragment == 1 || nowFragment == 2){

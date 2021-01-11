@@ -9,10 +9,13 @@ import org.reactivestreams.Publisher;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableTransformer;
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -53,4 +56,32 @@ public class RxScheduler {
         };
     }
 
+    public static <T> void doTask(BaseIView iView, final RxTask<T> task) {
+        if (iView != null) {
+            iView.showLoading();
+        }
+        Observable.create(new ObservableOnSubscribe<T>() {
+            @Override
+            public void subscribe(ObservableEmitter<T> e) throws Exception {
+                task.doOnIoThread();
+                e.onNext(task.getT());
+                e.onComplete();
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<T>() {
+                    @Override
+                    public void accept(T t) throws Exception {
+                        task.doOnUIThread(t);
+                        if (iView != null) {
+                            iView.hideLoading();
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        throwable.printStackTrace();
+                    }
+                });
+    }
 }

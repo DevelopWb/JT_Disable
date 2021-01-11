@@ -8,10 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.baidu.mapapi.model.LatLng;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.R;
+import com.juntai.disabled.federation.base.BaseAppActivity;
 import com.juntai.disabled.federation.bean.case_bean.CaseInfoBean;
 import com.juntai.disabled.federation.home_page.map.MapContract;
 import com.juntai.disabled.federation.home_page.map.MapPresenter;
@@ -35,7 +37,7 @@ import java.util.ArrayList;
  * update  tobato  2020/03/26
  * on 2019/4/16
  */
-public class CaseInfoActivity extends BaseMvpActivity<MapPresenter> implements MapContract.View {
+public class CaseInfoActivity extends BaseAppActivity<MapPresenter> implements MapContract.View {
     private int id;
     private TextView placeTv, timeTv, typeTv, kindTv, followStatusTv, mCaseDesTv, gridTv;
     TextView trackingBtn, navigationBtn;
@@ -43,7 +45,6 @@ public class CaseInfoActivity extends BaseMvpActivity<MapPresenter> implements M
     private CaseFollowListAdapter caseDetailsAdapter;
     private RecyclerView recyclerView;
     private SmartRefreshLayout smartRefreshLayout;
-    private NavigationDialog navigationDialog;
     private CaseInfoBean.DataBean dataBean;
     private GlideImageLoader imageLoader;
     protected boolean hasVideo = false;//是否有视频文件
@@ -97,7 +98,6 @@ public class CaseInfoActivity extends BaseMvpActivity<MapPresenter> implements M
             }
         });
         setHeadView();
-        navigationDialog = new NavigationDialog();
     }
 
     /**
@@ -129,7 +129,7 @@ public class CaseInfoActivity extends BaseMvpActivity<MapPresenter> implements M
         navigationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigationDialog.showMenu(getSupportFragmentManager(), dataBean.getLatitude(), dataBean.getLongitude(), dataBean.getAddress());
+                navigationLogic(new LatLng(dataBean.getLatitude(), dataBean.getLongitude()),dataBean.getAddress());
             }
         });
     }

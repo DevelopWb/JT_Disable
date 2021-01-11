@@ -3,7 +3,6 @@ package com.juntai.tyb;
 
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.CareChildListNewestBean;
-import com.juntai.disabled.basecomponent.bean.OpenLiveBean;
 import com.juntai.tyb.bean.CityBean;
 import com.juntai.tyb.bean.UserBaseMsgBean;
 import com.juntai.tyb.bean.careTaker.ServiceTypeBean;

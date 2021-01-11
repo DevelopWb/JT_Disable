@@ -2,18 +2,56 @@ package com.juntai.disabled.federation;
 
 
 import com.juntai.disabled.basecomponent.base.BaseResult;
-import com.juntai.disabled.basecomponent.bean.OpenLiveBean;
+import com.juntai.disabled.basecomponent.bean.BaseStreamBean;
+import com.juntai.disabled.federation.AppHttpPath;
+import com.juntai.disabled.federation.bean.BannerNewsBean;
+import com.juntai.disabled.federation.bean.BaseDataBean;
+import com.juntai.disabled.federation.bean.CityBean;
+import com.juntai.disabled.federation.bean.CollectListBean;
+import com.juntai.disabled.federation.bean.CommentListBean;
+import com.juntai.disabled.federation.bean.IMUsersBean;
+import com.juntai.disabled.federation.bean.MapMenuButton;
+import com.juntai.disabled.federation.bean.PoliceBranchBean;
+import com.juntai.disabled.federation.bean.PoliceCarBean;
 import com.juntai.disabled.federation.bean.PoliceDetailBean;
+import com.juntai.disabled.federation.bean.PolicePickerBean;
+import com.juntai.disabled.federation.bean.PolicePositionBean;
+import com.juntai.disabled.federation.bean.PublishListBean;
+import com.juntai.disabled.federation.bean.ResponseCarHistory;
+import com.juntai.disabled.federation.bean.ResponseInspection;
 import com.juntai.disabled.federation.bean.ResponseKeyPersonnel;
+import com.juntai.disabled.federation.bean.ResponseNews;
+import com.juntai.disabled.federation.bean.ResponsePeople;
+import com.juntai.disabled.federation.bean.ResponseSiteBean;
+import com.juntai.disabled.federation.bean.SearchBean;
+import com.juntai.disabled.federation.bean.SearchResultBean;
+import com.juntai.disabled.federation.bean.UserBean;
+import com.juntai.disabled.federation.bean.UserScoreListBean;
+import com.juntai.disabled.federation.bean.business.BusinessListBean;
+import com.juntai.disabled.federation.bean.business.BusinessNeedInfoBean;
+import com.juntai.disabled.federation.bean.business.MyBusinessBean;
+import com.juntai.disabled.federation.bean.business.MyBusinessDetailBean;
+import com.juntai.disabled.federation.bean.case_bean.CaseDesBean;
+import com.juntai.disabled.federation.bean.case_bean.CaseInfoBean;
+import com.juntai.disabled.federation.bean.case_bean.CaseTypeBean;
 import com.juntai.disabled.federation.bean.conciliation.ConciliationInfoBean;
 import com.juntai.disabled.federation.bean.conciliation.ConciliationListBean;
 import com.juntai.disabled.federation.bean.conciliation.ConciliationTypesBean;
 import com.juntai.disabled.federation.bean.conciliation.MediatorAllListBean;
 import com.juntai.disabled.federation.bean.conciliation.UnitListBean;
+import com.juntai.disabled.federation.bean.exchang_mall.GoodsInfoBean;
+import com.juntai.disabled.federation.bean.exchang_mall.GoodsListBean;
+import com.juntai.disabled.federation.bean.exchang_mall.HistoryGoodsListBean;
+import com.juntai.disabled.federation.bean.history_track.HistoryTrackBean;
+import com.juntai.disabled.federation.bean.inspection.InspectionDetailBean;
 import com.juntai.disabled.federation.bean.inspection.InspectionForScanBean;
+import com.juntai.disabled.federation.bean.inspection.InspectionPointInfoBean;
+import com.juntai.disabled.federation.bean.inspection.InspectionRecordBean;
 import com.juntai.disabled.federation.bean.key_personnel.InterviewDetailBean;
 import com.juntai.disabled.federation.bean.key_personnel.InterviewListBean;
 import com.juntai.disabled.federation.bean.key_personnel.KeyPersonnelInfoBean;
+import com.juntai.disabled.federation.bean.message.InformDetailBean;
+import com.juntai.disabled.federation.bean.message.LikeMsgListBean;
 import com.juntai.disabled.federation.bean.message.UnReadCountBean;
 import com.juntai.disabled.federation.bean.news.NewsDetailBean;
 import com.juntai.disabled.federation.bean.news.NewsFansListBean;
@@ -25,54 +63,26 @@ import com.juntai.disabled.federation.bean.site.EmployeeDetailBean;
 import com.juntai.disabled.federation.bean.site.EmployeeListBean;
 import com.juntai.disabled.federation.bean.site.SiteInspectionDetailBean;
 import com.juntai.disabled.federation.bean.site.SiteTypeBean;
-import com.juntai.disabled.federation.bean.stream.StreamCameraBean;
-import com.juntai.disabled.federation.bean.business.BusinessListBean;
-import com.juntai.disabled.federation.bean.business.BusinessNeedInfoBean;
-import com.juntai.disabled.federation.bean.inspection.InspectionRecordBean;
-import com.juntai.disabled.federation.bean.inspection.InspectionPointInfoBean;
-import com.juntai.disabled.federation.bean.business.MyBusinessBean;
-import com.juntai.disabled.federation.bean.weather.PoliceGriddingBean;
-import com.juntai.disabled.federation.bean.weather.ResponseForcastWeather;
-import com.juntai.disabled.federation.bean.weather.ResponseRealTimeWeather;
-import com.juntai.disabled.federation.bean.BannerNewsBean;
-import com.juntai.disabled.federation.bean.BaseDataBean;
-import com.juntai.disabled.federation.bean.case_bean.CaseDesBean;
-import com.juntai.disabled.federation.bean.case_bean.CaseInfoBean;
-import com.juntai.disabled.federation.bean.case_bean.CaseTypeBean;
-import com.juntai.disabled.federation.bean.CityBean;
-import com.juntai.disabled.federation.bean.CollectListBean;
-import com.juntai.disabled.federation.bean.CommentListBean;
-import com.juntai.disabled.federation.bean.history_track.HistoryTrackBean;
-import com.juntai.disabled.federation.bean.IMUsersBean;
-import com.juntai.disabled.federation.bean.message.InformDetailBean;
-import com.juntai.disabled.federation.bean.inspection.InspectionDetailBean;
-import com.juntai.disabled.federation.bean.message.LikeMsgListBean;
-import com.juntai.disabled.federation.bean.MapMenuButton;
-import com.juntai.disabled.federation.bean.PoliceBranchBean;
-import com.juntai.disabled.federation.bean.PoliceCarBean;
-import com.juntai.disabled.federation.bean.PolicePickerBean;
-import com.juntai.disabled.federation.bean.PolicePositionBean;
-import com.juntai.disabled.federation.bean.PublishListBean;
-import com.juntai.disabled.federation.bean.ResponseSiteBean;
 import com.juntai.disabled.federation.bean.site.UnitDetailBean;
-import com.juntai.disabled.federation.bean.ResponseCarHistory;
-import com.juntai.disabled.federation.bean.ResponseInspection;
-import com.juntai.disabled.federation.bean.ResponseNews;
-import com.juntai.disabled.federation.bean.ResponsePeople;
-import com.juntai.disabled.federation.bean.SearchBean;
-import com.juntai.disabled.federation.bean.SearchResultBean;
+import com.juntai.disabled.federation.bean.stream.CameraOnlineBean;
+import com.juntai.disabled.federation.bean.stream.CaptureBean;
+import com.juntai.disabled.federation.bean.stream.OpenLiveBean;
+import com.juntai.disabled.federation.bean.stream.PlayUrlBean;
+import com.juntai.disabled.federation.bean.stream.RecordInfoBean;
+import com.juntai.disabled.federation.bean.stream.StreamCameraBean;
+import com.juntai.disabled.federation.bean.stream.StreamCameraDetailBean;
+import com.juntai.disabled.federation.bean.stream.VideoInfoBean;
 import com.juntai.disabled.federation.bean.task.TaskDetailBean;
 import com.juntai.disabled.federation.bean.task.TaskListBean;
 import com.juntai.disabled.federation.bean.task.TaskSubmitedBean;
-import com.juntai.disabled.federation.bean.UserBean;
-import com.juntai.disabled.federation.bean.UserScoreListBean;
-import com.juntai.disabled.federation.bean.business.MyBusinessDetailBean;
-import com.juntai.disabled.federation.bean.exchang_mall.GoodsInfoBean;
-import com.juntai.disabled.federation.bean.exchang_mall.GoodsListBean;
-import com.juntai.disabled.federation.bean.exchang_mall.HistoryGoodsListBean;
-import com.juntai.disabled.federation.bean.stream.StreamCameraDetailBean;
+import com.juntai.disabled.federation.bean.user_equipment.EquipmentListBean;
+import com.juntai.disabled.federation.bean.user_equipment.ReportTypeBean;
+import com.juntai.disabled.federation.bean.weather.PoliceGriddingBean;
+import com.juntai.disabled.federation.bean.weather.ResponseForcastWeather;
+import com.juntai.disabled.federation.bean.weather.ResponseRealTimeWeather;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -81,6 +91,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * responseBody里的数据只能调用(取出)一次，第二次为空。可赋值给新的变量使用
@@ -88,18 +99,21 @@ import retrofit2.http.Query;
 public interface AppServer {
     /**
      * 登录
+     *
      * @param account
      * @param password
      * @param weChatId
      * @param qqId
-     * @param source 	app类型（1警小宝；2巡小管；3邻小帮）
+     * @param source   app类型（1警小宝；2巡小管；3邻小帮）
      * @return
      */
     @POST(AppHttpPath.LOGIN)
     Observable<UserBean> login(@Query("account") String account, @Query("password") String password,
-                               @Query("weChatId") String weChatId, @Query("qqId") String qqId, @Query("source") int source);
+                               @Query("weChatId") String weChatId, @Query("qqId") String qqId,
+                               @Query("source") int source);
 
-    /************************************************************************注册模块*******************************************************************/
+    /************************************************************************注册模块
+     * *******************************************************************/
 
     /**
      * 获取职务信息
@@ -141,7 +155,8 @@ public interface AppServer {
     @POST(AppHttpPath.ADD_USER_INFO)
     Observable<BaseResult> addUserInfo(@Body RequestBody jsonBody);
 
-    /*********************************************************************个人中心**********************************************************************/
+    /*********************************************************************个人中心
+     * **********************************************************************/
     /**
      * 退出登录
      *
@@ -150,8 +165,10 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.LOGIN_OUT)
-    Observable<BaseResult> loginOut(@Query("account") String account, @Query("token") String token, @Query("userId") int userId,
-                                    @Query("longitude") String longitude, @Query("latitude") String latitude);
+    Observable<BaseResult> loginOut(@Query("account") String account, @Query("token") String token,
+                                    @Query("userId") int userId,
+                                    @Query("longitude") String longitude, @Query("latitude") String latitude, @Query(
+            "source") int source);
 
     /**
      * 获取个人信息
@@ -164,7 +181,8 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.USERINFO)
-    Observable<UserBean> getUserData(@Query("account") String account, @Query("token") String token, @Query("userId") int userId, @Query("source") int source);
+    Observable<UserBean> getUserData(@Query("account") String account, @Query("token") String token,
+                                     @Query("userId") int userId, @Query("source") int source);
 
     /**
      * 上传头像
@@ -174,6 +192,16 @@ public interface AppServer {
      */
     @POST(AppHttpPath.HEAD_UPDATE)
     Observable<BaseResult> modifyHeadPortrait(@Body RequestBody jsonBody);
+
+
+    /**
+     * 绑定手机号
+     *
+     * @param jsonBody
+     * @return
+     */
+    @POST(AppHttpPath.BIND_PHONE)
+    Observable<BaseResult> bindPhoneNum(@Body RequestBody jsonBody);
 
     /**
      * 获取我的监控收藏
@@ -186,8 +214,11 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.USER_COLLECT_CAMERA)
-    Observable<CollectListBean> getUserCollectCamera(@Query("account") String account, @Query("token") String token, @Query("userId") int userId,
-                                               @Query("currentPage") int currentPage, @Query("pageSize") int pageSize);
+    Observable<CollectListBean> getUserCollectCamera(@Query("account") String account, @Query("token") String token,
+                                                     @Query("userId") int userId,
+                                                     @Query("currentPage") int currentPage,
+                                                     @Query("pageSize") int pageSize);
+
     /**
      * 获取我的资讯收藏
      *
@@ -199,8 +230,26 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.USER_COLLECT_NEWS)
-    Observable<CollectListBean> getUserCollectNews(@Query("account") String account, @Query("token") String token, @Query("userId") int userId,
-                                               @Query("currentPage") int currentPage, @Query("pageSize") int pageSize);
+    Observable<CollectListBean> getUserCollectNews(@Query("account") String account, @Query("token") String token,
+                                                   @Query("userId") int userId,
+                                                   @Query("currentPage") int currentPage,
+                                                   @Query("pageSize") int pageSize);
+
+    /**
+     * 获取我的分享(监控)
+     *
+     * @param account
+     * @param token
+     * @param userId
+     * @param currentPage 页码
+     * @param pageSize    每页显示数
+     * @return
+     */
+    @POST(AppHttpPath.USER_SHARE_CAMERA)
+    Observable<CollectListBean> getUserShareCamera(@Query("account") String account, @Query("token") String token,
+                                                   @Query("userId") int userId,
+                                                   @Query("currentPage") int currentPage,
+                                                   @Query("pageSize") int pageSize);
 
     /**
      * 获取我的分享(资讯)
@@ -214,8 +263,9 @@ public interface AppServer {
      */
     @POST(AppHttpPath.USER_SHARE_NEWS)
     Observable<CollectListBean> getUserShareNews(@Query("account") String account, @Query("token") String token,
-                                             @Query("userId") int userId,
-                                             @Query("currentPage") int currentPage, @Query("pageSize") int pageSize);
+                                                 @Query("userId") int userId,
+                                                 @Query("currentPage") int currentPage,
+                                                 @Query("pageSize") int pageSize);
 
     /**
      * 获取我的发布(案件)
@@ -228,8 +278,11 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.USER_PUBLISH_CASE)
-    Observable<PublishListBean> getUserPublishCase(@Query("account") String account, @Query("token") String token, @Query("userId") int userId,
-                                                   @Query("currentPage") int currentPage, @Query("pageSize") int pageSize);
+    Observable<PublishListBean> getUserPublishCase(@Query("account") String account, @Query("token") String token,
+                                                   @Query("userId") int userId,
+                                                   @Query("currentPage") int currentPage,
+                                                   @Query("pageSize") int pageSize);
+
     /**
      * 获取我的发布(巡检)
      *
@@ -241,8 +294,11 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.USER_PUBLISH_INSPECTION)
-    Observable<PublishListBean> getUserPublishInspection(@Query("account") String account, @Query("token") String token, @Query("userId") int userId,
-                                                         @Query("currentPage") int currentPage, @Query("pageSize") int pageSize);
+    Observable<PublishListBean> getUserPublishInspection(@Query("account") String account,
+                                                         @Query("token") String token, @Query("userId") int userId,
+                                                         @Query("currentPage") int currentPage,
+                                                         @Query("pageSize") int pageSize);
+
     /**
      * 获取我的发布(场所)
      *
@@ -255,7 +311,9 @@ public interface AppServer {
      */
     @POST(AppHttpPath.USER_PUBLISH_SITE)
     Observable<PublishListBean> getUserPublishSite(@Query("account") String account, @Query("token") String token,
-                                                   @Query("userId") int userId, @Query("currentPage") int currentPage, @Query("pageSize") int pageSize);
+                                                   @Query("userId") int userId, @Query("currentPage") int currentPage
+            , @Query("pageSize") int pageSize);
+
     /**
      * 获取我的发布(资讯)
      *
@@ -267,8 +325,11 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.USER_PUBLISH_NEWS)
-    Observable<PublishListBean> getUserPublishNews(@Query("account") String account, @Query("token") String token, @Query("userId") int userId,
-                                                   @Query("currentPage") int currentPage, @Query("pageSize") int pageSize);
+    Observable<PublishListBean> getUserPublishNews(@Query("account") String account, @Query("token") String token,
+                                                   @Query("userId") int userId,
+                                                   @Query("currentPage") int currentPage,
+                                                   @Query("pageSize") int pageSize);
+
     /**
      * 获取通知消息详情
      *
@@ -286,12 +347,12 @@ public interface AppServer {
      *
      * @param account
      * @param token
-     * @param logId      消息id
+     * @param logId   消息id
      * @return
      */
     @POST(AppHttpPath.DELETE_MY_SYSTEM_MESSAGE)
     Observable<BaseResult> deleteSystemMsg(@Query("account") String account, @Query("token") String token,
-                                                 @Query("userId") int userId, @Query("logId") int logId);
+                                           @Query("userId") int userId, @Query("logId") int logId);
 
     /**
      * 获取评论消息/获取通知消息
@@ -340,18 +401,33 @@ public interface AppServer {
                                       @Query("userId") int userId, @Query("typeId") int typeId, @Query("id") int id);
 
     /**
-     * 添加（删除）分享
+     * 添加（删除）分享(资讯)
+     *
      * @param account
      * @param token
-     * @param userId    用户id（删除分享时不传）
-     * @param isType    状态（0：分享）（1：删除分享）必传
-     * @param shareId   分享时为被分享的主键）
-     * @param ids       删除分享时为分享表的主键（删除时传）
+     * @param userId  用户id（删除分享时不传）
+     * @param isType  状态（0：分享）（1：删除分享）必传
+     * @param shareId 分享时为被分享的主键）
+     * @param ids     删除分享时为分享表的主键（删除时传）
      */
     @POST(AppHttpPath.ADD_OR_DELETE_SHARE)
-    Observable<BaseResult> addOrDeleteShares(@Query("account") String account, @Query("token") String token, @Query("userId") String userId,
+    Observable<BaseResult> addOrDeleteShares(@Query("account") String account, @Query("token") String token, @Query(
+            "userId") String userId,
                                              @Query("isType") int isType, @Query("typeId") String typeId,
                                              @Query("shareId") String shareId, @Query("ids") List<Integer> ids);
+
+    /**
+     * 删除分享（监控）
+     *
+     * @param account
+     * @param token
+     * @param isType  状态（0：分享）（1：删除分享）必传
+     * @param ids
+     * @return
+     */
+    @POST(AppHttpPath.SHARE_TO_WCHAT)
+    Observable<BaseResult> deleteCameraShare(@Query("account") String account, @Query("token") String token,
+                                             @Query("isType") int isType, @Query("ids") List<Integer> ids);
 
     /**
      * 删除发布
@@ -362,7 +438,9 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.DELETE_PUBLISH_CASE)
-    Observable<BaseResult> deletePublishCase(@Query("account") String account, @Query("token") String token, @Query("ids") List<Integer> ids);
+    Observable<BaseResult> deletePublishCase(@Query("account") String account, @Query("token") String token, @Query(
+            "ids") List<Integer> ids);
+
     /**
      * 删除巡检
      *
@@ -372,7 +450,9 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.DELETE_PUBLISH_INSPECTION)
-    Observable<BaseResult> deletePublishInspection(@Query("account") String account, @Query("token") String token, @Query("ids") List<Integer> ids);
+    Observable<BaseResult> deletePublishInspection(@Query("account") String account, @Query("token") String token,
+                                                   @Query("ids") List<Integer> ids);
+
     /**
      * 删除场所
      *
@@ -382,7 +462,9 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.DELETE_PUBLISH_SITE)
-    Observable<BaseResult> deletePublishSite(@Query("account") String account, @Query("token") String token, @Query("ids") List<Integer> ids);
+    Observable<BaseResult> deletePublishSite(@Query("account") String account, @Query("token") String token, @Query(
+            "ids") List<Integer> ids);
+
     /**
      * 删除资讯
      *
@@ -392,7 +474,8 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.DELETE_PUBLISH_NEWS)
-    Observable<BaseResult> deletePublishNews(@Query("account") String account, @Query("token") String token, @Query("ids") List<Integer> ids);
+    Observable<BaseResult> deletePublishNews(@Query("account") String account, @Query("token") String token, @Query(
+            "ids") List<Integer> ids);
 
     /**
      * 获取我的任务列表
@@ -407,16 +490,18 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.USER_TASK_LIST)
-    Observable<TaskListBean> getUserTask(@Query("account") String account, @Query("token") String token, @Query("userId") int userId,
+    Observable<TaskListBean> getUserTask(@Query("account") String account, @Query("token") String token, @Query(
+            "userId") int userId,
                                          @Query("currentPage") int currentPage, @Query("pageSize") int pageSize,
                                          @Query("keyWord") String keyWord, @Query("typeId") String typeId);
 
     /**
      * 获取任务详情
+     *
      * @param account
      * @param token
      * @param userId
-     * @param missionId 任务id
+     * @param missionId    任务id
      * @param taskPeopleId 人员任务分配id
      * @return
      */
@@ -424,6 +509,7 @@ public interface AppServer {
     Observable<TaskDetailBean> getTaskInfo(@Query("account") String account, @Query("token") String token,
                                            @Query("userId") int userId, @Query("missionId") int missionId,
                                            @Query("taskPeopleId") int taskPeopleId);
+
     /**
      * 获取已提交任务详情
      *
@@ -433,12 +519,14 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.USER_TASK_SUBMITED_DETAIL)
-    Observable<TaskSubmitedBean> getTaskSubmitDetail(@Query("account") String account, @Query("token") String token, @Query("reportId") int reportId);
+    Observable<TaskSubmitedBean> getTaskSubmitDetail(@Query("account") String account, @Query("token") String token,
+                                                     @Query("reportId") int reportId);
 
     /**
      * 绑定微信或QQ
-     * @param account 手机号
-     * @param source 用户来源（1警小宝；2巡小管；3邻小帮；4云调解室）
+     *
+     * @param account    手机号
+     * @param source     用户来源（1警小宝；2巡小管；3邻小帮；4云调解室）
      * @param weChatId
      * @param weChatName
      * @param qqId
@@ -446,9 +534,11 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.BIND_QQ_WECHAT)
-    Observable<BaseResult> bindQQAndWeChat(@Query("account") String account, @Query("source") int source,
+    Observable<BaseResult> bindQQAndWeChat(@Query("account") String account, @Query("token") String token,@Query(
+            "source") int source,
                                            @Query("weChatId") String weChatId, @Query("weChatName") String weChatName,
                                            @Query("qqId") String qqId, @Query("qqName") String qqName);
+
     /**
      * 获取未读消息数
      *
@@ -458,18 +548,16 @@ public interface AppServer {
     Observable<UnReadCountBean> getUnReadCount(@Body RequestBody requestBody);
 
 
-
-    /**********************************************************************首页地图*********************************************************************/
+    /**********************************************************************首页地图
+     * *********************************************************************/
     /**
      * 获取首页地图右侧菜单
      *
-     * @param account
-     * @param token
-     * @param typeId  App类型(1：警小宝）（3：巡小管）（2：邻小帮）
+     * @param typeId App类型(1：警小宝）（3：巡小管）（2：邻小帮）
      * @return
      */
     @POST(AppHttpPath.MAP_MENU_BUTTON)
-    Observable<MapMenuButton> getMapMenu(@Query("account") String account, @Query("token") String token, @Query("typeId") String typeId);
+    Observable<MapMenuButton> getMapMenu(@Query("typeId") String typeId);
 
     /**
      * 请求监控坐标列表
@@ -509,7 +597,7 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.MAP_PATROL_LIST)
-    Observable<ResponseInspection> requestInspection(@Body RequestBody requestBody);
+    Observable<ResponseInspection> requestInspection();
 
     /**
      * 场所管理
@@ -562,7 +650,8 @@ public interface AppServer {
      * 一键报警 接警员
      */
     @POST(AppHttpPath.POLICE_PICKER)
-    Observable<PolicePickerBean> getPolicePickerInfo(@Query("account") String account, @Query("token") String token, @Query("departmentId") int departmentId);
+    Observable<PolicePickerBean> getPolicePickerInfo(@Query("account") String account, @Query("token") String token,
+                                                     @Query("departmentId") int departmentId);
 
 
     //搜索
@@ -579,7 +668,7 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.BANNER_NEWS)
-    Observable<BannerNewsBean> getBannerNews(@Query("account") String account, @Query("token") String token);
+    Observable<BannerNewsBean> getBannerNews();
 
     /**
      * 获取im用户信息
@@ -596,55 +685,68 @@ public interface AppServer {
     //人员轨迹
     @POST(AppHttpPath.PEOPLE_HISTORY)
     Observable<HistoryTrackBean> getPoliceTrack(@Body RequestBody body);
+
     /**
      * 上传轨迹
      */
     @POST(AppHttpPath.USER_HISTORY_UPLOAD)
-    Observable<BaseResult> uploadHistory(@Query("account") String account, @Query("token") String token, @Query("userId") int userId,
-                                         @Query("json") String json);
+    Observable<BaseResult> uploadHistory(@Query("account") String account, @Query("token") String token, @Query(
+            "userId") int userId,
+                                         @Query("source") int source, @Query("json") String json);
 
-    /*====================================================    天气   ==============================================================*/
+        /*====================================================    天气
+        ==============================================================*/
 
 
     //实时天气
     @POST(AppHttpPath.REALTIME_WEATHER)
-    Observable<ResponseRealTimeWeather> getWeatherRealtime(@Query("longitude") String longitude, @Query("latitude") String latitude);
+    Observable<ResponseRealTimeWeather> getWeatherRealtime(@Query("longitude") String longitude,
+                                                           @Query("latitude") String latitude);
 
     //天气预报
     @POST(AppHttpPath.FORCAST_WEATHER)
-    Observable<ResponseForcastWeather> getForcast(@Query("longitude") String longitude, @Query("latitude") String latitude);
+    Observable<ResponseForcastWeather> getForcast(@Query("longitude") String longitude,
+                                                  @Query("latitude") String latitude);
 
     /**
      * 获取省列表
+     *
      * @return
      */
     @POST(AppHttpPath.PROVINCE)
     Observable<CityBean> getProvince();
+
     /**
      * 获取城市列表
+     *
      * @param cityNum
      * @return
      */
     @POST(AppHttpPath.CITY)
     Observable<CityBean> getCity(@Query("cityNum") String cityNum);
+
     /**
      * 获取地区列表
+     *
      * @param cityNum
      * @return
      */
     @POST(AppHttpPath.AREA)
     Observable<CityBean> getArea(@Query("cityNum") String cityNum);
+
     /**
      * 获取街道列表
+     *
      * @return
      */
     @POST(AppHttpPath.STREET)
     Observable<CityBean> getStreet(@Query("cityNum") String townNum);
 
-    /*****************************************************************密码模块**************************************************************************/
+    /*****************************************************************密码模块
+     * **************************************************************************/
 
     /**
-     * 设置（重置）密码
+     * 找回密码
      *
      * @return
      */
@@ -652,22 +754,32 @@ public interface AppServer {
     Observable<BaseResult> setPwd(@Query("account") String account, @Query("password") String password);
 
     /**
+     * 修改密码
+     *
+     * @return
+     */
+    @POST(AppHttpPath.MODIFY_PWD)
+    Observable<BaseResult> modifyPwd(@Body RequestBody requestBody);
+
+    /**
      * 修改手机号（账号）
+     *
      * @param account
      * @param token
      * @param userId
-     * @param newAccount 新手机号
-     * @param password 新密码
+     * @param newAccount  新手机号
+     * @param password    新密码
      * @param oldPassword 旧密码
      * @return
      */
     @POST(AppHttpPath.UPDATE_PHONE)
     Observable<BaseResult> updatePhone(@Query("account") String account, @Query("token") String token,
-                                       @Query("userId") int userId, @Query("newAccount") String newAccount,
+                                       @Query("phoneNumber") String phoneNumber, @Query("userId") int userId, @Query("newAccount") String newAccount,
                                        @Query("password") String password, @Query("oldPassword") String oldPassword);
 
 
-    /*====================================================    上传案件、巡检等   ==============================================================*/
+        /*====================================================    上传案件、巡检等
+        ==============================================================*/
 
     /**
      * 上传案件
@@ -684,18 +796,20 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.CASE_TYPE)
-    Observable<CaseTypeBean> getCaseType(@Query("account") String account, @Query("token") String token, @Query("id") int id);
+    Observable<CaseTypeBean> getCaseType(@Query("account") String account, @Query("token") String token,
+                                         @Query("id") int id);
 
     /**
      * 案件（或追踪）详情--及追踪列表
      *
      * @param token
      * @param account
-     * @param id 案件id
+     * @param id      案件id
      * @return
      */
     @POST(AppHttpPath.GET_CASE_INFO)
-    Observable<CaseInfoBean> getCaseInfo(@Query("token") String token, @Query("account") String account, @Query("id") int id);
+    Observable<CaseInfoBean> getCaseInfo(@Query("token") String token, @Query("account") String account,
+                                         @Query("id") int id);
 
     /**
      * 上传巡检
@@ -715,7 +829,8 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.INSPECTION_DETAIL)
-    Observable<InspectionDetailBean> getInspectionDetail(@Query("account") String account, @Query("token") String token, @Query("id") int patrolId);
+    Observable<InspectionDetailBean> getInspectionDetail(@Query("account") String account,
+                                                         @Query("token") String token, @Query("id") int patrolId);
 
     /**
      * /**
@@ -723,11 +838,12 @@ public interface AppServer {
      *
      * @param account
      * @param token
-     * @param id 巡检id
+     * @param id      巡检id
      * @return
      */
     @POST(AppHttpPath.INSPECTION_POINT_DETAIL)
-    Observable<InspectionPointInfoBean> getInspectionPointDetail(@Query("account") String account, @Query("token") String token, @Query("id") int id);
+    Observable<InspectionPointInfoBean> getInspectionPointDetail(@Query("account") String account,
+                                                                 @Query("token") String token, @Query("id") int id);
 
     /**
      * /**
@@ -739,7 +855,8 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.INSPECTION_RECORD)
-    Observable<InspectionRecordBean> getInspectionRecord(@Query("account") String account, @Query("token") String token, @Query("patrolId") int patrolId
+    Observable<InspectionRecordBean> getInspectionRecord(@Query("account") String account,
+                                                         @Query("token") String token, @Query("patrolId") int patrolId
             , @Query("currentPage") int currentPage, @Query("pageSize") int pageSize);
 
     /**
@@ -753,12 +870,12 @@ public interface AppServer {
 
     /**
      * 根据id获取巡检点信息（扫码）
-     *
      */
     @POST(AppHttpPath.GET_INSPECTION_INFO_FOR_SACN)
     Observable<InspectionForScanBean> getInspectionInfo(@Query("codeNumber") String codeNumber);
 
-    /*====================================================    业务模块   ==============================================================*/
+        /*====================================================    业务模块
+        ==============================================================*/
 
     /**
      * 业务列表
@@ -766,7 +883,9 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.BUSINESS_LIST)
-    Observable<BusinessListBean> businessList(@Query("keyWord") String keyWord, @Query("pageSize") int pageSize, @Query("currentPage") int currentPage);
+    Observable<BusinessListBean> businessList(@Query("account") String account, @Query("token") String token, @Query(
+            "keyWord") String keyWord, @Query("pageSize") int pageSize, @Query("currentPage") int currentPage);
+
 
     /**
      * 业务需要的资料
@@ -774,7 +893,9 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.BUSINESS_DATA_NEEDED)
-    Observable<BusinessNeedInfoBean> businessDataNeeded(@Query("account") String account, @Query("token") String token, @Query("declareId") int declareId);
+    Observable<BusinessNeedInfoBean> businessDataNeeded(@Query("account") String account,
+                                                        @Query("token") String token,
+                                                        @Query("declareId") int declareId);
 
     /**
      * 新增业务
@@ -802,10 +923,12 @@ public interface AppServer {
     Observable<MyBusinessDetailBean> businessDetail(@Body RequestBody jsonBody);
 
 
-    /*====================================================    调解模块   ==============================================================*/
+        /*====================================================    调解模块
+        ==============================================================*/
 
     /**
      * 申请调解
+     *
      * @param jsonBody
      * @return
      */
@@ -814,67 +937,90 @@ public interface AppServer {
 
     /**
      * 获取调解列表
+     *
      * @param account
      * @param token
      * @param userId
-     * @param typeId 	类型id （1：调解申请；2：正在调解；3：调解完成）
-     * @param pageSize 默认10
+     * @param typeId      类型id （1：调解申请；2：正在调解；3：调解完成）
+     * @param pageSize    默认10
      * @param currentPage 默认1
      * @return
      */
     @POST(AppHttpPath.CONCILIATION_LIST)
-    Observable<ConciliationListBean> getMyConciliationList(@Query("account") String account, @Query("token") String token,
+    Observable<ConciliationListBean> getMyConciliationList(@Query("account") String account,
+                                                           @Query("token") String token,
                                                            @Query("userId") int userId, @Query("typeId") int typeId,
-                                                           @Query("pageSize") int pageSize, @Query("currentPage") int currentPage);
+                                                           @Query("pageSize") int pageSize,
+                                                           @Query("currentPage") int currentPage);
+
     /**
      * 获取调解详情
      *
      * @return
      */
     @POST(AppHttpPath.CONCILIATION_INFO)
-    Observable<ConciliationInfoBean> getConciliationInfo(@Query("account") String account, @Query("token") String token, @Query("caseId") int caseId);
+    Observable<ConciliationInfoBean> getConciliationInfo(@Query("account") String account,
+                                                         @Query("token") String token, @Query("caseId") int caseId);
 
     /**
      * 获取全部调解员列表
+     *
      * @param account 用户名
-     * @param token 验证token
-     * @param unitId 单位id
+     * @param token   验证token
+     * @param unitId  单位id
      * @return
      */
     @POST(AppHttpPath.GET_ALL_MEDIATOR_LIST)
-    Observable<MediatorAllListBean> getAllMediatorList(@Query("account") String account, @Query("token") String token, @Query("cityNumber") String cityNumber, @Query("unitId") int unitId);
+    Observable<MediatorAllListBean> getAllMediatorList(@Query("account") String account, @Query("token") String token
+            , @Query("cityNumber") String cityNumber, @Query("unitId") int unitId);
 
     /**
      * 获取单位列表
+     *
      * @param account
      * @param token
      * @param cityNumber 辖区id
      * @return
      */
     @POST(AppHttpPath.GET_UNIT_LIST)
-    Observable<UnitListBean> getUnitList(@Query("account") String account, @Query("token") String token, @Query("cityNumber") String cityNumber);
+    Observable<UnitListBean> getUnitList(@Query("account") String account, @Query("token") String token, @Query(
+            "cityNumber") String cityNumber);
 
     /**
      * 获取调解类型列表
+     *
      * @param account
      * @param token
-     * @param typeId 类型id（0：大类，其他子类）
+     * @param typeId  类型id（0：大类，其他子类）
      * @return
      */
     @POST(AppHttpPath.GET_CONCILIATION_TYPE_LIST)
-    Observable<ConciliationTypesBean> getConciliationTypes(@Query("account") String account, @Query("token") String token, @Query("typeId") int typeId);
+    Observable<ConciliationTypesBean> getConciliationTypes(@Query("account") String account,
+                                                           @Query("token") String token, @Query("typeId") int typeId);
 
     /**
      * 查询案件编号是否正确
+     *
      * @param account
      * @param token
      * @param caseNumber
      * @return
      */
     @POST(AppHttpPath.SELECT_CASE_NUMBER_IS_CORRECT)
-    Observable<BaseResult> selectCaseNumberIsCorrect(@Query("account") String account, @Query("token") String token, @Query("caseNumber") String caseNumber);
+    Observable<BaseResult> selectCaseNumberIsCorrect(@Query("account") String account, @Query("token") String token,
+                                                     @Query("caseNumber") String caseNumber);
 
-    /*====================================================    流媒体   ==============================================================*/
+        /*====================================================    流媒体
+        ==============================================================*/
+
+    /**
+     * 添加摄像头分享记录
+     *
+     * @return
+     */
+    @POST(AppHttpPath.SHARE_TO_WCHAT)
+    Observable<BaseResult> shareToWechat(@Body RequestBody requestBody);
+
     /**
      * 获取硬盘录像机下的所有的流摄像头
      *
@@ -896,33 +1042,16 @@ public interface AppServer {
      *
      * @return
      */
-    @POST(AppHttpPath.UPLOAD_STREAM_CAMERAS_CAPTURE)
-    Observable<BaseResult> uploadStreamCameraCapturePic(@Body RequestBody requestBody);
-
-    /**
-     * 上传封面图
-     *
-     * @return
-     */
     @POST(AppHttpPath.UPLOAD_STREAM_CAMERAS_THUMB)
     Observable<BaseResult> uploadStreamCameraThumbPic(@Body RequestBody requestBody);
 
     /**
      * 打开视频流
-     * <p>
-     * 字段说明：
-     * "channelid":  (字符串)   通道20位编号
-     * "type":       (数字)   	 国标请求视频类型：1：udp 2：tcp主动 3：tcp被动
-     * "videourltype":  (字符串)   视频类型：rtsp：返回rtsp地址  rtmp：返回rtmp地址 hls：返回hls地址
      *
-     * @param channelid
-     * @param type
-     * @param videourltype
      * @return
      */
-    @GET(AppHttpPath.BASE_CAMERA_URL + "/vss/open_stream/{channelid}/{type}/{videourltype}")
-    Observable<OpenLiveBean> openStream(@Path("channelid") String channelid, @Path("type") String type,
-                                        @Path("videourltype") String videourltype);
+    @POST(AppHttpPath.STREAM_OPE_ADDR)
+    Observable<PlayUrlBean> openStream(@Body RequestBody requestBody);
 
     /**
      * 会话id   保活的接口
@@ -940,7 +1069,67 @@ public interface AppServer {
      * @return
      */
     @GET(AppHttpPath.BASE_CAMERA_URL + "/vss/get_image/{channelid}/{type}")
-    Observable<OpenLiveBean> capturePic(@Path("channelid") String channelid, @Path("type") String type);
+    Observable<CaptureBean> capturePic(@Path("channelid") String channelid, @Path("type") String type);
+
+
+    /**
+     * 录像查询
+     *
+     * @param channelid
+     * @return
+     */
+    @GET(AppHttpPath.BASE_CAMERA_URL + "/vss/history_search/{begintime}/{endtime}/{channelid}")
+    Observable<VideoInfoBean> searchVideos(@Path("begintime") String begintime, @Path("endtime") String endtime,
+                                           @Path("channelid") String channelid);
+
+
+    /**
+     * 录像点播 获取rtmp流
+     *
+     * @return
+     */
+    @GET(AppHttpPath.BASE_CAMERA_URL + "/vss/playback/start?")
+    Observable<RecordInfoBean> getVideosUrl(@QueryMap Map<String, String> options);
+
+
+    /**
+     * 云台操控
+     *
+     * @param ptztype
+     * @param ptzparam
+     * @param channelid
+     * @return
+     */
+    @GET(AppHttpPath.BASE_CAMERA_URL + "/vss/ptz/{ptztype}/{ptzparam}/{channelid}")
+    Observable<BaseStreamBean> operateYunTai(@Path("ptztype") String ptztype, @Path("ptzparam") int ptzparam,
+                                             @Path("channelid") String channelid);
+
+
+    /**
+     * 录像控制
+     * "sessionid":    (字符串) 点播返回的sessionid句柄
+     * "vodctrltype":  (字符串) "play","pause","stop","jump"
+     * "vodctrlparam": (字符串)  0(pause,stop) / 0.125,0.25,0.5,1,2,4,8,16(play) (范围:0-32)/ 从开始时间跳转的秒数(jump)
+     *
+     * @return
+     */
+    @GET(AppHttpPath.BASE_CAMERA_URL + "/vss/his_stream_ctrl/{sessionid}/{vodctrltype}/{vodctrlparam}")
+    Observable<BaseStreamBean> operateRecordVideo(@Path("sessionid") String sessionid,
+                                                  @Path("vodctrltype") String vodctrltype,
+                                                  @Path("vodctrlparam") String vodctrlparam);
+
+    /**
+     * 获取在线数
+     */
+    @GET(AppHttpPath.GET_ONLINE_AMOUNT)
+    Observable<CameraOnlineBean> getOnlineAmount(@Query("q") String q);
+
+    /**
+     * 停止流
+     */
+    @GET(AppHttpPath.STOP_STREAM)
+    Observable<BaseStreamBean> stopStream(@Query("sessionid") String q);
+
 
     /**
      * 根据监控id获取评论列表
@@ -951,8 +1140,12 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.GET_ALL_COMMENT_CAMERA)
-    Observable<CommentListBean> getAllCommentCamera(@Query("account") String account, @Query("token") String token, @Query("userId") int userId,
-                                                    @Query("commentedId") int commentedId, @Query("pageSize") int pageSize, @Query("currentPage") int currentPage);
+    Observable<CommentListBean> getAllCommentCamera(@Query("account") String account, @Query("token") String token,
+                                                    @Query("userId") int userId,
+                                                    @Query("commentedId") int commentedId,
+                                                    @Query("pageSize") int pageSize,
+                                                    @Query("currentPage") int currentPage);
+
     /**
      * 根据主评论id获取子评论列表
      *
@@ -961,8 +1154,10 @@ public interface AppServer {
      */
     @POST(AppHttpPath.GET_CHILD_COMMENT_CAMERA)
     Observable<CommentListBean> getChildCommentCamera(@Query("account") String account, @Query("token") String token,
-                                                      @Query("commentedId") int commentedId, @Query("unreadId") int unreadId,
-                                                      @Query("pageSize") int pageSize, @Query("currentPage") int currentPage);
+                                                      @Query("commentedId") int commentedId,
+                                                      @Query("unreadId") int unreadId,
+                                                      @Query("pageSize") int pageSize,
+                                                      @Query("currentPage") int currentPage);
 
     /**
      * 添加评论
@@ -986,9 +1181,11 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.ADD_OR_CANCLE_LIKE_CAMERA)
-    Observable<BaseDataBean> addOrCancleLikeCamera(@Query("id") int id, @Query("account") String account, @Query("token") String token,
-                                                 @Query("userId") int userId, @Query("isType") int isType,
-                                                 @Query("typeId") int typeId, @Query("likeId") int likeId);
+    Observable<BaseDataBean> addOrCancleLikeCamera(@Query("id") int id, @Query("account") String account, @Query(
+            "token") String token,
+                                                   @Query("userId") int userId, @Query("isType") int isType,
+                                                   @Query("typeId") int typeId, @Query("likeId") int likeId);
+
     /**
      * 添加（删除）收藏 (摄像头)
      *
@@ -1003,11 +1200,39 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.ADD_OR_DELETE_COLLECT_CAMERA)
-    Observable<BaseDataBean> addOrDeleteCollectsCamera(@Query("id") int id, @Query("account") String account, @Query("token") String token,
-                                                     @Query("userId") int userId, @Query("isType") int isType, @Query("typeId") int typeId,
-                                                     @Query("collectId") int collectId, @Query("ids") List<Integer> ids);
+    Observable<BaseDataBean> addOrDeleteCollectsCamera(@Query("id") int id, @Query("account") String account, @Query(
+            "token") String token,
+                                                       @Query("userId") int userId, @Query("isType") int isType,
+                                                       @Query("typeId") int typeId,
+                                                       @Query("collectId") int collectId,
+                                                       @Query("ids") List<Integer> ids);
 
-    /*====================================================    兑换商城模块   ==============================================================*/
+    /*==============================================  流媒体云台预置位  =============================================*/
+
+
+    //    @POST(AppHttpPath.ADD_PRE_POSITION)
+    //    Observable<BaseResult> addPrePosition(@Body RequestBody body);
+    //
+    //    /**
+    //     * 删除预置位
+    //     *
+    //     * @param body
+    //     * @return
+    //     */
+    //    @POST(AppHttpPath.DEL_PRE_POSITION)
+    //    Observable<BaseResult> delPrePosition(@Body RequestBody body);
+    //
+    //    /**
+    //     * 获取预置位
+    //     *
+    //     * @param body
+    //     * @return
+    //     */
+    //    @POST(AppHttpPath.GET_PRE_POSITIONS)
+    //    Observable<PreSetBean> getPrePositions(@Body RequestBody body);
+
+        /*====================================================    兑换商城模块
+        ==============================================================*/
 
     /**
      * 获取商品列表
@@ -1028,7 +1253,8 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.MALL_GOODS_DEATIL)
-    Observable<GoodsInfoBean> getGoodsDetail(@Query("account") String account, @Query("token") String token, @Query("commodityId") int commodityId);
+    Observable<GoodsInfoBean> getGoodsDetail(@Query("account") String account, @Query("token") String token, @Query(
+            "commodityId") int commodityId);
 
     /**
      * 获取兑换记录
@@ -1039,7 +1265,8 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.MALL_HISTORY_LIST)
-    Observable<HistoryGoodsListBean> getHistoryGoodsList(@Query("account") String account, @Query("token") String token, @Query("userId") int userId);
+    Observable<HistoryGoodsListBean> getHistoryGoodsList(@Query("account") String account,
+                                                         @Query("token") String token, @Query("userId") int userId);
 
     /**
      * 兑换商品
@@ -1053,10 +1280,13 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.MALL_EXCHANGE_GOODS)
-    Observable<BaseResult> exchangeGoods(@Query("account") String account, @Query("token") String token, @Query("userId") int userId,
-                                         @Query("price") int price, @Query("commodityId") int commodityId, @Query("commodityName") String commodityName);
+    Observable<BaseResult> exchangeGoods(@Query("account") String account, @Query("token") String token, @Query(
+            "userId") int userId,
+                                         @Query("price") int price, @Query("commodityId") int commodityId, @Query(
+            "commodityName") String commodityName);
 
-    /*====================================================    重点人员模块   ==============================================================*/
+        /*====================================================    重点人员模块
+        ==============================================================*/
 
     /**
      * 重点人员详情
@@ -1064,7 +1294,8 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.KEY_PERSONNEL_DETAIL)
-    Observable<KeyPersonnelInfoBean> getKeyPersonnelInfo(@Query("account") String account, @Query("token") String token, @Query("id") int id);
+    Observable<KeyPersonnelInfoBean> getKeyPersonnelInfo(@Query("account") String account,
+                                                         @Query("token") String token, @Query("id") int id);
 
     /**
      * 走访上传
@@ -1086,7 +1317,8 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.INTERVIEW_LIST)
-    Observable<InterviewListBean> getInterviewList(@Query("account") String account, @Query("token") String token, @Query("id") int id,
+    Observable<InterviewListBean> getInterviewList(@Query("account") String account, @Query("token") String token,
+                                                   @Query("id") int id,
                                                    @Query("currentPage") int page, @Query("pageSize") int rows);
 
     /**
@@ -1095,9 +1327,11 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.INTERVIEW_DETAIL)
-    Observable<InterviewDetailBean> getInterviewDetail(@Query("account") String account, @Query("token") String token, @Query("id") int id);
+    Observable<InterviewDetailBean> getInterviewDetail(@Query("account") String account, @Query("token") String token
+            , @Query("id") int id);
 
-    /*====================================================    场所管理模块   ==============================================================*/
+        /*====================================================    场所管理模块
+        ==============================================================*/
 
     /**
      * 单位详情
@@ -1118,8 +1352,10 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.GET_EMPLOYEE_LIST)
-    Observable<EmployeeListBean> getEmployeeList(@Query("account") String account, @Query("token") String token, @Query("unitId") int unitId,
-                                                 @Query("pageSize") int pageSize, @Query("currentPage") int currentPage);
+    Observable<EmployeeListBean> getEmployeeList(@Query("account") String account, @Query("token") String token,
+                                                 @Query("unitId") int unitId,
+                                                 @Query("pageSize") int pageSize,
+                                                 @Query("currentPage") int currentPage);
 
     /**
      * 从业人员详情
@@ -1127,7 +1363,8 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.GET_EMPLOYEE_DETAIL)
-    Observable<EmployeeDetailBean> getEmployeeDetail(@Query("account") String account, @Query("token") String token, @Query("personnelId") int personnelId);
+    Observable<EmployeeDetailBean> getEmployeeDetail(@Query("account") String account, @Query("token") String token,
+                                                     @Query("personnelId") int personnelId);
 
     /**
      * 检查记录列表
@@ -1140,8 +1377,10 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.GET_SITE_INSPECTION_LIST)
-    Observable<EmployeeListBean> getSiteInspectionList(@Query("account") String account, @Query("token") String token, @Query("unitId") int unitId,
-                                                       @Query("pageSize") int pageSize, @Query("currentPage") int currentPage);
+    Observable<EmployeeListBean> getSiteInspectionList(@Query("account") String account, @Query("token") String token
+            , @Query("unitId") int unitId,
+                                                       @Query("pageSize") int pageSize,
+                                                       @Query("currentPage") int currentPage);
 
     /**
      * 检查记录详情
@@ -1149,7 +1388,9 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.GET_SITE_INSPECTION_DETAIL)
-    Observable<SiteInspectionDetailBean> getSiteInspectionDetail(@Query("account") String account, @Query("token") String token, @Query("recordId") int recordId);
+    Observable<SiteInspectionDetailBean> getSiteInspectionDetail(@Query("account") String account,
+                                                                 @Query("token") String token,
+                                                                 @Query("recordId") int recordId);
 
     /**
      * 添加从业人员
@@ -1205,20 +1446,18 @@ public interface AppServer {
     @POST(AppHttpPath.UPDATE_SITE_MANAGER)
     Observable<BaseResult> updateSiteManager(@Body RequestBody jsonBody);
 
-    /*====================================================    资讯模块   ==============================================================*/
+        /*====================================================    资讯模块
+        ==============================================================*/
 
     /**
      * 获取资讯列表
-     * @param account
-     * @param token
-     * @param unitId
+     *
      * @param pageSize
      * @param currentPage
      * @return
      */
     @POST(AppHttpPath.GET_NEWS_LIST)
-    Observable<NewsListBean> getNewsList(@Query("account") String account, @Query("token") String token, @Query("unitId") int unitId,
-                                         @Query("pageSize") int pageSize, @Query("currentPage") int currentPage);
+    Observable<NewsListBean> getNewsList(@Query("pageSize") int pageSize, @Query("currentPage") int currentPage);
 
     /**
      * 上传资讯
@@ -1228,6 +1467,7 @@ public interface AppServer {
      */
     @POST(AppHttpPath.NEWS_PUBLISH)
     Observable<BaseResult> publishNews(@Body RequestBody jsonBody);
+
     /**
      * 修改资讯
      *
@@ -1252,20 +1492,24 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.NEWS_DELETE_PHOTO)
-    Observable<BaseResult> deleteNewsPhoto(@Query("account") String account, @Query("token") String token, @Query("informationId") String informationId);
+    Observable<BaseResult> deleteNewsPhoto(@Query("account") String account, @Query("token") String token, @Query(
+            "informationId") String informationId);
 
     /**
      * 资讯搜索
+     *
      * @param keyWord
      * @param pageSize
      * @param currentPage
      * @return
      */
     @POST(AppHttpPath.NEWS_SEARCH_LIST)
-    Observable<NewsListBean> searchNewsList(@Query("keyWord") String keyWord, @Query("pageSize") int pageSize, @Query("currentPage") int currentPage);
+    Observable<NewsListBean> searchNewsList(@Query("keyWord") String keyWord, @Query("pageSize") int pageSize,
+                                            @Query("currentPage") int currentPage);
 
     /**
      * 获取资讯详情
+     *
      * @param userId
      * @param infoId
      * @return
@@ -1275,24 +1519,29 @@ public interface AppServer {
 
     /**
      * 获取资讯作者信息
+     *
      * @param userId 看谁传谁的id
-     * @param fId 登录人的id
+     * @param fId    登录人的id
      * @return
      */
     @POST(AppHttpPath.NEWS_PERSONAL_HOMEPAGE_INFO)
     Observable<NewsPersonalHomePageInfo> getNewsAuthorInfo(@Query("userId") int userId, @Query("fId") int fId);
+
     /**
      * 获取个人主页资讯列表
      */
     @POST(AppHttpPath.NEWS_PERSONAL_HOMEPAGE_NEWS_LIST)
     Observable<NewsListBean> getNewsListByAuthorId(@Query("userId") int userId, @Query("typeId") int typeId,
-                                                   @Query("currentPage") int currentPage, @Query("pageSize") int pageSize);
+                                                   @Query("currentPage") int currentPage,
+                                                   @Query("pageSize") int pageSize);
+
     /**
      * 获取个人粉丝列表
+     *
      * @param account
      * @param token
-     * @param userId 看谁传谁id
-     * @param followId 自己的id
+     * @param userId      看谁传谁id
+     * @param followId    自己的id
      * @param currentPage
      * @param pageSize
      * @return
@@ -1301,32 +1550,37 @@ public interface AppServer {
     Observable<NewsFansListBean> getFansList(@Query("account") String account, @Query("token") String token,
                                              @Query("userId") int userId, @Query("followId") int followId,
                                              @Query("currentPage") int currentPage, @Query("pageSize") int pageSize);
+
     /**
      * 获取个人关注列表
+     *
      * @param account
      * @param token
-     * @param userId 看谁传谁id
-     * @param fansId 自己的id
+     * @param userId      看谁传谁id
+     * @param fansId      自己的id
      * @param currentPage
      * @param pageSize
      * @return
      */
     @POST(AppHttpPath.NEWS_FOLLOW_LIST)
     Observable<NewsFansListBean> getFollowList(@Query("account") String account, @Query("token") String token,
-                                           @Query("userId") int userId, @Query("fansId") int fansId,
-                                           @Query("currentPage") int currentPage, @Query("pageSize") int pageSize);
+                                               @Query("userId") int userId, @Query("fansId") int fansId,
+                                               @Query("currentPage") int currentPage, @Query("pageSize") int pageSize);
+
     /**
      * 添加或取消关注
+     *
      * @param account
      * @param token
      * @param fansId
-     * @param typeId 1 :关注；2:取消关注
+     * @param typeId   1 :关注；2:取消关注
      * @param followId
      * @return
      */
     @POST(AppHttpPath.NEWS_ADD_FOLLOW_OR_DELETE)
     Observable<BaseResult> addFollowOrDelete(@Query("account") String account, @Query("token") String token,
-                                               @Query("fansId") int fansId, @Query("typeId") int typeId, @Query("followId") int followId);
+                                             @Query("fansId") int fansId, @Query("typeId") int typeId, @Query(
+            "followId") int followId);
 
     /**
      * 根据资讯id获取评论列表
@@ -1339,16 +1593,22 @@ public interface AppServer {
     @POST(AppHttpPath.GET_ALL_COMMENT_NEWS)
     Observable<CommentListBean> getAllCommentNews(@Query("account") String account, @Query("token") String token,
                                                   @Query("userId") int userId, @Query("commentedId") int commentedId,
-                                                  @Query("pageSize") int pageSize, @Query("currentPage") int currentPage);
+                                                  @Query("pageSize") int pageSize,
+                                                  @Query("currentPage") int currentPage);
+
     /**
      * 根据主评论id获取子评论列表
+     *
      * @param commentedId
      * @return
      */
     @POST(AppHttpPath.GET_CHILD_COMMENT_NEWS)
     Observable<CommentListBean> getChildCommentNews(@Query("account") String account, @Query("token") String token,
-                                                    @Query("commentedId") int commentedId, @Query("unreadId") int unreadId,
-                                                    @Query("pageSize") int pageSize, @Query("currentPage") int currentPage);
+                                                    @Query("commentedId") int commentedId,
+                                                    @Query("unreadId") int unreadId,
+                                                    @Query("pageSize") int pageSize,
+                                                    @Query("currentPage") int currentPage);
+
     /**
      * 添加评论
      *
@@ -1371,9 +1631,10 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.ADD_OR_CANCLE_LIKE_NEWS)
-    Observable<BaseDataBean> addOrCancleLikeNews(@Query("id") int id, @Query("account") String account, @Query("token") String token,
-                                             @Query("userId") int userId, @Query("isType") int isType,
-                                             @Query("typeId") int typeId, @Query("likeId") int likeId);
+    Observable<BaseDataBean> addOrCancleLikeNews(@Query("id") int id, @Query("account") String account, @Query("token"
+    ) String token,
+                                                 @Query("userId") int userId, @Query("isType") int isType,
+                                                 @Query("typeId") int typeId, @Query("likeId") int likeId);
 
     /**
      * 添加（删除）收藏 (资讯)
@@ -1389,7 +1650,43 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.ADD_OR_DELETE_COLLECT_NEWS)
-    Observable<BaseDataBean> addOrDeleteCollectsNews(@Query("id") int id, @Query("account") String account, @Query("token") String token,
-                                                 @Query("userId") int userId, @Query("isType") int isType, @Query("typeId") int typeId,
-                                                 @Query("collectId") int collectId, @Query("ids") List<Integer> ids);
+    Observable<BaseDataBean> addOrDeleteCollectsNews(@Query("id") int id, @Query("account") String account, @Query(
+            "token") String token,
+                                                     @Query("userId") int userId, @Query("isType") int isType,
+                                                     @Query("typeId") int typeId,
+                                                     @Query("collectId") int collectId,
+                                                     @Query("ids") List<Integer> ids);
+
+        /*====================================================    我的设备
+        ==============================================================*/
+
+    /**
+     * 获取我的设备列表
+     *
+     * @return
+     */
+    @POST(AppHttpPath.GET_USER_EQUIPMENT_LIST)
+    Observable<EquipmentListBean> getUserEquipmentList(@Query("account") String account, @Query("token") String token
+            , @Query("unreadId") int unreadId,
+                                                       @Query("currentPage") int currentPage, @Query("pageSize") int pageSize);
+
+
+
+    /**
+     * 获取举报类型
+     *
+     * @return
+     */
+    @POST(AppHttpPath.GET_REPORT_TYPES)
+    Observable<ReportTypeBean> getReportTypes(@Body RequestBody jsonBody);
+    /**
+     * 获取举报类型
+     *
+     * @return
+     */
+    @POST(AppHttpPath.REPORT)
+    Observable<BaseResult> report(@Body RequestBody jsonBody);
+
+
+
 }

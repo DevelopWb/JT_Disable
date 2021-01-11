@@ -130,7 +130,7 @@ public class ConciliationListActivity extends BaseMvpActivity<ConciliationPresen
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
-    public void receiveMsg(String test) {
+    public void receiveStringMsg(String test) {
         if (ActionConfig.REFRASH_CONCILIATION_LIST.equals(test)){
             page = 1;
             getData(false);

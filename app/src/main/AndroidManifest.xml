@@ -161,10 +161,6 @@
         <service android:name="com.juntai.disabled.federation.home_page.camera.ijkplayer.KeepAliveService" />
 
         <activity
-            android:name="com.juntai.disabled.federation.home_page.camera.ijkplayer.StreamCameraFullScreenActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="landscape" />
-        <activity
             android:name="com.juntai.disabled.federation.home_page.camera.ijkplayer.CarStreamCameraFullScreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"

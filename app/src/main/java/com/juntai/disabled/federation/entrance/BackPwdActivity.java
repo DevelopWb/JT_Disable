@@ -19,7 +19,6 @@ import com.juntai.disabled.federation.entrance.regist.RegistPresent;
 import com.juntai.disabled.federation.entrance.sendcode.SmsCheckCodeActivity;
 import com.juntai.disabled.federation.utils.AppUtils;
 import com.juntai.disabled.basecomponent.utils.MD5;
-import com.juntai.disabled.federation.utils.PubUtil;
 import com.juntai.disabled.federation.utils.StringTools;
 import com.orhanobut.hawk.Hawk;
 

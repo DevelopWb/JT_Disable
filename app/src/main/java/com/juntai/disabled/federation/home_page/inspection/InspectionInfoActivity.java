@@ -9,10 +9,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.baidu.mapapi.model.LatLng;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.federation.R;
+import com.juntai.disabled.federation.base.BaseAppActivity;
 import com.juntai.disabled.federation.bean.inspection.InspectionPointInfoBean;
 import com.juntai.disabled.federation.bean.inspection.InspectionRecordBean;
 import com.juntai.disabled.federation.home_page.map.MapContract;
@@ -36,7 +38,7 @@ import java.util.List;
  * @description 描述  巡检点信息
  * @date 2020/5/12 15:58
  */
-public class InspectionInfoActivity extends BaseMvpActivity<MapPresenter> implements MapContract.View {
+public class InspectionInfoActivity extends BaseAppActivity<MapPresenter> implements MapContract.View {
     private int inspectionPointId;
     TextView trackingBtn, navigationBtn;
     private Banner banner;
@@ -51,7 +53,6 @@ public class InspectionInfoActivity extends BaseMvpActivity<MapPresenter> implem
     private LinearLayout mRecordTitleLl;
     private int currentPage = 1;//当前页数
     private int limit = 15;//默认一次请求15条记录
-    NavigationDialog navigationDialog;
     private ImageView mNavigationIv;
     private InspectionPointInfoBean.DataBean pointBean;
     protected boolean hasVideo = false;//是否有视频文件
@@ -63,7 +64,6 @@ public class InspectionInfoActivity extends BaseMvpActivity<MapPresenter> implem
 
     @Override
     public void initView() {
-        navigationDialog = new NavigationDialog();
         setTitleName("巡检点信息");
         images = new ArrayList<>();
 
@@ -130,7 +130,7 @@ public class InspectionInfoActivity extends BaseMvpActivity<MapPresenter> implem
             @Override
             public void onClick(View view) {
                 if (pointBean != null) {
-                    navigationDialog.showMenu(getSupportFragmentManager(), pointBean.getLatitude(), pointBean.getLongitude(), pointBean.getAddress());
+                    navigationLogic(new LatLng(pointBean.getLatitude(), pointBean.getLongitude()),pointBean.getAddress());
                 }
 
             }

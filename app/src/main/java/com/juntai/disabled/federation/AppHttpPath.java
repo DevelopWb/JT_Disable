@@ -4,24 +4,28 @@ public class AppHttpPath {
     /**
      * base
      */
-//    public static final String BASE = "http://61.156.157.132:27080/dongGuanPoliceStation/";
-    public static final String BASE = "http://www.juntaikeji.com:19120/dongGuanPoliceStation2/";
-//    public static final String BASE = "http://192.168.124.118:8080/dongGuanPolice/";
+    //    public static final String BASE = "http://61.156.157.132:27080/dongGuanPoliceStation/";
+    public static final String BASE = "https://www.dgjpcs.cn/server/dongGuanPoliceStation/";
+    //    public static final String BASE = "http://192.168.124.118:8082/dongGuanPoliceStation/";
 
     /**
      * 车辆流直播
      */
-    public static final String CAR_STREAM ="rtmp://www.juntaikeji.net:1955/live/";
+    public static final String CAR_STREAM = "rtmp://www.juntaikeji.net:1955/live/";
+
+    public static final String BASE_IMAGE = "http://61.156.157.132:8092";
 
     /**
      * 巡检缩略图
      */
-    public static final String INSPECTION_THUMBNAI_IMAGE = "http://61.156.157.132:30080/crm/u/appConnector/getThumbnailImg.shtml";//"http://61.156.157.132:32180"
+    public static final String INSPECTION_THUMBNAI_IMAGE = "http://61.156.157.132:30080/crm/u/appConnector" +
+            "/getThumbnailImg.shtml";//"http://61.156.157.132:32180"
 
     /**
      * 巡检原始图片地址
      */
-    public static final String INSPECTION_ORIGINAL_IMAGE = "http://61.156.157.132:30080/crm/u/appConnector/getImg.shtml";//"http://61.156.157.132:32180"
+    public static final String INSPECTION_ORIGINAL_IMAGE = "http://61.156.157.132:30080/crm/u/appConnector/getImg" +
+            ".shtml";//"http://61.156.157.132:32180"
 
 
     /**
@@ -30,7 +34,8 @@ public class AppHttpPath {
     public static final String LOGIN = BASE + "u/appConnector/appLogin.shtml";
 
 
-    /*====================================================    注册模块   ==============================================================*/
+    /*====================================================    注册模块
+    ==============================================================*/
 
     /**
      * 注册
@@ -53,14 +58,23 @@ public class AppHttpPath {
      */
     public static final String ADD_USER_INFO = BASE + "u/appConnector/applyAuthority.shtml";
 
-    /*====================================================    密码相关   ==============================================================*/
+    /*====================================================    密码相关
+    ==============================================================*/
 
     /**
-     * 设置（重置）密码
+     * 找回密码
      *
      * @return
      */
     public static final String SET_PWD = BASE + "u/appConnector/updateRetrievePaWd.shtml";
+    /**
+     * 修改密码
+     *
+     * @return
+     */
+    public static final String MODIFY_PWD = BASE + "u/appConnector/updatePaWd.shtml";
+
+
     /**
      * 修改手机号
      *
@@ -69,7 +83,8 @@ public class AppHttpPath {
     public static final String UPDATE_PHONE = BASE + "u/appConnector/updateUserLoginAccount.shtml";
 
 
-    /*====================================================    首页   ==============================================================*/
+    /*====================================================    首页
+    ==============================================================*/
 
     /**
      * 地图菜单按钮
@@ -129,7 +144,7 @@ public class AppHttpPath {
     /**
      * 一键报警中接警员
      */
-    public static final String  POLICE_PICKER= BASE + "u/appConnector/selectAppReceivingToken.shtml";
+    public static final String POLICE_PICKER = BASE + "u/appConnector/selectAppReceivingToken.shtml";
     /**
      * 轮播资讯
      */
@@ -140,7 +155,8 @@ public class AppHttpPath {
     public static final String IM_USERS = BASE + "u/appConnector/selectPoliceUserAll.shtml";
 
 
-        /*====================================================    搜索和详情   ==============================================================*/
+    /*====================================================    搜索和详情
+    ==============================================================*/
 
     //搜索
     public static final String SEARCH = BASE + "u/appConnector/search.shtml";
@@ -152,7 +168,8 @@ public class AppHttpPath {
     public static final String UPLOAD_CAMERA_COVER = BASE + "u/appConnector/updateCameraCoverImg.shtml";
 
 
-    /*====================================================    天气   ==============================================================*/
+    /*====================================================    天气
+    ==============================================================*/
 
     //实时天气
     public static final String REALTIME_WEATHER = BASE + "u/appConnector/getRealTimeWeather.shtml";
@@ -167,7 +184,15 @@ public class AppHttpPath {
     //获取街道
     public static final String STREET = BASE + "u/appConnector/getStreet.shtml";
 
-    /*====================================================    个人中心   ==============================================================*/
+    /*====================================================    个人中心
+    ==============================================================*/
+
+    /**
+     * 绑定手机号
+     */
+    public static final String BIND_PHONE = BASE + "u/appConnector/bindingAccount.shtml";
+
+
     /**
      * 退出登录
      */
@@ -189,7 +214,10 @@ public class AppHttpPath {
      * 获取我的资讯收藏列表
      */
     public static final String USER_COLLECT_NEWS = BASE + "u/appConnector/selectUserCollectInformation.shtml";
-
+    /**
+     * 获取我的监控分享列表
+     */
+    public static final String USER_SHARE_CAMERA = BASE + "u/appConnector/selectUserShareCamera.shtml";
     /**
      * 获取我的资讯分享列表
      */
@@ -274,7 +302,8 @@ public class AppHttpPath {
      */
     public static final String UNREAD_COUNT = BASE + "u/appConnector/selectUserMessages.shtml";
 
-    /*====================================================    发布   ==============================================================*/
+    /*====================================================    发布
+    ==============================================================*/
 
 
     /**
@@ -323,7 +352,8 @@ public class AppHttpPath {
     public static final String GET_INSPECTION_INFO_FOR_SACN = BASE + "u/appConnector/selectClientByQrCode.shtml";
 
 
-        /*====================================================    消息类型   ==============================================================*/
+    /*====================================================    消息类型
+    ==============================================================*/
 
     //消息对应类型（1：案件通知；2：巡检通知；3：实名认证通知；4：户籍业务通知；5：新任务通知, 6：任务审核, 7：互联网调解通知）
     public static final int NOTICE_TYPE_CASE = 1;
@@ -336,7 +366,8 @@ public class AppHttpPath {
 
 
 
-        /*====================================================    业务办理  ==============================================================*/
+    /*====================================================    业务办理
+    ==============================================================*/
     /**
      * 户籍业务列表
      */
@@ -360,7 +391,8 @@ public class AppHttpPath {
 
 
 
-    /*====================================================    法律调解  ==============================================================*/
+    /*====================================================    法律调解
+    ==============================================================*/
 
     /**
      * 新增调解
@@ -391,7 +423,8 @@ public class AppHttpPath {
      */
     public static final String GET_UNIT_LIST = BASE + "u/appConnector/selectNetUnitList.shtml";
 
-    /*====================================================    兑换商城   ==============================================================*/
+    /*====================================================    兑换商城
+    ==============================================================*/
     /**
      * 获取商品列表
      */
@@ -410,11 +443,19 @@ public class AppHttpPath {
     public static final String MALL_EXCHANGE_GOODS = BASE + "u/appConnector/PlaceTheOrderAndSettlement.shtml";
 
 
-        /*====================================================    流媒体    ==============================================================*/
+    /*====================================================    流媒体
+    ==============================================================*/
     //摄像头拉流地址
-    public static final  String BASE_CAMERA_URL = "http://juntaikeji.net:8060";
-    //摄像头拉流地址
-    public static final String BASE_CAMERA_DNS = "rtmp://www.juntaikeji.net:1935";
+    public static final String BASE_CAMERA_URL = "http://juntaikeji.net:8060";
+    /**
+     * 获取视频播放地址
+     */
+    public static final String STREAM_OPE_ADDR = "http://61.156.157.132:35080/streamingMedia/u/app/getVideoOpenStream" +
+            ".shtml";
+    //    /**
+    //     * 测试接口
+    //     */
+    //    public static final String BASE = "http://61.156.157.132:35080/streamingMedia/u/app";
     /**
      * 硬盘录像机下面的摄像头列表
      */
@@ -453,8 +494,53 @@ public class AppHttpPath {
      * 添加（删除）用户收藏（摄像头）
      */
     public static final String ADD_OR_DELETE_COLLECT_CAMERA = BASE + "u/appConnector/userCameraCollect.shtml";
+    /**
+     * 添加摄像头分享记录
+     */
+    public static final String SHARE_TO_WCHAT = BASE + "u/appConnector/shareToWeChat.shtml";
 
-    /*====================================================   重点人员   ==============================================================*/
+
+    /*==============================================  流媒体厂家api  =============================================*/
+
+    /**
+     * 录像下载
+     */
+    public static final String RECORD_DOWNLOAD = BASE_CAMERA_URL + "/vss/playback/start?";
+    /**
+     * 操作设备
+     */
+    public static final String OPERATE_DEV = BASE_CAMERA_URL + "/vss/device/control?";
+    /**
+     * 获取当前在线数
+     */
+    public static final String GET_ONLINE_AMOUNT = BASE_CAMERA_URL + "/vss/getcallinfo?";
+    /**
+     * 停止当前的播放流
+     * http://www.jthw110.cn:8060/vss/stream/stop?sessionid=http-1295687-1603349681-834
+     */
+    public static final String STOP_STREAM = BASE_CAMERA_URL + "/vss/stream/stop?";
+
+    /*==============================================  流媒体云台预置位  =============================================*/
+    //    /**
+    //     * 添加预置位
+    //     */
+    //    public static final String ADD_PRE_POSITION = BASE + "/addVideoPTZCollect.shtml";
+    //
+    //
+    //    /**
+    //     * 删除预置位
+    //     */
+    //    public static final String DEL_PRE_POSITION = BASE + "/deleteVideoPTZCollect.shtml";
+    //
+    //
+    //    /**
+    //     * 查询预置位
+    //     */
+    //    public static final String GET_PRE_POSITIONS = BASE + "/getVideoPTZCollect.shtml";
+
+
+    /*====================================================   重点人员
+    ==============================================================*/
     /**
      * 重点人员详情
      */
@@ -472,7 +558,8 @@ public class AppHttpPath {
      */
     public static final String INTERVIEW_DETAIL = BASE + "u/appConnector/selectKeyPersonnelLogInfo.shtml";
 
-    /*====================================================   场所管理   ==============================================================*/
+    /*====================================================   场所管理
+    ==============================================================*/
     /**
      * 单位详情
      */
@@ -513,13 +600,16 @@ public class AppHttpPath {
     /**
      * 添加场所（单位）
      */
-    public static final String ADD_SITE_MANAGER = "http://61.156.157.132:30080/crm/u/appConnector/insertClientInfo.shtml";
+    public static final String ADD_SITE_MANAGER = "http://61.156.157.132:30080/crm/u/appConnector/insertClientInfo" +
+            ".shtml";
     /**
      * 修改场所（单位）
      */
-    public static final String UPDATE_SITE_MANAGER = "http://61.156.157.132:30080/crm/u/appConnector/updateClient.shtml";
+    public static final String UPDATE_SITE_MANAGER = "http://61.156.157.132:30080/crm/u/appConnector/updateClient" +
+            ".shtml";
 
-    /*====================================================    资讯模块   ==============================================================*/
+    /*====================================================    资讯模块
+    ==============================================================*/
 
     /**
      * 资讯列表
@@ -591,4 +681,28 @@ public class AppHttpPath {
      * 添加（删除）用户收藏（资讯）
      */
     public static final String ADD_OR_DELETE_COLLECT_NEWS = BASE + "u/appConnector/userInformationCollect.shtml";
+
+
+    /*====================================================    我的设备
+    ==============================================================*/
+    /**
+     * 获取我的设备列表
+     */
+    public static final String GET_USER_EQUIPMENT_LIST = BASE + "u/appConnector/selectUserEquipmentList.shtml";
+
+
+
+
+
+    /*==============================================  举报  =============================================*/
+
+    /**
+     * 获取举报类型
+     */
+    public static final String GET_REPORT_TYPES = BASE + "u/appConnector/selectReportType.shtml";
+    /**
+     * 举报（资讯文章）
+     */
+    public static final String REPORT = BASE + "u/appConnector/reportInformation.shtml";
+
 }

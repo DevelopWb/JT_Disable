@@ -1,6 +1,6 @@
 package com.juntai.disabled.federation.bean.stream;
 
-import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.juntai.wisdom.basecomponent.base.BaseResult;
 
 /**
  * @Author: tobato
@@ -54,6 +54,42 @@ public class StreamCameraDetailBean extends BaseResult {
         private int isCollect;//是否收藏, 0未收藏，其他为已收藏id
         private int likeCount;//点赞总数
         private int commentCount;//评论总数
+        private String ezOpen;//监控封面图片
+        private String shareUrl;//分享链接
+        private String banner;//摄像头广告
+        private int viewNumber;//访问量
+
+        public String getBanner() {
+            return banner == null ? "" : banner;
+        }
+
+        public void setBanner(String banner) {
+            this.banner = banner == null ? "" : banner;
+        }
+
+        public int getViewNumber() {
+            return viewNumber;
+        }
+
+        public void setViewNumber(int viewNumber) {
+            this.viewNumber = viewNumber;
+        }
+
+        public String getShareUrl() {
+            return shareUrl;
+        }
+
+        public void setShareUrl(String shareUrl) {
+            this.shareUrl = shareUrl;
+        }
+
+        public String getEzOpen() {
+            return ezOpen;
+        }
+
+        public void setEzOpen(String ezOpen) {
+            this.ezOpen = ezOpen;
+        }
 
         public int getId() {
             return id;

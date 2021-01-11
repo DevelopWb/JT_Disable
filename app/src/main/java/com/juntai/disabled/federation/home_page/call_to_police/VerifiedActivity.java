@@ -20,7 +20,6 @@ import com.juntai.disabled.federation.bean.VerifiedInfoBean;
 import com.juntai.disabled.federation.home_page.HomePageContract;
 import com.juntai.disabled.federation.home_page.HomePagePresent;
 import com.juntai.disabled.federation.utils.AppUtils;
-import com.juntai.disabled.federation.utils.PubUtil;
 import com.juntai.disabled.federation.utils.StringTools;
 import com.juntai.disabled.video.img.ImageZoomActivity;
 import com.orhanobut.hawk.Hawk;

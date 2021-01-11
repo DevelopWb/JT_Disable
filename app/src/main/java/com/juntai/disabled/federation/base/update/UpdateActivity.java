@@ -16,6 +16,7 @@ import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.GsonTools;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.bdmap.BaseRequestLocationActivity;
 import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
@@ -26,7 +27,7 @@ import com.juntai.disabled.federation.utils.AppUtils;
  * Created by Ma
  * on 2019/12/24
  */
-public abstract class UpdateActivity<P extends BasePresenter> extends BaseMvpActivity<P> {
+public abstract class UpdateActivity<P extends BasePresenter> extends BaseRequestLocationActivity<P> {
 
     boolean isForceUpdate = false;
     String version;

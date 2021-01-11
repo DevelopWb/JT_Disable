@@ -90,6 +90,7 @@ dependencies {
     implementation project(':module_Map')
     implementation project(':module_IM')
     implementation project(':banner')
+    implementation project(path: ':ruler')
     implementation project(':module_Video')
     implementation project(':pushpermission')
     implementation 'com.sunfusheng:MarqueeView:1.4.1'//跑马灯
