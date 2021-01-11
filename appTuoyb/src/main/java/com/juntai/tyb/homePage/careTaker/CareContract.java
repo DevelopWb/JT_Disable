@@ -1,7 +1,7 @@
 package com.juntai.tyb.homePage.careTaker;
 
 
-import com.juntai.disabled.basecomponent.mvp.BaseIView;
+import com.juntai.disabled.basecomponent.mvp.IView;
 
 import okhttp3.RequestBody;
 
@@ -25,7 +25,7 @@ public interface CareContract {
     String COMMIT_RECORED = "COMMIT_RECORED";//提交记录
     String GET_SERVICE_TYPE = "getservicetype";//获取服务类型
 
-    interface ICareView extends BaseIView {
+    interface ICareView extends IView {
     }
 
     interface ICarePresent {

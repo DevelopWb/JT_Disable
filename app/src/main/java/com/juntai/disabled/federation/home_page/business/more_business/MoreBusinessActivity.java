@@ -1,5 +1,6 @@
 package com.juntai.disabled.federation.home_page.business.more_business;
 
+
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.LinearLayout;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
+import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.bean.business.BusinessListBean;
@@ -55,11 +57,11 @@ public class MoreBusinessActivity extends BaseMvpActivity<BusinessPresent> imple
         addDivider(true, mRecyclerview, false, true);
         mSmartrefreshlayout.setOnRefreshListener(refreshLayout -> {
             currentPage = 1;
-            mPresenter.businessList(null, limit, currentPage, "");
+            mPresenter.businessList(MyApp.getAccount(),MyApp.getUserToken(),null, limit, currentPage, "");
         });
         mSmartrefreshlayout.setOnLoadMoreListener(refreshLayout -> {
             currentPage++;
-            mPresenter.businessList(null, limit, currentPage, "");
+            mPresenter.businessList(MyApp.getAccount(),MyApp.getUserToken(),null, limit, currentPage, "");
         });
         allAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -84,7 +86,7 @@ public class MoreBusinessActivity extends BaseMvpActivity<BusinessPresent> imple
     @Override
     public void initData() {
         currentPage = 1;
-        mPresenter.businessList(null, limit, currentPage, "");
+        mPresenter.businessList(MyApp.getAccount(),MyApp.getUserToken(),null, limit, currentPage, "");
         SmartRefreshLayout.LayoutParams parm = new SmartRefreshLayout.LayoutParams(SmartRefreshLayout.LayoutParams.MATCH_PARENT, SmartRefreshLayout.LayoutParams.MATCH_PARENT);
         parm.setMargins(DisplayUtil.dp2px(mContext, 15), DisplayUtil.dp2px(mContext, 10), DisplayUtil.dp2px(mContext, 15), DisplayUtil.dp2px(mContext, 10));
         mRecyclerview.setLayoutParams(parm);

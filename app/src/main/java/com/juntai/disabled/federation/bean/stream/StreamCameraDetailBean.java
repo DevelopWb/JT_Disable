@@ -1,6 +1,7 @@
 package com.juntai.disabled.federation.bean.stream;
 
-import com.juntai.wisdom.basecomponent.base.BaseResult;
+
+import com.juntai.disabled.basecomponent.base.BaseResult;
 
 /**
  * @Author: tobato

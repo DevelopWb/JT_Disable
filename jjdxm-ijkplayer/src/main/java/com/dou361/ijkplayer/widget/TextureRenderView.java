@@ -35,9 +35,10 @@ import android.view.ViewConfiguration;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import com.juntai.wisdom.basecomponent.utils.EventManager;
-import com.juntai.wisdom.basecomponent.utils.PubUtil;
-import com.juntai.wisdom.basecomponent.utils.ScreenUtils;
+
+import com.juntai.disabled.basecomponent.utils.EventManager;
+import com.juntai.disabled.basecomponent.utils.PubUtil;
+import com.juntai.disabled.basecomponent.utils.ScreenUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.Map;
@@ -458,7 +459,7 @@ public class TextureRenderView extends TextureView implements IRenderView {
         @Override
         public boolean onSingleTapUp(MotionEvent e) {
             if (MotionEvent.ACTION_UP==e.getAction()) {
-                EventManager.getLibraryEvent().post(PubUtil.ONE_CLICK_EVENT);
+                EventManager.getEventBus().post(PubUtil.ONE_CLICK_EVENT);
             }
             return true;
         }

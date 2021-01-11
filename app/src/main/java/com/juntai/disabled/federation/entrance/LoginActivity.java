@@ -130,31 +130,31 @@ public class LoginActivity extends BaseMvpActivity<EntrancePresent> implements E
         switch (tag) {
             //登录成功
             case EntranceContract.LOGIN_TAG:
-                UserBean loginBean = (UserBean) o;
-                if (loginBean != null) {
-                    if (loginBean.status == 200) {
-                        ToastUtils.success(mContext, "登录成功");
-                        MyApp.isReLoadWarn = true;
-                        Hawk.put(AppUtils.SP_KEY_USER,loginBean);
-                        Hawk.put(AppUtils.SP_KEY_TOKEN,loginBean.getData().getToken());
-                        Hawk.put(AppUtils.SP_RONGYUN_TOKEN,loginBean.getData().getrOngYunToken());
-                        startActivity(new Intent(mContext, MainActivity.class));
-                        onBackPressed();
-//                        finish();
-                        LogUtil.d("token=" + MyApp.getUserToken());
-                    } else if (loginBean.status == 1301) {
-                        ToastUtils.error(mContext, loginBean.message);
-                        startActivity(new Intent(mContext, BindingPhoneActivity.class)
-                                .putExtra(BindingPhoneActivity.QQID, QQId)
-                                .putExtra(BindingPhoneActivity.QQNAME, QQName)
-                                .putExtra(BindingPhoneActivity.WECHATID, WeChatId)
-                                .putExtra(BindingPhoneActivity.WECHATNAME, WeChatName));
-                    } else {
-                        ToastUtils.error(mContext, loginBean.message == null? "服务器开小差了" : loginBean.message);
-                    }
-                }else {
-                    ToastUtils.error(mContext, "服务器开小差了");
-                }
+//                UserBean loginBean = (UserBean) o;
+//                if (loginBean != null) {
+//                    if (loginBean.status == 200) {
+//                        ToastUtils.success(mContext, "登录成功");
+//                        MyApp.isReLoadWarn = true;
+//                        Hawk.put(AppUtils.SP_KEY_USER,loginBean);
+//                        Hawk.put(AppUtils.SP_KEY_TOKEN,loginBean.getData().getToken());
+//                        Hawk.put(AppUtils.SP_RONGYUN_TOKEN,loginBean.getData().getrOngYunToken());
+//                        startActivity(new Intent(mContext, MainActivity.class));
+//                        onBackPressed();
+////                        finish();
+//                        LogUtil.d("token=" + MyApp.getUserToken());
+//                    } else if (loginBean.status == 1301) {
+//                        ToastUtils.error(mContext, loginBean.message);
+//                        startActivity(new Intent(mContext, BindingPhoneActivity.class)
+//                                .putExtra(BindingPhoneActivity.QQID, QQId)
+//                                .putExtra(BindingPhoneActivity.QQNAME, QQName)
+//                                .putExtra(BindingPhoneActivity.WECHATID, WeChatId)
+//                                .putExtra(BindingPhoneActivity.WECHATNAME, WeChatName));
+//                    } else {
+//                        ToastUtils.error(mContext, loginBean.message == null? "服务器开小差了" : loginBean.message);
+//                    }
+//                }else {
+//                    ToastUtils.error(mContext, "服务器开小差了");
+//                }
                 break;
             default:
                 break;

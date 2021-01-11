@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
@@ -17,6 +18,9 @@ import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.CollectListBean;
 import com.juntai.disabled.federation.home_page.camera.ijkplayer.PlayerLiveActivity;
 import com.juntai.disabled.federation.mine.MyCenterContract;
+import com.juntai.disabled.federation.mine.mycollect.MyCollectActivity;
+import com.juntai.disabled.federation.mine.mycollect.MyCollectAdapter;
+import com.juntai.disabled.federation.mine.mycollect.MyCollectPresent;
 import com.juntai.disabled.federation.utils.StringTools;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -99,7 +103,7 @@ public class MyCollectFragment extends BaseMvpFragment<MyCollectPresent> impleme
                     startActivity(new Intent(mContext.getApplicationContext(), PlayerLiveActivity.class)
                             .putExtra(PlayerLiveActivity.STREAM_CAMERA_ID, adapter.getData().get(position).getId())
                             .putExtra(PlayerLiveActivity.STREAM_CAMERA_NUM, adapter.getItem(position).getNumber())
-                            .putExtra(PlayerLiveActivity.STREAM_CAMERA_PIC, adapter.getItem(position).getUrl()));
+                            .putExtra(PlayerLiveActivity.STREAM_CAMERA_THUM_URL, adapter.getItem(position).getUrl()));
                 }else {
                     ToastUtils.warning(mContext, "数据不存在");
                 }
@@ -261,7 +265,14 @@ public class MyCollectFragment extends BaseMvpFragment<MyCollectPresent> impleme
             }
         } else {
             //我的分享
-            mPresenter.getShareListNews(page, pagesize, MyCenterContract.LOAD_COLLECT_LIST, showProgress);
+            switch (type){
+                case 0:
+                    mPresenter.getShareListCamera(page, pagesize, MyCenterContract.LOAD_COLLECT_LIST, showProgress);
+                    break;
+                case 8:
+                    mPresenter.getShareListNews(page, pagesize, MyCenterContract.LOAD_COLLECT_LIST, showProgress);
+                    break;
+            }
         }
     }
 
@@ -281,7 +292,14 @@ public class MyCollectFragment extends BaseMvpFragment<MyCollectPresent> impleme
             }
         } else {
             //我的分享
-            mPresenter.deleteShareList(ids, MyCenterContract.DELETE_COLLECT_DATA);
+            switch (type){
+                case 0:
+                    mPresenter.deleteShareListCamera(ids, MyCenterContract.DELETE_COLLECT_DATA);
+                    break;
+                case 8:
+                    mPresenter.deleteShareListNews(ids, MyCenterContract.DELETE_COLLECT_DATA);
+                    break;
+            }
         }
     }
 }

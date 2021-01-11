@@ -1,16 +1,20 @@
 package com.juntai.disabled.federation.entrance;
 
+
 import android.annotation.SuppressLint;
 
+import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
-import com.juntai.disabled.basecomponent.mvp.BaseIView;
+import com.juntai.disabled.basecomponent.utils.PubUtil;
+import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.disabled.federation.AppNetModule;
 import com.juntai.disabled.federation.bean.UserBean;
-import com.juntai.disabled.federation.utils.RxScheduler;
 
 import io.reactivex.functions.Consumer;
+import okhttp3.RequestBody;
 
 /**
  * @Author: tobato
@@ -20,8 +24,8 @@ import io.reactivex.functions.Consumer;
  * @UpdateDate: 2020/3/5 15:55
  */
 public class EntrancePresent extends BasePresenter<IModel, EntranceContract.IEntranceView> implements EntranceContract.IEntrancePresent {
-    private BaseIView iView;
-    public void  setCallBack(BaseIView iView) {
+    private IView iView;
+    public void  setCallBack(IView iView) {
         this.iView = iView;
     }
 
@@ -34,7 +38,7 @@ public class EntrancePresent extends BasePresenter<IModel, EntranceContract.IEnt
     @SuppressLint("CheckResult")
     @Override
     public void login(String account, String password, String weChatId, String qqId,String tag) {
-        BaseIView viewCallBack = null;
+        IView viewCallBack = null;
         if (getView()==null) {
             if (iView != null) {
                 viewCallBack = iView;
@@ -44,7 +48,7 @@ public class EntrancePresent extends BasePresenter<IModel, EntranceContract.IEnt
             viewCallBack = getView();
             viewCallBack.showLoading();
         }
-        BaseIView finalViewCallBack = viewCallBack;
+        IView finalViewCallBack = viewCallBack;
         AppNetModule
                 .createrRetrofit()
                 .login(account, password, weChatId, qqId, 1)
@@ -62,16 +66,17 @@ public class EntrancePresent extends BasePresenter<IModel, EntranceContract.IEnt
                     public void accept(Throwable throwable) throws Exception {
                         if (finalViewCallBack != null) {
                             finalViewCallBack.hideLoading();
-                            finalViewCallBack.onError(tag, "服务器开小差了");
+                            finalViewCallBack.onError(tag, PubUtil.ERROR_NOTICE);
                         }
                     }
                 });
     }
 
     @SuppressLint("CheckResult")
-    @Override
-    public void bindQQOrWeChat(String account, String weChatId, String weChatName, String qqId, String qqName, String tag) {
-        BaseIView viewCallBack = null;
+    public void bindQQOrWeChat(String account, String token,String weChatId, String weChatName, String qqId,
+                               String qqName,
+                               String tag) {
+        IView viewCallBack = null;
         if (getView()==null) {
             if (iView != null) {
                 viewCallBack = iView;
@@ -81,9 +86,42 @@ public class EntrancePresent extends BasePresenter<IModel, EntranceContract.IEnt
             viewCallBack = getView();
             viewCallBack.showLoading();
         }
-        BaseIView finalViewCallBack = viewCallBack;
+        IView finalViewCallBack = viewCallBack;
         AppNetModule.createrRetrofit()
-                .bindQQAndWeChat(account, 1, weChatId, weChatName, qqId, qqName)
+                .bindQQAndWeChat(account, token,1, weChatId, weChatName, qqId, qqName)
+                .compose(RxScheduler.ObsIoMain(viewCallBack))
+                .subscribe(new BaseObserver<BaseResult>(viewCallBack) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (finalViewCallBack != null) {
+                            finalViewCallBack.hideLoading();
+                            finalViewCallBack.onSuccess(tag, o);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    public void bindPhoneNum(RequestBody requestBody, String tag) {
+        IView viewCallBack = null;
+        if (getView()==null) {
+            if (iView != null) {
+                viewCallBack = iView;
+                viewCallBack.showLoading();
+            }
+        }else{
+            viewCallBack = getView();
+            viewCallBack.showLoading();
+        }
+        IView finalViewCallBack = viewCallBack;
+        AppNetModule.createrRetrofit()
+                .bindPhoneNum(requestBody)
                 .compose(RxScheduler.ObsIoMain(viewCallBack))
                 .subscribe(new Consumer<BaseResult>() {
                     @Override
@@ -98,9 +136,34 @@ public class EntrancePresent extends BasePresenter<IModel, EntranceContract.IEnt
                     public void accept(Throwable throwable) throws Exception {
                         if (finalViewCallBack != null) {
                             finalViewCallBack.hideLoading();
-                            finalViewCallBack.onError(tag, "服务器开小差了");
+                            finalViewCallBack.onError(tag, PubUtil.ERROR_NOTICE);
                         }
                     }
                 });
     }
+
+
+    public void regist(RequestBody body,String tag) {
+        AppNetModule.createrRetrofit()
+                .regist(body)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+
+
+
 }

@@ -57,14 +57,14 @@ public class UserInfoManager {
         }
     }
 
-//    /**
-//     * 获取用户信息
-//     *
-//     * @return
-//     */
-//    public static String getPhoneNumber() {
-//        return getUser() != null && getUser().getData() != null ? getUser().getData().get() : "";
-//    }
+    /**
+     * 获取用户信息
+     *
+     * @return
+     */
+    public static String getPhoneNumber() {
+        return getUser() != null && getUser().getData() != null ? getUser().getData().getPhoneNumber() : "";
+    }
     /**
      * 获取账户
      *

@@ -1,7 +1,7 @@
 package com.juntai.disabled.federation.home_page.business;
 
 import com.juntai.disabled.basecomponent.mvp.IPresenter;
-import com.juntai.disabled.basecomponent.mvp.BaseIView;
+import com.juntai.disabled.basecomponent.mvp.IView;
 
 import okhttp3.RequestBody;
 
@@ -14,12 +14,12 @@ public interface BusinessContract {
     String CREAT_BUSINESS = "creat_business";//创建业务
 
 
-    interface IBusinessView extends BaseIView {
+    interface IBusinessView extends IView {
 
     }
 
     interface IBusinessPresent extends IPresenter<IBusinessView> {
-        void businessList(String keyWord, int pageSize, int currentPage, String tag);
+        void businessList(String account,String token, String keyWord, int pageSize, int currentPage, String tag);
 
         void businessDataNeeded(int declareId, String tag);
 

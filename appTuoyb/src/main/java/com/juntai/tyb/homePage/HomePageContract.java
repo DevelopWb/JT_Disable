@@ -1,7 +1,7 @@
 package com.juntai.tyb.homePage;
 
 
-import com.juntai.disabled.basecomponent.mvp.BaseIView;
+import com.juntai.disabled.basecomponent.mvp.IView;
 
 import okhttp3.RequestBody;
 
@@ -37,7 +37,7 @@ public interface HomePageContract {
     String CARE_RECORD_POSITIONS = "CARE_RECORD_POSITIONS";//托养分布
     String GET_STREAM_CAMERAS = "get_stream_camera";//获取所有的流摄像头
 
-    interface IHomePageView extends BaseIView {
+    interface IHomePageView extends IView {
     }
 
     interface IHomePagePresent {

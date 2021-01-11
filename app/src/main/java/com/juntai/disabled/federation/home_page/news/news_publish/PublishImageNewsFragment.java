@@ -23,7 +23,6 @@ import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.basecomponent.utils.ActionConfig;
 import com.juntai.disabled.basecomponent.utils.EventManager;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
-import com.juntai.disabled.basecomponent.utils.Logger;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.bdmap.act.LocationSeltionActivity;
 import com.juntai.disabled.bdmap.service.LocateAndUpload;
@@ -44,7 +43,11 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
+import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import cn.qzb.richeditor.RE;
 import cn.qzb.richeditor.RichEditor;
@@ -88,6 +91,15 @@ public class PublishImageNewsFragment extends BaseMvpFragment<NewsPresent> imple
     private ImageView mActionAlignRight;
     private ImageView mActionUndo;
     private ImageView mActionRedo;
+    /**
+     * 预览
+     */
+    private TextView mYulanBtn;
+    /**
+     * 发布
+     */
+    private TextView mFabuBtn;
+    private LinearLayout mOperationLayout;
 
     @Override
     protected NewsPresent createPresenter() {
@@ -123,7 +135,13 @@ public class PublishImageNewsFragment extends BaseMvpFragment<NewsPresent> imple
         mActionRedo = getView(R.id.action_redo);
         mActionRedo.setOnClickListener(this);
         mBottom = getView(R.id.bottom);
-//        mEditor = getView(R.id.editor);
+        mYulanBtn = getView(R.id.yulan_btn);
+        mYulanBtn.setOnClickListener(this);
+        mFabuBtn = getView(R.id.fabu_btn);
+        mFabuBtn.setOnClickListener(this);
+        mOperationLayout = getView(R.id.operation_layout);
+        mOperationLayout.setVisibility(View.VISIBLE);
+
         mWebContainer = getView(R.id.web_container);
         mEditor = new RichEditor(mContext.getApplicationContext());
         mWebContainer.addView(mEditor);
@@ -132,22 +150,21 @@ public class PublishImageNewsFragment extends BaseMvpFragment<NewsPresent> imple
         re.setPlaceHolder(getString(R.string.news_publish_article_hint));
         re.setPadding(20, 20, 20, 20);
 
-        mEditor.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    mBottom.setVisibility(View.VISIBLE);
-                } else {
-                    mBottom.setVisibility(View.GONE);
-                }
-            }
-        });
+        //        mEditor.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        //            @Override
+        //            public void onFocusChange(View v, boolean hasFocus) {
+        //                if (hasFocus) {
+        //                    mBottom.setVisibility(View.VISIBLE);
+        //                } else {
+        //                    mBottom.setVisibility(View.GONE);
+        //                }
+        //            }
+        //        });
     }
 
     @Override
     protected void initData() {
         informationId = DateUtil.getCurrentTime("yyyyMMddHHmmss");
-        Logger.e("informationId", informationId);
         changeIconColor(mActionBold, iconDefaultColor);
         changeIconColor(mActionItalic, iconDefaultColor);
         changeIconColor(mActionUnderline, iconDefaultColor);
@@ -155,7 +172,7 @@ public class PublishImageNewsFragment extends BaseMvpFragment<NewsPresent> imple
         changeIconColor(mActionAlignCenter, iconDefaultColor);
         changeIconColor(mActionAlignRight, iconDefaultColor);
         getBaseActivity().initViewRightDrawable(mAddressTv, R.mipmap.ic_push_location, 23, 23);
-//        re.moveToEndEdit();
+        //        re.moveToEndEdit();
         setDefaultData();
     }
 
@@ -242,8 +259,9 @@ public class PublishImageNewsFragment extends BaseMvpFragment<NewsPresent> imple
                 }
                 break;
             case NewsContract.PUBLISH_IMAGE_TEXT_NEWS:
-                ToastUtils.success(mContext, getString(R.string.publish_success_tag));
-                getActivity().finish();
+                ToastUtils.success(mContext, (String) o);
+                EventManager.sendStringMsg(ActionConfig.UPDATE_NEWS_LIST);
+                Objects.requireNonNull(getActivity()).finish();
                 break;
         }
     }
@@ -292,7 +310,7 @@ public class PublishImageNewsFragment extends BaseMvpFragment<NewsPresent> imple
                 }
                 break;
             case R.id.action_align_left:
-                if (re.getTextAlign() == 1){
+                if (re.getTextAlign() == 1) {
                     return;
                 }
                 re.setAlignLeft();
@@ -301,7 +319,7 @@ public class PublishImageNewsFragment extends BaseMvpFragment<NewsPresent> imple
                 changeIconColor(mActionAlignRight, iconDefaultColor);
                 break;
             case R.id.action_align_center:
-                if (re.getTextAlign() == 2){
+                if (re.getTextAlign() == 2) {
                     return;
                 }
                 re.setAlignCenter();
@@ -310,7 +328,7 @@ public class PublishImageNewsFragment extends BaseMvpFragment<NewsPresent> imple
                 changeIconColor(mActionAlignRight, iconDefaultColor);
                 break;
             case R.id.action_align_right:
-                if (re.getTextAlign() == 3){
+                if (re.getTextAlign() == 3) {
                     return;
                 }
                 re.setAlignRight();
@@ -324,13 +342,20 @@ public class PublishImageNewsFragment extends BaseMvpFragment<NewsPresent> imple
             case R.id.action_redo:
                 re.redo();
                 break;
+            case R.id.yulan_btn:
+                submitData(1);
+                break;
+            case R.id.fabu_btn:
+                submitData(0);
+                break;
         }
     }
 
     /**
      * 发布
+     * @param type 1预览，0发布
      */
-    public void submitData() {
+    public void submitData(int type) {
         if (MyApp.isFastClick()) {
             ToastUtils.warning(mContext, "点击过于频繁");
             return;
@@ -347,32 +372,44 @@ public class PublishImageNewsFragment extends BaseMvpFragment<NewsPresent> imple
             ToastUtils.warning(mContext, "请完成你的创作");
             return;
         }
-        //发布
-        MultipartBody.Builder builder = mPresenter.getPublishMultipartBody();
-        builder.addFormDataPart("userid", String.valueOf(MyApp.getUid()))
-                .addFormDataPart("longitude", String.valueOf(locLon))
-                .addFormDataPart("latitude", String.valueOf(locLat))
-                .addFormDataPart("typeId", "2")
-                .addFormDataPart("informationId", informationId)
-                .addFormDataPart("title", getBaseActivity().getTextViewValue(mTitleEt))
-                .addFormDataPart("content", re.getHtml().replaceAll("\n", "</br>"))
-                .addFormDataPart("address", locAddress);
-        mPresenter.publishNews(NewsContract.PUBLISH_IMAGE_TEXT_NEWS, builder.build());
+        if (type == 0){
+            //        //发布
+            MultipartBody.Builder builder = mPresenter.getPublishMultipartBody();
+            builder.addFormDataPart("userid", String.valueOf(MyApp.getUid()))
+                    .addFormDataPart("longitude", String.valueOf(locLon))
+                    .addFormDataPart("latitude", String.valueOf(locLat))
+                    .addFormDataPart("typeId", "2")
+                    .addFormDataPart("informationId", informationId)
+                    .addFormDataPart("title", getBaseActivity().getTextViewValue(mTitleEt))
+                    .addFormDataPart("content", re.getHtml().replaceAll("\n", "</br>"))
+                    .addFormDataPart("address", locAddress);
+            mPresenter.publishNews(NewsContract.PUBLISH_IMAGE_TEXT_NEWS, builder.build());
+        }else {
+            Map<String, String> bodyMap = new HashMap<>();
+            bodyMap.put("longitude", String.valueOf(locLon));
+            bodyMap.put("latitude", String.valueOf(locLat));
+            bodyMap.put("typeId", "2");
+            bodyMap.put("informationId", informationId);
+            bodyMap.put("title", getBaseActivity().getTextViewValue(mTitleEt));
+            bodyMap.put("content", re.getHtml().replaceAll("\n", "</br>"));
+            bodyMap.put("address", locAddress);
+//            startActivity(new Intent(mContext, ImageTextPreActivity.class).putExtra(ImageTextPreActivity.NEWS_PART_BODY, (Serializable) bodyMap));
+        }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PublishContract.REQUEST_CODE_CHOOSE_PLACE && resultCode == getActivity().RESULT_OK) {
-            //地址选择
-            locLat = data.getDoubleExtra("lat", 0.0);
-            locLon = data.getDoubleExtra("lng", 0.0);
-            locAddress = data.getStringExtra("address");
-            mAddressTv.setText(locAddress);
-            LogUtil.d("fffffffff" + locLat + "   " + locLon + "    " + locAddress);
-        } else if (requestCode == NewsContract.REQUEST_CODE_CHOOSE && resultCode == getActivity().RESULT_OK) {
-            mPresenter.imageCompress(Matisse.obtainPathResult(data), (BaseMvpFragment) this);
-        }
+//        if (requestCode == PublishContract.REQUEST_CODE_CHOOSE_PLACE && resultCode == getActivity().RESULT_OK) {
+//            //地址选择
+//            locLat = data.getDoubleExtra("lat", 0.0);
+//            locLon = data.getDoubleExtra("lng", 0.0);
+//            locAddress = data.getStringExtra("address");
+//            mAddressTv.setText(locAddress);
+//            LogUtil.d("fffffffff" + locLat + "   " + locLon + "    " + locAddress);
+//        } else if (requestCode == NewsContract.REQUEST_CODE_CHOOSE && resultCode == getActivity().RESULT_OK) {
+//            mPresenter.imageCompress(Matisse.obtainPathResult(data), (BaseMvpFragment) this);
+//        }
     }
 
     // 改变底部图标颜色
@@ -382,34 +419,31 @@ public class PublishImageNewsFragment extends BaseMvpFragment<NewsPresent> imple
 
     @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
     public void receiveMsg(String test) {
-        if (ActionConfig.PUBLISH_NEWS_PHOTO.equals(test)) {
-            //提交
-            submitData();
-        } else if (ActionConfig.PUBLISH_NEWS_SAVE_DRAFTS.equals(test)) {
-            if (StringTools.isStringValueOk(re.getHtml())) {
-                NewsDraftsBean newsDraftsBean = new NewsDraftsBean(informationId, re.getHtml(), getBaseActivity().getTextViewValue(mTitleEt));
-                new AlertDialog.Builder(mContext)
-                        .setCancelable(true)
-                        .setMessage("是否保存草稿")
-                        .setPositiveButton("保存", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Hawk.put(AppUtils.SP_NEWS_SAVE_DRAFTS + MyApp.getAccount(), newsDraftsBean);
-                                getActivity().finish();
-                            }
-                        })
-                        .setNegativeButton("不保存", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                //通知后台
-                                EventManager.getEventBus().post(newsDraftsBean);
-                                getActivity().finish();
-                            }
-                        }).show();
-            } else {
-                getActivity().finish();
-            }
-        }
+//        if (ActionConfig.PUBLISH_NEWS_SAVE_DRAFTS.equals(test)) {
+//            if (StringTools.isStringValueOk(re.getHtml())) {
+//                NewsDraftsBean newsDraftsBean = new NewsDraftsBean(informationId, re.getHtml(), getBaseActivity().getTextViewValue(mTitleEt));
+//                new AlertDialog.Builder(mContext)
+//                        .setCancelable(true)
+//                        .setMessage("是否保存草稿")
+//                        .setPositiveButton("保存", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                Hawk.put(AppUtils.SP_NEWS_SAVE_DRAFTS + MyApp.getAccount(), newsDraftsBean);
+//                                getActivity().finish();
+//                            }
+//                        })
+//                        .setNegativeButton("不保存", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                //通知后台
+//                                EventManager.getLibraryEvent().post(newsDraftsBean);
+//                                getActivity().finish();
+//                            }
+//                        }).show();
+//            } else {
+//                getActivity().finish();
+//            }
+//        }
     }
 
     @Override

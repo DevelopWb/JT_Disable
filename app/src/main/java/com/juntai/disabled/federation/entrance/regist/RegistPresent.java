@@ -3,9 +3,10 @@ package com.juntai.disabled.federation.entrance.regist;
 
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
-import com.juntai.disabled.basecomponent.mvp.BaseIView;
+import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.disabled.federation.AppNetModule;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.bean.PoliceBranchBean;
@@ -13,7 +14,6 @@ import com.juntai.disabled.federation.bean.PolicePositionBean;
 import com.juntai.disabled.federation.bean.weather.PoliceGriddingBean;
 import com.juntai.disabled.federation.entrance.sendcode.ISendCode;
 import com.juntai.disabled.federation.entrance.sendcode.SendCodeModel;
-import com.juntai.disabled.federation.utils.RxScheduler;
 
 import cn.smssdk.SMSSDK;
 import okhttp3.FormBody;
@@ -29,14 +29,14 @@ import okhttp3.RequestBody;
 public class RegistPresent extends BasePresenter<IModel, RegistContract.IRegistView> implements RegistContract.IRegistPresent, ISendCode.IUpdateView {
 
     private SendCodeModel sendCodeModel;
-    private BaseIView iView;
+    private IView iView;
 
     @Override
     protected IModel createModel() {
         return null;
     }
 
-    public void setCallBack(BaseIView iView) {
+    public void setCallBack(IView iView) {
         this.iView = iView;
     }
 
@@ -112,7 +112,7 @@ public class RegistPresent extends BasePresenter<IModel, RegistContract.IRegistV
 
     @Override
     public void getPoliceGridding(int departmentId, String tag) {
-        BaseIView viewCallBack = null;
+        IView viewCallBack = null;
         if (getView() == null) {
             if (iView != null) {
                 viewCallBack = iView;
@@ -120,7 +120,7 @@ public class RegistPresent extends BasePresenter<IModel, RegistContract.IRegistV
         } else {
             viewCallBack = getView();
         }
-        BaseIView finalViewCallBack = viewCallBack;
+        IView finalViewCallBack = viewCallBack;
         AppNetModule.createrRetrofit()
                 .getPoliceGridding(getBaseFormBodyBuilder().add("departmentId", departmentId+"").build())
                 .compose(RxScheduler.ObsIoMain(viewCallBack))
@@ -163,7 +163,7 @@ public class RegistPresent extends BasePresenter<IModel, RegistContract.IRegistV
     }
 
     @Override
-    public void setPwd(String tag, String account, String password) {
+    public void retrievePwd(String tag, String account, String password) {
         AppNetModule.createrRetrofit()
                 .setPwd(account, password)
                 .compose(RxScheduler.ObsIoMain(getView()))
@@ -183,11 +183,32 @@ public class RegistPresent extends BasePresenter<IModel, RegistContract.IRegistV
                     }
                 });
     }
+    @Override
+    public void modifyPwd(RequestBody requestBody,String tag) {
+        AppNetModule.createrRetrofit()
+                .modifyPwd(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
 
     @Override
-    public void updateAccount(String tag, String newAccount, String password, String oldPassword) {
+    public void updateAccount(String tag, String phoneNumber, String newAccount, String password, String oldPassword) {
         AppNetModule.createrRetrofit()
-                .updatePhone(MyApp.getAccount(), MyApp.getUserToken(),
+                .updatePhone(MyApp.getAccount(), MyApp.getUserToken(),phoneNumber,
                         MyApp.getUid(), newAccount, password, oldPassword)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {
@@ -273,5 +294,26 @@ public class RegistPresent extends BasePresenter<IModel, RegistContract.IRegistV
                 .add("account", MyApp.getAccount())
                 .add("token", MyApp.getUserToken())
                 .add("userId", MyApp.getUid()+"");
+    }
+
+    public void userAuth(String tag, RequestBody requestBody) {
+        AppNetModule.createrRetrofit()
+                .userAuth(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o.message);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
     }
 }

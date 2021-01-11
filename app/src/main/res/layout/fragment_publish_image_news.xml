@@ -57,22 +57,12 @@
                 android:textColor="@color/black"/>
         </LinearLayout>
     </LinearLayout>
-    <FrameLayout
-        android:id="@+id/web_container"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        tools:ignore="WebViewLayout"
-        android:layout_marginTop="10dp"
-        android:padding="1px"
-        android:background="@drawable/bg_news_publish_rectangle">
-    </FrameLayout>
-
     <LinearLayout
         android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
         <HorizontalScrollView
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -151,5 +141,44 @@
             android:padding="8dp"
             android:src="@mipmap/redo" />
 
+    </LinearLayout>
+    <FrameLayout
+        android:id="@+id/web_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:ignore="WebViewLayout"
+        android:padding="1px"
+        android:background="@drawable/bg_news_publish_rectangle"
+        android:layout_marginBottom="5dp">
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/operation_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:visibility="visible"
+        android:paddingBottom="5dp">
+        <TextView
+            android:id="@+id/yulan_btn"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:text="预览"
+            android:textSize="15dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_btn_blue_round"/>
+        <TextView
+            android:id="@+id/fabu_btn"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="40dp"
+            android:text="发布"
+            android:textSize="15dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_btn_blue_round"/>
     </LinearLayout>
 </LinearLayout>

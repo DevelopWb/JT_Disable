@@ -9,7 +9,7 @@ import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
-import com.juntai.disabled.basecomponent.mvp.BaseIView;
+import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.BaseAppUtils;
 import com.juntai.disabled.basecomponent.utils.GlideEngine4;
 import com.juntai.disabled.federation.AppNetModule;
@@ -38,14 +38,14 @@ import okhttp3.RequestBody;
  */
 public class PublishPresent extends BasePresenter<IModel, PublishContract.IPublishView> implements PublishContract.IPublishPresent {
 
-    private BaseIView iView;
+    private IView iView;
 
     @Override
     protected IModel createModel() {
         return null;
     }
 
-    public void setCallBack(BaseIView iView) {
+    public void setCallBack(IView iView) {
         this.iView = iView;
     }
 
@@ -56,7 +56,7 @@ public class PublishPresent extends BasePresenter<IModel, PublishContract.IPubli
      */
     @SuppressLint("CheckResult")
     public void recordVideo(FragmentActivity activity) {
-        BaseIView viewCallBack = null;
+        IView viewCallBack = null;
         if (getView() == null) {
             if (iView != null) {
                 viewCallBack = iView;
@@ -94,7 +94,7 @@ public class PublishPresent extends BasePresenter<IModel, PublishContract.IPubli
     //选择视频
     @SuppressLint("CheckResult")
     public void videoChoose(FragmentActivity activity) {
-        BaseIView viewCallBack = null;
+        IView viewCallBack = null;
         if (getView() == null) {
             if (iView != null) {
                 viewCallBack = iView;

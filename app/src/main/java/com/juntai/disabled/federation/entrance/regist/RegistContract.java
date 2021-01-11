@@ -1,6 +1,7 @@
 package com.juntai.disabled.federation.entrance.regist;
 
-import com.juntai.disabled.basecomponent.mvp.BaseIView;
+
+import com.juntai.disabled.basecomponent.mvp.IView;
 
 import okhttp3.RequestBody;
 
@@ -17,11 +18,12 @@ public interface RegistContract {
     String GET_POLICE_AREA = "get_area";//辖区
     String GET_POLICE_GRIDDING = "get_gridding";//辖区
     String SET_PWD = "set_pwd";//设置密码
+    String MODIFY_PWD = "modify_pwd";//修改密码
     String SET_PHONE = "set_phone";//设置手机号
     String REGIST = "regist";//注册
     String ADD_USER_INFO = "add_user_info";//补充用户信息
 
-    interface IRegistView extends BaseIView {
+    interface IRegistView extends IView {
         /**
          * 接收到验证码后更改view得状态
          *
@@ -75,9 +77,13 @@ public interface RegistContract {
         void regist(String tag, RequestBody body);
 
         /**
-         * 设置密码
+         * 找回密码
          */
-        void setPwd(String tag, String account, String password);
+        void retrievePwd(String tag, String account, String password);
+        /**
+         * 修改密码
+         */
+        void modifyPwd(RequestBody requestBody,String tag);
 
         /**
          * 修改账号（手机号）
@@ -85,7 +91,7 @@ public interface RegistContract {
          * @param newAccount
          * @param password
          */
-        void updateAccount(String tag, String newAccount, String password, String oldPassword);
+        void updateAccount(String tag, String phoneNumber,String newAccount, String password, String oldPassword);
 
         /**
          * 补充用户信息

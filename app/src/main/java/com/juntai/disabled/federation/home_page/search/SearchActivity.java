@@ -102,7 +102,7 @@ public class SearchActivity extends BaseMvpActivity<HomePagePresent> implements 
                                 startActivity(new Intent(mContext.getApplicationContext(), PlayerLiveActivity.class)
                                         .putExtra(PlayerLiveActivity.STREAM_CAMERA_ID, databean.getId())
                                         .putExtra(PlayerLiveActivity.STREAM_CAMERA_NUM, databean.getImEi())
-                                        .putExtra(PlayerLiveActivity.STREAM_CAMERA_PIC, databean.getPicture()));
+                                        .putExtra(PlayerLiveActivity.STREAM_CAMERA_THUM_URL, databean.getPicture()));
                                 break;
                             case INFO_TYPE_POLICE:
                                 if (StringTools.isStringValueOk(databean.getAccount())) {

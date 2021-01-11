@@ -42,7 +42,6 @@ import com.baidu.mapapi.map.TextOptions;
 import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.DistanceUtil;
-import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
@@ -1102,7 +1101,7 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
                         startActivity(new Intent(mContext.getApplicationContext(), PlayerLiveActivity.class)
                                 .putExtra(PlayerLiveActivity.STREAM_CAMERA_ID, currentStreamCamera.getId())
                                 .putExtra(PlayerLiveActivity.STREAM_CAMERA_NUM, currentStreamCamera.getNumber())
-                                .putExtra(PlayerLiveActivity.STREAM_CAMERA_PIC, currentStreamCamera.getEzOpen()));
+                                .putExtra(PlayerLiveActivity.STREAM_CAMERA_THUM_URL, currentStreamCamera.getEzOpen()));
                     }
                 }
                 nowMarkerId = String.valueOf(item.streamCamera.getNumber());

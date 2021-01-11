@@ -1,7 +1,7 @@
 package com.juntai.tyb.mine;
 
 
-import com.juntai.disabled.basecomponent.mvp.BaseIView;
+import com.juntai.disabled.basecomponent.mvp.IView;
 
 import okhttp3.RequestBody;
 
@@ -50,7 +50,7 @@ public interface MineContract {
     String LOGOUT = "logout";//
     String SERVICE_RECORD = "SERVICE_RECORD";//
 
-    interface IMineView extends BaseIView {
+    interface IMineView extends IView {
 
     }
 

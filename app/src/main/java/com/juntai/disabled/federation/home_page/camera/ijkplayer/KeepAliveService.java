@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.federation.AppNetModule;
+import com.juntai.disabled.federation.bean.stream.OpenLiveBean;
 
 public class KeepAliveService extends Service {
 

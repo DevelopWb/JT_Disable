@@ -1,7 +1,7 @@
 package com.juntai.tyb.homePage.search;
 
 
-import com.juntai.disabled.basecomponent.mvp.BaseIView;
+import com.juntai.disabled.basecomponent.mvp.IView;
 
 import okhttp3.RequestBody;
 
@@ -17,7 +17,7 @@ public interface SearchContract {
     String  YEARS = "years";//所有的街道
     String  ALL_DISABLED_PEOPLE = "DISABLED_PEOPLE";//所有残疾人
     String  ALL_CARE_TAKER = "CARE_TAKER";//所有的托养人
-    interface ISearchView extends BaseIView {}
+    interface ISearchView extends IView {}
 
 
     interface ISearchPresent {

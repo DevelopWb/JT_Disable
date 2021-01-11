@@ -1,7 +1,7 @@
 package com.juntai.tyb.login;
 
 
-import com.juntai.disabled.basecomponent.mvp.BaseIView;
+import com.juntai.disabled.basecomponent.mvp.IView;
 
 /**
  * @Author: tobato
@@ -12,7 +12,7 @@ import com.juntai.disabled.basecomponent.mvp.BaseIView;
  */
 public interface LoginContract {
 
-    interface ILoginView extends BaseIView {
+    interface ILoginView extends IView {
     }
 
     interface ILoginPresent {

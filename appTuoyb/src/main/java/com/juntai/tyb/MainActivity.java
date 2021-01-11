@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.juntai.disabled.basecomponent.mvp.BaseIView;
+import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.bdmap.service.LocateAndUpload;
 import com.juntai.tyb.base.customView.CustomViewPager;
 import com.juntai.tyb.base.update.UpdateActivity;
@@ -32,7 +32,7 @@ import java.util.List;
  * @date 2020/7/29 16:55
  */
 public class MainActivity extends UpdateActivity<MainPresent> implements SearchFragment.OnSearchCallBack,
-        ViewPager.OnPageChangeListener, BaseIView {
+        ViewPager.OnPageChangeListener, IView {
     private long mExitTime;
     private CustomViewPager mMainViewpager;
     private TabLayout mMainTablayout;

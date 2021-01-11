@@ -152,19 +152,9 @@
             android:name="com.juntai.disabled.federation.home_page.camera.ijkplayer.PlayerLiveActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask" />
-        <activity
-            android:name="com.juntai.disabled.federation.home_page.camera.ijkplayer.CarLiveActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleTask"
-            android:theme="@style/edit_AlertDialog_style" />
 
         <service android:name="com.juntai.disabled.federation.home_page.camera.ijkplayer.KeepAliveService" />
 
-        <activity
-            android:name="com.juntai.disabled.federation.home_page.camera.ijkplayer.CarStreamCameraFullScreenActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="com.juntai.disabled.federation.home_page.site_manager.site_info.EmployeeDetailActivity"
             android:launchMode="singleTop" />

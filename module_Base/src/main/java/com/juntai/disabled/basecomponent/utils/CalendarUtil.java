@@ -9,12 +9,13 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * Created by ${王sir} on 2017/11/14.
- * application
+ * @Author: tobato
+ * @Description: 作用描述
+ * @CreateDate: 2020/4/3 15:58
+ * @UpdateUser: 更新者
+ * @UpdateDate: 2020/4/3 15:58
  */
-
 public class CalendarUtil {
-
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
 
     /**
@@ -39,7 +40,16 @@ public class CalendarUtil {
         Date date = calendar.getTime();
         return new SimpleDateFormat(format, Locale.CHINA).format(date);
     }
-
+    /**
+     *  时间类型转换
+     * @param beginDate
+     * @return
+     */
+    public static long formatTime(Date beginDate) {
+        java.util.Calendar calendarBegin = java.util.Calendar.getInstance();
+        calendarBegin.setTime(beginDate);
+        return calendarBegin.getTimeInMillis();
+    }
     /**
      * 获取当前的时间
      *
@@ -86,7 +96,7 @@ public class CalendarUtil {
         SimpleDateFormat sdf_a = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
         try {
             Date date = sdf.parse(time);
-            time_return = sdf_a.format(date) + " 00:00";
+            time_return = sdf_a.format(date) + " 00:00:00";
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -291,35 +301,6 @@ public class CalendarUtil {
 
     }
 
-    //    /**
-    //     * 比较两个时间串的大小
-    //     *
-    //     * @param startTime 开始时间
-    //     * @param endTime   结束时间
-    //     * @return
-    //     */
-    //    public static boolean compareTimes(String startTime, String endTime) {
-    //        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
-    //        try {
-    //            Long a = sdf.parse(startTime).getTime();
-    //            Long b = sdf.parse(endTime).getTime();
-    //            Long currentTime = sdf.parse(getCurrentTimeNormal("yyyy-MM-dd HH:mm:ss")).getTime();
-    //            if (a < currentTime) {//开始时间小于当前时间
-    //                return false;
-    //            } else {
-    //                if (a > b) {//开始时间大于结束时间
-    //                    return false;
-    //                } else {//开始时间小于结束时间
-    //                    return true;
-    //                }
-    //            }
-    //
-    //        } catch (ParseException e) {
-    //            e.printStackTrace();
-    //        }
-    //        return false;
-    //    }
-
     /**
      * 比较两个时间串的大小
      *
@@ -327,21 +308,45 @@ public class CalendarUtil {
      * @param endTime   结束时间
      * @return
      */
-    public static boolean compareTimes(String sdfStr, String startTime, String endTime) {
-        SimpleDateFormat sdf = new SimpleDateFormat(sdfStr, Locale.CHINA);
+    public static boolean compareTimes(String startTime, String endTime) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日", Locale.CHINA);
         try {
             Long a = sdf.parse(startTime).getTime();
             Long b = sdf.parse(endTime).getTime();
-            if (a > b) {//开始时间大于结束时间
-                return true;
-            } else {//开始时间小于结束时间
+            Long currentTime = sdf.parse(getCurrentTimeNormal("yyyy年MM月dd日")).getTime();
+            if (a < currentTime) {//开始时间小于当前时间
                 return false;
+            } else {
+                if (a > b) {//开始时间大于结束时间
+                    return false;
+                } else {//开始时间小于结束时间
+                    return true;
+                }
             }
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
         return false;
+    }
+
+    /**
+     * 转换时间格式
+     * @param olderStr
+     * @param olderSdf
+     * @param returnSdf
+     * @return
+     */
+    public static  String  formatTimeType(String olderStr,String olderSdf,String returnSdf){
+        SimpleDateFormat sdfOlder = new SimpleDateFormat(olderSdf);
+        SimpleDateFormat sdfReturn = new SimpleDateFormat(returnSdf);
+        try {
+            Date oldDate =  sdfOlder.parse(olderStr);
+            return sdfReturn.format(oldDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -477,20 +482,6 @@ public class CalendarUtil {
     }
 
     /**
-     * 是否可以托养
-     * 可以托养当年和去年的
-     *
-     * @param careYear 托养的年份
-     * @return
-     */
-    public static boolean isCareble(int careYear) {
-        if (getCurrentYear()==careYear||getCurrentYear()-1==careYear) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * 获取当前天数
      *
      * @return
@@ -580,5 +571,106 @@ public class CalendarUtil {
         return null;
     }
 
+    /**
+     * 上一个月对应的年
+     *
+     * @return
+     */
+    public static int getYearOfPreMonth(Date date) {
+        Date preDate = getDateOfPreMonth(date);
+        Calendar calendar = getCalendar();
+        calendar.setTime(preDate);
+        return calendar.get(Calendar.YEAR);
+    }
+    /**
+     * 上一个月对应的月
+     *
+     * @return
+     */
+    public static int getMonthOfPreMonth(Date date) {
+        Date preDate = getDateOfPreMonth(date);
+        Calendar calendar = getCalendar();
+        calendar.setTime(preDate);
+        return calendar.get(Calendar.MONTH)+1;
+    }
 
+    /**
+     * 上一个月对应的date
+     *
+     * @return
+     */
+    public static Date getDateOfPreMonth(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.MONTH, -1);
+        return calendar.getTime();
+    }
+    /**
+     * 下一个月对应的年
+     *
+     * @return
+     */
+    public static int getYearOfNexMonth(Date date) {
+        Date nextDate = getDateOfNexMonth(date);
+        Calendar calendar = getCalendar();
+        calendar.setTime(nextDate);
+        return calendar.get(Calendar.YEAR);
+    }
+    /**
+     * xia一个月对应的月
+     *
+     * @return
+     */
+    public static int getMonthOfNexMonth(Date date) {
+        Date nextDate = getDateOfNexMonth(date);
+        Calendar calendar = getCalendar();
+        calendar.setTime(nextDate);
+        return calendar.get(Calendar.MONTH)+1;
+    }
+
+    /**
+     * 下一个月对应的date
+     *
+     * @return
+     */
+    public static Date getDateOfNexMonth(Date date) {
+        Calendar calendar = getCalendar();
+        calendar.setTime(date);
+        calendar.add(Calendar.MONTH, 1);
+        return calendar.getTime();
+    }
+
+    /**
+     * 时间戳转 yyyy-MM-dd HH:mm:ss
+     *
+     * @param data
+     * @return
+     */
+    public static String getStringData(long data) {
+        return sdf.format(data);
+    }
+
+    /**
+     * 获取今日得开始时间
+     *
+     * @return
+     */
+    public static String getTodayStartTime() {
+        return getZeroTime(getCurrentTime());
+    }
+
+    /**
+     * 获取昨天的开始时间
+     *
+     * @return
+     */
+    public static String getYesterdayStartTime() {
+        return getZeroTime(getYesterday());
+    }
+
+    public static String getYesterday() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
+        return sdf.format(calendar.getTime());
+    }
 }

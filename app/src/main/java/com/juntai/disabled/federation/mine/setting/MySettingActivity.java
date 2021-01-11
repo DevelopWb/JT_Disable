@@ -5,31 +5,38 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
-import com.baidu.location.BDLocation;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.juntai.disabled.basecomponent.bean.UnionidBean;
 import com.juntai.disabled.basecomponent.utils.DialogUtil;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
+import com.juntai.disabled.basecomponent.utils.GsonTools;
+import com.juntai.disabled.basecomponent.utils.HttpUtil;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
+import com.juntai.disabled.basecomponent.utils.PubUtil;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.disabled.basecomponent.utils.RxTask;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseAppActivity;
+import com.juntai.disabled.federation.base.update.UpdateActivity;
 import com.juntai.disabled.federation.bean.MyMenuBean;
 import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.entrance.BackPwdActivity;
+import com.juntai.disabled.federation.entrance.BindingPhoneActivity;
 import com.juntai.disabled.federation.entrance.EntranceContract;
 import com.juntai.disabled.federation.entrance.EntrancePresent;
 import com.juntai.disabled.federation.mine.AboutActivity;
 import com.juntai.disabled.federation.mine.MyCenterContract;
-import com.juntai.disabled.federation.base.update.UpdateActivity;
 import com.juntai.disabled.federation.utils.StringTools;
+import com.juntai.disabled.federation.utils.UserInfoManager;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -42,6 +49,9 @@ import cn.sharesdk.framework.PlatformDb;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.wechat.friends.Wechat;
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 个人设置
@@ -58,8 +68,10 @@ public class MySettingActivity extends BaseAppActivity<EntrancePresent> implemen
     public String QQId = "", QQName = "", WeChatId = "", WeChatName = "";
 
     MyHandler myHandler = new MyHandler(this);
+
     static class MyHandler extends Handler {
         WeakReference<Activity> mActivity;//弱引用
+
         MyHandler(Activity activity) {
             mActivity = new WeakReference<Activity>(activity);
         }
@@ -103,38 +115,49 @@ public class MySettingActivity extends BaseAppActivity<EntrancePresent> implemen
                         update(true);
                         break;
                     case MyCenterContract.SET_CLEAR_TAG:
-                        DialogUtil.getMessageDialog(mContext, "将清理掉应用本地的图片和视频缓存文件", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                RxScheduler.doTask(MySettingActivity.this, new RxTask<String>("清理成功") {
+                        DialogUtil.getMessageDialog(mContext, "将清理掉应用本地的图片和视频缓存文件",
+                                new DialogInterface.OnClickListener() {
                                     @Override
-                                    public void doOnIoThread() {
-                                        FileCacheUtils.clearAll(mContext.getApplicationContext());
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        RxScheduler.doTask(MySettingActivity.this, new RxTask<String>("清理成功") {
+                                            @Override
+                                            public void doOnIoThread() {
+                                                FileCacheUtils.clearAll(mContext.getApplicationContext());
+                                            }
+
+                                            @Override
+                                            public void doOnUIThread(String s) {
+                                                ToastUtils.success(mContext.getApplicationContext(), s);
+                                            }
+                                        });
                                     }
-                                    @Override
-                                    public void doOnUIThread(String s) {
-                                        ToastUtils.success(mContext.getApplicationContext(), s);
-                                    }
-                                });
-                            }
-                        }).show();
+                                }).show();
                         break;
                     case MyCenterContract.SET_UPDATE_TEL_TAG:
-                        startActivity(new Intent(mContext, settingMenuAdapter.getData().get(position).getCls()).putExtra("pageType", 1));
+                        //绑定手机号
+                        if (UserInfoManager.getAccountStatus() == 1) {
+                            //手机号登录  跳转到修改手机号的界面
+                            startActivity(new Intent(mContext, BackPwdActivity.class).putExtra("pageType", 1));
+                        } else {
+                            //第三方登录 绑定手机号
+                            startActivityForResult(new Intent(mContext,
+                                    settingMenuAdapter.getData().get(position).getCls()), BASE_REQUEST_RESULT);
+                        }
+
                         break;
                     case MyCenterContract.SET_WEIXIN_TAG:
                         //微信
-                        if (StringTools.isStringValueOk(MyApp.getUser().getData().getWeChatName())){
-                            ToastUtils.info(mContext,"微信已绑定");
-                        }else {
+                        if (StringTools.isStringValueOk(MyApp.getUser().getData().getWeChatName())) {
+                            ToastUtils.info(mContext, "微信已绑定");
+                        } else {
                             bindQQOrWeChat(Wechat.NAME);
                         }
                         break;
                     case MyCenterContract.SET_QQ_TAG:
                         //qq
-                        if (StringTools.isStringValueOk(MyApp.getUser().getData().getQqName())){
-                            ToastUtils.info(mContext,"QQ已绑定");
-                        }else {
+                        if (StringTools.isStringValueOk(MyApp.getUser().getData().getQqName())) {
+                            ToastUtils.info(mContext, "QQ已绑定");
+                        } else {
                             bindQQOrWeChat(QQ.NAME);
                         }
                         break;
@@ -151,45 +174,64 @@ public class MySettingActivity extends BaseAppActivity<EntrancePresent> implemen
         });
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        initData();
+    }
+
     @Override
     public void initData() {
         menuBeans.clear();
-        menuBeans.add(new MyMenuBean("修改密码", 0, R.mipmap.set_psd, MyCenterContract.SET_UPDATE_PSD_TAG, BackPwdActivity.class));
-        //        menuBeans.add(new MyMenuBean("收货地址", 0, R.mipmap.set_address, MyCenterContract.SET_ADDRESS_TAG, MySettingActivity.class));
-        menuBeans.add(new MyMenuBean("修改手机号", 0, R.mipmap.set_tel, MyCenterContract.SET_UPDATE_TEL_TAG, BackPwdActivity.class));
+        if (UserInfoManager.getAccountStatus() == 1) {
+            menuBeans.add(new MyMenuBean("修改密码", 0, R.mipmap.set_psd, MyCenterContract.SET_UPDATE_PSD_TAG,
+                    BackPwdActivity.class));
+        }
+        //        menuBeans.add(new MyMenuBean("收货地址", 0, R.mipmap.set_address, MyCenterContract.SET_ADDRESS_TAG,
+        //        MySettingActivity.class));
+        if (UserInfoManager.getAccountStatus() == 1) {
+            menuBeans.add(new MyMenuBean("修改手机号", 0, R.mipmap.set_tel, MyCenterContract.SET_UPDATE_TEL_TAG,
+                    BackPwdActivity.class));
+        } else {
+            menuBeans.add(new MyMenuBean("绑定手机号", 0, R.mipmap.set_tel, MyCenterContract.SET_UPDATE_TEL_TAG,
+                    BindingPhoneActivity.class));
+        }
         menuBeans.add(new MyMenuBean("清理内存", 0, R.mipmap.set_clear, MyCenterContract.SET_CLEAR_TAG, null));
         menuBeans.add(new MyMenuBean("检测更新", 0, R.mipmap.set_update, MyCenterContract.SET_UPDATE_TAG, null));
-        menuBeans.add(new MyMenuBean("关于我们", -1, R.mipmap.set_about, MyCenterContract.SET_ABOUT_TAG, AboutActivity.class));
-//        menuBeans.add(new MyMenuBean("绑定微信", 0, R.mipmap.set_wexin, MyCenterContract.SET_WEIXIN_TAG, null));
-//        menuBeans.add(new MyMenuBean("绑定QQ", 0, R.mipmap.set_qq, MyCenterContract.SET_QQ_TAG, null));
+        menuBeans.add(new MyMenuBean("关于我们", -1, R.mipmap.set_about, MyCenterContract.SET_ABOUT_TAG,
+                AboutActivity.class));
+        menuBeans.add(new MyMenuBean("绑定微信", 0, R.mipmap.set_wexin, MyCenterContract.SET_WEIXIN_TAG, null));
+        menuBeans.add(new MyMenuBean("绑定QQ", 0, R.mipmap.set_qq, MyCenterContract.SET_QQ_TAG, null));
         settingMenuAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onSuccess(String tag, Object o) {
         BaseResult baseResult = (BaseResult) o;
-        if (baseResult != null){
-            if (baseResult.status == 200){
+        if (baseResult != null) {
+            if (baseResult.status == 200) {
                 UserBean userBean = MyApp.getUser();
-                if (StringTools.isStringValueOk(WeChatId)){
-                    ToastUtils.success(mContext,"微信绑定成功");
+                if (StringTools.isStringValueOk(WeChatId)) {
+                    ToastUtils.success(mContext, "微信绑定成功");
                     userBean.getData().setWeChatName(WeChatName);
                 }
-                if (StringTools.isStringValueOk(QQId)){
-                    ToastUtils.success(mContext,"QQ绑定成功");
+                if (StringTools.isStringValueOk(QQId)) {
+                    ToastUtils.success(mContext, "QQ绑定成功");
                     userBean.getData().setQqName(QQName);
                 }
                 MyApp.setUser(userBean);
-            }else {
-                ToastUtils.error(mContext, baseResult.message);
+            } else {
+                ToastUtils.error(mContext, baseResult.message == null ? PubUtil.ERROR_NOTICE : baseResult.message);
             }
-        }else {
-            ToastUtils.error(mContext, "服务器开小差了");
+        } else {
+            ToastUtils.error(mContext, PubUtil.ERROR_NOTICE);
         }
     }
 
     /**
      * 绑定第三方数据
+     *
      * @param name
      */
     public void bindQQOrWeChat(String name) {
@@ -202,10 +244,10 @@ public class MySettingActivity extends BaseAppActivity<EntrancePresent> implemen
 
         if (!plat.isClientValid()) {
             //判断是否存在授权凭条的客户端，true是有客户端，false是无
-            if (name.equals(QQ.NAME)){
-                ToastUtils.warning(mContext,"未安装QQ");
-            }else {
-                ToastUtils.warning(mContext,"未安装微信");
+            if (name.equals(QQ.NAME)) {
+                ToastUtils.warning(mContext, "未安装QQ");
+            } else {
+                ToastUtils.warning(mContext, "未安装微信");
             }
         }
 
@@ -215,26 +257,38 @@ public class MySettingActivity extends BaseAppActivity<EntrancePresent> implemen
         plat.setPlatformActionListener(new PlatformActionListener() {
             @Override
             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-                //数据
-                LogUtil.d("userinfo=" + platform.getDb().exportData());
-                LogUtil.d("userinfo=" + platform.getName());
-                LogUtil.d("userinfo=" + hashMap.toString());
-                //用户资源都保存到res
                 //通过打印res数据看看有哪些数据是你想要的
                 if (i == Platform.ACTION_USER_INFOR) {
                     platDB = platform.getDb();//获取数平台数据DB
                     //通过DB获取各种数据
                     LogUtil.e("id=" + platDB.getUserId());
                     if (platform.getName().equals(QQ.NAME)) {
-                        QQId = platDB.getUserId();
                         QQName = platDB.getUserName();
+                        String params = "access_token=" + platform.getDb().getToken() + "&unionid=1&fmt=json";
+                        HttpUtil.sendGet("https://graph.qq.com/oauth2.0/me", params, new HttpUtil.NetCallBack() {
+                            @Override
+                            public void onSuccess(String str) {
+                                if (!TextUtils.isEmpty(str)) {
+                                    UnionidBean unionidBean = GsonTools.changeGsonToBean(str, UnionidBean.class);
+                                    QQId = unionidBean.getUnionid();
+                                    myHandler.sendEmptyMessage(1);
+                                }
+                            }
+
+                            @Override
+                            public void onError(String str) {
+                            }
+                        });
+
                     } else {
-                        WeChatId = platDB.getUserId();
                         WeChatName = platDB.getUserName();
+                        WeChatId = platform.getDb().get("unionid");
+                        myHandler.sendEmptyMessage(1);
                     }
-                    myHandler.sendEmptyMessage(1);
+
                 }
             }
+
 
             @Override
             public void onError(Platform platform, int i, Throwable throwable) {
@@ -247,7 +301,7 @@ public class MySettingActivity extends BaseAppActivity<EntrancePresent> implemen
             }
         });
 
-//        ShareSDK.setActivity(this);//抖音登录适配安卓9.0
+        //        ShareSDK.setActivity(this);//抖音登录适配安卓9.0
         plat.showUser(null);    //要数据不要功能，主要体现在不会重复出现授权界面
         //获取账号为“3189087725”的资料
         //plat.showUser(“3189087725”);
@@ -256,11 +310,10 @@ public class MySettingActivity extends BaseAppActivity<EntrancePresent> implemen
     /**
      * 提交绑定结果
      */
-    public void updateBind(){
-        mPresenter.bindQQOrWeChat(MyApp.getAccount(), WeChatId, WeChatName, QQId, QQName, EntranceContract.BIND_QQ_OR_WECHAT);
+    public void updateBind() {
+        mPresenter.bindQQOrWeChat(MyApp.getAccount(), MyApp.getUserToken(), WeChatId, WeChatName, QQId, QQName,
+                EntranceContract.BIND_QQ_OR_WECHAT);
     }
-
-
 
     @Override
     protected void onDestroy() {

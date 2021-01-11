@@ -1,26 +1,33 @@
 package com.juntai.disabled.federation.entrance;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.juntai.disabled.basecomponent.utils.ActionConfig;
+import com.juntai.disabled.basecomponent.utils.EventManager;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
+import com.juntai.disabled.basecomponent.utils.MD5;
+import com.juntai.disabled.basecomponent.utils.PubUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.federation.MainActivity;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
-import com.juntai.disabled.federation.MainActivity;
 import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.entrance.regist.RegistContract;
 import com.juntai.disabled.federation.entrance.regist.RegistPresent;
 import com.juntai.disabled.federation.entrance.sendcode.SmsCheckCodeActivity;
 import com.juntai.disabled.federation.utils.AppUtils;
 import com.juntai.disabled.federation.utils.StringTools;
+import com.juntai.disabled.federation.utils.UserInfoManager;
 import com.orhanobut.hawk.Hawk;
 
 import cn.smssdk.SMSSDK;
+import okhttp3.MultipartBody;
 
 /**
  * @description 绑定手机号
@@ -28,11 +35,6 @@ import cn.smssdk.SMSSDK;
  * @date 2020-10-16
  */
 public class BindingPhoneActivity extends SmsCheckCodeActivity<RegistPresent> implements RegistContract.IRegistView, View.OnClickListener {
-    public String QQId, QQName, WeChatId, WeChatName;
-    public static String QQID = "QQ_Id";
-    public static String QQNAME = "QQ_Name";
-    public static String WECHATID = "WeChat_Id";
-    public static String WECHATNAME = "WeChat_Name";
     /**
      * 请输入注册手机号码
      */
@@ -51,6 +53,7 @@ public class BindingPhoneActivity extends SmsCheckCodeActivity<RegistPresent> im
     private TextView mBindingTv;
 
     private EntrancePresent entrancePresent;
+    private EditText mRegistCheckPwdEt;
 
     @Override
     protected RegistPresent createPresenter() {
@@ -64,15 +67,7 @@ public class BindingPhoneActivity extends SmsCheckCodeActivity<RegistPresent> im
 
     @Override
     public void initView() {
-        setTitleName("绑定账号");
-        QQId = getIntent().getStringExtra(QQID);
-        QQName = getIntent().getStringExtra(QQNAME);
-        WeChatId = getIntent().getStringExtra(WECHATID);
-        WeChatName = getIntent().getStringExtra(WECHATNAME);
-        if (QQId == null && WeChatId == null){
-            ToastUtils.warning(mContext, "无法获取第三方账号信息");
-            onBackPressed();
-        }
+        setTitleName("绑定手机号");
         mPhoneEt = (EditText) findViewById(R.id.phone_et);
         mCheckCodeEt = (EditText) findViewById(R.id.check_code_et);
         mSendCheckCodeTv = (TextView) findViewById(R.id.send_check_code_tv);
@@ -81,6 +76,7 @@ public class BindingPhoneActivity extends SmsCheckCodeActivity<RegistPresent> im
         mBindingTv.setOnClickListener(this);
         entrancePresent = new EntrancePresent();
         entrancePresent.setCallBack(this);
+        mRegistCheckPwdEt = (EditText) findViewById(R.id.regist_check_pwd_et);
     }
 
     @Override
@@ -102,7 +98,15 @@ public class BindingPhoneActivity extends SmsCheckCodeActivity<RegistPresent> im
 
     @Override
     protected void checkCodeSuccessed() {
-        entrancePresent.bindQQOrWeChat(getTextViewValue(mPhoneEt), WeChatId, WeChatName, QQId, QQName, EntranceContract.BIND_QQ_OR_WECHAT);
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("account", MyApp.getAccount())
+                .addFormDataPart("id", String.valueOf(MyApp.getUid()))
+                .addFormDataPart("phoneNumber", getTextViewValue(mPhoneEt))
+                .addFormDataPart("password",  MD5.md5(String.format("%s#%s", getTextViewValue(mPhoneEt),
+                        getTextViewValue(mRegistCheckPwdEt))))
+                .addFormDataPart("token", MyApp.getUserToken());
+        entrancePresent.bindPhoneNum(builder.build(), EntranceContract.BIND_PHONE);
     }
 
     @Override
@@ -110,42 +114,64 @@ public class BindingPhoneActivity extends SmsCheckCodeActivity<RegistPresent> im
         switch (tag){
             default:
                 break;
+            case EntranceContract.BIND_PHONE:
+                BaseResult bindResult = (BaseResult) o;
+                if (bindResult != null) {
+                    if (bindResult.status == 200) {
+                        ToastUtils.success(mContext, "绑定成功");
+                        UserBean userBean = MyApp.getUser();
+                        if (userBean != null) {
+                            userBean.getData().setPhoneNumber(getTextViewValue(mPhoneEt));
+                            Hawk.put(AppUtils.SP_KEY_USER,userBean);
+                            onBackPressed();
+                        }
+                    } else if (bindResult.status == 410) {
+                        ToastUtils.warning(mContext, bindResult.message);
+                    }
+                } else {
+                    ToastUtils.error(mContext, PubUtil.ERROR_NOTICE);
+                }
+
+
+                break;
             case EntranceContract.BIND_QQ_OR_WECHAT:
                 BaseResult baseResult = (BaseResult) o;
                 if (baseResult != null){
                     if (baseResult.status == 200){
                         ToastUtils.success(mContext, "绑定成功");
-                        entrancePresent.login(null, null, WeChatId, QQId, EntranceContract.LOGIN_TAG);
+                        entrancePresent.login(null, null, UserInfoManager.WECHAT_ID, UserInfoManager.QQ_ID,
+                                EntranceContract.LOGIN_TAG);
                     }else if (baseResult.status == 401){
                         ToastUtils.warning(mContext, "该账号未注册，请先完成注册");
-//                        startActivity(new Intent(mContext, RegistActivity.class));
-//                        onBackPressed();
+                        //                        startActivity(new Intent(mContext, RegistActivity.class));
+                        //                        onBackPressed();
                     }else {
-                        ToastUtils.error(mContext, "服务器开小差了");
+                        ToastUtils.error(mContext, baseResult.message == null?PubUtil.ERROR_NOTICE : baseResult.message);
                     }
                 }else {
-                    ToastUtils.error(mContext, "服务器开小差了");
+                    ToastUtils.error(mContext, PubUtil.ERROR_NOTICE);
                 }
                 break;
             case EntranceContract.LOGIN_TAG:
                 UserBean loginBean = (UserBean) o;
                 if (loginBean != null) {
                     if (loginBean.status == 200) {
-//                        ToastUtils.success(mContext, "登录成功");
+                        //                        ToastUtils.success(mContext, "登录成功");
                         MyApp.isReLoadWarn = true;
                         Hawk.put(AppUtils.SP_KEY_USER,loginBean);
                         Hawk.put(AppUtils.SP_KEY_TOKEN,loginBean.getData().getToken());
                         Hawk.put(AppUtils.SP_RONGYUN_TOKEN,loginBean.getData().getrOngYunToken());
+                        EventManager.sendStringMsg(ActionConfig.BROAD_LOGIN_AFTER);
                         startActivity(new Intent(mContext, MainActivity.class));
                         onBackPressed();
                         LogUtil.d("token=" + MyApp.getUserToken());
                     } else {
                         verify = false;
-                        ToastUtils.error(mContext, loginBean.message == null? "服务器开小差了" : loginBean.message);
+                        ToastUtils.error(mContext, loginBean.message == null?PubUtil.ERROR_NOTICE : loginBean.message);
                     }
                 }else {
                     verify = false;
-                    ToastUtils.error(mContext, "服务器开小差了");
+                    ToastUtils.error(mContext, PubUtil.ERROR_NOTICE);
                 }
                 break;
         }
@@ -163,6 +189,8 @@ public class BindingPhoneActivity extends SmsCheckCodeActivity<RegistPresent> im
             default:
                 break;
             case R.id.send_check_code_tv:
+                verify = false;
+                mCheckCodeEt.setText("");
                 mPresenter.sendCheckCode(getTextViewValue(mPhoneEt),SMS_TEMP_CODE);
                 break;
             case R.id.binding_tv:
@@ -172,6 +200,17 @@ public class BindingPhoneActivity extends SmsCheckCodeActivity<RegistPresent> im
                 if (!StringTools.isStringValueOk(getTextViewValue(mCheckCodeEt))) {
                     checkFormatError("验证码不能为空");
                     return;
+                }
+                //校验密码
+                String pwd = getTextViewValue(mRegistCheckPwdEt);
+                if (!StringTools.isStringValueOk(pwd)) {
+                    checkFormatError("登录密码不能为空");
+                    return;
+                } else {
+                    if (!PubUtil.checkPwdMark(pwd)) {
+                        checkFormatError("密码仅支持最少6位(字母数字组合)");
+                        return;
+                    }
                 }
                 if (!verify) {
                     SMSSDK.submitVerificationCode("+86",getTextViewValue(mPhoneEt),getTextViewValue(mCheckCodeEt));

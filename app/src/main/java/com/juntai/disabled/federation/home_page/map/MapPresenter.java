@@ -1,32 +1,33 @@
 package com.juntai.disabled.federation.home_page.map;
 
+
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.mvp.IModel;
+import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.AppNetModule;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.base.BaseAppPresent;
 import com.juntai.disabled.federation.bean.BannerNewsBean;
-import com.juntai.disabled.federation.bean.case_bean.CaseDesBean;
-import com.juntai.disabled.federation.bean.case_bean.CaseInfoBean;
-import com.juntai.disabled.federation.bean.history_track.HistoryTrackBean;
-import com.juntai.disabled.federation.bean.ResponseKeyPersonnel;
-import com.juntai.disabled.federation.bean.inspection.InspectionPointInfoBean;
-import com.juntai.disabled.federation.bean.inspection.InspectionRecordBean;
 import com.juntai.disabled.federation.bean.MapClusterItem;
 import com.juntai.disabled.federation.bean.MapMenuButton;
 import com.juntai.disabled.federation.bean.PoliceCarBean;
 import com.juntai.disabled.federation.bean.PoliceDetailBean;
-import com.juntai.disabled.federation.bean.ResponseSiteBean;
-import com.juntai.disabled.federation.bean.site.UnitDetailBean;
 import com.juntai.disabled.federation.bean.ResponseCarHistory;
 import com.juntai.disabled.federation.bean.ResponseInspection;
+import com.juntai.disabled.federation.bean.ResponseKeyPersonnel;
 import com.juntai.disabled.federation.bean.ResponseNews;
 import com.juntai.disabled.federation.bean.ResponsePeople;
+import com.juntai.disabled.federation.bean.ResponseSiteBean;
+import com.juntai.disabled.federation.bean.case_bean.CaseDesBean;
+import com.juntai.disabled.federation.bean.case_bean.CaseInfoBean;
+import com.juntai.disabled.federation.bean.history_track.HistoryTrackBean;
+import com.juntai.disabled.federation.bean.inspection.InspectionPointInfoBean;
+import com.juntai.disabled.federation.bean.inspection.InspectionRecordBean;
 import com.juntai.disabled.federation.bean.key_personnel.InterviewListBean;
 import com.juntai.disabled.federation.bean.key_personnel.KeyPersonnelInfoBean;
+import com.juntai.disabled.federation.bean.site.UnitDetailBean;
 import com.juntai.disabled.federation.bean.stream.StreamCameraBean;
-import com.juntai.disabled.federation.utils.RxScheduler;
 
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class MapPresenter extends BaseAppPresent<IModel, MapContract.View> imple
     @Override
     public void getMenus(String tag) {
         AppNetModule.createrRetrofit()
-                .getMapMenu(MyApp.getAccount(), MyApp.getUserToken(), "1")
+                .getMapMenu("1")
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<MapMenuButton>(getView()) {
                     @Override
@@ -216,7 +217,7 @@ public class MapPresenter extends BaseAppPresent<IModel, MapContract.View> imple
     @Override
     public void getInspection(String tag) {
         AppNetModule.createrRetrofit()
-                .requestInspection(getRequestBodyOf())
+                .requestInspection()
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<ResponseInspection>(getView()) {
                     @Override
@@ -267,7 +268,7 @@ public class MapPresenter extends BaseAppPresent<IModel, MapContract.View> imple
     public void getBannerNews(String tag) {
         AppNetModule
                 .createrRetrofit()
-                .getBannerNews(MyApp.getAccount(), MyApp.getUserToken())
+                .getBannerNews()
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BannerNewsBean>(null) {
                     @Override
@@ -425,27 +426,6 @@ public class MapPresenter extends BaseAppPresent<IModel, MapContract.View> imple
                 });
     }
 
-    public void openStream(String channelid, String type, String videourltype,String tag) {
-        AppNetModule.createrRetrofit()
-                .openStream(channelid,type,videourltype)
-                .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<OpenLiveBean>(getView()) {
-                    @Override
-                    public void onSuccess(OpenLiveBean o) {
-                        if (getView() != null) {
-                            getView().onSuccess(tag, o);
-                        }
-
-                    }
-
-                    @Override
-                    public void onError(String msg) {
-                        if (getView() != null) {
-                            getView().onError(tag, msg);
-                        }
-                    }
-                });
-    }
 
     @Override
     public void getSiteManagers(String tag) {
@@ -483,18 +463,20 @@ public class MapPresenter extends BaseAppPresent<IModel, MapContract.View> imple
      * @return
      */
     public FormBody.Builder getRequestBodyOfPoliceTrack(int typeId, String userId) {
-        return getBaseFormBodyBuilder()
-                .add("typeId", String.valueOf(typeId))
-                .add("userId", userId);
-
+        return new FormBody.Builder()
+                .add("account", MyApp.getAccount())
+                .add("token", MyApp.getUserToken())
+                .add("userId", userId)
+                .add("typeId", String.valueOf(typeId));
     }
 
     public FormBody.Builder getBaseFormBodyBuilder() {
         return new FormBody.Builder()
-                .add("account", MyApp.getAccount())
-                .add("token", MyApp.getUserToken())
-                .add("userId", MyApp.getUid()+"");
+                .add("account", MyApp.getAccount()==null?"":MyApp.getAccount())
+                .add("token", MyApp.getUserToken()==null?"":MyApp.getUserToken())
+                .add("userId", MyApp.getUid()==-1?"":String.valueOf(MyApp.getUid()));
     }
+
     @Override
     public void getCaseInfo(String tag, int id) {
         AppNetModule

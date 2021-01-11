@@ -103,6 +103,7 @@ dependencies {
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
     //数据库框架
     implementation 'org.greenrobot:greendao:3.2.2'
+    implementation 'com.haibin:calendarview:3.4.8'
 }
 
 configurations.all {

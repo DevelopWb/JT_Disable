@@ -13,11 +13,12 @@ import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
-import com.juntai.disabled.basecomponent.mvp.BaseIView;
+import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.BaseAppUtils;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.GlideEngine4;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
+import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.AppNetModule;
 import com.juntai.disabled.federation.MyApp;
@@ -28,8 +29,8 @@ import com.juntai.disabled.federation.bean.news.NewsFansListBean;
 import com.juntai.disabled.federation.bean.news.NewsListBean;
 import com.juntai.disabled.federation.bean.news.NewsPersonalHomePageInfo;
 import com.juntai.disabled.federation.bean.news.NewsUploadPhotoBean;
+import com.juntai.disabled.federation.bean.user_equipment.ReportTypeBean;
 import com.juntai.disabled.federation.home_page.PublishContract;
-import com.juntai.disabled.federation.utils.RxScheduler;
 import com.juntai.disabled.video.record.VideoPreviewActivity;
 import com.mabeijianxi.smallvideorecord2.MediaRecorderActivity;
 import com.mabeijianxi.smallvideorecord2.model.MediaRecorderConfig;
@@ -56,36 +57,37 @@ import top.zibin.luban.OnCompressListener;
  * 2020-7-29
  * email:954101549@qq.com
  */
-public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> implements NewsContract.INewsPresent{
+public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> implements NewsContract.INewsPresent {
     private int compressedSize = 0;//被压缩的图片个数
     List<String> icons = new ArrayList<>();
-    private BaseIView iView;
+    private IView iView;
 
     @Override
     protected IModel createModel() {
         return null;
     }
 
-    public void setCallBack(BaseIView iView) {
+    public void setCallBack(IView iView) {
         this.iView = iView;
     }
 
     @Override
     public void getNewsList(int pageNum, int pageSize, String tag, boolean showProgress) {
         AppNetModule.createrRetrofit()
-                .getNewsList(MyApp.getAccount(), MyApp.getUserToken(), MyApp.getUid(), pageSize, pageNum)
+                .getNewsList(pageSize, pageNum)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<NewsListBean>(showProgress? getView():null) {
+                .subscribe(new BaseObserver<NewsListBean>(showProgress ? getView() : null) {
                     @Override
                     public void onSuccess(NewsListBean o) {
-                        if (getView() != null){
-                            getView().onSuccess(tag,o);
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
                         }
                     }
+
                     @Override
                     public void onError(String msg) {
-                        if (getView() != null){
-                            getView().onError(tag,msg);
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
                         }
                     }
                 });
@@ -101,7 +103,7 @@ public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> i
                     @Override
                     public void onSuccess(BaseResult o) {
                         if (getView() != null) {
-                            getView().onSuccess(tag, o);
+                            getView().onSuccess(tag, o.message == null ? "" : o.message);
                         }
                     }
 
@@ -164,7 +166,7 @@ public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> i
     public void searchNewsList(String keyWord, int pageNum, int pageSize, String tag) {
         AppNetModule
                 .createrRetrofit()
-                .searchNewsList(keyWord, pageSize,pageNum)
+                .searchNewsList(keyWord, pageSize, pageNum)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<NewsListBean>(getView()) {
                     @Override
@@ -230,12 +232,13 @@ public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> i
     }
 
     @Override
-    public void getNewsListByAuthorId(int authorId, int typeId, int pageNum, int pageSize, String tag, boolean showProgress) {
+    public void getNewsListByAuthorId(int authorId, int typeId, int pageNum, int pageSize, String tag,
+                                      boolean showProgress) {
         AppNetModule
                 .createrRetrofit()
                 .getNewsListByAuthorId(authorId, typeId, pageNum, pageSize)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<NewsListBean>(showProgress? getView():null) {
+                .subscribe(new BaseObserver<NewsListBean>(showProgress ? getView() : null) {
                     @Override
                     public void onSuccess(NewsListBean o) {
                         if (getView() != null) {
@@ -258,7 +261,7 @@ public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> i
                 .createrRetrofit()
                 .getFansList(MyApp.getAccount(), MyApp.getUserToken(), followId, MyApp.getUid(), pageNum, pageSize)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<NewsFansListBean>(showProgress? getView():null) {
+                .subscribe(new BaseObserver<NewsFansListBean>(showProgress ? getView() : null) {
                     @Override
                     public void onSuccess(NewsFansListBean o) {
                         if (getView() != null) {
@@ -281,7 +284,7 @@ public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> i
                 .createrRetrofit()
                 .getFollowList(MyApp.getAccount(), MyApp.getUserToken(), fansId, MyApp.getUid(), pageNum, pageSize)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<NewsFansListBean>(showProgress? getView():null) {
+                .subscribe(new BaseObserver<NewsFansListBean>(showProgress ? getView() : null) {
                     @Override
                     public void onSuccess(NewsFansListBean o) {
                         if (getView() != null) {
@@ -323,30 +326,32 @@ public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> i
 
     @Override
     public void getCommentList(int commentedId, int pageSize, int currentPage, String tag) {
-        BaseIView viewCallBack = null;
-        if (getView()==null) {
+        IView viewCallBack = null;
+        if (getView() == null) {
             if (iView != null) {
                 viewCallBack = iView;
             }
-        }else{
+        } else {
             viewCallBack = getView();
         }
-        BaseIView finalViewCallBack = viewCallBack;
+        IView finalViewCallBack = viewCallBack;
 
         AppNetModule.createrRetrofit()
-                .getAllCommentNews(MyApp.getAccount(), MyApp.getUserToken(), MyApp.getUid(), commentedId, pageSize, currentPage)
+                .getAllCommentNews(MyApp.getAccount(), MyApp.getUserToken(), MyApp.getUid(), commentedId, pageSize,
+                        currentPage)
                 .compose(RxScheduler.ObsIoMain(viewCallBack))
                 .subscribe(new BaseObserver<CommentListBean>(getView()) {
                     @Override
                     public void onSuccess(CommentListBean o) {
-                        if (finalViewCallBack != null){
-                            finalViewCallBack.onSuccess(tag,o);
+                        if (finalViewCallBack != null) {
+                            finalViewCallBack.onSuccess(tag, o);
                         }
                     }
+
                     @Override
                     public void onError(String msg) {
-                        if (finalViewCallBack != null){
-                            finalViewCallBack.onError(tag,msg);
+                        if (finalViewCallBack != null) {
+                            finalViewCallBack.onError(tag, msg);
                         }
                     }
                 });
@@ -354,29 +359,31 @@ public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> i
 
     @Override
     public void getCommentChildList(int commentedId, int unreadId, int pageSize, int currentPage, String tag) {
-        BaseIView viewCallBack = null;
-        if (getView()==null) {
+        IView viewCallBack = null;
+        if (getView() == null) {
             if (iView != null) {
                 viewCallBack = iView;
             }
-        }else{
+        } else {
             viewCallBack = getView();
         }
-        BaseIView finalViewCallBack = viewCallBack;
+        IView finalViewCallBack = viewCallBack;
         AppNetModule.createrRetrofit()
-                .getChildCommentNews(MyApp.getAccount(), MyApp.getUserToken(), commentedId, unreadId, pageSize, currentPage)
+                .getChildCommentNews(MyApp.getAccount(), MyApp.getUserToken(), commentedId, unreadId, pageSize,
+                        currentPage)
                 .compose(RxScheduler.ObsIoMain(viewCallBack))
                 .subscribe(new BaseObserver<CommentListBean>(viewCallBack) {
                     @Override
                     public void onSuccess(CommentListBean o) {
-                        if (finalViewCallBack != null){
-                            finalViewCallBack.onSuccess(tag,o);
+                        if (finalViewCallBack != null) {
+                            finalViewCallBack.onSuccess(tag, o);
                         }
                     }
+
                     @Override
                     public void onError(String msg) {
-                        if (finalViewCallBack != null){
-                            finalViewCallBack.onError(tag,msg);
+                        if (finalViewCallBack != null) {
+                            finalViewCallBack.onError(tag, msg);
                         }
                     }
                 });
@@ -384,41 +391,42 @@ public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> i
 
     @Override
     public void like(int id, int userId, int isType, int typeId, int likeId, String tag) {
-        BaseIView viewCallBack = null;
-        if (getView()==null) {
+        IView viewCallBack = null;
+        if (getView() == null) {
             if (iView != null) {
                 viewCallBack = iView;
             }
-        }else{
+        } else {
             viewCallBack = getView();
         }
-        BaseIView finalViewCallBack = viewCallBack;
+        IView finalViewCallBack = viewCallBack;
         AppNetModule.createrRetrofit()
-                .addOrCancleLikeNews(id, MyApp.getAccount(), MyApp.getUserToken(),userId,isType,typeId,likeId)
+                .addOrCancleLikeNews(id, MyApp.getAccount(), MyApp.getUserToken(), userId, isType, typeId, likeId)
                 .compose(RxScheduler.ObsIoMain(viewCallBack))
                 .subscribe(new BaseObserver<BaseDataBean>(viewCallBack) {
                     @Override
                     public void onSuccess(BaseDataBean o) {
-                        if (isType == 1){//取消
-                            ToastUtils.success(MyApp.app,"取消点赞");
-                        }else {
-                            ToastUtils.success(MyApp.app,"点赞成功");
+                        if (isType == 1) {//取消
+                            ToastUtils.success(MyApp.app, "取消点赞");
+                        } else {
+                            ToastUtils.success(MyApp.app, "点赞成功");
                         }
                         LogUtil.e("更新点赞成功");
-                        if (finalViewCallBack != null){
-                            finalViewCallBack.onSuccess(tag,o);
+                        if (finalViewCallBack != null) {
+                            finalViewCallBack.onSuccess(tag, o);
                         }
                     }
+
                     @Override
                     public void onError(String msg) {
-                        if (isType == 1){//取消
-                            ToastUtils.success(MyApp.app,"取消点赞失败");
-                        }else {
-                            ToastUtils.success(MyApp.app,"点赞失败");
+                        if (isType == 1) {//取消
+                            ToastUtils.success(MyApp.app, "取消点赞失败");
+                        } else {
+                            ToastUtils.success(MyApp.app, "点赞失败");
                         }
                         LogUtil.e("更新点赞失败");
-                        if (finalViewCallBack != null){
-                            finalViewCallBack.onError(tag,msg);
+                        if (finalViewCallBack != null) {
+                            finalViewCallBack.onError(tag, msg);
                         }
                     }
                 });
@@ -439,9 +447,10 @@ public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> i
 
     @SuppressLint("CheckResult")
     public void imageChoose(BaseFragment context) {
-//        SoftReference<Activity> softReference = new SoftReference<>(baseActivity);
+        //        SoftReference<Activity> softReference = new SoftReference<>(baseActivity);
         new RxPermissions(context)
-                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
+                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.CAMERA)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new Consumer<Boolean>() {
                     @Override
@@ -454,7 +463,8 @@ public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> i
                                     .maxSelectable(9)   // 最多选择一张
                                     .capture(true)
                                     .captureStrategy(new CaptureStrategy(true, BaseAppUtils.getFileprovider()))
-                                    //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
+                                    //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7
+                                    // .0系统 必须设置
                                     .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
                                     .thumbnailScale(0.85f)
                                     .imageEngine(new GlideEngine4())
@@ -468,9 +478,10 @@ public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> i
 
     @SuppressLint("CheckResult")
     public void imageChoose(BaseActivity context, int picCount) {
-//        SoftReference<Activity> softReference = new SoftReference<>(baseActivity);
+        //        SoftReference<Activity> softReference = new SoftReference<>(baseActivity);
         new RxPermissions(context)
-                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
+                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.CAMERA)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new Consumer<Boolean>() {
                     @Override
@@ -483,7 +494,8 @@ public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> i
                                     .maxSelectable(picCount)   // 最多选择一张
                                     .capture(true)
                                     .captureStrategy(new CaptureStrategy(true, BaseAppUtils.getFileprovider()))
-                                    //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
+                                    //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7
+                                    // .0系统 必须设置
                                     .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
                                     .thumbnailScale(0.85f)
                                     .imageEngine(new GlideEngine4())
@@ -520,7 +532,7 @@ public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> i
                 icons.add(file.getPath());
                 if (compressedSize == paths.size()) {
                     iView.showLoading();
-                    iView.onSuccess(NewsContract.YASUO_PHOTO_TAG,icons);
+                    iView.onSuccess(NewsContract.YASUO_PHOTO_TAG, icons);
                 }
             }
 
@@ -561,7 +573,7 @@ public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> i
                 icons.add(file.getPath());
                 if (compressedSize == paths.size()) {
                     iView.showLoading();
-                    iView.onSuccess(NewsContract.YASUO_PHOTO_TAG,icons);
+                    iView.onSuccess(NewsContract.YASUO_PHOTO_TAG, icons);
                 }
             }
 
@@ -579,11 +591,12 @@ public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> i
 
     /**
      * 录制视频
+     *
      * @param fragment
      */
     @SuppressLint("CheckResult")
     public void recordVideo(BaseFragment fragment) {
-        BaseIView viewCallBack = null;
+        IView viewCallBack = null;
         if (getView() == null) {
             if (iView != null) {
                 viewCallBack = iView;
@@ -609,7 +622,8 @@ public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> i
                                     .videoBitrate(960 * 640)
                                     .captureThumbnailsTime(1)
                                     .build();
-                            MediaRecorderActivity.goSmallVideoRecorder(fragment.getActivity(), VideoPreviewActivity.class.getName()
+                            MediaRecorderActivity.goSmallVideoRecorder(fragment.getActivity(),
+                                    VideoPreviewActivity.class.getName()
                                     , config);
                         } else {
                             Toasty.info(fragment.getContext(), "请给与相应权限").show();
@@ -621,7 +635,7 @@ public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> i
     //选择视频
     @SuppressLint("CheckResult")
     public void videoChoose(BaseFragment fragment) {
-        BaseIView viewCallBack = null;
+        IView viewCallBack = null;
         if (getView() == null) {
             if (iView != null) {
                 viewCallBack = iView;
@@ -652,6 +666,50 @@ public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> i
                                     .forResult(PublishContract.SELECT_VIDEO_RESULT);
                         } else {
                             Toasty.info(fragment.getContext(), "请给与相应权限").show();
+                        }
+                    }
+                });
+    }
+
+    public void getReportTypes(RequestBody requestBody, String tag) {
+        AppNetModule
+                .createrRetrofit()
+                .getReportTypes(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<ReportTypeBean>(getView()) {
+                    @Override
+                    public void onSuccess(ReportTypeBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    public void report(RequestBody requestBody, String tag) {
+        AppNetModule
+                .createrRetrofit()
+                .report(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
                         }
                     }
                 });

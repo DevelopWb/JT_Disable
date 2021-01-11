@@ -4,7 +4,7 @@ import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
-import com.juntai.disabled.basecomponent.mvp.BaseIView;
+import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.federation.AppNetModule;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.bean.inspection.InspectionDetailBean;
@@ -18,14 +18,14 @@ import com.juntai.disabled.federation.utils.RxScheduler;
  * email:954101549@qq.com
  */
 public class InfoDetailPresent extends BasePresenter<IModel,InfoDetailContract.IInfoDetailView> implements InfoDetailContract.IInfoDetailPresent {
-    private BaseIView iView;
+    private IView iView;
 
     @Override
     protected IModel createModel() {
         return null;
     }
 
-    public void  setCallBack(BaseIView iView) {
+    public void  setCallBack(IView iView) {
         this.iView = iView;
     }
 

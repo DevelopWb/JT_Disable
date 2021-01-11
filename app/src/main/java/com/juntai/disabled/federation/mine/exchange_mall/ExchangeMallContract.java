@@ -1,6 +1,6 @@
 package com.juntai.disabled.federation.mine.exchange_mall;
 
-import com.juntai.disabled.basecomponent.mvp.BaseIView;
+import com.juntai.disabled.basecomponent.mvp.IView;
 
 /**
  * Describe:兑换商城关联类
@@ -15,7 +15,7 @@ public interface ExchangeMallContract {
     String EXCHANGE_GOODS = "exchangeGoods";
 
     interface IMallModel{}
-    interface IMallView extends BaseIView {}
+    interface IMallView extends IView {}
     interface IMallPresent{
         /**
          * 获取商品兑换列表

@@ -1,5 +1,6 @@
 package com.juntai.disabled.federation.home_page.news.news_publish;
 
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -19,10 +21,10 @@ import com.baidu.location.BDLocation;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.basecomponent.utils.ActionConfig;
+import com.juntai.disabled.basecomponent.utils.EventManager;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
-import com.juntai.disabled.basecomponent.utils.Logger;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.widght.BaseBottomDialog;
 import com.juntai.disabled.bdmap.act.LocationSeltionActivity;
@@ -32,18 +34,17 @@ import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.home_page.PublishContract;
 import com.juntai.disabled.federation.home_page.news.NewsContract;
 import com.juntai.disabled.federation.home_page.news.NewsPresent;
-import com.juntai.disabled.federation.utils.DateUtil;
 import com.juntai.disabled.federation.utils.StringTools;
 import com.vincent.videocompressor.VideoCompress;
 import com.zhihu.matisse.Matisse;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import java.io.File;
-import java.text.NumberFormat;
+import java.io.Serializable;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -88,6 +89,15 @@ public class PublishVideoNewsFragment extends BaseMvpFragment<NewsPresent> imple
     private String videoPath;//视频地址
     private BaseBottomDialog baseBottomDialog;
     private BaseBottomDialog.OnItemClick onItemClick;
+    /**
+     * 预览
+     */
+    private TextView mYulanBtn;
+    /**
+     * 发布
+     */
+    private TextView mFabuBtn;
+    private LinearLayout mOperationLayout;
 
     @Override
     protected NewsPresent createPresenter() {
@@ -110,6 +120,12 @@ public class PublishVideoNewsFragment extends BaseMvpFragment<NewsPresent> imple
         mLimitTv = getView(R.id.limit_tv);
         mAddressTv = getView(R.id.address_tv);
         mAddressTv.setOnClickListener(this);
+        mYulanBtn = getView(R.id.yulan_btn);
+        mYulanBtn.setOnClickListener(this);
+        mFabuBtn = getView(R.id.fabu_btn);
+        mFabuBtn.setOnClickListener(this);
+        mOperationLayout = getView(R.id.operation_layout);
+        mOperationLayout.setVisibility(View.VISIBLE);
 
         mDescriptionEt.addTextChangedListener(new TextWatcher() {
             @Override
@@ -160,8 +176,9 @@ public class PublishVideoNewsFragment extends BaseMvpFragment<NewsPresent> imple
     public void onSuccess(String tag, Object o) {
         switch (tag){
             case NewsContract.PUBLISH_VIDEO_NEWS:
-                ToastUtils.success(mContext, getString(R.string.publish_success_tag));
-                getActivity().finish();
+                ToastUtils.success(mContext, (String)o);
+                EventManager.sendStringMsg(ActionConfig.UPDATE_NEWS_LIST);
+                Objects.requireNonNull(getActivity()).finish();
                 break;
             default:
                 break;
@@ -192,13 +209,19 @@ public class PublishVideoNewsFragment extends BaseMvpFragment<NewsPresent> imple
                 Intent intent = new Intent(mContext, LocationSeltionActivity.class);
                 startActivityForResult(intent, PublishContract.REQUEST_CODE_CHOOSE_PLACE);
                 break;
+            case R.id.yulan_btn:
+                submitData(1);
+                break;
+            case R.id.fabu_btn:
+                submitData(0);
+                break;
         }
     }
 
     /**
      * 发布
      */
-    public void submitData(){
+    public void submitData(int type){
         if (MyApp.isFastClick()) {
             ToastUtils.warning(mContext,"点击过于频繁");
             return;
@@ -219,24 +242,38 @@ public class PublishVideoNewsFragment extends BaseMvpFragment<NewsPresent> imple
             ToastUtils.warning(mContext, "视频封面图获取失败，请重新选择视频");
             return;
         }
-        //发布
-        MultipartBody.Builder builder = mPresenter.getPublishMultipartBody();
-        builder.addFormDataPart("userid",String.valueOf(MyApp.getUid()))
-                .addFormDataPart("longitude", String.valueOf(locLon))
-                .addFormDataPart("latitude", String.valueOf(locLat))
-                .addFormDataPart("typeId", "1")
-                .addFormDataPart("informationId", "0")
-                .addFormDataPart("title", getBaseActivity().getTextViewValue(mTitleEt))
-                .addFormDataPart("content", getBaseActivity().getTextViewValue(mDescriptionEt))
-                .addFormDataPart("address", locAddress);
+        if (type == 0){
+            //发布
+            MultipartBody.Builder builder = mPresenter.getPublishMultipartBody();
+            builder.addFormDataPart("userid",String.valueOf(MyApp.getUid()))
+                    .addFormDataPart("longitude", String.valueOf(locLon))
+                    .addFormDataPart("latitude", String.valueOf(locLat))
+                    .addFormDataPart("typeId", "1")
+                    .addFormDataPart("informationId", "0")
+                    .addFormDataPart("title", getBaseActivity().getTextViewValue(mTitleEt))
+                    .addFormDataPart("content", getBaseActivity().getTextViewValue(mDescriptionEt))
+                    .addFormDataPart("address", locAddress);
 
-        if (StringTools.isStringValueOk(videoPath)) {
-            builder.addFormDataPart("videoFile", "videoFile", RequestBody.create(MediaType.parse("file"), new File(videoPath)));
+            if (StringTools.isStringValueOk(videoPath)) {
+                builder.addFormDataPart("videoFile", "videoFile", RequestBody.create(MediaType.parse("file"), new File(videoPath)));
+            }
+            if (StringTools.isStringValueOk(videoScreen)) {
+                builder.addFormDataPart("coverFile", "coverFile", RequestBody.create(MediaType.parse("file"), new File(videoScreen)));
+            }
+            mPresenter.publishNews(NewsContract.PUBLISH_VIDEO_NEWS, builder.build());
+        }else {
+            Map<String, String> bodyMap = new HashMap<>();
+            bodyMap.put("longitude", String.valueOf(locLon));
+            bodyMap.put("latitude", String.valueOf(locLat));
+            bodyMap.put("typeId", "1");
+            bodyMap.put("informationId", "0");
+            bodyMap.put("title", getBaseActivity().getTextViewValue(mTitleEt));
+            bodyMap.put("content", getBaseActivity().getTextViewValue(mDescriptionEt));
+            bodyMap.put("address", locAddress);
+            bodyMap.put("videoPath", videoPath);
+            bodyMap.put("videoScreen",videoScreen);
+//            startActivity(new Intent(mContext, VideoPreActivity.class).putExtra(VideoPreActivity.VIDEO_PART_BODY, (Serializable) bodyMap));
         }
-        if (StringTools.isStringValueOk(videoScreen)) {
-            builder.addFormDataPart("coverFile", "coverFile", RequestBody.create(MediaType.parse("file"), new File(videoScreen)));
-        }
-        mPresenter.publishNews(NewsContract.PUBLISH_VIDEO_NEWS, builder.build());
     }
 
     /**
@@ -247,7 +284,6 @@ public class PublishVideoNewsFragment extends BaseMvpFragment<NewsPresent> imple
         public void onReceive(Context context, Intent intent) {
             videoPath = intent.getStringExtra("videoUri");
             videoScreen = intent.getStringExtra("videoScreenshotUri");
-            Logger.e("videoSize", new File(videoPath).length()+"byte");
             ImageLoadUtil.loadImageCache(mContext.getApplicationContext(), videoScreen, mVideoImage);
             mVideoTag.setVisibility(View.VISIBLE);
             mAddTag.setVisibility(View.GONE);
@@ -292,12 +328,12 @@ public class PublishVideoNewsFragment extends BaseMvpFragment<NewsPresent> imple
      * 获取本地视频封面图
      */
     private void getVideoThumb(){
-//        showLoading();
+        //        showLoading();
         ImageLoadUtil.getBitmap(mContext.getApplicationContext(), videoPath, R.drawable.nopicture, 350, 200, new ImageLoadUtil.BitmapCallBack() {
             @Override
             public void getBitmap(Bitmap bitmap) {
                 videoScreen = FileCacheUtils.saveBitmap(bitmap);
-//                hideLoading();
+                //                hideLoading();
                 ImageLoadUtil.loadImageCache(mContext.getApplicationContext(), videoScreen, mVideoImage);
                 mVideoTag.setVisibility(View.VISIBLE);
                 mAddTag.setVisibility(View.GONE);
@@ -330,7 +366,7 @@ public class PublishVideoNewsFragment extends BaseMvpFragment<NewsPresent> imple
                             mPresenter.videoChoose(PublishVideoNewsFragment.this);
                             break;
                     }
-//                    releaseDialog();
+                    //                    releaseDialog();
                     baseBottomDialog.dismiss();
                 }
             };
@@ -357,62 +393,54 @@ public class PublishVideoNewsFragment extends BaseMvpFragment<NewsPresent> imple
         baseBottomDialog = null;
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
-    public void receiveMsg(String test) {
-        if (ActionConfig.PUBLISH_NEWS_VIDEO.equals(test)){
-            //提交
-            submitData();
-        }
-    }
-
     /**
      * 视频压缩
      * @param oldPath
      */
     private void compressVideo(String oldPath){
-        final MaterialDialog dialog = new MaterialDialog.Builder(getContext())
-//                .title("视频压缩中。。。")// 标题
-                .content("视频压缩中。。。")// 内容
-                // 第一个参数表示是否是不确定的，该值为 true 表示是不确定进度条，反之为确定进度条
-                // 第二个参数表示进度条的最大值
-                // 第三个参数表示是否显示百分比，如果该值为 true 表示显示百分比，反之不显示百分比
-                .progress(false, 100, false)// 确定进度条
-                // 自定义进度格式
-                .progressPercentFormat(NumberFormat.getPercentInstance())
-                .canceledOnTouchOutside(false)
-                .show();// 显示对话框
-        //输出路径
-//        showLoading();
-        String outPath = FileCacheUtils.getAppVideoPath() + DateUtil.getCurrentTime("yyyyMMddHHmmss") + ".mp4";
-        VideoCompress.compressVideoLow(oldPath, outPath, new VideoCompress.CompressListener() {
-            @Override
-            public void onStart() {
-                //开始
-                Logger.e("stat_compress", DateUtil.getCurrentTime("yyyyMMddHHmmss"));
-                Logger.e("oldSize", new File(oldPath).length()+"byte");
-//                ToastUtils.warning(mContext, "视频压缩中，请稍后。。。");
-            }
-
-            @Override
-            public void onSuccess() {
-                videoPath = outPath;
-                getVideoThumb();
-                dialog.dismiss();
-                Logger.e("success_compress", DateUtil.getCurrentTime("yyyyMMddHHmmss"));
-                Logger.e("outSize", new File(outPath).length()+"byte");
-            }
-
-            @Override
-            public void onFail() {
-                dialog.dismiss();
-                ToastUtils.error(mContext, "视频获取失败，请重新选择");
-            }
-
-            @Override
-            public void onProgress(float v) {
-                Logger.w("progress", v+"%");
-                dialog.setProgress((int)v);
-            }
-        });
+//        final MaterialDialog dialog = new MaterialDialog.Builder(getContext())
+//                //                .title("视频压缩中。。。")// 标题
+//                .content("视频压缩中。。。")// 内容
+//                // 第一个参数表示是否是不确定的，该值为 true 表示是不确定进度条，反之为确定进度条
+//                // 第二个参数表示进度条的最大值
+//                // 第三个参数表示是否显示百分比，如果该值为 true 表示显示百分比，反之不显示百分比
+//                .progress(false, 100, false)// 确定进度条
+//                // 自定义进度格式
+//                .progressPercentFormat(NumberFormat.getPercentInstance())
+//                .canceledOnTouchOutside(false)
+//                .show();// 显示对话框
+//        //输出路径
+//        //        showLoading();
+//        String outPath = FileCacheUtils.getAppVideoPath() + DateUtil.getCurrentTime("yyyyMMddHHmmss") + ".mp4";
+//        VideoCompress.compressVideoLow(oldPath, outPath, new VideoCompress.CompressListener() {
+//            @Override
+//            public void onStart() {
+//                //开始
+//                Logger.e("stat_compress", DateUtil.getCurrentTime("yyyyMMddHHmmss"));
+//                Logger.e("oldSize", new File(oldPath).length()+"byte");
+//                //                ToastUtils.warning(mContext, "视频压缩中，请稍后。。。");
+//            }
+//
+//            @Override
+//            public void onSuccess() {
+//                videoPath = outPath;
+//                getVideoThumb();
+//                dialog.dismiss();
+//                Logger.e("success_compress", DateUtil.getCurrentTime("yyyyMMddHHmmss"));
+//                Logger.e("outSize", new File(outPath).length()+"byte");
+//            }
+//
+//            @Override
+//            public void onFail() {
+//                dialog.dismiss();
+//                ToastUtils.error(mContext, "视频获取失败，请重新选择");
+//            }
+//
+//            @Override
+//            public void onProgress(float v) {
+//                Logger.w("progress", v+"%");
+//                dialog.setProgress((int)v);
+//            }
+//        });
     }
 }

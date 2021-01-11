@@ -1,10 +1,13 @@
 package com.juntai.disabled.federation.mine;
 
-import com.juntai.disabled.basecomponent.mvp.BaseIView;
+
+import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.federation.bean.MyMenuBean;
 
 import java.io.File;
 import java.util.List;
+
+import retrofit2.http.Query;
 
 /**
  * Describe: 个人信息接口类
@@ -25,8 +28,6 @@ public interface MyCenterContract {
     String CENTER_SHOUCANG_TAG ="centerShouCangTag";
     String CENTER_SHARE_TAG = "centerShareTag";
     String CENTER_FABU_TAG ="centerFabuTag";
-    String CENTER_BUSINESS_TAG = "centerBusinessTag";//我的业务
-
     String CENTER_MESSAGE_TAG = "centerMessageTag";
     String CENTER_SETTING_TAG ="centerSettingTag";
     String CENTER_MISSION_TAG = "centerMissionTag";//任务
@@ -60,10 +61,10 @@ public interface MyCenterContract {
     String GET_TASK_DETAIL = "getTaskDetail";//获取任务详情
 
     /*---------------个人中心----------------*/
-//    interface ICenterModel {
-//    }
+    //    interface ICenterModel {
+    //    }
 
-    interface ICenterView extends BaseIView {
+    interface ICenterView extends IView {
         void refreshAdapter();
     }
 
@@ -91,7 +92,7 @@ public interface MyCenterContract {
     }
 
     /*---------------我的信息----------------*/
-    interface IMyInfoView extends BaseIView {}
+    interface IMyInfoView extends IView{}
     interface IMyInfoPresent{
         /**
          * 头像选择
@@ -117,7 +118,7 @@ public interface MyCenterContract {
     }
 
     /*---------------我的积分----------------*/
-    interface IMyScoreView extends BaseIView {}
+    interface IMyScoreView extends IView{}
     interface IMyScorePresent{
         /**
          * 获取积分明细列表
@@ -131,14 +132,14 @@ public interface MyCenterContract {
 
     /*---------------我的订单----------------*/
     interface IOrderModel{}
-    interface IMyOrderView extends BaseIView {}
+    interface IMyOrderView extends IView{}
     interface IMyOrderPresent{
         void getOrderList();
     }
 
     /*---------------我的收藏/分享----------------*/
     interface ICollectModel{}
-    interface ICollectView extends BaseIView {}
+    interface ICollectView extends IView{}
     interface ICollectPresent{
         /**
          * 获取监控收藏列表
@@ -148,9 +149,12 @@ public interface MyCenterContract {
          * 获取资讯收藏列表
          */
         void getCollectListNews(int pageNum, int pageSize,String tag, boolean showProgress);
-
         /**
-         * 获取分享列表
+         * 获取监控分享列表
+         */
+        void getShareListCamera(int pageNum, int pageSize, String tag, boolean showProgress);
+        /**
+         * 获取资讯分享列表
          */
         void getShareListNews(int pageNum, int pageSize, String tag, boolean showProgress);
         /**
@@ -176,14 +180,18 @@ public interface MyCenterContract {
          */
         void deleteCollecListCamera(int id, int userId, int isType, int typeId, int collectId, List<Integer> ids,String tag);
         /**
-         * 删除分享
+         * 删除分享(监控)
          */
-        void deleteShareList(List<Integer> ids,String tag);
+        void deleteShareListCamera(List<Integer> ids,String tag);
+        /**
+         * 删除分享（资讯）
+         */
+        void deleteShareListNews(List<Integer> ids,String tag);
     }
 
     /*---------------我的发布----------------*/
     interface IMyPublishListModel{}
-    interface IMyPublishListView extends BaseIView {}
+    interface IMyPublishListView extends IView{}
     interface IMyPublishListPresent{
         /**
          * 获取我的发布(案件)
@@ -221,7 +229,7 @@ public interface MyCenterContract {
 
     /*---------------我的任务-----------------*/
     interface ITaskModel{}
-    interface ITaskView extends BaseIView {}
+    interface ITaskView extends IView{}
     interface ITaskPresent{
         /**
          * 获取我的任务列表

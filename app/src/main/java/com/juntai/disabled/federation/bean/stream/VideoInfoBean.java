@@ -1,6 +1,7 @@
 package com.juntai.disabled.federation.bean.stream;
 
-import com.juntai.wisdom.basecomponent.bean.BaseStreamBean;
+
+import com.juntai.disabled.basecomponent.bean.BaseStreamBean;
 
 import java.util.List;
 

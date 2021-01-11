@@ -2,37 +2,37 @@ package com.juntai.disabled.federation.home_page.camera.ijkplayer;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.Group;
+import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
-import com.dou361.ijkplayer.listener.OnReplayListener;
 import com.dou361.ijkplayer.utils.MediaUtils;
 import com.dou361.ijkplayer.widget.PlayStateParams;
-import com.dou361.ijkplayer.widget.PlayerView;
 import com.juntai.disabled.basecomponent.base.BaseDownLoadActivity;
+import com.juntai.disabled.basecomponent.base.BaseDrawerLayout;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
-import com.juntai.disabled.basecomponent.utils.ScreenUtils;
+import com.juntai.disabled.basecomponent.utils.PubUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.home_page.camera.PlayContract;
 import com.juntai.disabled.federation.home_page.camera.PlayPresent;
 
-import java.util.concurrent.TimeUnit;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * @aouther tobato
@@ -42,14 +42,22 @@ import io.reactivex.schedulers.Schedulers;
 public class CarLiveActivity extends BaseDownLoadActivity<PlayPresent> implements PlayContract.IPlayView,
         View.OnClickListener, BaseDownLoadActivity.OnFileDownloaded {
 
-    private PlayerView player;
-    //    private String url放大 = "rtmp://juntaikeji.net:1935/video/37130201561327011011";
-    private PowerManager.WakeLock wakeLock;
-    private Intent intent;
     public static String STREAM_CAMERA_URL = "stream_url";
     public static String STREAM_CAMERA_NAME = "stream_url_name";
+    private PlayerView player;
+    private PowerManager.WakeLock wakeLock;
+    public String playName;//
     private String playUrl;
-    private Disposable disposable;
+
+    public static boolean isVerScreen = true;//是否是竖屏
+    private LinearLayout mVideoViewLl;
+    private BaseDrawerLayout mDrawerlayout;
+    private Group mOperateRightIvsG, mHorSuspensionG, mVerSuspensionG;
+
+    private ImageView mZoomShrinkIv;
+    private ImageView mVerCaptureIv;//竖屏模式下的截屏
+    private ImageView mVideoIv;
+    private boolean hideAllScreen = false;//是否隐藏所有按钮
 
     @Override
     protected PlayPresent createPresenter() {
@@ -63,24 +71,60 @@ public class CarLiveActivity extends BaseDownLoadActivity<PlayPresent> implement
 
     @Override
     public void initView() {
-        timeBegin();
-        String name = getIntent().getStringExtra(STREAM_CAMERA_NAME);
-        TextView titleTv = findViewById(R.id.car_title_tv);
-        titleTv.setText(name);
+        if (getIntent() != null) {
+            playUrl = getIntent().getStringExtra(STREAM_CAMERA_URL);
+            playName = getIntent().getStringExtra(STREAM_CAMERA_NAME);
+        }
+        hideBottomVirtureBar();
         setFileDownLoadCallBack(this);
-        getToolbar().setVisibility(View.GONE);
-        mBaseRootCol.setFitsSystemWindows(false);
-        Window window = getWindow();
-        WindowManager.LayoutParams wlp = window.getAttributes();
-        wlp.width = (ScreenUtils.getInstance(getApplicationContext()).getScreenWidth() / 10) * 9;
-        wlp.height = DisplayUtil.dp2px(mContext, 245);
-        window.setAttributes(wlp);
+        setTitleName(playName);
+        mVideoViewLl = (LinearLayout) findViewById(R.id.video_view_ll);
+        initDrawerlayout();
+
+        mZoomShrinkIv = (ImageView) findViewById(R.id.zoom_shrink_iv);
+        mZoomShrinkIv.setOnClickListener(this);
+        mVerCaptureIv = (ImageView) findViewById(R.id.app_video_capture);
+        mVerCaptureIv.setOnClickListener(this);
+        mVideoIv = (ImageView) findViewById(R.id.video_iv);
+        mVideoIv.setOnClickListener(this);
+    }
+
+    /**
+     * 初始化抽屉布局
+     */
+    private void initDrawerlayout() {
+        mDrawerlayout = findViewById(R.id.drawerlayout);
+        mOperateRightIvsG = findViewById(R.id.operate_right_ivs_g);
+        mHorSuspensionG = findViewById(R.id.horizontal_suspension_g);
+        mVerSuspensionG = findViewById(R.id.vertical_suspension_g);
+        mDrawerlayout.setScrimColor(Color.TRANSPARENT);
+        mDrawerlayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        mDrawerlayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View view, float v) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View view) {
+                mOperateRightIvsG.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View view) {
+                mOperateRightIvsG.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onDrawerStateChanged(int i) {
+
+            }
+        });
     }
 
 
     @Override
     public void initData() {
-
     }
 
     @SuppressLint("InvalidWakeLockTag")
@@ -88,62 +132,46 @@ public class CarLiveActivity extends BaseDownLoadActivity<PlayPresent> implement
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         this.supportRequestWindowFeature(Window.FEATURE_NO_TITLE); //去除这个Activity的标题栏
         super.onCreate(savedInstanceState);
-
         /**常亮*/
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "liveTAG");
         wakeLock.acquire();
 
         player = new PlayerView(this, mBaseRootCol)
-                .setTitle("")
                 //隐藏顶部布局
-                .hideHideTopBar(true)
+                .hideHideTopBar(false)
                 //分辨率
                 .hideSteam(true)
                 //旋转
                 .hideRotation(true)
                 //隐藏全屏按钮，true隐藏，false为显示
                 .hideFullscreen(false)
-                .hideCenterPlayer(false)
+                .hideCenterPlayer(true)
                 .forbidTouch(false)
-                .hideBottonBar(true)
                 .setForbidDoulbeUp(true)
-                .setScaleType(PlayStateParams.wrapcontent);
-        //                .showThumbnail(new OnShowThumbnailListener() {
-        //                    @Override
-        //                    public void onShowThumbnail(ImageView ivThumbnail) {
-        //                        ImageLoadUtil.loadImageNoCrash(mContext.getApplicationContext(),
-        //                                UrlFormatUtil.formatStreamCapturePicUrl(mCameraNum), ivThumbnail);
-        //                    }
-        //                });
-        player.setOnReplayListener(new OnReplayListener() {
+                .setScaleType(PlayStateParams.fitxy);
+
+        player.getFullScreenView().setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onReplay() {
-                timeBegin();
-            }
-        });
-        findViewById(R.id.car_fullscreen_iv).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!player.isLiving()) {
-                    ToastUtils.toast(mContext,"获取不到直播源");
-                    return;
-                }
+            public void onClick(View view) {
                 if (!TextUtils.isEmpty(playUrl)) {
-                    startActivity(new Intent(mContext, CarStreamCameraFullScreenActivity.class)
-                            .putExtra(CarStreamCameraFullScreenActivity.STREAM_CAMERA_TITLE,
-                                    "")
-                            .putExtra(CarStreamCameraFullScreenActivity.STREAM_CAMERA_URL, playUrl)
-                    );
+                    player.setOnlyFullScreen(true);
                 } else {
                     ToastUtils.toast(mContext, "无法获取流地址");
                 }
             }
         });
 
-        playUrl = getIntent().getStringExtra(STREAM_CAMERA_URL);
-
+        player.getBackView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //切换到竖屏模式
+                player.setOnlyFullScreen(false);
+            }
+        });
+        player.isOffLine(false);
         player.setPlaySource(playUrl).startPlay();
+        ToastUtils.warning(mContext, "车辆离线");
     }
 
     @Override
@@ -157,30 +185,49 @@ public class CarLiveActivity extends BaseDownLoadActivity<PlayPresent> implement
     }
 
     @Override
-    public void onError(String tag, Object o) {
-        super.onError(tag, o);
-    }
-
-
-    @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.video_iv:
+                ToastUtils.toast(mContext, "暂未开放");
+                break;
+            case R.id.app_video_capture:
+                //竖屏模式下的截屏
+                ToastUtils.toast(mContext, "暂未开放");
+                break;
+            case R.id.zoom_shrink_iv:
+                //切换到竖屏模式
+                player.setOnlyFullScreen(false);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        MediaUtils.muteAudioFocus(mContext, true);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (player != null) {
+            player.onResume();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
         if (player != null) {
             player.onPause();
         }
-        MediaUtils.muteAudioFocus(mContext, true);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (player != null) {
-            player.onResume();
-        }
         MediaUtils.muteAudioFocus(mContext, false);
         if (wakeLock != null) {
             wakeLock.acquire();
@@ -189,15 +236,12 @@ public class CarLiveActivity extends BaseDownLoadActivity<PlayPresent> implement
 
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        if (player != null) {
-            player.onConfigurationChanged(newConfig);
-        }
-    }
-
-    @Override
     public void onBackPressed() {
+        if (player.isOnlyFullScreen) {
+            //切换到竖屏模式
+            player.setOnlyFullScreen(false);
+            return;
+        }
         if (wakeLock != null) {
             wakeLock.release();
         }
@@ -205,8 +249,8 @@ public class CarLiveActivity extends BaseDownLoadActivity<PlayPresent> implement
             return;
         }
         super.onBackPressed();
-
     }
+
 
     @Override
     public void onSuccess(String tag, Object o) {
@@ -215,53 +259,119 @@ public class CarLiveActivity extends BaseDownLoadActivity<PlayPresent> implement
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        isVerScreen = true;
         if (player != null) {
             player.onDestroy();
-        }
-        if (intent != null) {
-            stopService(intent);
-        }
-        if (disposable != null) {
-            disposable.dispose();
         }
         setFileDownLoadCallBack(null);
     }
 
     @Override
-    public void onFileDownloaded(String filePath) {
-
+    public boolean onTouchEvent(MotionEvent event) {
+        return super.onTouchEvent(event);
     }
-    /**
-     * 开始计时
-     */
-    public void timeBegin() {
-        if (disposable == null) {
-            disposable = Observable.interval(0, 1000, TimeUnit.MILLISECONDS)
-                    .take(6)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<Long>() {
-                        @Override
-                        public void accept(Long aLong) throws Exception {
-                        }
-                    }, new Consumer<Throwable>() {
-                        @Override
-                        public void accept(Throwable throwable) throws Exception {
-                            throwable.printStackTrace();
-                        }
-                    }, new Action() {
-                        @Override
-                        public void run() throws Exception {
-                            disposable = null;
-                            if (!player.isLiving()) {
-                                player.statusChange(PlayStateParams.MEDIA_INFO_VIDEO_INTERRUPT);
-                            }
 
-                        }
-                    });
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            //横屏
+            isVerScreen = false;
+            //显示横屏的布局
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) mVideoViewLl.getLayoutParams();
+            params.height = ConstraintLayout.LayoutParams.MATCH_PARENT;
+            params.width = ConstraintLayout.LayoutParams.MATCH_PARENT;
+            mVideoViewLl.setLayoutParams(params);
+            mPresenter.setMarginOfConstraintLayout(mVideoViewLl, mContext, 0, 0, 0, 0);
+            getToolbar().setVisibility(View.GONE);
+            mVideoViewLl.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    player.setFatherW_H(mVideoViewLl.getTop(), mVideoViewLl.getBottom());
+                }
+            }, 100);
+            player.updateRender();
+            initLayoutByOritation();
+        } else {
+            //竖屏
+            //            showBottomVirtureBar();
+            isVerScreen = true;
+            //显示竖屏的布局
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) mVideoViewLl.getLayoutParams();
+            params.height = DisplayUtil.dp2px(mContext, 190);
+            params.width = ConstraintLayout.LayoutParams.MATCH_PARENT;
+            mVideoViewLl.setLayoutParams(params);
+            getToolbar().setVisibility(View.VISIBLE);
+            mPresenter.setMarginOfConstraintLayout(mVideoViewLl, mContext, 10, 10, 10, 10);
+            getToolbar().setVisibility(View.VISIBLE);
+            player.updateRender();
+            initLayoutByOritation();
         }
+        if (player != null) {
+            player.onConfigurationChanged(newConfig);
+        }
+    }
 
+    /**
+     * 初始化布局
+     */
+    private void initLayoutByOritation() {
+        if (isVerScreen) {
+            //隐藏横屏悬浮布局 显示竖屏 悬浮布局
+
+            mHorSuspensionG.setVisibility(View.GONE);
+            mOperateRightIvsG.setVisibility(View.GONE);
+            if (hideAllScreen) {
+                mVerSuspensionG.setVisibility(View.GONE);
+            } else {
+                mVerSuspensionG.setVisibility(View.VISIBLE);
+            }
+        } else {
+            //隐藏竖屏悬浮布局 显示横屏 悬浮布局
+            mVerSuspensionG.setVisibility(View.GONE);
+            if (hideAllScreen) {
+                mHorSuspensionG.setVisibility(View.GONE);
+                mOperateRightIvsG.setVisibility(View.GONE);
+            } else {
+                mHorSuspensionG.setVisibility(View.VISIBLE);
+                mOperateRightIvsG.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
 
+    /**
+     * 隐藏pad底部虚拟键
+     */
+    protected void hideBottomVirtureBar() {
+        Window window;
+        window = getWindow();
+        WindowManager.LayoutParams params = window.getAttributes();
+        params.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE;
+        window.setAttributes(params);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
+    public void onOneClick(String msg) {
+        switch (msg) {
+            case PubUtil.ONE_CLICK_EVENT:
+                hideAllScreen = !hideAllScreen;
+                if (hideAllScreen) {
+                    player.getBarPlayerView().setVisibility(View.GONE);
+                    player.getBarSoundView().setVisibility(View.GONE);
+                } else {
+                    player.getBarPlayerView().setVisibility(View.VISIBLE);
+                    player.getBarSoundView().setVisibility(View.VISIBLE);
+                }
+                initLayoutByOritation();
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onFileDownloaded(String fileName) {
+
+    }
 }

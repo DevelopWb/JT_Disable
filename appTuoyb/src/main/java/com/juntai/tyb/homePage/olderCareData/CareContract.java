@@ -1,7 +1,7 @@
 package com.juntai.tyb.homePage.olderCareData;
 
 
-import com.juntai.disabled.basecomponent.mvp.BaseIView;
+import com.juntai.disabled.basecomponent.mvp.IView;
 
 import okhttp3.RequestBody;
 
@@ -13,7 +13,7 @@ import okhttp3.RequestBody;
  * @UpdateDate: 2020/4/21 16:05
  */
 public interface CareContract {
-    interface ICareView extends BaseIView {}
+    interface ICareView extends IView {}
 
     interface ICarePresent {
         /**

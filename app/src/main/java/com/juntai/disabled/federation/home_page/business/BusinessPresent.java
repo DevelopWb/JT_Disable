@@ -1,9 +1,11 @@
 package com.juntai.disabled.federation.home_page.business;
 
+
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
+import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.disabled.federation.AppNetModule;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
@@ -13,7 +15,6 @@ import com.juntai.disabled.federation.bean.business.BusinessListBean;
 import com.juntai.disabled.federation.bean.business.BusinessNeedInfoBean;
 import com.juntai.disabled.federation.bean.business.MyBusinessBean;
 import com.juntai.disabled.federation.bean.business.MyBusinessDetailBean;
-import com.juntai.disabled.federation.utils.RxScheduler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +36,9 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
 
 
     @Override
-    public void businessList(String keyWord, int pageSize, int currentPage, String tag) {
+    public void businessList(String account,String token,String keyWord, int pageSize, int currentPage, String tag) {
         AppNetModule.createrRetrofit()
-                .businessList(keyWord,pageSize,currentPage)
+                .businessList(account,token,keyWord,pageSize,currentPage)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BusinessListBean>(getView()) {
                     @Override

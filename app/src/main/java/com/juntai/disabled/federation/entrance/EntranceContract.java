@@ -1,6 +1,8 @@
 package com.juntai.disabled.federation.entrance;
 
-import com.juntai.disabled.basecomponent.mvp.BaseIView;
+import com.juntai.disabled.basecomponent.mvp.IView;
+
+import okhttp3.RequestBody;
 
 /**
  * @Author: tobato
@@ -11,14 +13,21 @@ import com.juntai.disabled.basecomponent.mvp.BaseIView;
  */
 public interface EntranceContract {
     String BIND_QQ_OR_WECHAT = "bindQQOrWeChat";
+    String BIND_PHONE = "bindphone";
     String LOGIN_TAG = "login";//登录的标识
+    String OTHER_REGIST = "other_regist";//第三方注册
 
-    interface IEntranceView extends BaseIView {
+    interface IEntranceView extends IView {
     }
 
     interface IEntrancePresent {
         void login(String account, String password, String weChatId, String qqId, String tag);
 
-        void bindQQOrWeChat(String account, String weChatId, String weChatName, String qqId, String qqName, String tag);
+        void bindQQOrWeChat(String account, String token,String weChatId, String weChatName, String qqId, String qqName,
+                            String tag);
+
+        void bindPhoneNum(RequestBody requestBody, String tag);
+
+
     }
 }

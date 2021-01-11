@@ -1,6 +1,6 @@
 package com.juntai.disabled.federation.home_page.conciliation.conciliation;
 
-import com.juntai.disabled.basecomponent.mvp.BaseIView;
+import com.juntai.disabled.basecomponent.mvp.IView;
 
 import okhttp3.RequestBody;
 
@@ -21,7 +21,7 @@ public interface ConciliationContract {
 
     String GET_CONCILIATION_LIST = "get_conciliation_list";//获取调解申请列表
 
-    interface IConciliationView extends BaseIView {
+    interface IConciliationView extends IView {
     }
 
     interface IConciliationPresent {

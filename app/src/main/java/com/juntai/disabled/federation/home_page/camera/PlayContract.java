@@ -1,7 +1,7 @@
 package com.juntai.disabled.federation.home_page.camera;
 
 
-import com.juntai.disabled.basecomponent.mvp.BaseIView;
+import com.juntai.disabled.basecomponent.mvp.IView;
 
 import java.util.Map;
 
@@ -60,7 +60,7 @@ public interface PlayContract {
      */
     String GET_PRE_POSITIONS = "/getVideoPTZCollect.shtml";
 
-    interface IPlayView extends BaseIView {
+    interface IPlayView extends IView {
 
     }
 

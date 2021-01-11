@@ -1,5 +1,6 @@
 package com.juntai.disabled.federation.home_page.news.news_publish;
 
+
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -11,6 +12,9 @@ import com.juntai.disabled.basecomponent.utils.EventManager;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.MainPagerAdapter;
 import com.juntai.disabled.federation.base.customview.CustomViewPager;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class PublishNewsActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
 
@@ -34,15 +38,6 @@ public class PublishNewsActivity extends BaseActivity implements ViewPager.OnPag
         type = getIntent().getIntExtra("type",0);
         mTablayout = (TabLayout) findViewById(R.id.tablayout);
         mViewpager = (CustomViewPager) findViewById(R.id.viewpager);
-
-        getTitleRightTv().setText("发布");
-        getTitleRightTv().setOnClickListener(v -> {
-            if (nowFragment == 0){
-                EventManager.sendStringMsg(ActionConfig.PUBLISH_NEWS_VIDEO);
-            }else if (nowFragment == 1){
-                EventManager.sendStringMsg(ActionConfig.PUBLISH_NEWS_PHOTO);
-            }
-        });
 
         mFragments.append(0, new PublishVideoNewsFragment());
         mFragments.append(1, new PublishImageNewsFragment());
@@ -99,8 +94,15 @@ public class PublishNewsActivity extends BaseActivity implements ViewPager.OnPag
 
     @Override
     protected void onDestroy() {
-//        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+        //        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        //        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
         super.onDestroy();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
+    public void receiveMsg(String test) {
+        if (test.equals(ActionConfig.FINISH_AFTER_PUBISH)){
+            finish();
+        }
     }
 }

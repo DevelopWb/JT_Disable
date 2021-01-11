@@ -1,13 +1,13 @@
 package com.juntai.disabled.federation.base;
 
+
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
+import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.disabled.federation.AppNetModule;
 import com.juntai.disabled.federation.MyApp;
-import com.juntai.disabled.federation.utils.RxScheduler;
-
 
 /**
  * Describe:首页present
@@ -37,7 +37,7 @@ public class MainPagePresent extends BasePresenter<IModel, MainPageContract.IMai
                     @Override
                     public void onError(String msg) {
                         if (getView() != null) {
-//                            getView().onError(tag, msg);
+                            //                            getView().onError(tag, msg);
                         }
                     }
                 });
@@ -46,7 +46,7 @@ public class MainPagePresent extends BasePresenter<IModel, MainPageContract.IMai
     @Override
     public void uploadHistory(String data, String tag) {
         AppNetModule.createrRetrofit()
-                .uploadHistory(MyApp.getAccount(), MyApp.getUserToken(), MyApp.getUid(), data)
+                .uploadHistory(MyApp.getAccount(), MyApp.getUserToken(), MyApp.getUid(), 1, data)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(null) {
                     @Override
@@ -58,7 +58,7 @@ public class MainPagePresent extends BasePresenter<IModel, MainPageContract.IMai
                     @Override
                     public void onError(String msg) {
                         if (getView() != null) {
-                            getView().onError(tag, msg);
+                            //                            getView().onError(tag, msg);
                         }
                     }
                 });

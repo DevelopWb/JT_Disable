@@ -25,7 +25,17 @@ public class PubUtil {
     public  static  final  String  ONE_CLICK_EVENT = "one_click_event";//单次点击事件
     public  static  final  String  ERROR_NOTICE = "请检查网络连接";//服务器异常的提醒
 
-
+    /**
+     * 拨打电话（直接拨打电话）
+     *
+     * @param phoneNum 电话号码
+     */
+    public static void callPhone(Context context, String phoneNum) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        Uri data = Uri.parse("tel:" + phoneNum);
+        intent.setData(data);
+        context.startActivity(intent);
+    }
 
     /**
      * 验证手机格式

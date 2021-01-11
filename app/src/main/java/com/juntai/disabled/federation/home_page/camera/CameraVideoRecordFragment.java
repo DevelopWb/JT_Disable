@@ -4,10 +4,11 @@ import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
 
-import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.haibin.calendarview.Calendar;
+import com.haibin.calendarview.CalendarView;
 import com.hdl.ruler.RulerView;
 import com.hdl.ruler.bean.OnBarMoveListener;
 import com.hdl.ruler.bean.TimeSlot;
@@ -22,7 +23,6 @@ import com.juntai.disabled.federation.utils.StringTools;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;

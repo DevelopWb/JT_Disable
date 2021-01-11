@@ -36,7 +36,7 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 
-import com.juntai.wisdom.basecomponent.utils.ScreenUtils;
+import com.juntai.disabled.basecomponent.utils.ScreenUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.Map;

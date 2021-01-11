@@ -9,13 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.juntai.disabled.basecomponent.mvp.IPresenter;
-import com.juntai.disabled.basecomponent.mvp.BaseIView;
+import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
-public abstract class BaseMvpFragment<P extends IPresenter> extends BaseLazyFragment implements BaseIView {
+public abstract class BaseMvpFragment<P extends IPresenter> extends BaseLazyFragment implements IView {
 
     protected P mPresenter;
     protected abstract P createPresenter();

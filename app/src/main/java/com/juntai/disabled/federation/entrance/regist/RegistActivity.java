@@ -13,6 +13,7 @@ import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.juntai.disabled.basecomponent.base.OnMultiClickListener;
 import com.juntai.disabled.basecomponent.utils.MD5;
+import com.juntai.disabled.basecomponent.utils.PubUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.bdmap.utils.BaiDuLocationUtils;
 import com.juntai.disabled.federation.R;
