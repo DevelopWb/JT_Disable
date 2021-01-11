@@ -5,7 +5,7 @@ import android.annotation.SuppressLint;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 import com.juntai.disabled.federation.AppNetModule;
 import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.utils.RxScheduler;
@@ -20,8 +20,8 @@ import io.reactivex.functions.Consumer;
  * @UpdateDate: 2020/3/5 15:55
  */
 public class EntrancePresent extends BasePresenter<IModel, EntranceContract.IEntranceView> implements EntranceContract.IEntrancePresent {
-    private IView iView;
-    public void  setCallBack(IView iView) {
+    private BaseIView iView;
+    public void  setCallBack(BaseIView iView) {
         this.iView = iView;
     }
 
@@ -34,7 +34,7 @@ public class EntrancePresent extends BasePresenter<IModel, EntranceContract.IEnt
     @SuppressLint("CheckResult")
     @Override
     public void login(String account, String password, String weChatId, String qqId,String tag) {
-        IView  viewCallBack = null;
+        BaseIView viewCallBack = null;
         if (getView()==null) {
             if (iView != null) {
                 viewCallBack = iView;
@@ -44,7 +44,7 @@ public class EntrancePresent extends BasePresenter<IModel, EntranceContract.IEnt
             viewCallBack = getView();
             viewCallBack.showLoading();
         }
-        IView finalViewCallBack = viewCallBack;
+        BaseIView finalViewCallBack = viewCallBack;
         AppNetModule
                 .createrRetrofit()
                 .login(account, password, weChatId, qqId, 1)
@@ -71,7 +71,7 @@ public class EntrancePresent extends BasePresenter<IModel, EntranceContract.IEnt
     @SuppressLint("CheckResult")
     @Override
     public void bindQQOrWeChat(String account, String weChatId, String weChatName, String qqId, String qqName, String tag) {
-        IView  viewCallBack = null;
+        BaseIView viewCallBack = null;
         if (getView()==null) {
             if (iView != null) {
                 viewCallBack = iView;
@@ -81,7 +81,7 @@ public class EntrancePresent extends BasePresenter<IModel, EntranceContract.IEnt
             viewCallBack = getView();
             viewCallBack.showLoading();
         }
-        IView finalViewCallBack = viewCallBack;
+        BaseIView finalViewCallBack = viewCallBack;
         AppNetModule.createrRetrofit()
                 .bindQQAndWeChat(account, 1, weChatId, weChatName, qqId, qqName)
                 .compose(RxScheduler.ObsIoMain(viewCallBack))

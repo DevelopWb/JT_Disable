@@ -2,7 +2,7 @@ package com.juntai.disabled.federation.base;
 
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 import com.juntai.disabled.federation.MyApp;
 
 import okhttp3.MultipartBody;
@@ -14,7 +14,7 @@ import okhttp3.MultipartBody;
  * @UpdateUser: 更新者
  * @UpdateDate: 2020/6/3 8:38
  */
-public abstract class BaseAppPresent<M extends IModel, V extends IView> extends BasePresenter<M,V>{
+public abstract class BaseAppPresent<M extends IModel, V extends BaseIView> extends BasePresenter<M,V>{
 
     /**
      * 获取builder

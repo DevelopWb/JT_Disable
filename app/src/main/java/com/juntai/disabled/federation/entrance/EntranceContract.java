@@ -1,6 +1,6 @@
 package com.juntai.disabled.federation.entrance;
 
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 
 /**
  * @Author: tobato
@@ -13,7 +13,7 @@ public interface EntranceContract {
     String BIND_QQ_OR_WECHAT = "bindQQOrWeChat";
     String LOGIN_TAG = "login";//登录的标识
 
-    interface IEntranceView extends IView {
+    interface IEntranceView extends BaseIView {
     }
 
     interface IEntrancePresent {

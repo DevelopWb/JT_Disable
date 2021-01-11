@@ -11,7 +11,7 @@ import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
-import com.juntai.disabled.federation.base.MainActivity;
+import com.juntai.disabled.federation.MainActivity;
 import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.entrance.regist.RegistContract;
 import com.juntai.disabled.federation.entrance.regist.RegistPresent;

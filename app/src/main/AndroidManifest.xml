@@ -280,7 +280,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.juntai.disabled.federation.base.MainActivity"
+            android:name="com.juntai.disabled.federation.MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme"

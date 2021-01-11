@@ -15,7 +15,7 @@ import android.support.v4.app.NotificationCompat;
 import com.juntai.disabled.basecomponent.utils.BaseAppUtils;
 import com.juntai.disabled.basecomponent.utils.RomUtil;
 import com.juntai.disabled.federation.R;
-import com.juntai.disabled.federation.base.MainActivity;
+import com.juntai.disabled.federation.MainActivity;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

@@ -40,7 +40,16 @@ public class ImageLoadUtil {
     public static void loadImage(Context context, Bitmap bitmap, ImageView view) {
         Glide.with(context).load(bitmap).into(view);
     }
-
+    /**
+     * @param context
+     * @param url
+     * @param view
+     */
+    public static void loadImageWithCache(Context context, String url, int replacePic,ImageView view) {
+        Glide.with(context).load(url).skipMemoryCache(false)
+                .apply(new RequestOptions().error(replacePic).placeholder(replacePic))
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE).into(view);
+    }
     /**
      * @param context
      * @param url     内存缓存和硬盘缓存

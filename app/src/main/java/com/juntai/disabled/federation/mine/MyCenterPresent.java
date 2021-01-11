@@ -6,7 +6,7 @@ import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.federation.AppNetModule;
 import com.juntai.disabled.federation.MyApp;
@@ -14,6 +14,7 @@ import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MyMenuBean;
 import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.bean.message.UnReadCountBean;
+import com.juntai.disabled.federation.home_page.business.my_business.MyBusinessActivity;
 import com.juntai.disabled.federation.home_page.conciliation.conciliation_list.ConciliationListActivity;
 import com.juntai.disabled.federation.mine.mycollect.MyCollectActivity;
 import com.juntai.disabled.federation.mine.message.MyMessageActivity;
@@ -36,9 +37,9 @@ import okhttp3.MultipartBody;
  */
 public class MyCenterPresent extends BasePresenter<IModel, MyCenterContract.ICenterView> implements MyCenterContract.ICenterPresent {
     List<MyMenuBean> menuBeans = new ArrayList<>();
-    private IView iView;
+    private BaseIView iView;
 
-    public void setCallBack(IView iView) {
+    public void setCallBack(BaseIView iView) {
         this.iView = iView;
     }
     @Override
@@ -69,7 +70,7 @@ public class MyCenterPresent extends BasePresenter<IModel, MyCenterContract.ICen
 
     @Override
     public void getUnReadCount(String tag) {
-        IView  viewCallBack = null;
+        BaseIView viewCallBack = null;
         if (getView()==null) {
             if (iView != null) {
                 viewCallBack = iView;
@@ -77,7 +78,7 @@ public class MyCenterPresent extends BasePresenter<IModel, MyCenterContract.ICen
         }else{
             viewCallBack = getView();
         }
-        IView finalViewCallBack = viewCallBack;
+        BaseIView finalViewCallBack = viewCallBack;
         AppNetModule.createrRetrofit()
                 .getUnReadCount(getPublishMultipartBody().build())
                 .compose(RxScheduler.ObsIoMain(viewCallBack))
@@ -130,8 +131,9 @@ public class MyCenterPresent extends BasePresenter<IModel, MyCenterContract.ICen
 //        menuBeans.add(new MyMenuBean("我的评价",0,R.mipmap.my_pingjia,MyCenterContract.CENTER_PINGJIA_TAG, MySettingActivity.class));
         menuBeans.add(new MyMenuBean("我的任务", 0, R.mipmap.my_task, MyCenterContract.CENTER_MISSION_TAG, MyTaskListActivity.class));
         menuBeans.add(new MyMenuBean("我的收藏", 0, R.mipmap.my_favorite, MyCenterContract.CENTER_SHOUCANG_TAG, MyCollectActivity.class));
-        menuBeans.add(new MyMenuBean("我的分享", 0, R.mipmap.my_share, MyCenterContract.CENTER_SHARE_TAG, MyCollectActivity.class));
+//        menuBeans.add(new MyMenuBean("我的分享", 0, R.mipmap.my_share, MyCenterContract.CENTER_SHARE_TAG, MyCollectActivity.class));
         menuBeans.add(new MyMenuBean("我的发布", 0, R.mipmap.my_push, MyCenterContract.CENTER_FABU_TAG, MyPublishListActivity.class));
+        menuBeans.add(new MyMenuBean("我的业务", 0, R.mipmap.mine_business_tag, MyCenterContract.CENTER_BUSINESS_TAG, MyBusinessActivity.class));
         menuBeans.add(new MyMenuBean("我的调解", 0, R.mipmap.my_concliation, MyCenterContract.CENTER_TIAOJIE_TAG, ConciliationListActivity.class));
         menuBeans.add(new MyMenuBean("我的消息", 0, R.mipmap.my_message, MyCenterContract.CENTER_MESSAGE_TAG, MyMessageActivity.class));
         menuBeans.add(new MyMenuBean("我的设备", 0, R.mipmap.my_device, MyCenterContract.CENTER_DEVICE_TAG, MySettingActivity.class));

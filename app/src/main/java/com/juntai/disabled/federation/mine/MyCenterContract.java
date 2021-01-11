@@ -1,6 +1,6 @@
 package com.juntai.disabled.federation.mine;
 
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 import com.juntai.disabled.federation.bean.MyMenuBean;
 
 import java.io.File;
@@ -25,6 +25,8 @@ public interface MyCenterContract {
     String CENTER_SHOUCANG_TAG ="centerShouCangTag";
     String CENTER_SHARE_TAG = "centerShareTag";
     String CENTER_FABU_TAG ="centerFabuTag";
+    String CENTER_BUSINESS_TAG = "centerBusinessTag";//我的业务
+
     String CENTER_MESSAGE_TAG = "centerMessageTag";
     String CENTER_SETTING_TAG ="centerSettingTag";
     String CENTER_MISSION_TAG = "centerMissionTag";//任务
@@ -61,7 +63,7 @@ public interface MyCenterContract {
 //    interface ICenterModel {
 //    }
 
-    interface ICenterView extends IView {
+    interface ICenterView extends BaseIView {
         void refreshAdapter();
     }
 
@@ -89,7 +91,7 @@ public interface MyCenterContract {
     }
 
     /*---------------我的信息----------------*/
-    interface IMyInfoView extends IView{}
+    interface IMyInfoView extends BaseIView {}
     interface IMyInfoPresent{
         /**
          * 头像选择
@@ -115,7 +117,7 @@ public interface MyCenterContract {
     }
 
     /*---------------我的积分----------------*/
-    interface IMyScoreView extends IView{}
+    interface IMyScoreView extends BaseIView {}
     interface IMyScorePresent{
         /**
          * 获取积分明细列表
@@ -129,14 +131,14 @@ public interface MyCenterContract {
 
     /*---------------我的订单----------------*/
     interface IOrderModel{}
-    interface IMyOrderView extends IView{}
+    interface IMyOrderView extends BaseIView {}
     interface IMyOrderPresent{
         void getOrderList();
     }
 
     /*---------------我的收藏/分享----------------*/
     interface ICollectModel{}
-    interface ICollectView extends IView{}
+    interface ICollectView extends BaseIView {}
     interface ICollectPresent{
         /**
          * 获取监控收藏列表
@@ -181,7 +183,7 @@ public interface MyCenterContract {
 
     /*---------------我的发布----------------*/
     interface IMyPublishListModel{}
-    interface IMyPublishListView extends IView{}
+    interface IMyPublishListView extends BaseIView {}
     interface IMyPublishListPresent{
         /**
          * 获取我的发布(案件)
@@ -219,7 +221,7 @@ public interface MyCenterContract {
 
     /*---------------我的任务-----------------*/
     interface ITaskModel{}
-    interface ITaskView extends IView{}
+    interface ITaskView extends BaseIView {}
     interface ITaskPresent{
         /**
          * 获取我的任务列表

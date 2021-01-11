@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.disabled.bdmap.act.NavigationDialog;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.case_bean.CaseInfoBean;
 import com.juntai.disabled.federation.home_page.map.MapContract;

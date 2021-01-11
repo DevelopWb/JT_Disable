@@ -1,6 +1,6 @@
 package com.juntai.disabled.federation.home_page.camera;
 
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 
 import okhttp3.RequestBody;
 
@@ -19,7 +19,7 @@ public interface PlayContract{
     String GET_STREAM_CAMERA_THUMBNAIL = "get_url_path_capture";//缩略图
     String GET_STREAM_CAMERA_CAPTURE = "get_url_path_capture_save";//截图  保存本地
     String UPLOAD_CAMERA_CAPTURE = "upload_path_capture";//上传截图
-    interface IPlayView extends IView {
+    interface IPlayView extends BaseIView {
 
     }
 

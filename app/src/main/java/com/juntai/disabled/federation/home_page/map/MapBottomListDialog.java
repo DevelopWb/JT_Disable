@@ -14,7 +14,6 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.juntai.disabled.bdmap.act.NavigationDialog;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MapClusterItem;
 

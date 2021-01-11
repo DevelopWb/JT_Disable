@@ -5,7 +5,7 @@ public class AppHttpPath {
      * base
      */
 //    public static final String BASE = "http://61.156.157.132:27080/dongGuanPoliceStation/";
-    public static final String BASE = "https://www.dgjpcs.cn/server/dongGuanPoliceStation/";
+    public static final String BASE = "http://www.juntaikeji.com:19120/dongGuanPoliceStation2/";
 //    public static final String BASE = "http://192.168.124.118:8080/dongGuanPolice/";
 
     /**

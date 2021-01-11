@@ -21,7 +21,7 @@ import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.entrance.regist.RegistActivity;
 import com.juntai.disabled.federation.entrance.sendcode.SendCodeModel;
-import com.juntai.disabled.federation.base.MainActivity;
+import com.juntai.disabled.federation.MainActivity;
 import com.juntai.disabled.federation.utils.AppUtils;
 import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.disabled.federation.utils.StringTools;

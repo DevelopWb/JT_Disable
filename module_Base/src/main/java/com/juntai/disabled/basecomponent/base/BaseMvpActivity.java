@@ -4,13 +4,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
-public abstract class BaseMvpActivity<P extends BasePresenter> extends BaseActivity implements IView {
+public abstract class BaseMvpActivity<P extends BasePresenter> extends BaseActivity implements BaseIView {
 
 
     protected P mPresenter;

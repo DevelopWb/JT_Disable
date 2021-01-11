@@ -9,7 +9,7 @@ import android.support.annotation.Nullable;
 import com.juntai.disabled.basecomponent.utils.SPTools;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.entrance.guide.GuideActivity;
-import com.juntai.disabled.federation.base.MainActivity;
+import com.juntai.disabled.federation.MainActivity;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;

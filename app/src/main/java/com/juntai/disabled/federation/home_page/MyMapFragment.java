@@ -30,8 +30,6 @@ import com.baidu.mapapi.map.HeatMap;
 import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapStatus;
-import com.baidu.mapapi.map.MapStatusUpdate;
-import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MapViewLayoutParams;
 import com.baidu.mapapi.map.Marker;
@@ -43,16 +41,11 @@ import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.map.TextOptions;
 import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.model.LatLngBounds;
 import com.baidu.mapapi.utils.DistanceUtil;
 import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
-import com.juntai.disabled.basecomponent.utils.SPTools;
-import com.juntai.disabled.basecomponent.utils.SnackbarUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.disabled.basecomponent.widght.ProgressDialog;
-import com.juntai.disabled.bdmap.act.NavigationDialog;
 import com.juntai.disabled.bdmap.service.LocateAndUpload;
 import com.juntai.disabled.bdmap.utils.MapUtil;
 import com.juntai.disabled.bdmap.utils.MyOrientationListener;
@@ -61,7 +54,7 @@ import com.juntai.disabled.bdmap.utils.clusterutil.clustering.Cluster;
 import com.juntai.disabled.bdmap.utils.clusterutil.clustering.ClusterManager;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
-import com.juntai.disabled.federation.base.MainActivity;
+import com.juntai.disabled.federation.MainActivity;
 import com.juntai.disabled.federation.bean.BannerNewsBean;
 import com.juntai.disabled.federation.bean.case_bean.CaseDesBean;
 import com.juntai.disabled.federation.bean.MapClusterItem;
@@ -77,7 +70,6 @@ import com.juntai.disabled.federation.bean.stream.StreamCameraBean;
 import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.home_page.call_to_police.CallToPoliceActivity;
 import com.juntai.disabled.federation.home_page.call_to_police.VerifiedActivity;
-import com.juntai.disabled.federation.home_page.camera.PlayContract;
 import com.juntai.disabled.federation.home_page.camera.ijkplayer.CarLiveActivity;
 import com.juntai.disabled.federation.home_page.camera.ijkplayer.PlayerLiveActivity;
 import com.juntai.disabled.federation.home_page.key_personnel.KeyPersonnelInfoActivity;
@@ -131,19 +123,17 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
     //侧滑布局=======================================
     private DrawerLayout drawerLayout = null;
     private RelativeLayout sideLayout = null;
-    private RelativeLayout partSideView = null;
     private LinearLayout mSearchLl;
     private RelativeLayout DistanceUtilBtn = null;
     private RelativeLayout sideViewNormal = null;
     private ConstraintLayout mMarqueeCl;
     private RelativeLayout twdBg, thdBg, weixingBg, jiejingBg;
     private TextView twdTv, thdTv, weixingTv, jiejingTv;
-    private Switch heatMap, roadStatus, distanceUtil;
+    private Switch roadStatus, distanceUtil;
     private List<LatLng> heatMapItems = new ArrayList<>();
     HeatMap mHeatMap = null;
     //==============================================
     NavigationDialog navigationDialog;
-    private ProgressDialog progressDialog;
     private SharedPreferencesUtil mapSP = null;
     private MyOrientationListener myOrientationListener = null;
     private float direct = 0, locationRadius = 0;
@@ -153,9 +143,7 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
     private ImageView satelliteMap = null, twdMap = null, thdMap = null, jiejing = null;
     private BaiduMap.OnMapClickListener normalClick;
     private BaiduMap.OnMapClickListener distanceUtilClick;
-    private BaiduMap.OnMapClickListener areaUtilClick;
     private Boolean distanceUtilSwitch = false;
-    private String headUrl = "";
     List<LatLng> distancePoints = new ArrayList<>();
     private boolean isFisrt = true;
     private List<MapClusterItem> clusterItemList = new ArrayList<>();
@@ -163,8 +151,6 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
     private double distance = 0;
     private int clickedButton = -1;
     private View infowindowPeople = null;
-    private int isSelectedPartType = -1;
-    private boolean isFirstShow = true;
     private ImageView mScanIv;
     private ImageView mCallPoliceIv;
     private ImageView mDeleteNews;//删除资讯
@@ -182,6 +168,7 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
     private int clickType = 2;//2单个marker点击，1聚合列表点击
     private MapBottomListDialog mapBottomListDialog;
     StreamCameraBean.DataBean currentStreamCamera;
+    MapMenuAdapter mMenuAdapter;
 
     @Override
     protected MapPresenter createPresenter() {
@@ -235,12 +222,10 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
         DistanceUtilBtn = getView(R.id.distance_util_btn);
         DistanceUtilBtn.setOnClickListener(this);
         myLocation = new LatLng(0, 0);
-        progressDialog = new ProgressDialog(mContext);
         navigationDialog = new NavigationDialog();
         //侧滑布局====================================================
         initDrawerlayout();
         sideLayout = getView(R.id.cehuabuju);
-        partSideView = getView(R.id.part_side_view);
         twdBg = getView(R.id.twd_bg);
         thdBg = getView(R.id.thd_bg);
         jiejingBg = getView(R.id.jiejing_bg);
@@ -249,33 +234,10 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
         thdTv = getView(R.id.thd_tv);
         jiejingTv = getView(R.id.jiejing_tv);
         weixingTv = getView(R.id.weixing_tv);
-        heatMap = getView(R.id.relitukaiguan);
+
         roadStatus = getView(R.id.lukuangtukaiguan);
         distanceUtil = getView(R.id.map_distanceutil);
-        //热力图监听
-        heatMap.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                progressDialog.show();
-                if (clusterItemList.size() > 0) {
-                    heatMapItems.clear();
-                    for (MapClusterItem item : clusterItemList) {
-                        heatMapItems.add(item.getLatLng());
-                    }
-                    mHeatMap = new HeatMap.Builder().data(heatMapItems).build();
-                    mMap.addHeatMap(mHeatMap);
-                    progressDialog.dismiss();
-                } else {
-                    ToastUtils.toast(mContext, "没有选择查看的内容");
-                    progressDialog.dismiss();
-                    heatMap.setChecked(false);
-                }
-            } else {
-                if (mHeatMap != null) {
-                    mHeatMap.removeHeatMap();
-                    heatMap.setChecked(false);
-                }
-            }
-        });
+        heatMapListener();
         //路况图监听
         roadStatus.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
@@ -312,6 +274,44 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
         satelliteMap.setOnClickListener(this);
         twdMap.setOnClickListener(this);
         thdMap.setOnClickListener(this);
+        initMapConfig();
+        setMapType();
+        View child = mMapView.getChildAt(1);
+        if ((child instanceof ImageView || child instanceof ZoomControls)) {
+            child.setVisibility(View.INVISIBLE);
+        }
+        initMenuAdapter();
+
+        mSearchLl = (LinearLayout) getView(R.id.search_ll);
+        mSearchLl.setOnClickListener(this);
+        mScanIv = (ImageView) getView(R.id.scan_iv);
+        mScanIv.setOnClickListener(this);
+        mCallPoliceIv = (ImageView) getView(R.id.call_police_iv);
+        mCallPoliceIv.setOnClickListener(this);
+    }
+
+    /**
+     * 设置地图的模式
+     */
+    private void setMapType() {
+        //    entityListRl = getView(R.id.entity_list_rl);
+        mapSP = new SharedPreferencesUtil(mContext);
+        switch (mapSP.getIntSP("mapType")) {
+            case BaiduMap.MAP_TYPE_NORMAL:
+                mMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
+                switchMapType(R.id.erdpingmiantu);
+                break;
+            case BaiduMap.MAP_TYPE_SATELLITE:
+                mMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);
+                switchMapType(R.id.weixingtu);
+                break;
+        }
+    }
+
+    /**
+     * map初始化
+     */
+    private void initMapConfig() {
         //地图
         mMapView = getView(R.id.map_view_tmv);
         mMap = mMapView.getMap();
@@ -340,7 +340,6 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
         clusterManager = new ClusterManager<>(mContext, mMap);
         clusterManager.setOnClusterItemClickListener(MyMapFragment.this);//点点击
         clusterManager.setOnClusterClickListener(MyMapFragment.this);//聚合展开
-        //        map.setOnMarkerClickListener(clusterManager);
         mMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
@@ -416,77 +415,50 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
             }
         };
         mMap.setOnMapClickListener(normalClick);
-        //    entityListRl = getView(R.id.entity_list_rl);
-        mapSP = new SharedPreferencesUtil(mContext);
-        switch (mapSP.getIntSP("mapType")) {
-            case BaiduMap.MAP_TYPE_NORMAL:
-                mMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
-                mapType(R.id.erdpingmiantu);
-                break;
-            case BaiduMap.MAP_TYPE_SATELLITE:
-                mMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);
-                mapType(R.id.weixingtu);
-                break;
-        }
-        View child = mMapView.getChildAt(1);
-        if ((child instanceof ImageView || child instanceof ZoomControls)) {
-            child.setVisibility(View.INVISIBLE);
-        }
-        mapMenuButtonRv = getView(R.id.menu_list);
-        // entityListRv = getView(R.id.entity_list_rv);
-        mPresenter.getMenus(MapContract.GET_MENUS);
-        mapMenuButtonRv.setLayoutManager(new LinearLayoutManager(mContext));
-        adapter = new MapMenuAdapter(R.layout.map_menu_button, new ArrayList());
-        mapMenuButtonRv.setAdapter(adapter);
-
-        mSearchLl = (LinearLayout) getView(R.id.search_ll);
-        mSearchLl.setOnClickListener(this);
-        mScanIv = (ImageView) getView(R.id.scan_iv);
-        mScanIv.setOnClickListener(this);
-        mCallPoliceIv = (ImageView) getView(R.id.call_police_iv);
-        mCallPoliceIv.setOnClickListener(this);
     }
 
-    private void initDrawerlayout() {
-        drawerLayout = getView(R.id.drawerlayout);
-        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
-            @Override
-            public void onDrawerSlide(@NonNull View view, float v) {
-
-            }
-
-            @Override
-            public void onDrawerOpened(@NonNull View view) {
-                ((MainActivity) getActivity()).drawerlayoutOpened(true);
-            }
-
-            @Override
-            public void onDrawerClosed(@NonNull View view) {
-                ((MainActivity) getActivity()).drawerlayoutOpened(false);
-            }
-
-            @Override
-            public void onDrawerStateChanged(int i) {
+    //热力图监听
+    private void heatMapListener() {
+        Switch heatMap = getView(R.id.relitukaiguan);
+        heatMap.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                getBaseActivity().showLoadingDialog(mContext);
+                if (clusterItemList.size() > 0) {
+                    heatMapItems.clear();
+                    for (MapClusterItem item : clusterItemList) {
+                        heatMapItems.add(item.getLatLng());
+                    }
+                    mHeatMap = new HeatMap.Builder().data(heatMapItems).build();
+                    mMap.addHeatMap(mHeatMap);
+                    getBaseActivity().stopLoadingDialog();
+                } else {
+                    ToastUtils.toast(mContext, "没有选择查看的内容");
+                    getBaseActivity().stopLoadingDialog();
+                    heatMap.setChecked(false);
+                }
+            } else {
+                if (mHeatMap != null) {
+                    mHeatMap.removeHeatMap();
+                    heatMap.setChecked(false);
+                }
             }
         });
     }
 
-    MapMenuAdapter adapter;
-
     /**
-     * 添加首页地图菜单
-     *
-     * @param list
+     * 初始化菜单适配器
      */
-    protected void addMapMenuButton(final List<MapMenuButton.DataBean> list) {
-        isSelectedPartType = -1;
-        //RecyclerView.LayoutManager layoutManager2 = new LinearLayoutManager(mContext);
-        adapter.addData(list);
-        adapter.setOnItemClickListener((adapter1, view, position) -> {
+    private void initMenuAdapter() {
+        mapMenuButtonRv = getView(R.id.menu_list);
+        // entityListRv = getView(R.id.entity_list_rv);
+        mPresenter.getMenus(MapContract.GET_MENUS);
+        mapMenuButtonRv.setLayoutManager(new LinearLayoutManager(mContext));
+        mMenuAdapter = new MapMenuAdapter(R.layout.map_menu_button, new ArrayList());
+        mapMenuButtonRv.setAdapter(mMenuAdapter);
+        mMenuAdapter.setOnItemClickListener((adapter1, view, position) -> {
             nowMarkerId = "";
             nowMarker = null;
-            final MapMenuButton.DataBean item = list.get(position);
-
+            final MapMenuButton.DataBean item = (MapMenuButton.DataBean) adapter1.getData().get(position);
             if (item.isSelected()) {
                 item.setSelected(false);
                 clickedButton = -1;
@@ -497,7 +469,7 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
             } else {
                 item.setSelected(true);
                 if (clickedButton != -1) {
-                    list.get(clickedButton).setSelected(false);
+                    ((MapMenuButton.DataBean) adapter1.getData().get(clickedButton)).setSelected(false);
                     adapter1.notifyItemChanged(clickedButton);
                 }
                 clickedButton = position;
@@ -532,54 +504,54 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
                         mPresenter.getCameras(MapContract.GET_STREAM_CAMERAS);
                         break;
                     case 4://警情分布(案件)
-                        if (MyApp.isCompleteUserInfo()){
+                        if (MyApp.isCompleteUserInfo()) {
                             clearTheMap(mMap);
-                            clickCaseButton(view);
-                        }else {
+                            mPresenter.getCases(MapContract.GET_CASES);
+                        } else {
                             item.setSelected(false);
                         }
                         break;
                     case 5://警员分布
-                        if (MyApp.isCompleteUserInfo()){
+                        if (MyApp.isCompleteUserInfo()) {
                             clearTheMap(mMap);
                             mPresenter.getPolices(MapContract.GET_POLICE);
-                        }else {
+                        } else {
                             item.setSelected(false);
                         }
                         break;
                     case 6://车辆分布
-                        if (MyApp.isCompleteUserInfo()){
+                        if (MyApp.isCompleteUserInfo()) {
                             clearTheMap(mMap);
                             try {
                                 mPresenter.getPoliceCars(MapContract.GET_CARS);
                             } catch (Exception e) {
                                 ToastUtils.toast(mContext, "车辆服务异常,请联系后台人员");
                             }
-                        }else {
+                        } else {
                             item.setSelected(false);
                         }
                         break;
                     case 7://场所管理
-                        if (MyApp.isCompleteUserInfo()){
+                        if (MyApp.isCompleteUserInfo()) {
                             clearTheMap(mMap);
                             mPresenter.getSiteManagers(MapContract.GET_SITES);
-                        }else {
+                        } else {
                             item.setSelected(false);
                         }
                         break;
                     case 8://巡检
-                        if (MyApp.isCompleteUserInfo()){
+                        if (MyApp.isCompleteUserInfo()) {
                             clearTheMap(mMap);
                             mPresenter.getInspection(MapContract.GET_INSPECTION);
-                        }else {
+                        } else {
                             item.setSelected(false);
                         }
                         break;
                     case 9://重点人员
-                        if (MyApp.isCompleteUserInfo()){
+                        if (MyApp.isCompleteUserInfo()) {
                             clearTheMap(mMap);
                             mPresenter.getKeyPersonnels(MapContract.GET_KEY_PERSONNEL);
-                        }else {
+                        } else {
                             item.setSelected(false);
                         }
                         break;
@@ -610,15 +582,42 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
                 }
             }
         });
-        adapter.notifyDataSetChanged();
     }
+
+    /**
+     * 初始化抽屉布局
+     */
+    private void initDrawerlayout() {
+        drawerLayout = getView(R.id.drawerlayout);
+        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View view, float v) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View view) {
+                ((MainActivity) getActivity()).drawerlayoutOpened(true);
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View view) {
+                ((MainActivity) getActivity()).drawerlayoutOpened(false);
+            }
+
+            @Override
+            public void onDrawerStateChanged(int i) {
+            }
+        });
+    }
+
 
     /**
      * 地图模式切换
      *
      * @param viewId
      */
-    private void mapType(int viewId) {
+    private void switchMapType(int viewId) {
         switch (viewId) {
             case R.id.weixingtu:
                 mMap.setOnMapClickListener(normalClick);
@@ -667,22 +666,6 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
         }
     }
 
-    /**
-     * 案件分布
-     *
-     * @param view
-     */
-    private void clickCaseButton(View view) {
-        LogUtil.d("show snackbar1111");
-        if (SPTools.getBoolean(mContext, "showCaseMsg", true) && isFirstShow) {
-            //            SnackbarUtil.show(view,"sss");
-            SnackbarUtil.makeShort(view, "案件显示为当月").showCaseMessage("不再提示",
-                    v -> SPTools.saveBoolean(mContext, "showCaseMsg", false));
-            isFirstShow = false;
-            LogUtil.d("show snackbar222");
-        }
-        mPresenter.getCases(MapContract.GET_CASES);
-    }
 
     /**
      * 清理地图标点
@@ -713,7 +696,7 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
                             //                        .rotate(-30) //旋转角度
                             .position(latLng);
                     //在地图上显示文字覆盖物
-                    Overlay mText = mMap.addOverlay(mTextOptions);
+                    mMap.addOverlay(mTextOptions);
                     distancePoints.add(latLng);
                 } else {
                     if (distancePoints.size() == 2)
@@ -757,13 +740,6 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
             }
         };
 
-        areaUtilClick = new BaiduMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {}
-
-            @Override
-            public void onMapPoiClick(MapPoi mapPoi) {}
-        };
 
         if (!closeMarquee) {
             mPresenter.getBannerNews(MapContract.BANNER_NEWS);
@@ -847,7 +823,7 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(mContext, CarLiveActivity.class).putExtra(CarLiveActivity.STREAM_CAMERA_NAME
-                        ,car.getDeviceName()).putExtra(CarLiveActivity.STREAM_CAMERA_URL,
+                        , car.getDeviceName()).putExtra(CarLiveActivity.STREAM_CAMERA_URL,
                         UrlFormatUtil.getCarStream(car.getImei()))
                 );
             }
@@ -988,28 +964,28 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
             case R.id.weixingtu:
                 mMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);//打开卫星地图
                 mapSP.putIntSP("mapType", BaiduMap.MAP_TYPE_SATELLITE);
-                mapType(v.getId());
+                switchMapType(v.getId());
                 break;
             case R.id.erdpingmiantu:
                 mMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);//打开卫星地图
                 mapSP.putIntSP("mapType", BaiduMap.MAP_TYPE_NORMAL);
-                mapType(v.getId());
+                switchMapType(v.getId());
                 break;
             case R.id.sandfushitu:
                 //3D俯视图
                 mMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
                 mapSP.putIntSP("mapType", BaiduMap.MAP_TYPE_NORMAL);
-                mapType(v.getId());
+                switchMapType(v.getId());
                 break;
             case R.id.jiejing:
                 if (panoramaSwitch) {
                     mMap.setOnMapClickListener(normalClick);
                     panoramaSwitch = false;
-                    mapType(R.id.erdpingmiantu);
+                    switchMapType(R.id.erdpingmiantu);
                 } else {
                     mMap.setOnMapClickListener(panoramaClick);
                     panoramaSwitch = true;
-                    mapType(v.getId());
+                    switchMapType(v.getId());
                 }
                 break;
             case R.id.mylocation:
@@ -1045,7 +1021,7 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
                 startActivity(new Intent(mContext, DistanceUtilActivity.class));
                 break;
             case R.id.search_ll:
-                if (MyApp.isCompleteUserInfo()){
+                if (MyApp.isCompleteUserInfo()) {
                     startActivity(new Intent(mContext, SearchActivity.class));
                 }
                 break;
@@ -1053,7 +1029,7 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
                 if ((System.currentTimeMillis() - currentTime) < 800) {
                     return;
                 }
-                if (!MyApp.isCompleteUserInfo()){
+                if (!MyApp.isCompleteUserInfo()) {
                     return;
                 }
                 currentTime = System.currentTimeMillis();
@@ -1128,11 +1104,9 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
                     if (1 == item.streamCamera.getFlag()) {
                         currentStreamCamera = item.streamCamera;
                         startActivity(new Intent(mContext.getApplicationContext(), PlayerLiveActivity.class)
-                                                        .putExtra(PlayerLiveActivity.STREAM_CAMERA_ID, currentStreamCamera.getId())
-                                                        .putExtra(PlayerLiveActivity.STREAM_CAMERA_NUM, currentStreamCamera.getNumber())
-                                                        .putExtra(PlayerLiveActivity.STREAM_CAMERA_PIC, currentStreamCamera.getEzOpen()));
-//                        //打开流数据
-//                        mPresenter.openStream(item.streamCamera.getNumber(), "1", "rtmp", PlayContract.GET_URL_PATH);
+                                .putExtra(PlayerLiveActivity.STREAM_CAMERA_ID, currentStreamCamera.getId())
+                                .putExtra(PlayerLiveActivity.STREAM_CAMERA_NUM, currentStreamCamera.getNumber())
+                                .putExtra(PlayerLiveActivity.STREAM_CAMERA_PIC, currentStreamCamera.getEzOpen()));
                     }
                 }
                 nowMarkerId = String.valueOf(item.streamCamera.getNumber());
@@ -1193,24 +1167,7 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
         }
         return false;
     }
-    /**
-     * 设置显示在屏幕中的地理范围
-     */
-    private void zoomToSpan(List<MapClusterItem> clusterItemList) {
-        LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        // 需要显示的marker点
-        for (MapClusterItem mapClusterItem : clusterItemList) {
-            builder.include(mapClusterItem.getPosition());
-        }
-        if (myLocation != null) {
-            // 我的当前位置
-            builder.include(new LatLng(myLocation.latitude, myLocation.longitude));
-        }
-        LatLngBounds bounds = builder.build();
-        // 设置显示在屏幕中的地图地理范围
-        MapStatusUpdate u = MapStatusUpdateFactory.newLatLngBounds(bounds);
-        mMap.setMapStatus(u);
-    }
+
 
     /**
      * 更新marker图标
@@ -1291,12 +1248,12 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
         //保存轨迹到本地
         if (MyApp.getUser() != null &&
                 MyApp.getUser().getData() != null &&
-                MyApp.getUser().getData().getSettleStatus() == 2){
-            LocationBean locationBean = new LocationBean(bdLocation.getAddrStr()+"",
+                MyApp.getUser().getData().getSettleStatus() == 2) {
+            LocationBean locationBean = new LocationBean(bdLocation.getAddrStr() + "",
                     LocateAndUpload.getLocType(bdLocation),
-                    bdLocation.getLongitude()+"",
-                    bdLocation.getLatitude()+"",
-                    DateUtil.getCurrentTime()+"");
+                    bdLocation.getLongitude() + "",
+                    bdLocation.getLatitude() + "",
+                    DateUtil.getCurrentTime() + "");
             MyApp.getDaoSession().getLocationBeanDao().save(locationBean);
         }
     }
@@ -1336,29 +1293,7 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
         switch (tag) {
             case MapContract.GET_MENUS://获取地图菜单按钮
                 MapMenuButton mapMenuButton = (MapMenuButton) o;
-                addMapMenuButton(mapMenuButton.getData());
-                break;
-            case PlayContract.GET_URL_PATH:
-//                OpenLiveBean openLiveBean = (OpenLiveBean) o;
-//                int errorCode = openLiveBean.getErrcode();
-//                if (errorCode < 0) {
-//                    ToastUtils.toast(mContext, "设备离线，无数据");
-//                    return;
-//                }
-//                String playUrl = openLiveBean.getVideourl();
-//                if (StringTools.isStringValueOk(playUrl)) {
-//                    if (playUrl.contains("//")) {
-//                        playUrl = playUrl.substring(playUrl.indexOf("//")+2);
-//                        playUrl = playUrl.substring(playUrl.indexOf("/"));
-//                        playUrl =AppHttpPath.BASE_CAMERA_DNS+playUrl;
-//                    }
-//                }
-//                String strsessionid = openLiveBean.getStrsessionid();
-//                startActivity(new Intent(mContext.getApplicationContext(), PlayerLiveActivity.class)
-//                        .putExtra(PlayerLiveActivity.STREAM_CAMERA_ID, currentStreamCamera.getId())
-//                        .putExtra(PlayerLiveActivity.STREAM_CAMERA_URL, playUrl)
-//                        .putExtra(PlayerLiveActivity.STREAM_CAMERA_SESSION_ID, strsessionid)
-//                        .putExtra(PlayerLiveActivity.STREAM_CAMERA_NUM, currentStreamCamera.getNumber()));
+                mMenuAdapter.setNewData(mapMenuButton.getData());
                 break;
             case MapContract.BANNER_NEWS:
                 BannerNewsBean bannerNewsBean = (BannerNewsBean) o;
@@ -1522,7 +1457,7 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
         ToastUtils.toast(mContext, msg);
         switch (tag) {
             case MapContract.GET_CARS:
-//                ToastUtils.toast(mContext, msg);
+                //                ToastUtils.toast(mContext, msg);
                 break;
             case MapContract.GET_MENUS:
                 //菜单
@@ -1540,9 +1475,9 @@ public class MyMapFragment extends BaseMvpFragment<MapPresenter> implements MapC
             case MapContract.GET_KEY_PERSONNEL:
                 break;
             default:
-                if (adapter.getData().size() > 0 && clickedButton > -1) {
-                    adapter.getData().get(clickedButton).setSelected(false);
-                    adapter.notifyItemChanged(clickedButton);
+                if (mMenuAdapter.getData().size() > 0 && clickedButton > -1) {
+                    mMenuAdapter.getData().get(clickedButton).setSelected(false);
+                    mMenuAdapter.notifyItemChanged(clickedButton);
                     clickedButton = -1;
                 }
                 break;

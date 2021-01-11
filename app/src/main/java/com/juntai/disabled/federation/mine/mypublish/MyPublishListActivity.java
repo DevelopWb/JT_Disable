@@ -21,7 +21,7 @@ public class MyPublishListActivity extends BaseActivity implements ViewPager.OnP
     private CustomViewPager mCollectViewpager;
 
     MainPagerAdapter adapter;
-    private String[] title = new String[]{"警情","巡检","资讯","场所"};
+    private String[] title = new String[]{"警情","资讯"};
     SparseArray<Fragment> mFragments = new SparseArray<>();
     int nowFragment;
 
@@ -49,9 +49,7 @@ public class MyPublishListActivity extends BaseActivity implements ViewPager.OnP
         });
 
         mFragments.append(0,MyPublishListFragment.newInstance(1));
-        mFragments.append(1,MyPublishListFragment.newInstance(7));
-        mFragments.append(2,MyPublishListFragment.newInstance(8));
-        mFragments.append(3,MyPublishListFragment.newInstance(11));
+        mFragments.append(1,MyPublishListFragment.newInstance(8));
 
         adapter = new MainPagerAdapter(getSupportFragmentManager(), getApplicationContext(), title, mFragments);
         mCollectViewpager.setAdapter(adapter);

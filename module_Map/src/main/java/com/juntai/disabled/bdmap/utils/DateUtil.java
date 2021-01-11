@@ -1,11 +1,15 @@
 package com.juntai.disabled.bdmap.utils;
 
+import android.annotation.SuppressLint;
+
+
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * author:wong
@@ -16,11 +20,21 @@ public class DateUtil {
     public static final String USUAL = "yyyy-MM-dd HH:mm:ss";
     //获取
     public static String getRealDate() {
-         calendar = Calendar.getInstance();
+        calendar = Calendar.getInstance();
         return String.format("%d-%d-%d  %s", calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1,
                 calendar.get(Calendar.DAY_OF_MONTH), switchDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK)));
     }
-
+    /**
+     * 获取当前系统时间
+     * @param format "yyyy-MM-dd  HH:mm:ss"
+     * @return
+     */
+    public static String getCurrentTime(String format) {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.getDefault());
+        String currentTime = sdf.format(date);
+        return currentTime;
+    }
     //获取对应格式的字符型时间
 
     public static String getStringWithFormat(String format){
@@ -164,13 +178,13 @@ public class DateUtil {
                 0,
                 0,
                 0);
-//        return simpleDateFormat.format(calendar.getTime());
+        //        return simpleDateFormat.format(calendar.getTime());
         return calendar.getTimeInMillis()/1000;
     }
     //获取昨天结束时间
     public static long getYesterdayEnd() {
         calendar = Calendar.getInstance();
-//        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd 23:59:59");
+        //        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd 23:59:59");
         calendar.set(calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH) - 1,

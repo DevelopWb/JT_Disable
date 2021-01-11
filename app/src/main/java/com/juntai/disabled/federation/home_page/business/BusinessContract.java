@@ -1,7 +1,7 @@
 package com.juntai.disabled.federation.home_page.business;
 
 import com.juntai.disabled.basecomponent.mvp.IPresenter;
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 
 import okhttp3.RequestBody;
 
@@ -14,7 +14,7 @@ public interface BusinessContract {
     String CREAT_BUSINESS = "creat_business";//创建业务
 
 
-    interface IBusinessView extends IView {
+    interface IBusinessView extends BaseIView {
 
     }
 

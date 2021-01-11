@@ -10,12 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.juntai.disabled.basecomponent.app.BaseApplication;
-import com.juntai.disabled.basecomponent.utils.EventManager;
 import com.squareup.leakcanary.RefWatcher;
 import com.trello.rxlifecycle2.components.support.RxFragment;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 
 public abstract class BaseFragment extends RxFragment {
@@ -31,7 +27,7 @@ public abstract class BaseFragment extends RxFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getActivity();
-        EventManager.getLibraryEvent().register(this);//注册
+        //        EventBus.getDefault().register(this);//订阅
     }
 
     @Nullable
@@ -70,7 +66,7 @@ public abstract class BaseFragment extends RxFragment {
 
     @Override
     public void onDestroyView() {
-        EventManager.getLibraryEvent().unregister(this);//解除注册
+        //        EventBus.getDefault().unregister(this);//解除订阅
         initLeakCanary();
         super.onDestroyView();
         this.mContext = null;
@@ -95,16 +91,9 @@ public abstract class BaseFragment extends RxFragment {
         return (BaseActivity)getActivity();
     }
 
-//    @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
-//    public void onBaseEvent(final Integer refresh){
-//
-//    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
-    public void receiveMsg(String test) {
-//        if ("888888".equals(test)) {
-//            LogUtil.e(test);
-//        }
-    }
+    //    @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
+    //    public void onBaseEvent(final Integer refresh){
+    //
+    //    }
 
 }

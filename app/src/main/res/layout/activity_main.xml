@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".base.MainActivity"
+    tools:context=".MainActivity"
     android:id="@+id/main_layout">
     <com.juntai.disabled.federation.base.customview.CustomViewPager
         android:id="@+id/main_viewpager"

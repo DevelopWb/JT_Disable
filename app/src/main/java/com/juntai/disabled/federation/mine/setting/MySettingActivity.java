@@ -158,8 +158,8 @@ public class MySettingActivity extends UpdateActivity<EntrancePresent> implement
         menuBeans.add(new MyMenuBean("清理内存", 0, R.mipmap.set_clear, MyCenterContract.SET_CLEAR_TAG, null));
         menuBeans.add(new MyMenuBean("检测更新", 0, R.mipmap.set_update, MyCenterContract.SET_UPDATE_TAG, null));
         menuBeans.add(new MyMenuBean("关于我们", -1, R.mipmap.set_about, MyCenterContract.SET_ABOUT_TAG, AboutActivity.class));
-        menuBeans.add(new MyMenuBean("绑定微信", 0, R.mipmap.set_wexin, MyCenterContract.SET_WEIXIN_TAG, null));
-        menuBeans.add(new MyMenuBean("绑定QQ", 0, R.mipmap.set_qq, MyCenterContract.SET_QQ_TAG, null));
+//        menuBeans.add(new MyMenuBean("绑定微信", 0, R.mipmap.set_wexin, MyCenterContract.SET_WEIXIN_TAG, null));
+//        menuBeans.add(new MyMenuBean("绑定QQ", 0, R.mipmap.set_qq, MyCenterContract.SET_QQ_TAG, null));
         settingMenuAdapter.notifyDataSetChanged();
     }
 
@@ -179,7 +179,7 @@ public class MySettingActivity extends UpdateActivity<EntrancePresent> implement
                 }
                 MyApp.setUser(userBean);
             }else {
-                ToastUtils.error(mContext, "服务器开小差了");
+                ToastUtils.error(mContext, baseResult.message);
             }
         }else {
             ToastUtils.error(mContext, "服务器开小差了");

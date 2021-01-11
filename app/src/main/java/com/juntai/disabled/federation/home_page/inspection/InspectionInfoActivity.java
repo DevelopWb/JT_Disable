@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
-import com.juntai.disabled.bdmap.act.NavigationDialog;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.inspection.InspectionPointInfoBean;
 import com.juntai.disabled.federation.bean.inspection.InspectionRecordBean;

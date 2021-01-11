@@ -2,7 +2,7 @@ package com.juntai.disabled.federation.base.update;
 
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 
 /**
  * @Author: tobato
@@ -11,6 +11,6 @@ import com.juntai.disabled.basecomponent.mvp.IView;
  * @UpdateUser: 更新者
  * @UpdateDate: 2020/4/10 16:43
  */
-public abstract class UpdatePresent<M extends IModel, V extends IView>  extends BasePresenter<M,V> {
+public abstract class UpdatePresent<M extends IModel, V extends BaseIView>  extends BasePresenter<M,V> {
 
 }

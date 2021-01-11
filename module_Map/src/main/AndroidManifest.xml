@@ -50,7 +50,12 @@
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
-
+        <activity android:name=".act.LocateSelectionActivity" >
+            <intent-filter>
+                <action android:name="${applicationId}.im.location.seltion"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <!--即时通讯 位置选择-->
         <activity android:name="com.juntai.disabled.bdmap.act.LocationSeltionActivity" >
             <intent-filter>
@@ -60,12 +65,6 @@
         </activity>
 
         <!--即时通讯 位置查看-->
-        <activity android:name="com.juntai.disabled.bdmap.act.LocationLookActivity" >
-            <intent-filter>
-                <action android:name="${applicationId}.im.location.look"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

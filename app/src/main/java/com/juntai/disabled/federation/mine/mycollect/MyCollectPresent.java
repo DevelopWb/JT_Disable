@@ -4,7 +4,7 @@ import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.AppNetModule;
@@ -23,14 +23,14 @@ import java.util.List;
  * email:954101549@qq.com
  */
 public class MyCollectPresent extends BasePresenter<IModel,MyCenterContract.ICollectView> implements MyCenterContract.ICollectPresent {
-    private IView iView;
+    private BaseIView iView;
 
     @Override
     protected IModel createModel() {
         return null;
     }
 
-    public void  setCallBack(IView iView) {
+    public void  setCallBack(BaseIView iView) {
         this.iView = iView;
     }
 
@@ -99,7 +99,7 @@ public class MyCollectPresent extends BasePresenter<IModel,MyCenterContract.ICol
 
     @Override
     public void deleteCollecListNews(int id, int userId, int isType, int typeId, int collectId, List<Integer> ids, String tag) {
-        IView  viewCallBack = null;
+        BaseIView viewCallBack = null;
         if (getView()==null) {
             if (iView != null) {
                 viewCallBack = iView;
@@ -107,7 +107,7 @@ public class MyCollectPresent extends BasePresenter<IModel,MyCenterContract.ICol
         }else{
             viewCallBack = getView();
         }
-        IView finalViewCallBack = viewCallBack;
+        BaseIView finalViewCallBack = viewCallBack;
         AppNetModule.createrRetrofit()
                 .addOrDeleteCollectsNews(id, MyApp.getAccount(), MyApp.getUserToken(),userId,isType, typeId, collectId, ids)
                 .compose(RxScheduler.ObsIoMain(viewCallBack))
@@ -140,7 +140,7 @@ public class MyCollectPresent extends BasePresenter<IModel,MyCenterContract.ICol
 
     @Override
     public void deleteCollecListCamera(int id, int userId, int isType, int typeId, int collectId, List<Integer> ids, String tag) {
-        IView  viewCallBack = null;
+        BaseIView viewCallBack = null;
         if (getView()==null) {
             if (iView != null) {
                 viewCallBack = iView;
@@ -148,7 +148,7 @@ public class MyCollectPresent extends BasePresenter<IModel,MyCenterContract.ICol
         }else{
             viewCallBack = getView();
         }
-        IView finalViewCallBack = viewCallBack;
+        BaseIView finalViewCallBack = viewCallBack;
         AppNetModule.createrRetrofit()
                 .addOrDeleteCollectsCamera(id, MyApp.getAccount(), MyApp.getUserToken(),userId,isType, typeId, collectId, ids)
                 .compose(RxScheduler.ObsIoMain(viewCallBack))

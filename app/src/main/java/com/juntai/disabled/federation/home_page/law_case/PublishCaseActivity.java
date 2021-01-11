@@ -151,7 +151,7 @@ public class PublishCaseActivity extends BaseSelectPicsAndVedioActivity<PublishP
             mTypeTv.setText(dataBean.getBigName());
             mKindTv.setText(dataBean.getSmallName());
         } else {
-            setTitleName("发布警情");
+            setTitleName("托养上报");
             mAddressTv.setOnClickListener(this);
             mTypeTv.setOnClickListener(this);
             mKindTv.setOnClickListener(this);
@@ -294,17 +294,17 @@ public class PublishCaseActivity extends BaseSelectPicsAndVedioActivity<PublishP
                         ToastUtils.warning(mContext, "请选择地点");
                         return;
                     }
-                    if (currentTypeBean == null) {
-                        ToastUtils.warning(mContext, "请选择类型");
-                        return;
-                    }
+//                    if (currentTypeBean == null) {
+//                        ToastUtils.warning(mContext, "请选择类型");
+//                        return;
+//                    }
                     builder.addFormDataPart("address", locAddress)
                             .addFormDataPart("provinceCode", (adCode/10000)+"0000")
                             .addFormDataPart("cityCode", (adCode/100)+"00")
                             .addFormDataPart("areaCode", adCode+"")
                             .addFormDataPart("longitude", String.valueOf(locLon))
                             .addFormDataPart("latitude", String.valueOf(locLat))
-                            .addFormDataPart("bigType", String.valueOf(currentTypeBean.getId()))
+                            .addFormDataPart("bigType", String.valueOf(4))
                             .addFormDataPart("happenDate", getTextViewValue(mDateTv))
                             .addFormDataPart("caseContent", getTextViewValue(mDescriptionEt))
                             .addFormDataPart("reportSource", "1");

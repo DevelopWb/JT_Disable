@@ -1,6 +1,6 @@
 package com.juntai.disabled.federation.home_page;
 
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 
 import okhttp3.RequestBody;
 
@@ -25,7 +25,7 @@ public interface PublishContract {
     String  GET_INSPECTION_INFO_SCAN = "get_inspection_info_scan";
 
 
-    interface IPublishView extends IView{}
+    interface IPublishView extends BaseIView {}
     interface IPublishPresent{
 
         /**

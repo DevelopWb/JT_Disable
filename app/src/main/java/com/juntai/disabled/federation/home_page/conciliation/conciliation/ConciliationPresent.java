@@ -9,7 +9,7 @@ import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 import com.juntai.disabled.basecomponent.utils.BaseAppUtils;
 import com.juntai.disabled.basecomponent.utils.GlideEngine4;
 import com.juntai.disabled.federation.AppNetModule;
@@ -41,14 +41,14 @@ import okhttp3.RequestBody;
  */
 public class ConciliationPresent extends BasePresenter<IModel, ConciliationContract.IConciliationView>
         implements ConciliationContract.IConciliationPresent {
-    private IView iView;
+    private BaseIView iView;
 
     @Override
     protected IModel createModel() {
         return null;
     }
 
-    public void setCallBack(IView iView) {
+    public void setCallBack(BaseIView iView) {
         this.iView = iView;
     }
 
@@ -126,7 +126,7 @@ public class ConciliationPresent extends BasePresenter<IModel, ConciliationContr
 
     @Override
     public void getUnitList(String cityNumber, String tag, boolean showProgress) {
-        IView viewCallBack = null;
+        BaseIView viewCallBack = null;
         if (getView() == null) {
             if (iView != null) {
                 viewCallBack = iView;
@@ -134,7 +134,7 @@ public class ConciliationPresent extends BasePresenter<IModel, ConciliationContr
         } else {
             viewCallBack = getView();
         }
-        IView finalViewCallBack = viewCallBack;
+        BaseIView finalViewCallBack = viewCallBack;
         AppNetModule
                 .createrRetrofit()
                 .getUnitList(MyApp.getAccount(), MyApp.getUserToken(), cityNumber)
@@ -231,7 +231,7 @@ public class ConciliationPresent extends BasePresenter<IModel, ConciliationContr
      */
     @SuppressLint("CheckResult")
     public void recordVideo(FragmentActivity activity) {
-        IView viewCallBack = null;
+        BaseIView viewCallBack = null;
         if (getView() == null) {
             if (iView != null) {
                 viewCallBack = iView;
@@ -270,7 +270,7 @@ public class ConciliationPresent extends BasePresenter<IModel, ConciliationContr
     //选择视频
     @SuppressLint("CheckResult")
     public void videoChoose(FragmentActivity activity) {
-        IView viewCallBack = null;
+        BaseIView viewCallBack = null;
         if (getView() == null) {
             if (iView != null) {
                 viewCallBack = iView;

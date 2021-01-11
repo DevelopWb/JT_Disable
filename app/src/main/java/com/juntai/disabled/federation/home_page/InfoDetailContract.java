@@ -1,6 +1,6 @@
 package com.juntai.disabled.federation.home_page;
 
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 
 /**
  * Describe:详情关联类
@@ -18,7 +18,7 @@ public interface InfoDetailContract {
     String COLLECT_TAG = "collect_tag";//收藏
     String SHARE_TAG = "share_tag";//分享
 
-    interface IInfoDetailView extends IView {}
+    interface IInfoDetailView extends BaseIView {}
     interface IInfoDetailModel{}
     interface IInfoDetailPresent{
 
