@@ -113,7 +113,6 @@ public class CameraVideoRecordFragment extends BaseMvpFragment<PlayPresent> impl
         mMonthRecordCalendarView.setOnCalendarSelectListener(new CalendarView.OnCalendarSelectListener() {
             @Override
             public void onCalendarOutOfRange(Calendar calendar) {
-
             }
 
             @Override
