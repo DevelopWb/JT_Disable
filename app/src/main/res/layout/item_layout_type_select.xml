@@ -7,18 +7,29 @@
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
     android:layout_height="wrap_content">
-    <EditText
-        android:id="@+id/edit_value_et"
+
+    <TextView
+        android:id="@+id/select_value_tv"
         android:layout_width="match_parent"
         android:layout_height="32dp"
         android:background="@drawable/stroke_gray_square_bg"
         android:lines="1"
+        android:gravity="center_vertical"
         android:maxLength="11"
         android:minHeight="26dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:textSize="14dp"
         app:layout_constraintLeft_toLeftOf="@+id/item_business_small_title_tv"
-        app:layout_constraintTop_toBottomOf="@+id/item_business_small_title_tv"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/item_business_small_title_tv"></TextView>
 
+    <ImageView
+        android:layout_width="12dp"
+        android:layout_height="8dp"
+        android:src="@mipmap/arrow_down"
+        android:alpha="0.5"
+        app:layout_constraintBottom_toBottomOf="@+id/select_value_tv"
+        android:layout_marginRight="15dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/select_value_tv"></ImageView>
 </android.support.constraint.ConstraintLayout>

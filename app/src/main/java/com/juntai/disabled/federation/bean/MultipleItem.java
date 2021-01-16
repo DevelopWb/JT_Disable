@@ -13,6 +13,12 @@ public class MultipleItem implements MultiItemEntity {
     public static final int ITEM_TITLE = 1;//类型1
     public static final int ITEM_CONTENT = 2;//类型2
     public static final int ITEM_LOAD_MORE = 3;//类型3
+    public static final int ITEM_BUSINESS_PIC = 4;//类型3
+    public static final int ITEM_BUSINESS_TITILE_BIG = 5;//类型3
+    public static final int ITEM_BUSINESS_TITILE_SMALL = 6;//类型3
+    public static final int ITEM_BUSINESS_EDIT = 7;//类型3
+    public static final int ITEM_BUSINESS_SELECT = 8;//类型3
+    public static final int ITEM_BUSINESS_RADIO = 9;//类型3
     private int itemType;
     private Object object;
 

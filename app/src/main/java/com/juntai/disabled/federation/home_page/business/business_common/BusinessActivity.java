@@ -12,6 +12,7 @@ import com.juntai.disabled.federation.bean.MyMenuBean;
 import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.home_page.business.BusinessContract;
 import com.juntai.disabled.federation.home_page.business.BusinessPresent;
+import com.juntai.disabled.federation.home_page.business.disableCard.HandlerDisableCardActivity;
 import com.juntai.disabled.federation.home_page.business.more_business.MoreBusinessActivity;
 import com.juntai.disabled.federation.home_page.business.transact_business.TransactBusinessActivity;
 import com.juntai.disabled.federation.home_page.call_to_police.VerifiedActivity;
@@ -60,32 +61,7 @@ public class BusinessActivity extends BaseMvpActivity<BusinessPresent> implement
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
-
-
-                //每个item的业务id 对应position+1
-                MyMenuBean bean = (MyMenuBean) adapter.getData().get(position);
-                int num = bean.getNumber();
-                int businessId = position + 1;
-                Intent intent = new Intent(mContext, TransactBusinessActivity.class).putExtra("id", businessId).putExtra("businessName", bean.getName());
-                if (11==num) {
-                    //更多
-                    intent = new Intent(mContext, MoreBusinessActivity.class);
-                }else {
-                    //首先判断下用户是否已经实名认证
-                    UserBean userBean = Hawk.get(AppUtils.SP_KEY_USER);
-                    if (userBean != null) {
-                        //实名认证状态（0：未提交）（1：提交审核中）（2：审核通过）（3：审核失败）
-                        int status = userBean.getData().getRealNameStatus();
-                        if (2 != status) {
-                            startActivity(new Intent(mContext, VerifiedActivity.class).putExtra(VerifiedActivity.VERIFIED_STATUS, status));
-                            return;
-                        }
-                    }
-
-                }
-
-                startActivity(intent);
+                startActivity(new Intent(mContext, HandlerDisableCardActivity.class));
             }
         });
     }

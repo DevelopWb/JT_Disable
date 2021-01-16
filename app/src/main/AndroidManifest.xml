@@ -20,7 +20,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:name="com.juntai.disabled.federation.MyApp"
+        android:name=".MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/app_jing_icon"
         android:label="@string/app_name"
@@ -30,200 +30,202 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="com.juntai.disabled.federation.home_page.news.news_publish.UpdateVideoNewsActivity"
-            android:launchMode="singleTop"/>
+        <activity android:name=".home_page.business.disableCard.HandlerDisableCardActivity"></activity>
         <activity
-            android:name="com.juntai.disabled.federation.entrance.BindingPhoneActivity"
+            android:name=".home_page.news.news_publish.UpdateVideoNewsActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.news.news_publish.UpdateImageNewsActivity"
+            android:name=".entrance.BindingPhoneActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.entrance.complete_info.CompleteInfoActivity"
+            android:name=".home_page.news.news_publish.UpdateImageNewsActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.site_manager.site_add.UpdateSiteActivity"
+            android:name=".entrance.complete_info.CompleteInfoActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.news.news_personal_homepage.FansListActivity"
+            android:name=".home_page.site_manager.site_add.UpdateSiteActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.news.news_personal_homepage.PersonalHomepageActivity"
+            android:name=".home_page.news.news_personal_homepage.FansListActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.news.news_info.NewsNormalInfoActivity"
+            android:name=".home_page.news.news_personal_homepage.PersonalHomepageActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.news.news_info.NewsNormalInfoActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" /> <!-- android:hardwareAccelerated="true" -->
         <activity
-            android:name="com.juntai.disabled.federation.home_page.news.news_info.NewsVideoInfoActivity"
+            android:name=".home_page.news.news_info.NewsVideoInfoActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.news.news_search.NewsSearchActivity"
+            android:name=".home_page.news.news_search.NewsSearchActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.news.news_publish.PublishNewsActivity"
+            android:name=".home_page.news.news_publish.PublishNewsActivity"
             android:hardwareAccelerated="false"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.site_manager.site_add.AddNewSiteActivity"
+            android:name=".home_page.site_manager.site_add.AddNewSiteActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.site_manager.site_add.AddUnitInspectionActivity"
+            android:name=".home_page.site_manager.site_add.AddUnitInspectionActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.site_manager.site_add.AddEmployeeActivity"
+            android:name=".home_page.site_manager.site_add.AddEmployeeActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.site_manager.site_info.UnitInspectionDetailActivity"
+            android:name=".home_page.site_manager.site_info.UnitInspectionDetailActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.site_manager.site_info.NewUnitDetailActivity"
+            android:name=".home_page.site_manager.site_info.NewUnitDetailActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.key_personnel.KeyPersonnelInfoActivity"
+            android:name=".home_page.key_personnel.KeyPersonnelInfoActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.key_personnel.PublishInterviewActivity"
+            android:name=".home_page.key_personnel.PublishInterviewActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.key_personnel.InterviewDetailActivity"
+            android:name=".home_page.key_personnel.InterviewDetailActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.mine.exchange_mall.HistoryListActivity"
+            android:name=".mine.exchange_mall.HistoryListActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.mine.exchange_mall.GoodsInfoActivity"
+            android:name=".mine.exchange_mall.GoodsInfoActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.mine.exchange_mall.AllGoodsListActivity"
+            android:name=".mine.exchange_mall.AllGoodsListActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.business.my_business.MyBusinessDetialActivity"
+            android:name=".home_page.business.my_business.MyBusinessDetialActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.business.my_business.MyBusinessActivity"
+            android:name=".home_page.business.my_business.MyBusinessActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.business.transact_business.SubmitSuccessActivity"
+            android:name=".home_page.business.transact_business.SubmitSuccessActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.business.transact_business.TransactBusinessActivity"
+            android:name=".home_page.business.transact_business.TransactBusinessActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.business.more_business.MoreBusinessActivity"
+            android:name=".home_page.business.more_business.MoreBusinessActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.business.business_common.BusinessActivity"
+            android:name=".home_page.business.business_common.BusinessActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.conciliation.conciliation_common.ConciliatonInfoActivity"
+            android:name=".home_page.conciliation.conciliation_common.ConciliatonInfoActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.conciliation.conciliation.JoinRoomActivity"
+            android:name=".home_page.conciliation.conciliation.JoinRoomActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.conciliation.conciliation_list.ConciliationListActivity"
+            android:name=".home_page.conciliation.conciliation_list.ConciliationListActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.conciliation.conciliation_publish.SucessResultActivity"
+            android:name=".home_page.conciliation.conciliation_publish.SucessResultActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.conciliation.conciliation_publish.PublishConciliationActivity"
+            android:name=".home_page.conciliation.conciliation_publish.PublishConciliationActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.mine.task.ReportDetailActivity"
+            android:name=".mine.task.ReportDetailActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.mine.task.PublishTReportActivity"
+            android:name=".mine.task.PublishTReportActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.mine.task.TaskInfoActivity"
+            android:name=".mine.task.TaskInfoActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.mine.task.MyTaskListActivity"
+            android:name=".mine.task.MyTaskListActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.inspection.InspectionInfoActivity"
+            android:name=".home_page.inspection.InspectionInfoActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.camera.ijkplayer.PlayerLiveActivity"
+            android:name=".home_page.camera.ijkplayer.PlayerLiveActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask" />
 
-        <service android:name="com.juntai.disabled.federation.home_page.camera.ijkplayer.KeepAliveService" />
+        <service android:name=".home_page.camera.ijkplayer.KeepAliveService" />
 
         <activity
-            android:name="com.juntai.disabled.federation.home_page.site_manager.site_info.EmployeeDetailActivity"
+            android:name=".home_page.site_manager.site_info.EmployeeDetailActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.mine.message.InformMsgInfoActivity"
+            android:name=".mine.message.InformMsgInfoActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.inspection.InspectionDetailActivity"
+            android:name=".home_page.inspection.InspectionDetailActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.news.news_comment.CommentChildActivity"
+            android:name=".home_page.news.news_comment.CommentChildActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.QRScanActivity"
+            android:name=".home_page.QRScanActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.inspection.PublishInspectionActivity"
+            android:name=".home_page.inspection.PublishInspectionActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.law_case.PublishCaseActivity"
+            android:name=".home_page.law_case.PublishCaseActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.mine.message.MyMessageActivity"
+            android:name=".mine.message.MyMessageActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.mine.mypublish.MyPublishListActivity"
+            android:name=".mine.mypublish.MyPublishListActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.mine.mycollect.MyCollectActivity"
+            android:name=".mine.mycollect.MyCollectActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.mine.score.MyScoreActivity"
+            android:name=".mine.score.MyScoreActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.call_to_police.VerifiedActivity"
+            android:name=".home_page.call_to_police.VerifiedActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.call_to_police.CallToPoliceActivity"
+            android:name=".home_page.call_to_police.CallToPoliceActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.mine.setting.MySettingActivity"
+            android:name=".mine.setting.MySettingActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.entrance.regist.RegistActivity"
+            android:name=".entrance.regist.RegistActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.entrance.BackPwdActivity"
+            android:name=".entrance.BackPwdActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.entrance.LoginActivity"
+            android:name=".entrance.LoginActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.juntai.disabled.federation.entrance.guide.GuideActivity"
+            android:name=".entrance.guide.GuideActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.map.PanoramaActivity"
+            android:name=".home_page.map.PanoramaActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.map.DistanceUtilActivity"
+            android:name=".home_page.map.DistanceUtilActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.weather.SelectLocation"
+            android:name=".home_page.weather.SelectLocation"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.search.SearchActivity"
+            android:name=".home_page.search.SearchActivity"
             android:launchMode="singleTop" />
 
         <provider
-            android:name="com.juntai.disabled.federation.utils.MyFileProvider"
+            android:name=".utils.MyFileProvider"
             android:authorities="${applicationId}.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true"
@@ -257,7 +259,7 @@
         <!--  -->
         <service android:name="com.juntai.disabled.bdmap.service.LocateAndUpload" /> <!--  -->
         <activity
-            android:name="com.juntai.disabled.federation.entrance.StartActivity"
+            android:name=".entrance.StartActivity"
             android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -266,7 +268,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.juntai.disabled.federation.MainActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme"
@@ -283,31 +285,31 @@
             </intent-filter>
         </activity> <!-- 关于 -->
         <activity
-            android:name="com.juntai.disabled.federation.mine.AboutActivity"
+            android:name=".mine.AboutActivity"
             android:launchMode="singleTop" /> <!-- 个人信息 -->
         <activity
-            android:name="com.juntai.disabled.federation.mine.myinfo.MyInformationActivity"
+            android:name=".mine.myinfo.MyInformationActivity"
             android:launchMode="singleTop" /> <!-- 图片裁切 -->
         <activity
-            android:name="com.juntai.disabled.federation.mine.myinfo.ImageCropActivity"
+            android:name=".mine.myinfo.ImageCropActivity"
             android:launchMode="singleTop" /> <!-- 案件追踪 -->
         <activity
-            android:name="com.juntai.disabled.federation.home_page.law_case.CaseInfoActivity"
+            android:name=".home_page.law_case.CaseInfoActivity"
             android:launchMode="singleTop" /> <!-- 案件详情 -->
         <activity
-            android:name="com.juntai.disabled.federation.home_page.law_case.CaseDetailActivity"
+            android:name=".home_page.law_case.CaseDetailActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.map.HistoryTrack"
+            android:name=".home_page.map.HistoryTrack"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.weather.WeatherActivity"
+            android:name=".home_page.weather.WeatherActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.home_page.map.SelectTime"
+            android:name=".home_page.map.SelectTime"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.juntai.disabled.federation.mine.UserAgreementActivity"
+            android:name=".mine.UserAgreementActivity"
             android:launchMode="singleTop" />
     </application>
 
