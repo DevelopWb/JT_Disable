@@ -1,11 +1,13 @@
 package com.juntai.disabled.federation.entrance.regist;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -31,7 +33,8 @@ import okhttp3.RequestBody;
  * @description 描述  注册
  * @date 2020/3/8 14:27
  */
-public class RegistActivity extends SmsCheckCodeActivity<RegistPresent> implements RegistContract.IRegistView, View.OnClickListener {
+public class RegistActivity extends SmsCheckCodeActivity<RegistPresent> implements RegistContract.IRegistView,
+        View.OnClickListener {
     private BaiDuLocationUtils baiDuLocationUtils = null;
 
     /**
@@ -65,10 +68,6 @@ public class RegistActivity extends SmsCheckCodeActivity<RegistPresent> implemen
      */
     private TextView mRegistTv;
     /**
-     * 已有账户,立即登录
-     */
-    private TextView mLoginRightNowTv;
-    /**
      * 我已阅读并同意《隐私协议》
      */
     private TextView mRegistProtocalSecrecyTv;
@@ -81,6 +80,11 @@ public class RegistActivity extends SmsCheckCodeActivity<RegistPresent> implemen
     public Double lat = 0.0;
     public Double lng = 0.0;
     private RequestBody requestBody;
+    private ImageView mCloseIv;
+    /**
+     * 登录
+     */
+    private TextView mLoginTv;
 
     @Override
     protected RegistPresent createPresenter() {
@@ -124,7 +128,7 @@ public class RegistActivity extends SmsCheckCodeActivity<RegistPresent> implemen
 
     @Override
     public void initView() {
-        setTitleName("新用户注册");
+        getToolbar().setVisibility(View.GONE);
         mRegistNameEt = (EditText) findViewById(R.id.regist_name_et);
         mRegistPhoneEt = (EditText) findViewById(R.id.regist_phone_et);
         mRegistCheckCodeEt = (EditText) findViewById(R.id.regist_check_code_et);
@@ -140,8 +144,6 @@ public class RegistActivity extends SmsCheckCodeActivity<RegistPresent> implemen
         mRegistAgreeProtocalRb = (RadioButton) findViewById(R.id.regist_agree_protocal_rb);
         mRegistTv = (TextView) findViewById(R.id.regist_tv);
         mRegistTv.setOnClickListener(this);
-        mLoginRightNowTv = (TextView) findViewById(R.id.login_right_now_tv);
-        mLoginRightNowTv.setOnClickListener(this);
         mRegistProtocalSecrecyTv = (TextView) findViewById(R.id.regist_protocal_secrecy_tv);
         mRegistProtocalSecrecyTv.setOnClickListener(this);
         mRegistProtocaUserTv = (TextView) findViewById(R.id.regist_protoca_user_tv);
@@ -150,12 +152,14 @@ public class RegistActivity extends SmsCheckCodeActivity<RegistPresent> implemen
 
         mRegistNameEt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String edit = mRegistNameEt.getText().toString();
                 String str = StringTools.stringFilter(edit);
-                if(!edit.equals(str)) {
+                if (!edit.equals(str)) {
                     mRegistNameEt.setText(str);
                     //设置新的光标所在位置
                     mRegistNameEt.setSelection(str.length());
@@ -163,17 +167,24 @@ public class RegistActivity extends SmsCheckCodeActivity<RegistPresent> implemen
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
+        mCloseIv = (ImageView) findViewById(R.id.close_iv);
+        mCloseIv.setOnClickListener(this);
+        mLoginTv = (TextView) findViewById(R.id.login_tv);
+        mLoginTv.setOnClickListener(this);
     }
 
 
     @Override
     public void initData() {
         String content = getString(R.string.protocal_notice1);
-        StringTools.setTextPartColor(mRegistProtocalSecrecyTv, content, content.lastIndexOf("《"), content.length(), "#2C8FFC");
+        StringTools.setTextPartColor(mRegistProtocalSecrecyTv, content, content.lastIndexOf("《"), content.length(),
+                "#FB7D06");
         String content_user = getString(R.string.protocal_notice2);
-        StringTools.setTextPartColor(mRegistProtocaUserTv, content_user, content_user.lastIndexOf("《"), content_user.length(), "#2C8FFC");
+        StringTools.setTextPartColor(mRegistProtocaUserTv, content_user, content_user.lastIndexOf("《"),
+                content_user.length(), "#FB7D06");
     }
 
     @Override
@@ -184,7 +195,7 @@ public class RegistActivity extends SmsCheckCodeActivity<RegistPresent> implemen
     @Override
     protected void initGetTestCodeButtonStatusStop() {
         mPresenter.receivedCheckCodeAndDispose();
-        mRegistSendCheckCodeTv.setText("发送验证码");
+        mRegistSendCheckCodeTv.setText("获取验证码");
         mRegistSendCheckCodeTv.setClickable(true);
         mRegistSendCheckCodeTv.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
     }
@@ -199,7 +210,8 @@ public class RegistActivity extends SmsCheckCodeActivity<RegistPresent> implemen
         switch (tag) {
             case RegistContract.REGIST:
                 ToastUtils.success(mContext, "注册成功");
-                startActivity(new Intent(this, LoginActivity.class).putExtra("reload_tag", getTextViewValue(mRegistPhoneEt)));
+                startActivity(new Intent(this, LoginActivity.class).putExtra("reload_tag",
+                        getTextViewValue(mRegistPhoneEt)));
                 onBackPressed();
                 break;
             default:
@@ -214,10 +226,15 @@ public class RegistActivity extends SmsCheckCodeActivity<RegistPresent> implemen
                 break;
             //隐私协议
             case R.id.regist_protocal_secrecy_tv:
-                startActivity(new Intent(mContext, UserAgreementActivity.class).putExtra("url", getString(R.string.secret_xieyi_url)));
+                startActivity(new Intent(mContext, UserAgreementActivity.class).putExtra("url",
+                        getString(R.string.secret_xieyi_url)));
                 break;
             //注册
             case R.id.regist_tv:
+                if (!StringTools.isStringValueOk(getTextViewValue(mRegistNameEt))) {
+                    ToastUtils.warning(mContext, "请输入昵称");
+                    return;
+                }
                 String account = getTextViewValue(mRegistPhoneEt);
                 if (!mPresenter.checkMobile(account)) {
                     return;
@@ -242,10 +259,7 @@ public class RegistActivity extends SmsCheckCodeActivity<RegistPresent> implemen
                         }
                     }
                 }
-                if (!StringTools.isStringValueOk(getTextViewValue(mRegistNameEt))) {
-                    ToastUtils.warning(mContext, "请输入昵称");
-                    return;
-                }
+
                 FormBody.Builder builder = new FormBody.Builder();
                 builder.add("account", account);
                 builder.add("password", MD5.md5(String.format("%s#%s", account, getTextViewValue(mRegistCheckPwdEt))));
@@ -262,13 +276,10 @@ public class RegistActivity extends SmsCheckCodeActivity<RegistPresent> implemen
                     mPresenter.regist(RegistContract.REGIST, requestBody);
                 }
                 break;
-            //已有账户 立即登录
-            case R.id.login_right_now_tv:
-                startActivity(new Intent(this, LoginActivity.class));
-                break;
             //用户协议
             case R.id.regist_protoca_user_tv:
-                startActivity(new Intent(mContext, UserAgreementActivity.class).putExtra("url", getString(R.string.user_xieyi_url)));
+                startActivity(new Intent(mContext, UserAgreementActivity.class).putExtra("url",
+                        getString(R.string.user_xieyi_url)));
                 break;
             case R.id.regist_agree_protocal_rb:
                 if (isAgreeProtocal) {
@@ -278,6 +289,13 @@ public class RegistActivity extends SmsCheckCodeActivity<RegistPresent> implemen
                     mRegistAgreeProtocalRb.setChecked(true);
                     isAgreeProtocal = true;
                 }
+                break;
+            case R.id.close_iv:
+                finish();
+                break;
+            case R.id.login_tv:
+                //已有账户 立即登录
+                startActivity(new Intent(this, LoginActivity.class));
                 break;
         }
     }
@@ -289,7 +307,7 @@ public class RegistActivity extends SmsCheckCodeActivity<RegistPresent> implemen
             mRegistSendCheckCodeTv.setClickable(false);
             mRegistSendCheckCodeTv.setTextColor(ContextCompat.getColor(this, R.color.gray));
         } else {
-            mRegistSendCheckCodeTv.setText("发送验证码");
+            mRegistSendCheckCodeTv.setText("获取验证码");
             mRegistSendCheckCodeTv.setClickable(true);
             mRegistSendCheckCodeTv.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
 
@@ -317,4 +335,5 @@ public class RegistActivity extends SmsCheckCodeActivity<RegistPresent> implemen
         }
         super.onError(tag, o);
     }
+
 }

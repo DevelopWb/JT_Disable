@@ -28,6 +28,7 @@ public interface MyCenterContract {
     String CENTER_SHOUCANG_TAG ="centerShouCangTag";
     String CENTER_SHARE_TAG = "centerShareTag";
     String CENTER_FABU_TAG ="centerFabuTag";
+    String CENTER_BUSINESS_TAG ="centerbusinessTag";
     String CENTER_MESSAGE_TAG = "centerMessageTag";
     String CENTER_SETTING_TAG ="centerSettingTag";
     String CENTER_MISSION_TAG = "centerMissionTag";//任务

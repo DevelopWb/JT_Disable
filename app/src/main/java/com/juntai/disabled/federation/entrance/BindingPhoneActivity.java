@@ -91,7 +91,7 @@ public class BindingPhoneActivity extends SmsCheckCodeActivity<RegistPresent> im
     @Override
     protected void initGetTestCodeButtonStatusStop() {
         mPresenter.receivedCheckCodeAndDispose();
-        mSendCheckCodeTv.setText("发送验证码");
+        mSendCheckCodeTv.setText("获取验证码");
         mSendCheckCodeTv.setClickable(true);
         mSendCheckCodeTv.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
     }
@@ -226,7 +226,7 @@ public class BindingPhoneActivity extends SmsCheckCodeActivity<RegistPresent> im
             mSendCheckCodeTv.setClickable(false);
             mSendCheckCodeTv.setTextColor(ContextCompat.getColor(mContext, R.color.gray));
         } else {
-            mSendCheckCodeTv.setText("发送验证码");
+            mSendCheckCodeTv.setText("获取验证码");
             mSendCheckCodeTv.setClickable(true);
             mSendCheckCodeTv.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
         }

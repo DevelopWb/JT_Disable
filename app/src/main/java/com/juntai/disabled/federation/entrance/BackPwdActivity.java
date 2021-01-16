@@ -139,7 +139,7 @@ public class BackPwdActivity extends SmsCheckCodeActivity<RegistPresent> impleme
     @Override
     protected void initGetTestCodeButtonStatusStop() {
         mPresenter.receivedCheckCodeAndDispose();
-        mRegistSendCheckCodeTv.setText("发送验证码");
+        mRegistSendCheckCodeTv.setText("获取验证码");
         mRegistSendCheckCodeTv.setClickable(true);
         mRegistSendCheckCodeTv.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
     }
@@ -300,7 +300,7 @@ public class BackPwdActivity extends SmsCheckCodeActivity<RegistPresent> impleme
             mRegistSendCheckCodeTv.setClickable(false);
             mRegistSendCheckCodeTv.setTextColor(ContextCompat.getColor(mContext, R.color.gray));
         } else {
-            mRegistSendCheckCodeTv.setText("发送验证码");
+            mRegistSendCheckCodeTv.setText("获取验证码");
             mRegistSendCheckCodeTv.setClickable(true);
             mRegistSendCheckCodeTv.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
 

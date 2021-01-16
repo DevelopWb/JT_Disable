@@ -47,16 +47,15 @@ public class StartActivity extends RxAppCompatActivity {
                         } else {
                             //有一个权限没通过
                         }
-                        if (MyApp.getUser() != null && MyApp.getUser().getData() != null){
-                            startActivity(new Intent(StartActivity.this, MainActivity.class));
-                            finish();
-                        }else if (SPTools.getBoolean(StartActivity.this,"first_start",true)){
-                            startActivity(new Intent(StartActivity.this, GuideActivity.class));
-                            finish();
-                        }else {
-                            startActivity(new Intent(StartActivity.this, LoginActivity.class));
-                            finish();
-                        }
+                        startActivity(new Intent(StartActivity.this, MainActivity.class));
+                        finish();
+//                        if (SPTools.getBoolean(StartActivity.this, "first_start", true)) {
+//                            startActivity(new Intent(StartActivity.this, GuideActivity.class));
+//                            finish();
+//                        } else {
+//                            startActivity(new Intent(StartActivity.this, MainActivity.class));
+//                            finish();
+//                        }
                     }
                 }, new Consumer<Throwable>() {
                     @Override

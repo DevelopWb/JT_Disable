@@ -23,6 +23,8 @@ import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MyMenuBean;
 import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.bean.message.UnReadCountBean;
+import com.juntai.disabled.federation.mine.MyCenterContract;
+import com.juntai.disabled.federation.mine.MyCenterPresent;
 import com.juntai.disabled.federation.mine.mycenter.MyMenuAdapter;
 import com.juntai.disabled.federation.mine.myinfo.MyInformationActivity;
 import com.juntai.disabled.federation.utils.AppUtils;
@@ -30,7 +32,6 @@ import com.juntai.disabled.federation.utils.GridDividerItemDecoration;
 import com.juntai.disabled.im.IUnReadMessageLinstener;
 import com.juntai.disabled.im.ModuleIm_Init;
 import com.orhanobut.hawk.Hawk;
-
 import java.util.List;
 
 import me.leolin.shortcutbadger.ShortcutBadger;
@@ -71,7 +72,9 @@ public class MyCenterFragment extends BaseMvpFragment<MyCenterPresent> implement
         mHeadImage = getView(R.id.headImage);
         mHeadImage.setOnClickListener(this);
         mNickname = getView(R.id.nickname);
+        mNickname.setAlpha(0.3f);
         mTelNumber = getView(R.id.tel_number);
+        mTelNumber.setVisibility(View.GONE);
         mMenuRecycler = getView(R.id.menu_recycler);
         mLoginOut = getView(R.id.login_out);
         mLoginOut.setOnClickListener(this);
@@ -82,16 +85,15 @@ public class MyCenterFragment extends BaseMvpFragment<MyCenterPresent> implement
         mMenuRecycler.addItemDecoration(new GridDividerItemDecoration(mContext));
         mMenuRecycler.setAdapter(myMenuAdapter);
         mStatusTopTitle.setText("个人中心");
-        //        headUrl = MyApp.getUserHeadImg();
 
         myMenuAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (!MyApp.isLogin()){
+                    MyApp.goLogin();
+                    return;
+                }
                 if (myMenuAdapter.getData().get(position).getCls() != null) {
-                    if (!MyApp.isLogin()){
-                        MyApp.goLogin();
-                        return ;
-                    }
                     switch (myMenuAdapter.getData().get(position).getTag()) {
                         case MyCenterContract.CENTER_SHOUCANG_TAG:
                             startActivity(new Intent(mContext, myMenuAdapter.getData().get(position).getCls())
@@ -100,6 +102,9 @@ public class MyCenterFragment extends BaseMvpFragment<MyCenterPresent> implement
                         case MyCenterContract.CENTER_SHARE_TAG:
                             startActivity(new Intent(mContext, myMenuAdapter.getData().get(position).getCls())
                                     .putExtra("function", 2));
+                            break;
+                        case MyCenterContract.CENTER_DEVICE_TAG:
+                            ToastUtils.toast(mContext,"暂未开放");
                             break;
                         default:
                             startActivity(new Intent(mContext, myMenuAdapter.getData().get(position).getCls()));

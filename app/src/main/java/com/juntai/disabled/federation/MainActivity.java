@@ -7,8 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
-import android.os.Build;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -24,43 +22,35 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
+import com.baidu.location.BDLocation;
 import com.juntai.disabled.basecomponent.app.BaseApplication;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.utils.ActionConfig;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
-import com.juntai.disabled.basecomponent.utils.Logger;
 import com.juntai.disabled.basecomponent.utils.NotificationTool;
-import com.juntai.disabled.basecomponent.utils.SPTools;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.bdmap.service.LocateAndUpload;
-import com.juntai.disabled.federation.base.BaseAppActivity;
-import com.juntai.disabled.federation.home_page.business.HandlerBusinessFragment;
 import com.juntai.disabled.federation.base.MainPageContract;
 import com.juntai.disabled.federation.base.MainPagePresent;
 import com.juntai.disabled.federation.base.MainPagerAdapter;
+import com.juntai.disabled.federation.base.customview.CustomViewPager;
 import com.juntai.disabled.federation.base.update.UpdateActivity;
 import com.juntai.disabled.federation.bean.IMUsersBean;
-import com.juntai.disabled.federation.bean.history_track.LocationBean;
 import com.juntai.disabled.federation.bean.news.NewsDraftsBean;
+import com.juntai.disabled.federation.entrance.BindingPhoneActivity;
 import com.juntai.disabled.federation.entrance.LoginActivity;
 import com.juntai.disabled.federation.home_page.MyMapFragment;
-import com.juntai.disabled.federation.home_page.law_case.CaseInfoActivity;
+import com.juntai.disabled.federation.home_page.business.HandlerBusinessFragment;
 import com.juntai.disabled.federation.home_page.inspection.InspectionDetailActivity;
-import com.juntai.disabled.federation.home_page.news.news_common.NewsListFragment;
-import com.juntai.disabled.federation.home_page.news.news_publish.PublishNewsActivity;
-import com.juntai.disabled.federation.home_page.site_manager.site_add.AddNewSiteActivity;
-import com.juntai.disabled.federation.home_page.takeInfos.TakeInfosFragment;
-import com.juntai.disabled.federation.mine.MyCenterFragment;
-import com.juntai.disabled.federation.mine.task.ReportDetailActivity;
 import com.juntai.disabled.federation.home_page.inspection.PublishInspectionActivity;
 import com.juntai.disabled.federation.home_page.law_case.PublishCaseActivity;
-import com.juntai.disabled.federation.mine.task.PublishTReportActivity;
+import com.juntai.disabled.federation.home_page.news.news_publish.PublishNewsActivity;
+import com.juntai.disabled.federation.home_page.takeInfos.TakeInfosFragment;
+import com.juntai.disabled.federation.mine.MyCenterFragment;
 import com.juntai.disabled.federation.utils.AppUtils;
-import com.juntai.disabled.federation.utils.PermissionUtil;
 import com.juntai.disabled.federation.utils.StringTools;
+import com.juntai.disabled.federation.utils.UserInfoManager;
 import com.juntai.disabled.federation.utils.ViewUtil;
-import com.juntai.disabled.federation.base.customview.CustomViewPager;
 import com.juntai.disabled.im.ModuleIm_Init;
 import com.juntai.disabled.im.UserIM;
 import com.mob.MobSDK;
@@ -70,29 +60,27 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import io.rong.pushperm.ResultCallback;
-import io.rong.pushperm.RongPushPremissionsCheckHelper;
+import me.leolin.shortcutbadger.ShortcutBadger;
 
-public class MainActivity extends BaseAppActivity<MainPagePresent> implements ViewPager.OnPageChangeListener,
+public class MainActivity extends UpdateActivity<MainPagePresent> implements ViewPager.OnPageChangeListener,
         View.OnClickListener, MainPageContract.IMainPageView {
     private MainPagerAdapter adapter;
     private LinearLayout mainLayout;
     private CustomViewPager mainViewpager;
     private TabLayout mainTablayout;
     private String[] title = new String[]{"首页", "业务办理", "信息采集", "我的"};
-    private int[] tabDrawables = new int[]{R.drawable.home_index, R.drawable.home_publish,
-            R.drawable.home_news, R.drawable.home_msg};
+    private int[] tabDrawables = new int[]{R.drawable.home_index, R.drawable.handler_business,
+            R.drawable.take_msg, R.drawable.home_msg};
     private SparseArray<Fragment> mFragments = new SparseArray<>();
     //
     CGBroadcastReceiver broadcastReceiver = new CGBroadcastReceiver();
+
     PopupWindow popupWindow;
-    final static Handler mHandler = new Handler();
-    List<LocationBean> cacheDatas = new ArrayList<>();//
+
 
     @Override
     public int getLayoutView() {
@@ -104,15 +92,15 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
         mainViewpager = findViewById(R.id.main_viewpager);
         mainTablayout = findViewById(R.id.main_tablayout);
         mainLayout = findViewById(R.id.main_layout);
-
+        mainViewpager.setScanScroll(false);
         mFragments.append(0, new MyMapFragment());//地图
-        mFragments.append(1, new HandlerBusinessFragment());//办理业务
-        mFragments.append(2, new TakeInfosFragment());//资讯
-        mFragments.append(3, new MyCenterFragment());//我的
+        mFragments.append(1, new HandlerBusinessFragment());//
+        mFragments.append(2, new TakeInfosFragment());//
+        mFragments.append(3, new MyCenterFragment());//资讯
         //
         getToolbar().setVisibility(View.GONE);
         mBaseRootCol.setFitsSystemWindows(false);
-
+        mainViewpager.setOffscreenPageLimit(4);
         initTab();
         //注册广播
         IntentFilter intentFilter = new IntentFilter();
@@ -123,26 +111,17 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
 
     @Override
     public void initData() {
-        getIMUsers();
-        /**登录IM*/
-        ModuleIm_Init.connectIM(MyApp.getUserRongYunToken());
+        //        if (MyApp.isLogin()){
+        //            getIMUsers();
+        //            /**登录IM*/
+        //            ModuleIm_Init.connectIM(MyApp.getUserRongYunToken());
+        //        }
         update(false);
         /**分享隐私授权 true*/
         MobSDK.submitPolicyGrantResult(true, null);
-        /**申请相关权限*/
-        if (SPTools.getBoolean(mContext, AppUtils.SP_FLOAT_PERMISSION, true)) {
-            setPushPermission();
-            SPTools.saveBoolean(mContext, AppUtils.SP_FLOAT_PERMISSION, false);
-        }
-        if (MyApp.getUser().getData().getSettleStatus() == 2){
-            //主线程中调用：
-            mHandler.postDelayed(runnable, 1000 * 10);//延时10秒
-        }
     }
 
     public void initTab() {
-        mainViewpager.setScanScroll(false);
-        mainViewpager.setOffscreenPageLimit(4);
         adapter = new MainPagerAdapter(getSupportFragmentManager(), getApplicationContext(), title, tabDrawables,
                 mFragments);
         mainViewpager.setAdapter(adapter);
@@ -215,17 +194,6 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
 
     @Override
     public void onSuccess(String tag, Object o) {
-        switch (tag){
-            case MainPageContract.UPLOAD_HISTORY:
-                if (cacheDatas != null){
-                    for (LocationBean locationBean: cacheDatas){
-                        MyApp.getDaoSession().getLocationBeanDao().delete(locationBean);
-                    }
-                }
-                break;
-            default:
-                break;
-        }
     }
 
 
@@ -246,16 +214,21 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
                 //登录信息设置为空
                 String error = intent.getStringExtra("error");
                 ToastUtils.info(MyApp.app, error);
-                SPTools.saveString(mContext, "login", "");
+                //                SPTools.saveString(mContext, "login", "");
                 MyApp.app.clearUserData();//清理数据
+                ShortcutBadger.applyCount(mContext.getApplicationContext(), 0);
                 startActivity(new Intent(mContext, LoginActivity.class));
-                finish();
+                //重置界面
+                //                EventManager.sendStringMsg(ActionConfig.UN_READ_MESSAG_TAG);
             } else if (ActionConfig.BROAD_CASE_DETAILS.equals(intent.getAction())) {
                 LogUtil.d("RongYun-消息监听", "MainActivity-----------");
                 //案件指派
                 id22 = intent.getIntExtra("id", 0);
                 //推送类型：1案件指派，3巡检退回，7任务指派，8任务退回，9巡检完成推送（巡检记录审核通过）
                 type = intent.getIntExtra("type", 0);
+                if (type == 1 || type == 7 || type == 8){
+                    return;
+                }
                 content = intent.getStringExtra("content");
                 if (BaseApplication.app.isRun) {
                     LogUtil.d("777777", "-----------前台");
@@ -300,17 +273,8 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
     public String setNotificationTile(int titleType) {
         String title = "通知消息";
         switch (titleType) {
-            case 1:
-                title = "案件指派";
-                break;
             case 3:
                 title = "巡检退回";
-                break;
-            case 7:
-                title = "任务指派";
-                break;
-            case 8:
-                title = "任务退回";
                 break;
             case 9:
                 title = "巡检完成";
@@ -328,18 +292,8 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
     public Intent setNotificationIntent(int titleType) {
         Intent intent;
         switch (titleType) {
-            case 1:
-                intent = new Intent(mContext, CaseInfoActivity.class).putExtra("id", id22);
-                break;
             case 3:
                 intent = new Intent(mContext, InspectionDetailActivity.class).putExtra("id", id22);
-                break;
-            case 7:
-                intent = new Intent(mContext, PublishTReportActivity.class).putExtra("id", id22);
-                break;
-            case 8:
-                intent = new Intent(mContext, ReportDetailActivity.class).putExtra("reportId",
-                        id22);
                 break;
             case 9:
                 intent = new Intent(mContext, InspectionDetailActivity.class).putExtra("id", id22);
@@ -357,6 +311,10 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
      * @param view
      */
     public void initPopTypePublish(View view) {
+        if (!MyApp.isLogin()){
+            MyApp.goLogin();
+            return;
+        }
         View viewPop = LayoutInflater.from(mContext).inflate(R.layout.publish_menu_layout, null);
         //背景颜色
         view.setBackgroundColor(Color.WHITE);
@@ -376,17 +334,21 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
             mImmersionBar.statusBarColor(R.color.gray_light).statusBarDarkFont(true).init();
         }
         viewPop.findViewById(R.id.anjian_btn).setOnClickListener(v -> {
+            if (UserInfoManager.getAccountStatus() != 1) {
+                //没有绑定手机号
+                startActivity(new Intent(mContext, BindingPhoneActivity.class));
+                return;
+            }
             startActivity(new Intent(this, PublishCaseActivity.class));
             popupWindow.dismiss();
         });
         viewPop.findViewById(R.id.zixun_btn).setOnClickListener(v -> {
-            startActivity(new Intent(this, PublishNewsActivity.class));
-            popupWindow.dismiss();
-        });
-        viewPop.findViewById(R.id.site_iv).setOnClickListener(v -> {
-            if (MyApp.isCompleteUserInfo()){
-                startActivity(new Intent(this, AddNewSiteActivity.class));
+            if (UserInfoManager.getAccountStatus() != 1) {
+                //没有绑定手机号
+                startActivity(new Intent(mContext, BindingPhoneActivity.class));
+                return;
             }
+            startActivity(new Intent(this, PublishNewsActivity.class));
             popupWindow.dismiss();
         });
     }
@@ -401,25 +363,44 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new BaseObserver<IMUsersBean>(null) {
-            @Override
-            public void onSuccess(IMUsersBean o) {
-                ArrayList<UserIM> arrayList = new ArrayList<>();
-                for (IMUsersBean.DataBean bean : o.getData()) {
-                    arrayList.add(new UserIM(bean.getAccount(), bean.getRealName(), bean.getHeadPortrait()));
-                }
-                ModuleIm_Init.setUsers(arrayList);
-            }
+                    @Override
+                    public void onSuccess(IMUsersBean o) {
+                        ArrayList<UserIM> arrayList = new ArrayList<>();
+                        for (IMUsersBean.DataBean bean : o.getData()) {
+                            arrayList.add(new UserIM(bean.getAccount(), bean.getRealName(), bean.getHeadPortrait()));
+                        }
+                        ModuleIm_Init.setUsers(arrayList);
+                    }
 
-            @Override
-            public void onError(String msg) {
-                ToastUtils.error(MyApp.app, msg);
-            }
-        });
+                    @Override
+                    public void onError(String msg) {
+                        ToastUtils.error(MyApp.app, msg);
+                    }
+                });
     }
 
     @Override
     protected MainPagePresent createPresenter() {
         return new MainPagePresent();
+    }
+
+    @Override
+    public void onLocationReceived(BDLocation bdLocation) {
+
+    }
+
+    @Override
+    public boolean requestLocation() {
+        return false;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //        if (MyApp.getUser().getData().getSettleStatus() == 2){
+        //主线程中调用：
+        //            mHandler.postDelayed(runnable, 1000 * 62);//延时60秒
+        //        }
     }
 
     @Override
@@ -429,8 +410,6 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
         if (broadcastReceiver != null) {
             unregisterReceiver(broadcastReceiver);
         }
-        mHandler.removeCallbacks(runnable);
-        mHandler.removeCallbacksAndMessages(null);
         super.onDestroy();
     }
 
@@ -458,7 +437,11 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
                         startActivity(intent);
                     }
                 }).show();
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 
     @Override
@@ -495,109 +478,22 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
         }
     }
 
-    /**
-     * 申请悬浮窗权限
-     */
-    public void setSystemAlertPermission() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return;
-        }
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(getString(R.string.request_float_permission));
-        builder.setPositiveButton("去设置", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                PermissionUtil.gotoPermission(mContext);
-            }
-        });
-        builder.setCancelable(false);
-        builder.show();
-    }
-
-    /**
-     * 自启动权限申请
-     */
-    private void setPushPermission() {
-        RongPushPremissionsCheckHelper.checkPermissionsAndShowDialog(this, new ResultCallback() {
-            @Override
-            public void onAreadlyOpened(String value) {
-                LogUtil.d("权限已申请");
-                setSystemAlertPermission();
-            }
-
-            @Override
-            public boolean onBeforeShowDialog(String value) {
-                return false;
-            }
-
-            @Override
-            public void onGoToSetting(String value) {
-
-            }
-
-            @Override
-            public void onFailed(String value, FailedType type) {
-                ToastUtils.warning(mContext, getString(R.string.fail_float_permission));
-            }
-        });
-    }
-
     @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
     public void receiveMsg(NewsDraftsBean newsDraftsBean) {
         if (newsDraftsBean != null && newsDraftsBean.getDraftsId() != null){
-            mPresenter.deleteNewsDrafts(newsDraftsBean.getDraftsId(),MainPageContract.DELETE_NEWS_DRAFTS);
+            mPresenter.deleteNewsDrafts(newsDraftsBean.getDraftsId(), MainPageContract.DELETE_NEWS_DRAFTS);
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
     public void receiveMsg(String test) {
-        if (ActionConfig.UN_READ_MESSAG_TAG.equals(test)) {
+        if (ActionConfig.UN_READ_MESSAG_TAG.equals(test)){
             //刷新未读标记
             adapter.setUnReadMsg(MyApp.getUnReadCountBean().getMessageCount() + MyApp.getUnReadCountBean().getImCount());
-        } else if (ActionConfig.BROAD_LOGIN_AFTER.equals(test)) {
-            initForLogin();
-        } else if (ActionConfig.BROAD_LOGIN_OUT.equals(test)) {
-            //退出登录
-            mHandler.removeCallbacks(runnable);
-            mHandler.removeCallbacksAndMessages(null);
+        }else if (ActionConfig.BROAD_LOGIN_AFTER.equals(test)){
+            getIMUsers();
+            /**登录IM*/
+            ModuleIm_Init.connectIM(MyApp.getUserRongYunToken());
         }
     }
-    /**
-     * 登录后初始化，获取融云用户列表及开启轨迹上传任务
-     */
-    private void initForLogin() {
-        getIMUsers();
-        /**登录IM*/
-        ModuleIm_Init.connectIM(MyApp.getUserRongYunToken());
-        if (MyApp.getUser().getData().getSettleStatus() == 2) {
-            //主线程中调用：
-            mHandler.postDelayed(runnable, 1000 * 1);//延时1秒
-        }
-    }
-    /**
-     * 查询本地数据并上传
-     */
-    Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            //do something
-            List<LocationBean> datas = null;
-            try {
-                datas = MyApp.getDaoSession().getLocationBeanDao().loadAll();
-            } catch (Exception e) {
-                e.printStackTrace();
-                datas = new ArrayList<>();
-            }
-            Logger.e("historyDataSize", datas.size()+"");
-            if (datas.size() > 0 && datas.size() < 30){
-                cacheDatas.clear();
-                cacheDatas.addAll(datas);
-                mPresenter.uploadHistory(new Gson().toJson(datas), MainPageContract.UPLOAD_HISTORY);
-            }else {
-                MyApp.getDaoSession().getLocationBeanDao().deleteAll();
-            }
-            //每隔62s循环执行run方法
-            mHandler.postDelayed(runnable, 1000 * 62);
-        }
-    };
 }

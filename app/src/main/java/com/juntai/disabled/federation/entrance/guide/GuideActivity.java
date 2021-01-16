@@ -19,6 +19,7 @@ import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.SPTools;
+import com.juntai.disabled.federation.MainActivity;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.entrance.LoginActivity;
 import com.juntai.disabled.federation.mine.UserAgreementActivity;
@@ -81,7 +82,7 @@ public class GuideActivity extends BaseActivity {
 
         experienceNowTv.setOnClickListener(v -> {
             SPTools.saveBoolean(GuideActivity.this,"first_start",false);
-            startActivity(new Intent(GuideActivity.this, LoginActivity.class));
+            startActivity(new Intent(GuideActivity.this, MainActivity.class));
             finish();
         });
     }
@@ -175,7 +176,7 @@ public class GuideActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         SPTools.saveBoolean(GuideActivity.this,"first_start",false);
-                        startActivity(new Intent(GuideActivity.this, LoginActivity.class));
+                        startActivity(new Intent(GuideActivity.this, MainActivity.class));
                         finish();
                     }
                 }).show();

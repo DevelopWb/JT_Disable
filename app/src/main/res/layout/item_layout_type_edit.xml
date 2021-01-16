@@ -3,51 +3,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
-
     <TextView
         android:id="@+id/edit_key_tv"
         android:layout_width="wrap_content"
         android:layout_height="32dp"
         android:layout_marginLeft="10dp"
-        android:paddingLeft="5dp"
-        android:layout_marginTop="60dp"
+        android:gravity="center"
         android:letterSpacing="0.35"
         android:text="电话:"
-        android:gravity="center"
         android:textSize="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"></TextView>
 
     <TextView
         android:id="@+id/important_tag_tv"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="10dp"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
         android:gravity="center"
         android:text="*"
         android:textColor="@color/red"
-        app:layout_constraintBottom_toTopOf="@+id/edit_key_tv"
         app:layout_constraintRight_toLeftOf="@+id/edit_key_tv"
         app:layout_constraintTop_toTopOf="@+id/edit_key_tv"></TextView>
 
     <EditText
         android:id="@+id/edit_value_et"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="32dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/stroke_gray_square_bg"
-        android:inputType="phone"
         android:lines="1"
         android:maxLength="11"
         android:minHeight="26dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:textSize="14dp"
-        app:layout_constraintBottom_toBottomOf="@+id/edit_key_tv"
-        app:layout_constraintLeft_toRightOf="@+id/edit_key_tv"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/edit_key_tv"></EditText>
+        app:layout_constraintLeft_toLeftOf="@+id/edit_key_tv"
+        app:layout_constraintTop_toBottomOf="@+id/edit_key_tv"></EditText>
 
 </android.support.constraint.ConstraintLayout>

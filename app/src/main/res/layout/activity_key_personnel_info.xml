@@ -13,7 +13,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_circle_gray_line">
+        android:background="@drawable/bg_circle_gray_line">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/key_personnel_detail_texts"
             android:layout_width="match_parent"

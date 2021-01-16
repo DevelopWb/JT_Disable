@@ -30,7 +30,7 @@
         android:id="@+id/publish_btn"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:src="@mipmap/home_post_sel"
+        android:src="@mipmap/handler_business_sel"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         app:layout_constraintLeft_toRightOf="@+id/search_ll"

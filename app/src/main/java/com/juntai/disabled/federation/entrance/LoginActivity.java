@@ -5,10 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -27,9 +24,6 @@ import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.UserBean;
-import com.juntai.disabled.federation.entrance.BackPwdActivity;
-import com.juntai.disabled.federation.entrance.EntranceContract;
-import com.juntai.disabled.federation.entrance.EntrancePresent;
 import com.juntai.disabled.federation.entrance.regist.RegistActivity;
 import com.juntai.disabled.federation.entrance.sendcode.SendCodeModel;
 import com.juntai.disabled.federation.utils.AppUtils;
@@ -68,11 +62,6 @@ public class LoginActivity extends BaseMvpActivity<EntrancePresent> implements E
      */
     private EditText mPassword;
     String account, password;
-    private SwitchCompat mIsShowPwdSc;
-    /**
-     * 注册新用户
-     */
-    private TextView mRegistAccountTv;
     /**
      * 找回密码
      */
@@ -81,6 +70,11 @@ public class LoginActivity extends BaseMvpActivity<EntrancePresent> implements E
     private ImageView mLoginByQqIv;
 
     private MyHandler myHandler = new MyHandler(this);
+    private ImageView mCloseIv;
+    /**
+     * 注册
+     */
+    private TextView mRegistTv;
 
     static class MyHandler extends Handler {
         private WeakReference<Activity> mActivity;//弱引用
@@ -119,15 +113,9 @@ public class LoginActivity extends BaseMvpActivity<EntrancePresent> implements E
         mLoginTv.setOnClickListener(this);
         mAccount = (EditText) findViewById(R.id.regist_phone_et);
         mPassword = (EditText) findViewById(R.id.password);
-        initLeftBackTv(false);
-        setTitleName("登录");
-        mIsShowPwdSc.setOnClickListener(this);
+        getToolbar().setVisibility(View.GONE);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     protected EntrancePresent createPresenter() {
@@ -209,9 +197,6 @@ public class LoginActivity extends BaseMvpActivity<EntrancePresent> implements E
                 mPresenter.login(account, MD5.md5(String.format("%s#%s", account, password)), null, null,
                         EntranceContract.LOGIN_TAG);
                 break;
-            case R.id.regist_account_tv:
-                startActivity(new Intent(this, RegistActivity.class));
-                break;
             case R.id.reback_pwd_tv:
                 startActivity(new Intent(this, BackPwdActivity.class));
                 break;
@@ -221,16 +206,11 @@ public class LoginActivity extends BaseMvpActivity<EntrancePresent> implements E
             case R.id.login_by_qq_iv:
                 loginForQQWeChat(QQ.NAME);
                 break;
-            //是否显示密码
-            case R.id.is_show_pwd_sc:
-                if (mIsShowPwdSc.isChecked()) {
-                    mPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                } else {
-                    //隐藏密码
-                    mPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                }
-                //把光标设置在文字结尾
-                mPassword.setSelection(mPassword.getText().length());
+            case R.id.close_iv:
+                finish();
+                break;
+            case R.id.regist_tv:
+                startActivity(new Intent(this, RegistActivity.class));
                 break;
         }
     }
@@ -238,17 +218,18 @@ public class LoginActivity extends BaseMvpActivity<EntrancePresent> implements E
 
     @Override
     public void initView() {
-        mIsShowPwdSc = (SwitchCompat) findViewById(R.id.is_show_pwd_sc);
         mLoginTv = (TextView) findViewById(R.id.login_tv);
         mLoginTv.setOnClickListener(this);
-        mRegistAccountTv = (TextView) findViewById(R.id.regist_account_tv);
-        mRegistAccountTv.setOnClickListener(this);
         mRebackPwdTv = (TextView) findViewById(R.id.reback_pwd_tv);
         mRebackPwdTv.setOnClickListener(this);
         mLoginByWchatIv = (ImageView) findViewById(R.id.login_by_wchat_iv);
         mLoginByWchatIv.setOnClickListener(this);
         mLoginByQqIv = (ImageView) findViewById(R.id.login_by_qq_iv);
         mLoginByQqIv.setOnClickListener(this);
+        mCloseIv = (ImageView) findViewById(R.id.close_iv);
+        mCloseIv.setOnClickListener(this);
+        mRegistTv = (TextView) findViewById(R.id.regist_tv);
+        mRegistTv.setOnClickListener(this);
     }
 
     PlatformDb platDB;
@@ -287,12 +268,12 @@ public class LoginActivity extends BaseMvpActivity<EntrancePresent> implements E
                     UserInfoManager.OTHER_NICK_NAME = platDB.getUserName();
                     otherHeadIcon = platDB.getUserIcon();
                     if (platform.getName().equals(QQ.NAME)) {
-                        String params ="access_token=" + platform.getDb().getToken() + "&unionid=1&fmt=json";
+                        String params = "access_token=" + platform.getDb().getToken() + "&unionid=1&fmt=json";
                         HttpUtil.sendGet("https://graph.qq.com/oauth2.0/me", params, new HttpUtil.NetCallBack() {
                             @Override
                             public void onSuccess(String str) {
                                 if (!TextUtils.isEmpty(str)) {
-                                    UnionidBean unionidBean = GsonTools.changeGsonToBean(str,UnionidBean.class);
+                                    UnionidBean unionidBean = GsonTools.changeGsonToBean(str, UnionidBean.class);
                                     UserInfoManager.QQ_ID = unionidBean.getUnionid();
                                     myHandler.sendEmptyMessage(1);
                                 }

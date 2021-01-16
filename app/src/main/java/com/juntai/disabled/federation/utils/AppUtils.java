@@ -15,6 +15,7 @@ import android.os.Build;
 import android.provider.Settings;
 import android.widget.Toast;
 
+
 import com.juntai.disabled.basecomponent.utils.BaseAppUtils;
 import com.juntai.disabled.federation.MyApp;
 
@@ -36,6 +37,8 @@ public class AppUtils {
     public final static String SP_NEWS_SAVE_DRAFTS = BaseAppUtils.getAppName() +"save_drafts";
     //未读消息
     public final static String SP_KEY_UNREAD_COUNT = BaseAppUtils.getAppName() + "unread_count";
+    //首页地图菜单
+    public final static String SP_KEY_MAP_MENU = BaseAppUtils.getAppName() + "map_menu";
 
     public final static int QR_SCAN_NOMAL = 1003;
     public final static int QR_SCAN_FOR_XUANJIAN = 1004;

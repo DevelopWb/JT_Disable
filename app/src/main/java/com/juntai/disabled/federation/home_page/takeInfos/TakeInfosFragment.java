@@ -12,7 +12,7 @@ import com.juntai.disabled.federation.R;
 public class TakeInfosFragment extends BaseMvpFragment {
     @Override
     protected int getLayoutRes() {
-        return R.layout.item_layout_edit;
+        return R.layout.fragment_take_info;
     }
 
     @Override
