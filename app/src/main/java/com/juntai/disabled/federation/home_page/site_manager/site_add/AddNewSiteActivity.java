@@ -27,6 +27,7 @@ import com.juntai.disabled.bdmap.act.LocationSeltionActivity;
 import com.juntai.disabled.bdmap.service.LocateAndUpload;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
+import com.juntai.disabled.federation.base.BaseAppActivity;
 import com.juntai.disabled.federation.base.BaseSelectPicsActivity;
 import com.juntai.disabled.federation.bean.CityBean;
 import com.juntai.disabled.federation.bean.TextListBean;
@@ -56,7 +57,7 @@ import okhttp3.RequestBody;
  * @aouther ZhangZhenlong
  * @date 2020-7-11
  */
-public class AddNewSiteActivity extends BaseSelectPicsActivity<SiteManagerPresent> implements SiteManagerContract.ISiteManagerView,
+public class AddNewSiteActivity extends BaseAppActivity<SiteManagerPresent> implements SiteManagerContract.ISiteManagerView,
         View.OnClickListener,RadioGroup.OnCheckedChangeListener {
 
     /**

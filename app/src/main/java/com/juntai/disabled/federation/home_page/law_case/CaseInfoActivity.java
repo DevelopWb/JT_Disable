@@ -234,7 +234,7 @@ public class CaseInfoActivity extends BaseAppActivity<MapPresenter> implements M
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (PublishCaseActivity.FOLLOW_CASE_FINISH == resultCode) {
             mPresenter.getCaseInfo(PublishContract.CASE_INFO, id);
         }

@@ -1,10 +1,14 @@
 package com.juntai.disabled.federation.utils;
 
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -43,6 +47,30 @@ public class StringTools {
             spannableString = new SpannableString(content);
             ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor(textColor));
             spannableString.setSpan(colorSpan, startIndex, endIndex, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+
+            textView.setText(spannableString);
+        }
+    }
+    /**
+     * 设置文字部分颜色
+     *
+     * @return
+     */
+    public static void setTextPartColor2(TextView textView, String content, int startIndex, int endIndex,
+                                        String textColor) {
+        SpannableStringBuilder spannableString = null;
+        if (StringTools.isStringValueOk(content)) {
+            spannableString = new SpannableStringBuilder (content);
+            ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor(textColor));
+            spannableString.setSpan(new ClickableSpan() {
+                @Override
+                public void onClick(@NonNull View widget) {
+                    textView.setText("2寸近照");
+//                    if (onClickListener != null) {
+//                        onClickListener.onClick(widget);
+//                    }
+                }
+            }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             textView.setText(spannableString);
         }
     }

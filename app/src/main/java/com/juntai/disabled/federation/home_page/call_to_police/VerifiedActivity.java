@@ -14,6 +14,7 @@ import com.juntai.disabled.basecomponent.utils.PubUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
+import com.juntai.disabled.federation.base.BaseAppActivity;
 import com.juntai.disabled.federation.base.BaseSelectPicsActivity;
 import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
 import com.juntai.disabled.federation.bean.UserBean;
@@ -39,7 +40,7 @@ import okhttp3.RequestBody;
  * @description 描述  实名认证
  * @date 2020/3/11 15:52
  */
-public class VerifiedActivity extends BaseSelectPicsActivity<HomePagePresent> implements HomePageContract.IHomePageView,
+public class VerifiedActivity extends BaseAppActivity<HomePagePresent> implements HomePageContract.IHomePageView,
         View.OnClickListener, SelectPhotosFragment.OnPhotoItemClick {
 
     /**

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.baidu.location.BDLocation;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.business.MyBusinessDetailBean;
@@ -63,6 +64,8 @@ public class MyBusinessDetialActivity extends BaseBusinessActivity implements Bu
         keyValue = view.findViewById(R.id.item_text_list_right);
         return view;
     }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

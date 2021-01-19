@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.federation.R;
+import com.juntai.disabled.federation.base.BaseAppActivity;
 import com.juntai.disabled.federation.base.BaseSelectPicsActivity;
 import com.juntai.disabled.federation.home_page.baseInfo.TextListAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -22,7 +23,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
  * 只单纯选择图片
  * * @date 2020/5/21 9:33
  */
-public abstract class BaseBusinessActivity extends BaseSelectPicsActivity<BusinessPresent> {
+public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPresent> {
     private TextListAdapter textListAdapter;
     private RecyclerView mRecyclerViewTextRv;
     protected TextView mNeedInfoTv;

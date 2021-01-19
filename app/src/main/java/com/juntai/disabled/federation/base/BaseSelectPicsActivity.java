@@ -19,6 +19,7 @@ import com.juntai.disabled.basecomponent.utils.BaseAppUtils;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.GlideEngine4;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
+import com.juntai.disabled.federation.base.update.UpdateActivity;
 import com.juntai.disabled.federation.utils.DateUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zhihu.matisse.Matisse;
@@ -42,7 +43,7 @@ import top.zibin.luban.OnCompressListener;
  * @UpdateUser: 更新者
  * @UpdateDate: 2020/5/21 15:04
  */
-public abstract class BaseSelectPicsActivity <P extends BasePresenter>  extends BaseMvpActivity<P> {
+public abstract class BaseSelectPicsActivity <P extends BasePresenter>  extends UpdateActivity<P> {
 
 
     private int SELECT_PIC_RESULT = 1000;

@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -131,9 +132,9 @@ public class MainActivity extends UpdateActivity<MainPagePresent> implements Vie
         for (int i = 0; i < title.length; i++) {
             TabLayout.Tab tab = mainTablayout.newTab();
             if (tab != null) {
-                if (i == title.length - 1){
+                if (i == title.length - 1) {
                     tab.setCustomView(adapter.getTabView(i, true));
-                }else {
+                } else {
                     tab.setCustomView(adapter.getTabView(i, false));
                 }
                 mainTablayout.addTab(tab);
@@ -202,6 +203,7 @@ public class MainActivity extends UpdateActivity<MainPagePresent> implements Vie
     String content;
     int type;//推送类型，1案件指派、3巡检退回
 
+
     /**
      * 登录被顶
      */
@@ -226,7 +228,7 @@ public class MainActivity extends UpdateActivity<MainPagePresent> implements Vie
                 id22 = intent.getIntExtra("id", 0);
                 //推送类型：1案件指派，3巡检退回，7任务指派，8任务退回，9巡检完成推送（巡检记录审核通过）
                 type = intent.getIntExtra("type", 0);
-                if (type == 1 || type == 7 || type == 8){
+                if (type == 1 || type == 7 || type == 8) {
                     return;
                 }
                 content = intent.getStringExtra("content");
@@ -311,7 +313,7 @@ public class MainActivity extends UpdateActivity<MainPagePresent> implements Vie
      * @param view
      */
     public void initPopTypePublish(View view) {
-        if (!MyApp.isLogin()){
+        if (!MyApp.isLogin()) {
             MyApp.goLogin();
             return;
         }
@@ -480,17 +482,17 @@ public class MainActivity extends UpdateActivity<MainPagePresent> implements Vie
 
     @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
     public void receiveMsg(NewsDraftsBean newsDraftsBean) {
-        if (newsDraftsBean != null && newsDraftsBean.getDraftsId() != null){
+        if (newsDraftsBean != null && newsDraftsBean.getDraftsId() != null) {
             mPresenter.deleteNewsDrafts(newsDraftsBean.getDraftsId(), MainPageContract.DELETE_NEWS_DRAFTS);
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
     public void receiveMsg(String test) {
-        if (ActionConfig.UN_READ_MESSAG_TAG.equals(test)){
+        if (ActionConfig.UN_READ_MESSAG_TAG.equals(test)) {
             //刷新未读标记
             adapter.setUnReadMsg(MyApp.getUnReadCountBean().getMessageCount() + MyApp.getUnReadCountBean().getImCount());
-        }else if (ActionConfig.BROAD_LOGIN_AFTER.equals(test)){
+        } else if (ActionConfig.BROAD_LOGIN_AFTER.equals(test)) {
             getIMUsers();
             /**登录IM*/
             ModuleIm_Init.connectIM(MyApp.getUserRongYunToken());

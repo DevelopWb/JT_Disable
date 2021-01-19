@@ -26,6 +26,7 @@ import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.bdmap.act.LocationSeltionActivity;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
+import com.juntai.disabled.federation.base.BaseAppActivity;
 import com.juntai.disabled.federation.base.BaseSelectPicsActivity;
 import com.juntai.disabled.federation.bean.CityBean;
 import com.juntai.disabled.federation.bean.TextListBean;
@@ -57,7 +58,7 @@ import okhttp3.RequestBody;
  * @aouther ZhangZhenlong
  * @date 2020-9-5
  */
-public class UpdateSiteActivity extends BaseSelectPicsActivity<SiteManagerPresent> implements SiteManagerContract.ISiteManagerView,
+public class UpdateSiteActivity extends BaseAppActivity<SiteManagerPresent> implements SiteManagerContract.ISiteManagerView,
         View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
     /**

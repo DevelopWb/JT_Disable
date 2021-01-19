@@ -12,11 +12,12 @@
     android:layout_height="match_parent">
 
     <include layout="@layout/item_layout_type_title_big"></include>
-    <include layout="@layout/item_layout_type_pic"></include>
+    <include layout="@layout/item_layout_type_head_pic"></include>
     <include layout="@layout/item_layout_type_title_small"></include>
     <include layout="@layout/item_layout_type_edit"></include>
     <include layout="@layout/item_layout_type_select"></include>
     <include layout="@layout/item_layout_type_radio"></include>
+    <include layout="@layout/item_layout_type_pic"></include>
 
 </LinearLayout>
 

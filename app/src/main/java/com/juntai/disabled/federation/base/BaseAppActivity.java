@@ -37,7 +37,7 @@ import okhttp3.RequestBody;
  * @description 描述
  * @date 2020/4/27 8:48  app的基类
  */
-public abstract class BaseAppActivity<P extends BasePresenter> extends UpdateActivity<P> {
+public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelectPicsActivity<P> {
 
 
     @Override
@@ -47,10 +47,11 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends UpdateAct
 
     /**
      * 导航
-     * @param endLatlng  目的地
-     * @param endName  目的地名称
+     *
+     * @param endLatlng 目的地
+     * @param endName   目的地名称
      */
-    public void navigationLogic(LatLng endLatlng,String endName) {
+    public void navigationLogic(LatLng endLatlng, String endName) {
         AlertDialog.Builder build = new AlertDialog.Builder(mContext);
         final String item_list[] = {"腾讯地图", "高德地图", "百度地图"};
         build.setItems(item_list, new DialogInterface.OnClickListener() {
@@ -58,13 +59,16 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends UpdateAct
             public void onClick(DialogInterface dialog, int which) {
                 switch (item_list[which]) {
                     case "腾讯地图":
-                        NagivationUtils.getInstant().openTencent(mContext,endLatlng.latitude,endLatlng.longitude,endName);
+                        NagivationUtils.getInstant().openTencent(mContext, endLatlng.latitude, endLatlng.longitude,
+                                endName);
                         break;
                     case "高德地图":
-                        NagivationUtils.getInstant().openGaoDeMap(mContext,endLatlng.latitude,endLatlng.longitude,endName);
+                        NagivationUtils.getInstant().openGaoDeMap(mContext, endLatlng.latitude, endLatlng.longitude,
+                                endName);
                         break;
                     case "百度地图":
-                        NagivationUtils.getInstant().openBaiduMap(mContext,endLatlng.latitude,endLatlng.longitude,endName);
+                        NagivationUtils.getInstant().openBaiduMap(mContext, endLatlng.latitude, endLatlng.longitude,
+                                endName);
                         break;
                     default:
                         break;
@@ -75,7 +79,6 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends UpdateAct
         AlertDialog alertDialog = build.create();
         alertDialog.show();
     }
-
 
 
     /**
@@ -98,6 +101,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends UpdateAct
         builder.add("token", UserInfoManager.getUserToken());
         return builder;
     }
+
     /**
      * 获取requestBody
      *
@@ -106,6 +110,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends UpdateAct
     public RequestBody getRequestBody(JSONObject jsonObject) {
         return RequestBody.create(MediaType.parse("application/json;charset=utf-8"), jsonObject.toString());
     }
+
     /**
      * 获取builder
      *
@@ -119,21 +124,21 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends UpdateAct
                 .addFormDataPart("uid", String.valueOf(UserInfoManager.getUserId()));
     }
 
-//    /**
-//     * 是否是内部账号
-//     *
-//     * @return
-//     */
-//    public boolean isInnerAccount() {
-//        return UserInfoManager.isTest();
-//    }
+    //    /**
+    //     * 是否是内部账号
+    //     *
+    //     * @return
+    //     */
+    //    public boolean isInnerAccount() {
+    //        return UserInfoManager.isTest();
+    //    }
 
     @Override
     public void singleLogin() {
-//        ToastUtils.toast(mContext, "登录过期,请重新登录");
-//        Hawk.delete(HawkProperty.USER_INFO);
-//        ActivityManagerTool.getInstance().finishApp();
-//        startActivity(new Intent(mContext, LoginActivity.class));
+        //        ToastUtils.toast(mContext, "登录过期,请重新登录");
+        //        Hawk.delete(HawkProperty.USER_INFO);
+        //        ActivityManagerTool.getInstance().finishApp();
+        //        startActivity(new Intent(mContext, LoginActivity.class));
     }
 
     @Override
@@ -183,11 +188,16 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends UpdateAct
 
     /**
      * 加密密码
+     *
      * @param pwd
      * @return
      */
-    protected  String  encryptPwd(String account,String pwd){
+    protected String encryptPwd(String account, String pwd) {
         return MD5.md5(String.format("%s#%s", account, pwd));
     }
 
+    @Override
+    protected void selectedPicsAndEmpressed(List<String> icons) {
+
+    }
 }

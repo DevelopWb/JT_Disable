@@ -30,7 +30,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".home_page.business.disableCard.HandlerDisableCardActivity"></activity>
+        <activity android:name=".home_page.business.handlerBusiness.RenewalActivity"></activity>
+        <activity android:name=".home_page.business.handlerBusiness.HandlerDisableCardActivity" />
         <activity
             android:name=".home_page.news.news_publish.UpdateVideoNewsActivity"
             android:launchMode="singleTop" />

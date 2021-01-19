@@ -8,16 +8,9 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
 import com.juntai.disabled.federation.R;
-import com.juntai.disabled.federation.bean.MyMenuBean;
-import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.home_page.business.BusinessContract;
 import com.juntai.disabled.federation.home_page.business.BusinessPresent;
-import com.juntai.disabled.federation.home_page.business.disableCard.HandlerDisableCardActivity;
-import com.juntai.disabled.federation.home_page.business.more_business.MoreBusinessActivity;
-import com.juntai.disabled.federation.home_page.business.transact_business.TransactBusinessActivity;
-import com.juntai.disabled.federation.home_page.call_to_police.VerifiedActivity;
-import com.juntai.disabled.federation.utils.AppUtils;
-import com.orhanobut.hawk.Hawk;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.HandlerDisableCardActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 /**
