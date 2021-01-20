@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.federation.R;
-import com.juntai.disabled.federation.home_page.business.business_common.BusinessItemAdapter;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.HandlerDisableCardActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.RenewalActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;

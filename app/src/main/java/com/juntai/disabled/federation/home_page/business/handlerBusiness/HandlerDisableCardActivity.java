@@ -1,5 +1,6 @@
 package com.juntai.disabled.federation.home_page.business.handlerBusiness;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -9,12 +10,12 @@ import android.widget.TextView;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
-import com.juntai.disabled.federation.home_page.business.BaseHandlerBusinessActivity;
+import com.juntai.disabled.federation.home_page.business.BaseBusinessActivity;
 import com.juntai.disabled.federation.utils.StringTools;
 
 import java.util.List;
 
-public class HandlerDisableCardActivity extends BaseHandlerBusinessActivity {
+public class HandlerDisableCardActivity extends BaseBusinessActivity {
 
     private EditText mDisableNameEt;
     private EditText mGuardianNameEt;
@@ -49,21 +50,43 @@ public class HandlerDisableCardActivity extends BaseHandlerBusinessActivity {
 
     @Override
     public void onClick(View v) {
-      switch (v.getId()) {
-                    case R.id.commit_business_form_tv:
-                        break;
-                    case R.id.guardian__name_sign_iv:
-                        break;
-                    default:
-                        ToastUtils.toast(mContext,"dfadfasd ");
-                        break;
+        super.onClick(v);
+        switch (v.getId()) {
+            case R.id.commit_business_form_tv:
+                StringBuilder sb = getStringBuilderOfAdapterData();
+                if (sb == null) {
+                    return;
+                }
+                if (TextUtils.isEmpty(getTextViewValue(mDisableNameEt))) {
+                    ToastUtils.toast(mContext,"请输入承诺书中残疾人姓名");
+                    return;
+                }
+                if (TextUtils.isEmpty(getTextViewValue(mGuardianNameEt))) {
+                    ToastUtils.toast(mContext,"请输入承诺书中残疾人监护人姓名");
+                    return;
+                }
+                if (TextUtils.isEmpty(getSignPath())) {
+                    ToastUtils.toast(mContext,"请签名");
+                    return;
+                }
+                break;
+            case R.id.guardian__name_sign_iv:
+                showSignatureView();
+                break;
+            default:
+                break;
         }
+    }
+
+    @Override
+    protected ImageView getSignIv() {
+        return mGuardianNameSignIv;
     }
 
     @Override
     public void initData() {
         String content = getString(R.string.commitment);
-        StringTools.setTextPartColor2(mCommitmentTv, content, content.indexOf("(")+1, content.indexOf(")"),
+        StringTools.setTextPartColor2(mCommitmentTv, content, content.indexOf("(") + 1, content.indexOf(")"),
                 "#FB7D06");
     }
 

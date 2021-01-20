@@ -1,4 +1,4 @@
-package com.juntai.disabled.federation.home_page.business.business_common;
+package com.juntai.disabled.federation.home_page.business;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;

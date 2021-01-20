@@ -2,6 +2,7 @@ package com.juntai.disabled.basecomponent.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.os.Looper;
 import android.text.TextUtils;
@@ -30,6 +31,7 @@ public class FileCacheUtils {
 
     public static  String  STREAM_THUMBNAIL = "streamThumbnail";//流媒体缩略图目录
     public static  String  STREAM_CAPTURE = "摄像头截图/";//流媒体截图目录
+    public static String SIGN_PIC_NAME = "signature.png";//签名文件
 
 
 
@@ -147,6 +149,21 @@ public class FileCacheUtils {
     }
 
     /**
+     * 清除图片缓存
+     */
+    public static void clearImage(String path){
+        File file = new File(path);
+        if (!file.exists()) {
+            return;
+        }
+        try {
+            deleteFile(file);
+        }catch (Exception e){
+            LogUtil.e("image-删除缓存文件失败="+e.toString());
+        }
+    }
+
+    /**
      * 清除视频缓存
      */
     public static void clearVideo(){
@@ -251,12 +268,14 @@ public class FileCacheUtils {
      */
     private static void deleteFile(File file){
         //判断是否为目录
-        for (File ff:file.listFiles()) {
-            if (ff.isDirectory()){
-                deleteFile(ff);
+        if (file.isDirectory()) {
+            for (File ff:file.listFiles()) {
+                    deleteFile(ff);
             }
-            ff.delete();
+        }else {
+            file.delete();
         }
+
     }
 
 
@@ -393,5 +412,20 @@ public class FileCacheUtils {
         }
         return content;
     }
+    /**
+     * 获取bitmap
+     *
+     * @param url
+     * @return
+     */
+    public static Bitmap getLoacalBitmap(String url) {
+        try {
+            FileInputStream fis = new FileInputStream(url);
+            return BitmapFactory.decodeStream(fis);  ///把流转化为Bitmap图片
 
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
