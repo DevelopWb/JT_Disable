@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="男"></RadioButton>
+           ></RadioButton>
 
         <RadioButton
             android:id="@+id/radio_first_rb"
@@ -29,7 +29,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="false"
-            android:text="女"></RadioButton>
+            ></RadioButton>
+        <RadioButton
+            android:id="@+id/radio_second_rb"
+            android:layout_marginLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            ></RadioButton>
 
     </RadioGroup>
 

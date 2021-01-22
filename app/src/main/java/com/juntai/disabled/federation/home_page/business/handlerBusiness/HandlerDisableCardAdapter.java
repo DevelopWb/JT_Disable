@@ -1,17 +1,23 @@
 package com.juntai.disabled.federation.home_page.business.handlerBusiness;
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
@@ -68,6 +74,19 @@ public class HandlerDisableCardAdapter extends BaseMultiItemQuickAdapter<Multipl
             case MultipleItem.ITEM_BUSINESS_EDIT:
                 BusinessTextValueBean textValueEditBean = (BusinessTextValueBean) item.getObject();
                 EditText editText = helper.getView(R.id.edit_value_et);
+                int editType = textValueEditBean.getType();
+                LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) editText.getLayoutParams();
+                if (0==editType) {
+                    lp.height =DisplayUtil.dp2px(mContext,32);
+                    editText.setGravity(Gravity.CENTER_VERTICAL);
+                    editText.setSingleLine(true);
+                }else {
+                    lp.height =LinearLayout.LayoutParams.WRAP_CONTENT;
+                    editText.setMinimumHeight(DisplayUtil.dp2px(mContext,150));
+                    editText.setGravity(Gravity.TOP);
+                    editText.setSingleLine(false);
+                }
+                editText.setLayoutParams(lp);
                 editText.setTag(textValueEditBean);
                 editText.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -91,8 +110,6 @@ public class HandlerDisableCardAdapter extends BaseMultiItemQuickAdapter<Multipl
                 String editKey = textValueEditBean.getKey();
                 if (BusinessContract.TABLE_TITLE_CONTACT_MODE.equals(editKey) || BusinessContract.TABLE_TITLE_PHONE.equals(editKey)) {
                     editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-                }else {
-                    editText.setInputType(InputType.TYPE_CLASS_TEXT);
                 }
                 break;
             case MultipleItem.ITEM_BUSINESS_SELECT:
@@ -104,11 +121,27 @@ public class HandlerDisableCardAdapter extends BaseMultiItemQuickAdapter<Multipl
                 break;
             case MultipleItem.ITEM_BUSINESS_RADIO:
                 BusinessRadioBean radioBean = (BusinessRadioBean) item.getObject();
-                String radioBeanKey = radioBean.getKey();
                 RadioGroup radioGroup = helper.getView(R.id.item_radio_g);
                 radioGroup.setTag(radioBean);
                 RadioButton radioButton0 = helper.getView(R.id.radio_zero_rb);
                 RadioButton radioButton1 = helper.getView(R.id.radio_first_rb);
+                RadioButton radioButton2 = helper.getView(R.id.radio_second_rb);
+                String[] values = radioBean.getValues();
+                radioButton2.setVisibility(View.GONE);
+                if (values != null) {
+                    if (values.length>1) {
+                        radioButton0.setText(values[0]);
+                        radioButton1.setText(values[1]);
+                        if (values.length==3) {
+                            radioButton2.setVisibility(View.VISIBLE);
+                            radioButton2.setText(values[2]);
+                        }
+                    }
+
+                }else {
+                    radioButton0.setText("是");
+                    radioButton1.setText("否");
+                }
                 radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -125,13 +158,6 @@ public class HandlerDisableCardAdapter extends BaseMultiItemQuickAdapter<Multipl
                         }
                     }
                 });
-                if (BusinessContract.TABLE_TITLE_SEX.equals(radioBeanKey)) {
-                    radioButton0.setText("男");
-                    radioButton1.setText("女");
-                } else {
-                    radioButton0.setText("是");
-                    radioButton1.setText("否");
-                }
                 if (0 == radioBean.getDefaultSelectedIndex()) {
                     radioButton0.setChecked(true);
                     radioButton1.setChecked(false);

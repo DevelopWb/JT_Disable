@@ -12,11 +12,21 @@ public class BusinessTextValueBean {
     private String key;
     private String value;
     private String hint;
+    private int type;//0代表高度固定的edittext  1代表高度不固定的edittext
 
-    public BusinessTextValueBean(String key, String value, String hint) {
+    public BusinessTextValueBean(String key, String value, String hint, int type) {
         this.key = key;
         this.value = value;
         this.hint = hint;
+        this.type = type;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public String getKey() {

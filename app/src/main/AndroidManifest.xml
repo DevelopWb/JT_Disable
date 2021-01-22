@@ -30,13 +30,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".home_page.business.handlerBusiness.CardLogoutActivity"></activity>
+        <activity android:name=".home_page.business.handlerBusiness.EmploymentRegistActivity"></activity>
+        <activity android:name=".home_page.business.handlerBusiness.CardLogoutActivity" />
         <activity android:name=".home_page.business.handlerBusiness.CardMoveOutActivity" />
         <activity android:name=".home_page.business.handlerBusiness.CardMoveInActivity" />
         <activity android:name=".home_page.business.handlerBusiness.CardReissueActivity" />
         <activity android:name=".home_page.business.handlerBusiness.CardLevelChangeActivity" />
         <activity android:name=".home_page.business.handlerBusiness.RenewalActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.HandlerDisableCardActivity" />
+        <activity android:name=".home_page.business.handlerBusiness.HandlerCardActivity" />
         <activity
             android:name=".home_page.news.news_publish.UpdateVideoNewsActivity"
             android:launchMode="singleTop" />

@@ -11,10 +11,20 @@ public class BusinessRadioBean {
 
     private String key;
     private int  defaultSelectedIndex;
+    private String[] values;
 
-    public BusinessRadioBean(String key, int defaultSelectedIndex) {
+    public BusinessRadioBean(String key, int defaultSelectedIndex, String[] values) {
         this.key = key;
         this.defaultSelectedIndex = defaultSelectedIndex;
+        this.values = values;
+    }
+
+    public String[] getValues() {
+        return values;
+    }
+
+    public void setValues(String[] values) {
+        this.values = values;
     }
 
     public String getKey() {

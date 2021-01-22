@@ -14,8 +14,12 @@ import com.juntai.disabled.federation.home_page.business.BaseBusinessActivity;
 import com.juntai.disabled.federation.utils.StringTools;
 
 import java.util.List;
-
-public class HandlerDisableCardActivity extends BaseBusinessActivity {
+/**
+ * @aouther tobato
+ * @description 描述  残疾证办理
+ * @date 2021/1/20 14:28
+ */
+public class HandlerCardActivity extends BaseBusinessActivity {
 
     private EditText mDisableNameEt;
     private EditText mGuardianNameEt;
@@ -26,7 +30,7 @@ public class HandlerDisableCardActivity extends BaseBusinessActivity {
 
     @Override
     protected String getTitleName() {
-        return "残疾人证办理";
+        return "残疾证办理";
     }
 
     @Override

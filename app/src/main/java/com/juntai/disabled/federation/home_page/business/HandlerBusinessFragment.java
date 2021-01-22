@@ -1,6 +1,5 @@
 package com.juntai.disabled.federation.home_page.business;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +9,13 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.federation.R;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.HandlerDisableCardActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.CardLevelChangeActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.CardLogoutActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.CardMoveInActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.CardMoveOutActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.CardReissueActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.EmploymentRegistActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.HandlerCardActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.RenewalActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -53,11 +58,35 @@ public class HandlerBusinessFragment extends BaseMvpFragment<BusinessPresent> im
 
                 switch (position) {
                     case 0:
-                        startActivity(new Intent(mContext, HandlerDisableCardActivity.class));
+                        startActivity(new Intent(mContext, HandlerCardActivity.class));
                         break;
                     case 1:
                         //期满换证
                         startActivity(new Intent(mContext, RenewalActivity.class));
+                        break;
+                    case 2:
+                        //期满换证
+                        startActivity(new Intent(mContext, CardLevelChangeActivity.class));
+                        break;
+                    case 3:
+                        //期满换证
+                        startActivity(new Intent(mContext, CardReissueActivity.class));
+                        break;
+                    case 4:
+                        //期满换证
+                        startActivity(new Intent(mContext, CardMoveInActivity.class));
+                        break;
+                    case 5:
+                        //期满换证
+                        startActivity(new Intent(mContext, CardMoveOutActivity.class));
+                        break;
+                    case 6:
+                        //期满换证
+                        startActivity(new Intent(mContext, CardLogoutActivity.class));
+                        break;
+                    case 7:
+                        //就业登记
+                        startActivity(new Intent(mContext, EmploymentRegistActivity.class));
                         break;
                     default:
                         break;

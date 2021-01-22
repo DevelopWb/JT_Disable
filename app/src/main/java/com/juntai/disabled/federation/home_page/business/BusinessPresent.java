@@ -172,8 +172,8 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
      */
     public List<MyMenuBean> getBusinessList() {
         List<MyMenuBean> menus = new ArrayList<>();
-        String[] names = {"出生随父母落户", "死亡注销", "参军入伍", "住址变动所内移居", "购房落户", "持准迁证户口迁出", "升学户口迁出", "变更姓氏并改名字", "换领身份证",
-                "临时身份证", "申领居住证", "更多",};
+        String[] names = {"残疾证办理", "残疾证换领", "残疾证等级变更", "残疾证补办", "残疾证迁入", "残疾证迁出", "残疾证注销", "残疾人就业 登记", "残疾人儿童抢 救性康复项目",
+                "残疾学生助学金", "家庭无障碍改 造项目", "残疾人辅助用品 用具申请",};
         int[] images = {R.mipmap.business_hukou_by_present, R.mipmap.business_die_unregist, R.mipmap.business_join,
                 R.mipmap.business_house_move, R.mipmap.business_hukou_by_house, R.mipmap.business_hukou_out_by_prove,
                 R.mipmap.business_hukou_out_by_school, R.mipmap.business_change_name, R.mipmap.business_change_idcard
@@ -211,7 +211,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_HEAD_PIC,
                 new BusinessPicBean("", "")));
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME);
-        initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, 0);
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, 0,new String[]{"男","女"});
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_BIRTH);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_NATION);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_MARRIAGE);
@@ -227,7 +227,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_WORKER);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_WORKER_TYPE);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_UNIT_NATURE);
-        initRadioType(arrays, BusinessContract.TABLE_TITLE_IS_WEEL_COMPANY, 1);
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_IS_WEEL_COMPANY, 1,null);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_CARD_TYPE);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "申办残疾人证承诺书"));
         return arrays;
@@ -258,14 +258,52 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_LIFE_PIC, "")));
         return arrays;
     }
+    /**
+     * 就业登记
+     *
+     * @return
+     */
+    public List<MultipleItem> getEmploymentRegistAdapterData() {
+        List<MultipleItem> arrays = new ArrayList<>();
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "申请人基本信息"));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, BusinessContract.TABLE_TITLE_PIC));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_HEAD_PIC,
+                new BusinessPicBean("", "")));
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME);
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, 0,new String[]{"男","女"});
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_BIRTH);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_NATION);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_EDUCATION);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_SPECIAL);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_MARRIAGE);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_REG_MODE);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOME_ADDR);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ADDR_LIVE_NOW);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_KINDS);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_LEVEL);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_PHONE);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DISABLE_CARD_ID);
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_DISABILITY_HEAR, 1,null);
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_DISABILITY_LIMB, 1,new String[]{"上肢残疾","下肢残疾"});
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, BusinessContract.TABLE_TITLE_RESUME));
+        initEditHighType(arrays,  BusinessContract.TABLE_TITLE_RESUME);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "求职意向"));
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_WANTED_POST);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_WORK_AREA);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_SALARY);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC2, "")));
+        return arrays;
+    }
 
     /**
      * @param arrays
      * @param typeName
      */
-    private void initRadioType(List<MultipleItem> arrays, String typeName, int defaultIndex) {
+    private void initRadioType(List<MultipleItem> arrays, String typeName, int defaultIndex, String[] values) {
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, typeName));
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_RADIO, new BusinessRadioBean(typeName, defaultIndex)));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_RADIO, new BusinessRadioBean(typeName, defaultIndex,values)));
     }
 
     /**
@@ -279,12 +317,24 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         if (MultipleItem.ITEM_BUSINESS_SELECT == layoutType) {
             arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_SELECT,
                     new BusinessTextValueBean(typeName, null, String.format("%s%s", "请选择你的",
-                            typeName))));
+                            typeName),0)));
         } else {
             arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
                     new BusinessTextValueBean(typeName, null,
-                            String.format("%s%s", "请输入你的", typeName))));
+                            String.format("%s%s", "请输入你的", typeName),0)));
         }
+
+    }
+    /**
+     * initTextType
+     *
+     * @param arrays
+     * @param typeName
+     */
+    private void initEditHighType(List<MultipleItem> arrays, String typeName) {
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
+                new BusinessTextValueBean(typeName, null,
+                       "点击输入内容...",1)));
 
     }
 }
