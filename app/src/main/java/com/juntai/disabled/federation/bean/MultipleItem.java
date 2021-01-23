@@ -20,6 +20,8 @@ public class MultipleItem implements MultiItemEntity {
     public static final int ITEM_BUSINESS_SELECT = 8;//类型3
     public static final int ITEM_BUSINESS_RADIO = 9;//类型3
     public static final int ITEM_BUSINESS_PIC = 10;//类型3
+    public static final int ITEM_BUSINESS_SIGN = 11;//签字
+    public static final int ITEM_BUSINESS_NOTICE = 12;//提示
     private int itemType;
     private Object object;
 

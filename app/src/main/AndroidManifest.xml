@@ -30,7 +30,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".home_page.business.handlerBusiness.EmploymentRegistActivity"></activity>
+        <activity android:name=".home_page.business.handlerBusiness.studentBursary.StudentBursaryActivity"></activity>
+        <activity android:name=".home_page.business.handlerBusiness.disabilityChildRecovery.DisabilityChildRecoveryActivity" />
+        <activity android:name=".home_page.business.handlerBusiness.EmploymentRegistActivity" />
         <activity android:name=".home_page.business.handlerBusiness.CardLogoutActivity" />
         <activity android:name=".home_page.business.handlerBusiness.CardMoveOutActivity" />
         <activity android:name=".home_page.business.handlerBusiness.CardMoveInActivity" />

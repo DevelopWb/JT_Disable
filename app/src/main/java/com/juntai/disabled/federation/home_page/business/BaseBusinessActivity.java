@@ -18,7 +18,7 @@ import com.juntai.disabled.federation.base.customview.GestureSignatureView;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.bean.business.BusinessPicBean;
 import com.juntai.disabled.federation.bean.business.BusinessTextValueBean;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.HandlerDisableCardAdapter;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.HandlerBusinessAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.io.File;
@@ -35,7 +35,7 @@ import java.util.List;
 public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPresent> implements BusinessContract.IBusinessView, View.OnClickListener {
     private RecyclerView mRecyclerview;
     private SmartRefreshLayout mSmartrefreshlayout;
-    protected HandlerDisableCardAdapter adapter;
+    protected HandlerBusinessAdapter adapter;
     private ImageView mHeadIv;
     private ImageView mFormPicIv;
     private int currentPosition;
@@ -70,7 +70,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         mSmartrefreshlayout = (SmartRefreshLayout) findViewById(R.id.smartrefreshlayout);
         mSmartrefreshlayout.setEnableLoadMore(false);
         mSmartrefreshlayout.setEnableRefresh(false);
-        adapter = new HandlerDisableCardAdapter(getAdapterData());
+        adapter = new HandlerBusinessAdapter(getAdapterData());
         initRecyclerview(mRecyclerview, adapter, LinearLayoutManager.VERTICAL);
         if (getFootView() != null) {
             adapter.setFooterView(getFootView());

@@ -1,6 +1,5 @@
 package com.juntai.disabled.federation.home_page.business;
 
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +45,7 @@ public abstract class BaseChildBusinessActivity extends BaseBusinessActivity {
 
     @Override
     protected List<MultipleItem> getAdapterData() {
-        return mPresenter.getRenewalAdapterData();
+        return mPresenter.getBaseChildAdapterData();
     }
 
     @Override

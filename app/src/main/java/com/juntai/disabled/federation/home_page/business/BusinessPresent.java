@@ -1,6 +1,8 @@
 package com.juntai.disabled.federation.home_page.business;
 
 
+import android.support.v4.content.ContextCompat;
+
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
@@ -234,11 +236,11 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
     }
 
     /**
-     * 期满换证数据
+     * 期满换证 登记变更 遗失补办 迁入迁出 注销等业务
      *
      * @return
      */
-    public List<MultipleItem> getRenewalAdapterData() {
+    public List<MultipleItem> getBaseChildAdapterData() {
         List<MultipleItem> arrays = new ArrayList<>();
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "申请人基本信息"));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, BusinessContract.TABLE_TITLE_PIC));
@@ -294,6 +296,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC2, "")));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_NOTICE, "说明：求职登记需携带身份证、残疾人证原件及复印件一份"));
         return arrays;
     }
 

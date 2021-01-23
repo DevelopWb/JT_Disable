@@ -17,6 +17,8 @@ import com.juntai.disabled.federation.home_page.business.handlerBusiness.CardRei
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.EmploymentRegistActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.HandlerCardActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.RenewalActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.disabilityChildRecovery.DisabilityChildRecoveryActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.studentBursary.StudentBursaryActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 /**
@@ -87,6 +89,14 @@ public class HandlerBusinessFragment extends BaseMvpFragment<BusinessPresent> im
                     case 7:
                         //就业登记
                         startActivity(new Intent(mContext, EmploymentRegistActivity.class));
+                        break;
+                    case 8:
+                        //就业登记
+                        startActivity(new Intent(mContext, DisabilityChildRecoveryActivity.class));
+                        break;
+                    case 9:
+                        //就业登记
+                        startActivity(new Intent(mContext, StudentBursaryActivity.class));
                         break;
                     default:
                         break;

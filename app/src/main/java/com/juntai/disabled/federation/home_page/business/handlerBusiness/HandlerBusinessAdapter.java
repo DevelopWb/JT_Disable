@@ -30,17 +30,17 @@ import java.util.List;
 
 /**
  * @aouther tobato
- * @description 描述   办理残疾人证
+ * @description 描述   办理业务
  * @date 2021/1/16 11:22
  */
-public class HandlerDisableCardAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseViewHolder> {
+public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseViewHolder> {
     /**
      * Same as QuickAdapter#QuickAdapter(Context,int) but with
      * some initialization data.
      *
      * @param data A new list is created out of this one to avoid mutable list
      */
-    public HandlerDisableCardAdapter(List<MultipleItem> data) {
+    public HandlerBusinessAdapter(List<MultipleItem> data) {
         super(data);
         addItemType(MultipleItem.ITEM_BUSINESS_HEAD_PIC, R.layout.item_layout_type_head_pic);
         addItemType(MultipleItem.ITEM_BUSINESS_TITILE_BIG, R.layout.item_layout_type_title_big);
@@ -49,6 +49,8 @@ public class HandlerDisableCardAdapter extends BaseMultiItemQuickAdapter<Multipl
         addItemType(MultipleItem.ITEM_BUSINESS_SELECT, R.layout.item_layout_type_select);
         addItemType(MultipleItem.ITEM_BUSINESS_RADIO, R.layout.item_layout_type_radio);
         addItemType(MultipleItem.ITEM_BUSINESS_PIC, R.layout.item_layout_type_pic);
+        addItemType(MultipleItem.ITEM_BUSINESS_SIGN, R.layout.item_layout_type_sign);
+        addItemType(MultipleItem.ITEM_BUSINESS_NOTICE, R.layout.item_layout_type_notice);
     }
 
     @Override
@@ -179,6 +181,9 @@ public class HandlerDisableCardAdapter extends BaseMultiItemQuickAdapter<Multipl
                     ImageLoadUtil.loadImage(mContext, R.mipmap.item_add_pic, picIv);
                 }
                 break;
+                case MultipleItem.ITEM_BUSINESS_NOTICE:
+                    helper.setText(R.id.business_item_notice_tv,(String) item.getObject());
+                    break;
             default:
                 break;
         }
