@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
-import com.juntai.disabled.federation.home_page.business.BaseBusinessActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
 
 import java.util.List;
 
@@ -42,6 +42,11 @@ public class EmploymentRegistActivity extends BaseBusinessActivity {
         mCommitBusinessTv = view.findViewById(R.id.commit_business_form_tv);
         mCommitBusinessTv.setOnClickListener(this);
         return view;
+    }
+
+    @Override
+    protected View getHeadView() {
+        return null;
     }
 
     @Override

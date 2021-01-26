@@ -1,7 +1,6 @@
 package com.juntai.disabled.federation.home_page.business.handlerBusiness.studentBursary;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -9,9 +8,11 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseAppActivity;
-import com.juntai.disabled.federation.home_page.business.BusinessContract;
-import com.juntai.disabled.federation.home_page.business.BusinessPresent;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessContract;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessPresent;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.disabilityChildRecovery.ChildRecoveryAdapter;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.studentBursary.disabilityFamilyStudent.DisabilityFamilyStudentActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.studentBursary.disabilitystudentbursary.DisabilityStudentBursaryActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
@@ -52,8 +53,10 @@ public class StudentBursaryActivity extends BaseAppActivity<BusinessPresent> imp
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (position) {
                     case 0:
+                        startActivity(new Intent(mContext, DisabilityStudentBursaryActivity.class));
                         break;
                     case 1:
+                        startActivity(new Intent(mContext, DisabilityFamilyStudentActivity.class));
                         break;
                     default:
                         break;

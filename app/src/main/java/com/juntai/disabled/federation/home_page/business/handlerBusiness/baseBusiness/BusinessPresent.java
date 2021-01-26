@@ -1,7 +1,5 @@
-package com.juntai.disabled.federation.home_page.business;
+package com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness;
 
-
-import android.support.v4.content.ContextCompat;
 
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
@@ -217,7 +215,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_BIRTH);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_NATION);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_MARRIAGE);
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_EDUCATION);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_EDUCATION_LEVEL);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOMETOWN);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_IDCARD);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ADDR);
@@ -275,7 +273,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, 0,new String[]{"男","女"});
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_BIRTH);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_NATION);
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_EDUCATION);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_EDUCATION_LEVEL);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_SPECIAL);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_MARRIAGE);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_REG_MODE);
@@ -299,6 +297,78 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_NOTICE, "说明：求职登记需携带身份证、残疾人证原件及复印件一份"));
         return arrays;
     }
+
+
+
+    /**
+     * 残疾学生助学金
+     *
+     * @return
+     */
+    public List<MultipleItem> getDisabilityStudentBursaryAdapterData() {
+        List<MultipleItem> arrays = new ArrayList<>();
+        getBaseDisabilityStudentBursaryAdapterData(arrays);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC, "")));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_ADMISSION_NOTICE_PIC, "")));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_TUITION_PIC3, "")));
+        return arrays;
+    }
+
+    /**
+     * 获取残疾大学生助学金
+     * @param arrays
+     */
+    private void getBaseDisabilityStudentBursaryAdapterData(List<MultipleItem> arrays) {
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "申请人基本信息"));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, BusinessContract.TABLE_TITLE_PIC));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_HEAD_PIC,
+                new BusinessPicBean("", "")));
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME);
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, 0, new String[]{"男", "女"});
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_BIRTH);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_NATION);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOMETOWN);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_IDCARD);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_KINDS);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_LEVEL);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ADMISSION_COLLEGE);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ADMISSION_PERSIONAL);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_EDUCATION);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_SCHOOL_SYSTEM);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_PHONE);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_EMAIL);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_FATHER_NAME);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_MATHER_NAME);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOME_ADDRESS);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ZIP_CODE);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "受助学生银行卡资料（工商银行）"));
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ACCOUNT_NAME);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ACCOUNT_BANK);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CARD_NUM);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
+    }
+
+    /**
+     * 残疾学生助学金2年以后申请
+     *
+     * @return
+     */
+    public List<MultipleItem> getDisabilityStudentBursaryNextYearAdapterData() {
+        List<MultipleItem> arrays = new ArrayList<>();
+        getBaseDisabilityStudentBursaryAdapterData(arrays);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_STUDENT_CARD_PIC, "")));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_TUITION_PIC2, "")));
+        return arrays;
+    }
+
+
+
+
 
     /**
      * @param arrays

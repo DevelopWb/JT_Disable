@@ -1,4 +1,4 @@
-package com.juntai.disabled.federation.home_page.business;
+package com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -31,6 +31,11 @@ public abstract class BaseChildBusinessActivity extends BaseBusinessActivity {
     @Override
     public void initData() {
 
+    }
+
+    @Override
+    protected View getHeadView() {
+        return null;
     }
 
     @Override

@@ -1,16 +1,13 @@
 package com.juntai.disabled.federation.home_page.business.my_business;
 
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.LinearLayout;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.business.MyBusinessBean;
-import com.juntai.disabled.federation.home_page.business.BusinessContract;
-import com.juntai.disabled.federation.home_page.business.BusinessPresent;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessContract;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessPresent;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;

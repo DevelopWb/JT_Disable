@@ -4,15 +4,16 @@
     android:layout_height="wrap_content"
     android:paddingTop="3dp"
     android:paddingBottom="3dp">
+
     <TextView
         android:id="@+id/tabitem_text"
         style="@style/tab_textview"
         android:paddingTop="2dp"
         android:paddingBottom="2dp"
-        android:textSize="16dp"
         android:singleLine="true"
+        android:text="上报"
         android:textColor="@color/text_main_tab"
-        android:text="上报"/>
+        android:textSize="16dp" />
 
     <View
         android:id="@+id/read_tag"

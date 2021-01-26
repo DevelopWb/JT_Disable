@@ -1,13 +1,11 @@
-package com.juntai.disabled.federation.home_page.business.handlerBusiness;
+package com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness;
 
-import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,7 +22,6 @@ import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.bean.business.BusinessPicBean;
 import com.juntai.disabled.federation.bean.business.BusinessRadioBean;
 import com.juntai.disabled.federation.bean.business.BusinessTextValueBean;
-import com.juntai.disabled.federation.home_page.business.BusinessContract;
 
 import java.util.List;
 

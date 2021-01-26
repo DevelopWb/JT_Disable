@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
-import com.juntai.disabled.federation.home_page.business.BaseBusinessActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
 import com.juntai.disabled.federation.utils.StringTools;
 
 import java.util.List;
@@ -44,6 +44,11 @@ public class HandlerCardActivity extends BaseBusinessActivity {
         mCommitBusinessTv.setOnClickListener(this);
         mGuardianNameSignIv.setOnClickListener(this);
         return view;
+    }
+
+    @Override
+    protected View getHeadView() {
+        return null;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.juntai.disabled.federation.home_page.business;
+package com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness;
 
 import android.graphics.Bitmap;
 import android.support.design.widget.BottomSheetDialog;
@@ -18,7 +18,6 @@ import com.juntai.disabled.federation.base.customview.GestureSignatureView;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.bean.business.BusinessPicBean;
 import com.juntai.disabled.federation.bean.business.BusinessTextValueBean;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.HandlerBusinessAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.io.File;
@@ -46,6 +45,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     protected abstract String getTitleName();
 
     protected abstract View getFootView();
+    protected abstract View getHeadView();
 
     protected abstract List<MultipleItem> getAdapterData();
     /**
@@ -74,6 +74,9 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         initRecyclerview(mRecyclerview, adapter, LinearLayoutManager.VERTICAL);
         if (getFootView() != null) {
             adapter.setFooterView(getFootView());
+        }
+        if (getHeadView() != null) {
+            adapter.setHeaderView(getHeadView());
         }
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
 
@@ -107,6 +110,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     protected void onDestroy() {
         super.onDestroy();
         adapter.removeAllFooterView();
+        adapter.removeAllHeaderView();
         if (bottomSheetDialog != null) {
             if (bottomSheetDialog.isShowing()) {
                 bottomSheetDialog.dismiss();

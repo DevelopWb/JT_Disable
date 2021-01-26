@@ -1,4 +1,4 @@
-package com.juntai.disabled.federation.home_page.business;
+package com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness;
 
 import com.juntai.disabled.basecomponent.mvp.IPresenter;
 import com.juntai.disabled.basecomponent.mvp.IView;
@@ -22,7 +22,7 @@ public interface BusinessContract {
     String TABLE_TITLE_DISABLE_CARD_ID = "残疾证号";//表单的标题
     String TABLE_TITLE_NATION = "民族";//民族
     String TABLE_TITLE_MARRIAGE = "婚姻状况";//婚姻
-    String TABLE_TITLE_EDUCATION = "文化程度";//
+    String TABLE_TITLE_EDUCATION_LEVEL = "文化程度";//
     String TABLE_TITLE_HOMETOWN = "籍贯";//
     String TABLE_TITLE_HOME_ADDR= "户籍所在地";//
     String TABLE_TITLE_WANTED_POST= "意向岗位";//
@@ -43,6 +43,10 @@ public interface BusinessContract {
     String TABLE_TITLE_IS_WEEL_COMPANY = "是否福利企业";//
     String TABLE_TITLE_CARD_TYPE = "证件申请类型";//
     String TABLE_TITLE_DISABLE_PIC = "1.申请人残疾证照片";//
+    String TABLE_TITLE_STUDENT_CARD_PIC = "1.学生证照片";//
+    String TABLE_TITLE_ADMISSION_NOTICE_PIC = "2.入学通知书照片";//
+    String TABLE_TITLE_TUITION_PIC3 = "3.缴费凭证或缴费凭证照片";//学费
+    String TABLE_TITLE_TUITION_PIC2 = "2.缴费凭证或缴费凭证照片";//学费
     String TABLE_TITLE_DISABLE_PIC2 = "申请人残疾证照片";//
     String TABLE_TITLE_MATERIAL_PIC = "2.病例材料照片";//
     String TABLE_TITLE_LIFE_PIC = "3.申请人生活照片";//
@@ -50,6 +54,17 @@ public interface BusinessContract {
     String TABLE_TITLE_REG_MODE = "登记方式";//
     String TABLE_TITLE_DISABILITY_KINDS = "残疾类别";//
     String TABLE_TITLE_DISABILITY_LEVEL = "残疾等级";//
+    String TABLE_TITLE_ADMISSION_COLLEGE = "录取院校";//
+    String TABLE_TITLE_ADMISSION_PERSIONAL = "录取专业";//
+    String TABLE_TITLE_EDUCATION = "学历";//
+    String TABLE_TITLE_SCHOOL_SYSTEM = "学制";//
+    String TABLE_TITLE_EMAIL= "E-mail";//
+    String TABLE_TITLE_FATHER_NAME= "父亲姓名";//
+    String TABLE_TITLE_MATHER_NAME= "母亲姓名";//
+    String TABLE_TITLE_HOME_ADDRESS= "家庭通讯地址";//
+    String TABLE_TITLE_ACCOUNT_NAME= "户名";//
+    String TABLE_TITLE_ACCOUNT_BANK= "开户行";//
+    String TABLE_TITLE_CARD_NUM= "卡号";//
 
 
     interface IBusinessView extends IView {

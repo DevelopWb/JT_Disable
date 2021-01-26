@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 
@@ -71,6 +72,41 @@ public abstract class BaseSelectPicsActivity <P extends BasePresenter>  extends 
                 if (aBoolean) {
                     if (type == 0) {
                         Matisse.from(activity).choose(MimeType.ofImage()).showSingleMediaType(true)//是否只显示选择的类型的缩略图，就不会把所有图片视频都放在一起，而是需要什么展示什么
+                                .countable(true).maxSelectable(maxSelectable).capture(true).captureStrategy(new CaptureStrategy(true, BaseAppUtils.getFileprovider()))
+                                //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
+                                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED).thumbnailScale(0.85f).imageEngine(new GlideEngine4()).forResult(SELECT_PIC_RESULT);
+                        //包括裁剪和压缩后的缓存，要在上传成功后调用，注意：需要系统sd卡权限
+                    } else {
+                        //打开照相机
+                        Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        Uri   imageUri = getOutputMediaFileUri(mContext.getApplicationContext());
+                        openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                        //Android7.0添加临时权限标记，此步千万别忘了
+                        openCameraIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                        startActivityForResult(openCameraIntent, TAKE_PICTURE);
+                    }
+                } else {
+                    Toasty.info(mContext, "请给与相应权限").show();
+                }
+            }
+        });
+    }
+    /**
+     * 图片选择
+     *
+     * @param type          选择类型 0 可选可拍 1 拍照
+     * @param fragment
+     * @param maxSelectable 最大图片选择数
+     */
+    @SuppressLint("CheckResult")
+    public void choseImage(int type, Fragment fragment, int maxSelectable) {
+        icons.clear();
+        new RxPermissions(this).request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA).compose(this.bindToLife()).subscribe(new Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean aBoolean) throws Exception {
+                if (aBoolean) {
+                    if (type == 0) {
+                        Matisse.from(fragment).choose(MimeType.ofImage()).showSingleMediaType(true)//是否只显示选择的类型的缩略图，就不会把所有图片视频都放在一起，而是需要什么展示什么
                                 .countable(true).maxSelectable(maxSelectable).capture(true).captureStrategy(new CaptureStrategy(true, BaseAppUtils.getFileprovider()))
                                 //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
                                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED).thumbnailScale(0.85f).imageEngine(new GlideEngine4()).forResult(SELECT_PIC_RESULT);
