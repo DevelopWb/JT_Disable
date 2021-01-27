@@ -9,11 +9,21 @@ package com.juntai.disabled.federation.bean.business;
  */
 public class BusinessPicBean {
     private String picName;
+    private int picNameIndex;//图片的索引  -1 代表没有序号
     private String picPath;
 
-    public BusinessPicBean(String picName, String picPath) {
+    public BusinessPicBean(String picName, int picNameIndex, String picPath) {
         this.picName = picName;
+        this.picNameIndex = picNameIndex;
         this.picPath = picPath;
+    }
+
+    public int getPicNameIndex() {
+        return picNameIndex;
+    }
+
+    public void setPicNameIndex(int picNameIndex) {
+        this.picNameIndex = picNameIndex;
     }
 
     public String getPicName() {

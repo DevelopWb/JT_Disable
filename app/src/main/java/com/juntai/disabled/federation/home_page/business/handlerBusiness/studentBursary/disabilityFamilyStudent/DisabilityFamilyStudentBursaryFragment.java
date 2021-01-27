@@ -11,10 +11,10 @@ import java.util.List;
  * @UpdateUser: 更新者
  * @UpdateDate: 2021/1/26 10:17
  */
-public class DisabilityFamilyStudentBursaryFragment extends BaseDisabilityStudentBursaryFragment {
+public class DisabilityFamilyStudentBursaryFragment extends BaseDisabilityFamilyStudentBursaryFragment {
 
     @Override
     protected List<MultipleItem> getAdapterData() {
-        return mPresenter.getDisabilityStudentBursaryAdapterData();
+        return mPresenter.getDisabilityFamilyStudentBursaryAdapterData();
     }
 }

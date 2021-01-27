@@ -168,7 +168,13 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 break;
             case MultipleItem.ITEM_BUSINESS_PIC:
                 BusinessPicBean businessPicBean = (BusinessPicBean) item.getObject();
-                helper.setText(R.id.form_pic_title_tv, businessPicBean.getPicName());
+                int index = businessPicBean.getPicNameIndex();
+                if (index>0) {
+                    helper.setText(R.id.form_pic_title_tv, String.format("%s%s%s",String.valueOf(index),".",
+                            businessPicBean.getPicName()));
+                }else {
+                    helper.setText(R.id.form_pic_title_tv, businessPicBean.getPicName());
+                }
                 ImageView picIv = helper.getView(R.id.form_pic_src_iv);
                 helper.addOnClickListener(R.id.form_pic_src_iv);
                 String picPath = businessPicBean.getPicPath();

@@ -79,4 +79,6 @@
     <string name="online">在\u3000线：</string>
     <string name="commitment">"因(请选择残疾种类)残 疾，申办残疾人证，我承诺同意将姓名、所在村居（社区）、残疾评定类别及等级，在河东区残联网站进行公示，公示期一年。并承诺配合区残联做好因公示可能产生的异议事项落实，自愿承担可能因异议事项落实产生的评定结论调整等后果。"</string>
     <string name="bursary_notice">"诚信声明：申请人必须如实填写该《申请表》，如遇弄虚作假，一经核实，将取消受助资格并追回助学金。"</string>
+    <string name="family_student_bursary_notice">"诚信声明：申请人必须如实填写该《河东区重残家庭大学生子女助学金申请表》，如遇弄虚作假，一经核实，将取消受助资格并追回助学金。"
+    </string>
 </resources>

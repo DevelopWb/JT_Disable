@@ -42,14 +42,12 @@ public interface BusinessContract {
     String TABLE_TITLE_UNIT_NATURE = "单位性质";//
     String TABLE_TITLE_IS_WEEL_COMPANY = "是否福利企业";//
     String TABLE_TITLE_CARD_TYPE = "证件申请类型";//
-    String TABLE_TITLE_DISABLE_PIC = "1.申请人残疾证照片";//
-    String TABLE_TITLE_STUDENT_CARD_PIC = "1.学生证照片";//
-    String TABLE_TITLE_ADMISSION_NOTICE_PIC = "2.入学通知书照片";//
-    String TABLE_TITLE_TUITION_PIC3 = "3.缴费凭证或缴费凭证照片";//学费
-    String TABLE_TITLE_TUITION_PIC2 = "2.缴费凭证或缴费凭证照片";//学费
-    String TABLE_TITLE_DISABLE_PIC2 = "申请人残疾证照片";//
-    String TABLE_TITLE_MATERIAL_PIC = "2.病例材料照片";//
-    String TABLE_TITLE_LIFE_PIC = "3.申请人生活照片";//
+    String TABLE_TITLE_DISABLE_PIC = "申请人残疾证照片";//
+    String TABLE_TITLE_STUDENT_CARD_PIC = "学生证照片";//
+    String TABLE_TITLE_ADMISSION_NOTICE_PIC = "入学通知书照片";//
+    String TABLE_TITLE_TUITION_PIC = "缴费凭证或缴费凭证照片";//学费
+    String TABLE_TITLE_MATERIAL_PIC = "病例材料照片";//
+    String TABLE_TITLE_LIFE_PIC = "申请人生活照片";//
     String TABLE_TITLE_SPECIAL = "特长";//
     String TABLE_TITLE_REG_MODE = "登记方式";//
     String TABLE_TITLE_DISABILITY_KINDS = "残疾类别";//
@@ -65,6 +63,12 @@ public interface BusinessContract {
     String TABLE_TITLE_ACCOUNT_NAME= "户名";//
     String TABLE_TITLE_ACCOUNT_BANK= "开户行";//
     String TABLE_TITLE_CARD_NUM= "卡号";//
+    String TABLE_TITLE_DISABILITY_PEOPLE_NAME= "重残人员姓名";//
+    String TABLE_TITLE_DISABILITY_PEOPLE_RELATION= "与该生关系";//
+    String TABLE_TITLE_STUDENT_IDCARD= "学生身份证照片";//
+    String TABLE_TITLE_PRESENT_DISBILITY_IDCARD= "家长重度残疾证照片";//
+    String TABLE_TITLE_GROUP_PHOTO= "学生与家长生活合影照片";//
+    String TABLE_TITLE_ACCOUNT_BOOK= "户口本拍照能说明家庭关系的照片";//
 
 
     interface IBusinessView extends IView {

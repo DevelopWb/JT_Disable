@@ -37,9 +37,6 @@ public abstract class BaseBusinessFragment extends BaseMvpFragment<BusinessPrese
     private RecyclerView mRecyclerview;
     private SmartRefreshLayout mSmartrefreshlayout;
     protected HandlerBusinessAdapter adapter;
-    private ImageView mHeadIv;
-    private ImageView mFormPicIv;
-    private int currentPosition;
     private GestureSignatureView gsv_signature;
     private BottomSheetDialog bottomSheetDialog;
     private String signPath;
@@ -86,7 +83,6 @@ public abstract class BaseBusinessFragment extends BaseMvpFragment<BusinessPrese
 
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                currentPosition = position;
                 //                mHeadIv = (ImageView) adapter.getViewByPosition(mRecyclerview, position, R.id
                 //                .form_head_pic_iv);
                 //                mFormPicIv = (ImageView) adapter.getViewByPosition(mRecyclerview, position,
