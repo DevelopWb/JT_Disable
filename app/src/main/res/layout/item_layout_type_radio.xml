@@ -37,6 +37,13 @@
             android:layout_height="wrap_content"
             android:checked="false"
             ></RadioButton>
+        <RadioButton
+            android:id="@+id/radio_third_rb"
+            android:layout_marginLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            ></RadioButton>
 
     </RadioGroup>
 

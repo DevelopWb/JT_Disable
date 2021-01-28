@@ -13,6 +13,7 @@ import okhttp3.RequestBody;
 public interface BusinessContract {
     String CREAT_BUSINESS = "creat_business";//创建业务
     String TABLE_TITLE_NAME = "姓名";//表单的标题
+    String TABLE_TITLE_CHILD_NAME = "儿童姓名";//表单的标题
     String TABLE_TITLE_PIC = "照片";//表单的标题
     String TABLE_TITLE_SEX = "性别";//表单的标题
     String TABLE_TITLE_DISABILITY_HEAR= "听力残疾";//表单的标题
@@ -69,6 +70,20 @@ public interface BusinessContract {
     String TABLE_TITLE_PRESENT_DISBILITY_IDCARD= "家长重度残疾证照片";//
     String TABLE_TITLE_GROUP_PHOTO= "学生与家长生活合影照片";//
     String TABLE_TITLE_ACCOUNT_BOOK= "户口本拍照能说明家庭关系的照片";//
+    String TABLE_TITLE_YEAR= "年度";//
+    String TABLE_TITLE_PROJECT_LEVEL= "项目级别";//
+    String TABLE_TITLE_HOME_ADDR2= "家庭住址";//
+    String TABLE_TITLE_DIAGNOSIS_AGENCY= "诊断机构";//
+    String TABLE_TITLE_DIAGNOSIS_RESULT= "诊断结果";//
+    String TABLE_TITLE_GUARDIAN_NAME= "监护人姓名";//
+    String TABLE_TITLE_RELATION_TO_CHILD= "与儿童关系";//
+    String TABLE_TITLE_CHILD_IQ= "儿童发育商";//
+    String TABLE_TITLE_WITH_OTHER_DISABILITY= "是否伴有其他残疾";//
+    String TABLE_TITLE_FAMILY_EMONIC_STATUS= "家庭经济状况";//
+    String TABLE_TITLE_POOR_FAMILY= "贫困家庭";//
+    String TABLE_TITLE_IS_POOR_FAMILY= "是否为县区扶贫办确定的“精准扶贫建档立卡户”";//
+    String TABLE_TITLE_HEALTH_AGENCY= "申请的定点康复机构名称";//
+    String TABLE_TITLE_GUAIDIAN_REQUEST= "监护人申请";//
 
 
     interface IBusinessView extends IView {

@@ -22,6 +22,8 @@ public class MultipleItem implements MultiItemEntity {
     public static final int ITEM_BUSINESS_PIC = 10;//类型3
     public static final int ITEM_BUSINESS_SIGN = 11;//签字
     public static final int ITEM_BUSINESS_NOTICE = 12;//提示
+    public static final int ITEM_BUSINESS_YEAR = 13;//年度
+    public static final int ITEM_BUSINESS_NORMAL_RECYCLEVIEW = 14;//年度
     private int itemType;
     private Object object;
 

@@ -30,7 +30,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".home_page.business.handlerBusiness.studentBursary.disabilityFamilyStudent.DisabilityFamilyStudentActivity"></activity>
+        <activity android:name=".home_page.business.handlerBusiness.disabilityChildRecovery.MoronRecoveryActivity"></activity>
+        <activity android:name=".home_page.business.handlerBusiness.studentBursary.disabilityFamilyStudent.DisabilityFamilyStudentActivity" />
         <activity android:name=".home_page.business.handlerBusiness.studentBursary.disabilitystudentbursary.DisabilityStudentBursaryActivity" />
         <activity android:name=".home_page.business.handlerBusiness.studentBursary.StudentBursaryActivity" />
         <activity android:name=".home_page.business.handlerBusiness.disabilityChildRecovery.DisabilityChildRecoveryActivity" />

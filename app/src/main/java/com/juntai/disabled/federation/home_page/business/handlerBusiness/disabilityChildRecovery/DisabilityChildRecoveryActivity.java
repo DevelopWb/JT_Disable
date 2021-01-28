@@ -1,5 +1,6 @@
 package com.juntai.disabled.federation.home_page.business.handlerBusiness.disabilityChildRecovery;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -50,6 +51,7 @@ public class DisabilityChildRecoveryActivity extends BaseAppActivity<BusinessPre
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (position) {
                     case 0:
+                        startActivity(new Intent(mContext,MoronRecoveryActivity.class));
                         break;
                     case 1:
                         break;

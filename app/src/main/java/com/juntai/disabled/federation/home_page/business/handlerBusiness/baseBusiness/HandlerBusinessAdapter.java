@@ -1,5 +1,8 @@
 package com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness;
 
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -22,6 +25,8 @@ import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.bean.business.BusinessPicBean;
 import com.juntai.disabled.federation.bean.business.BusinessRadioBean;
 import com.juntai.disabled.federation.bean.business.BusinessTextValueBean;
+import com.juntai.disabled.federation.bean.business.ItemSignBean;
+import com.juntai.disabled.federation.bean.business.RecycleBean;
 
 import java.util.List;
 
@@ -48,6 +53,8 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
         addItemType(MultipleItem.ITEM_BUSINESS_PIC, R.layout.item_layout_type_pic);
         addItemType(MultipleItem.ITEM_BUSINESS_SIGN, R.layout.item_layout_type_sign);
         addItemType(MultipleItem.ITEM_BUSINESS_NOTICE, R.layout.item_layout_type_notice);
+        addItemType(MultipleItem.ITEM_BUSINESS_YEAR, R.layout.item_layout_type_year);
+        addItemType(MultipleItem.ITEM_BUSINESS_NORMAL_RECYCLEVIEW, R.layout.item_layout_type_recyclerview);
     }
 
     @Override
@@ -75,13 +82,13 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 EditText editText = helper.getView(R.id.edit_value_et);
                 int editType = textValueEditBean.getType();
                 LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) editText.getLayoutParams();
-                if (0==editType) {
-                    lp.height =DisplayUtil.dp2px(mContext,32);
+                if (0 == editType) {
+                    lp.height = DisplayUtil.dp2px(mContext, 32);
                     editText.setGravity(Gravity.CENTER_VERTICAL);
                     editText.setSingleLine(true);
-                }else {
-                    lp.height =LinearLayout.LayoutParams.WRAP_CONTENT;
-                    editText.setMinimumHeight(DisplayUtil.dp2px(mContext,150));
+                } else {
+                    lp.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                    editText.setMinimumHeight(DisplayUtil.dp2px(mContext, 150));
                     editText.setGravity(Gravity.TOP);
                     editText.setSingleLine(false);
                 }
@@ -125,19 +132,27 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 RadioButton radioButton0 = helper.getView(R.id.radio_zero_rb);
                 RadioButton radioButton1 = helper.getView(R.id.radio_first_rb);
                 RadioButton radioButton2 = helper.getView(R.id.radio_second_rb);
+                RadioButton radioButton3 = helper.getView(R.id.radio_third_rb);
                 String[] values = radioBean.getValues();
                 radioButton2.setVisibility(View.GONE);
+                radioButton3.setVisibility(View.GONE);
                 if (values != null) {
-                    if (values.length>1) {
+                    if (values.length > 1) {
                         radioButton0.setText(values[0]);
                         radioButton1.setText(values[1]);
-                        if (values.length==3) {
+                        if (values.length == 3) {
                             radioButton2.setVisibility(View.VISIBLE);
                             radioButton2.setText(values[2]);
                         }
+                        if (values.length == 4) {
+                            radioButton2.setVisibility(View.VISIBLE);
+                            radioButton2.setText(values[2]);
+                            radioButton3.setVisibility(View.VISIBLE);
+                            radioButton3.setText(values[3]);
+                        }
                     }
 
-                }else {
+                } else {
                     radioButton0.setText("是");
                     radioButton1.setText("否");
                 }
@@ -169,10 +184,10 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
             case MultipleItem.ITEM_BUSINESS_PIC:
                 BusinessPicBean businessPicBean = (BusinessPicBean) item.getObject();
                 int index = businessPicBean.getPicNameIndex();
-                if (index>0) {
-                    helper.setText(R.id.form_pic_title_tv, String.format("%s%s%s",String.valueOf(index),".",
+                if (index > 0) {
+                    helper.setText(R.id.form_pic_title_tv, String.format("%s%s%s", String.valueOf(index), ".",
                             businessPicBean.getPicName()));
-                }else {
+                } else {
                     helper.setText(R.id.form_pic_title_tv, businessPicBean.getPicName());
                 }
                 ImageView picIv = helper.getView(R.id.form_pic_src_iv);
@@ -184,9 +199,48 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                     ImageLoadUtil.loadImage(mContext, R.mipmap.item_add_pic, picIv);
                 }
                 break;
-                case MultipleItem.ITEM_BUSINESS_NOTICE:
-                    helper.setText(R.id.business_item_notice_tv,(String) item.getObject());
-                    break;
+            case MultipleItem.ITEM_BUSINESS_NOTICE:
+                helper.setText(R.id.business_item_notice_tv, (String) item.getObject());
+                break;
+
+            case MultipleItem.ITEM_BUSINESS_NORMAL_RECYCLEVIEW:
+                //recycleview
+                RecycleBean recycleBean = (RecycleBean) item.getObject();
+                RecyclerView recyclerView = helper.getView(R.id.item_normal_rv);
+                int layoutType = recycleBean.getLayoutManagerType();
+                CheckBoxAdapter checkBoxAdapter = new CheckBoxAdapter(R.layout.item_business_checkboxes,
+                        recycleBean.getData());
+                LinearLayoutManager manager = null;
+                switch (layoutType) {
+                    case 0:
+                        manager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL
+                                , false);
+                        break;
+                    case 1:
+                        manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL
+                                , false);
+                        break;
+                    case 2:
+                        manager = new GridLayoutManager(mContext, recycleBean.getSpanCount());
+                        break;
+                    default:
+                        break;
+                }
+                recyclerView.setAdapter(checkBoxAdapter);
+                recyclerView.setLayoutManager(manager);
+                break;
+
+            case MultipleItem.ITEM_BUSINESS_SIGN:
+                ItemSignBean signBean = (ItemSignBean) item.getObject();
+                int  gravity = signBean.getLayoutGravity();
+                LinearLayout signLl = helper.getView(R.id.item_sign_ll);
+                if (0==gravity) {
+                    signLl.setGravity(Gravity.LEFT);
+                }else {
+                    signLl.setGravity(Gravity.RIGHT);
+                }
+                helper.setText(R.id.sign_name_tv,signBean.getSignName());
+                break;
             default:
                 break;
         }
