@@ -14,13 +14,32 @@ public class RecycleBean {
 
     private int layoutManagerType;//布局类型  0是 横向  1是竖向  2是 GridLayoutManager
     private int spanCount;//当是GridLayoutManager的时候 列数
+    private List<ItemCheckBoxBean> data;//recycleview的数据
+    private String titleKey;
+    private boolean isSigleSelect;//是否是单选
 
-    private List<String> data;//recycleview的数据
-
-    public RecycleBean(int layoutManagerType, int spanCount, List<String> data) {
+    public RecycleBean(int layoutManagerType, int spanCount, List<ItemCheckBoxBean> data,String titleKey,boolean isSigleSelect) {
         this.layoutManagerType = layoutManagerType;
         this.spanCount = spanCount;
         this.data = data;
+        this.titleKey = titleKey;
+        this.isSigleSelect = isSigleSelect;
+    }
+
+    public boolean isSigleSelect() {
+        return isSigleSelect;
+    }
+
+    public void setSigleSelect(boolean sigleSelect) {
+        isSigleSelect = sigleSelect;
+    }
+
+    public String getTitleKey() {
+        return titleKey == null ? "" : titleKey;
+    }
+
+    public void setTitleKey(String titleKey) {
+        this.titleKey = titleKey == null ? "" : titleKey;
     }
 
     public int getSpanCount() {
@@ -39,14 +58,14 @@ public class RecycleBean {
         this.layoutManagerType = layoutManagerType;
     }
 
-    public List<String> getData() {
+    public List<ItemCheckBoxBean> getData() {
         if (data == null) {
             return new ArrayList<>();
         }
         return data;
     }
 
-    public void setData(List<String> data) {
+    public void setData(List<ItemCheckBoxBean> data) {
         this.data = data;
     }
 }

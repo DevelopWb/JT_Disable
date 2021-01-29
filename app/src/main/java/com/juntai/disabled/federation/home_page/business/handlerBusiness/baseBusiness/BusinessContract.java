@@ -81,6 +81,7 @@ public interface BusinessContract {
     String TABLE_TITLE_WITH_OTHER_DISABILITY= "是否伴有其他残疾";//
     String TABLE_TITLE_FAMILY_EMONIC_STATUS= "家庭经济状况";//
     String TABLE_TITLE_POOR_FAMILY= "贫困家庭";//
+    String TABLE_TITLE_MEDICALSAFE= "享受医疗保险情况";//
     String TABLE_TITLE_IS_POOR_FAMILY= "是否为县区扶贫办确定的“精准扶贫建档立卡户”";//
     String TABLE_TITLE_HEALTH_AGENCY= "申请的定点康复机构名称";//
     String TABLE_TITLE_GUAIDIAN_REQUEST= "监护人申请";//

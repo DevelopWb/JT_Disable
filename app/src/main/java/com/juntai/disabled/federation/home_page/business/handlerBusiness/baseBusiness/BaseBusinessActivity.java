@@ -18,6 +18,8 @@ import com.juntai.disabled.federation.base.customview.GestureSignatureView;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.bean.business.BusinessPicBean;
 import com.juntai.disabled.federation.bean.business.BusinessTextValueBean;
+import com.juntai.disabled.federation.bean.business.ItemCheckBoxBean;
+import com.juntai.disabled.federation.bean.business.RecycleBean;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.io.File;
@@ -45,14 +47,16 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     protected abstract String getTitleName();
 
     protected abstract View getFootView();
+
     protected abstract View getHeadView();
 
     protected abstract List<MultipleItem> getAdapterData();
+
     /**
-     *
      * @return
      */
     protected abstract ImageView getSignIv();
+
     @Override
     protected BusinessPresent createPresenter() {
         return new BusinessPresent();
@@ -84,10 +88,12 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 currentPosition = position;
-//                mHeadIv = (ImageView) adapter.getViewByPosition(mRecyclerview, position, R.id.form_head_pic_iv);
-//                mFormPicIv = (ImageView) adapter.getViewByPosition(mRecyclerview, position,
-//                        R.id.form_pic_src_iv);
-//                TextView selectTv = (TextView) adapter.getViewByPosition(mRecyclerview, position, R.id.select_value_tv);
+                //                mHeadIv = (ImageView) adapter.getViewByPosition(mRecyclerview, position, R.id
+                //                .form_head_pic_iv);
+                //                mFormPicIv = (ImageView) adapter.getViewByPosition(mRecyclerview, position,
+                //                        R.id.form_pic_src_iv);
+                //                TextView selectTv = (TextView) adapter.getViewByPosition(mRecyclerview, position, R
+                //                .id.select_value_tv);
                 switch (view.getId()) {
                     case R.id.form_pic_src_iv:
                         choseImage(0, BaseBusinessActivity.this, 1);
@@ -115,7 +121,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
             if (bottomSheetDialog.isShowing()) {
                 bottomSheetDialog.dismiss();
             }
-            bottomSheetDialog=null;
+            bottomSheetDialog = null;
         }
         //清除签名文件
         FileCacheUtils.clearImage(FileCacheUtils.getAppImagePath() + FileCacheUtils.SIGN_PIC_NAME);
@@ -134,11 +140,12 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
 
     /**
      * 获取签名图片的路径
+     *
      * @return
      */
-    protected String getSignPath(){
+    protected String getSignPath() {
         File file = new File(FileCacheUtils.getAppImagePath() + FileCacheUtils.SIGN_PIC_NAME);
-        return file.exists()?FileCacheUtils.getAppImagePath() + FileCacheUtils.SIGN_PIC_NAME:null;
+        return file.exists() ? FileCacheUtils.getAppImagePath() + FileCacheUtils.SIGN_PIC_NAME : null;
     }
 
     /**
@@ -176,17 +183,17 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         if (getSignIv() != null) {
                             getSignIv().setImageBitmap(bitmap1); //设置Bitmap
                         }
-//                        SINGE_STATE = true;
+                        //                        SINGE_STATE = true;
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-//                    mSignNameTagIv.setVisibility(View.GONE);
-//                    mSignNameNoticeTv.setVisibility(View.GONE);
-//                    mSignRedactImg.setVisibility(View.VISIBLE);
+                    //                    mSignNameTagIv.setVisibility(View.GONE);
+                    //                    mSignNameNoticeTv.setVisibility(View.GONE);
+                    //                    mSignRedactImg.setVisibility(View.VISIBLE);
                     bottomSheetDialog.dismiss();
-//                    mSignResign.getRightTextView().setVisibility(View.VISIBLE);
+                    //                    mSignResign.getRightTextView().setVisibility(View.VISIBLE);
                 } else {
-                    ToastUtils.toast(mContext,"请签名！");
+                    ToastUtils.toast(mContext, "请签名！");
                 }
 
                 break;
@@ -207,6 +214,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
 
     /**
      * 获取adapter中的数据
+     *
      * @return
      */
     protected StringBuilder getStringBuilderOfAdapterData() {
@@ -214,35 +222,53 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         StringBuilder sb = new StringBuilder();
         for (MultipleItem array : arrays) {
             switch (array.getItemType()) {
-                case MultipleItem.ITEM_BUSINESS_HEAD_PIC:
-                    BusinessPicBean headPicBean = (BusinessPicBean) array.getObject();
-                    sb.append(headPicBean.getPicName());
-                    sb.append(".....\n");
-                    sb.append(headPicBean.getPicPath());
-                    sb.append(".....\n");
-                    if (TextUtils.isEmpty(headPicBean.getPicPath())) {
-                        ToastUtils.toast(mContext, "请选择申请人照片");
-                        return null;
-                    }
-                    break;
-                case MultipleItem.ITEM_BUSINESS_EDIT:
-                    BusinessTextValueBean textValueEditBean = (BusinessTextValueBean) array.getObject();
-                    sb.append(textValueEditBean.getKey());
-                    sb.append(".....\n");
-                    sb.append(textValueEditBean.getValue());
-                    sb.append(".....\n");
-                    if (TextUtils.isEmpty(textValueEditBean.getValue())) {
-                        ToastUtils.toast(mContext, "请输入你的"+textValueEditBean.getKey());
-                        return null;
-                    }
-                    break;
-                case MultipleItem.ITEM_BUSINESS_PIC:
-                    BusinessPicBean picBean = (BusinessPicBean) array.getObject();
-                    sb.append(picBean.getPicName());
-                    sb.append(".....\n");
-                    sb.append(picBean.getPicPath());
-                    if (TextUtils.isEmpty(picBean.getPicPath())) {
-                        ToastUtils.toast(mContext, "请上传资料图片");
+                //                case MultipleItem.ITEM_BUSINESS_YEAR:
+                //                    BusinessTextValueBean yearBean = (BusinessTextValueBean) array.getObject();
+                //                    sb.append(yearBean.getValue());
+                //                    sb.append(".....\n");
+                //                    if (TextUtils.isEmpty(yearBean.getValue())) {
+                //                        ToastUtils.toast(mContext, "请输入" + yearBean.getKey());
+                //                        return null;
+                //                    }
+                //                    break;
+                //                case MultipleItem.ITEM_BUSINESS_HEAD_PIC:
+                //                    BusinessPicBean headPicBean = (BusinessPicBean) array.getObject();
+                //                    sb.append(headPicBean.getPicName());
+                //                    sb.append(".....\n");
+                //                    sb.append(headPicBean.getPicPath());
+                //                    sb.append(".....\n");
+                //                    if (TextUtils.isEmpty(headPicBean.getPicPath())) {
+                //                        ToastUtils.toast(mContext, "请选择申请人照片");
+                //                        return null;
+                //                    }
+                //                    break;
+                //                case MultipleItem.ITEM_BUSINESS_EDIT:
+                //                    BusinessTextValueBean textValueEditBean = (BusinessTextValueBean) array
+                //                    .getObject();
+                //                    sb.append(textValueEditBean.getKey());
+                //                    sb.append(".....\n");
+                //                    sb.append(textValueEditBean.getValue());
+                //                    sb.append(".....\n");
+                //                    if (TextUtils.isEmpty(textValueEditBean.getValue())) {
+                //                        ToastUtils.toast(mContext, "请输入" + textValueEditBean.getKey());
+                //                        return null;
+                //                    }
+                //                    break;
+                //                case MultipleItem.ITEM_BUSINESS_PIC:
+                //                    BusinessPicBean picBean = (BusinessPicBean) array.getObject();
+                //                    sb.append(picBean.getPicName());
+                //                    sb.append(".....\n");
+                //                    sb.append(picBean.getPicPath());
+                //                    if (TextUtils.isEmpty(picBean.getPicPath())) {
+                //                        ToastUtils.toast(mContext, "请上传资料图片");
+                //                        return null;
+                //                    }
+                //                    break;
+                case MultipleItem.ITEM_BUSINESS_NORMAL_RECYCLEVIEW:
+                    RecycleBean recycleBean = (RecycleBean) array.getObject();
+                    List<ItemCheckBoxBean> data = recycleBean.getData();
+                    if (!isCheckBoxSelected(data)) {
+                        ToastUtils.toast(mContext, "请选择"+recycleBean.getTitleKey());
                         return null;
                     }
                     break;
@@ -251,5 +277,19 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
             }
         }
         return sb;
+    }
+
+    /**
+     * 查看有没有选中的box
+     * @param data
+     * @return
+     */
+    private boolean isCheckBoxSelected(List<ItemCheckBoxBean> data) {
+        for (ItemCheckBoxBean datum : data) {
+            if (datum.isSelecte()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

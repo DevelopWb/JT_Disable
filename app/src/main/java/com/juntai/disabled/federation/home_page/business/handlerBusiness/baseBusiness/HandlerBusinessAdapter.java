@@ -17,9 +17,11 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.bean.business.BusinessPicBean;
@@ -27,6 +29,7 @@ import com.juntai.disabled.federation.bean.business.BusinessRadioBean;
 import com.juntai.disabled.federation.bean.business.BusinessTextValueBean;
 import com.juntai.disabled.federation.bean.business.ItemSignBean;
 import com.juntai.disabled.federation.bean.business.RecycleBean;
+import com.mob.tools.gui.PullToRequestAdatper;
 
 import java.util.List;
 
@@ -209,7 +212,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 RecyclerView recyclerView = helper.getView(R.id.item_normal_rv);
                 int layoutType = recycleBean.getLayoutManagerType();
                 CheckBoxAdapter checkBoxAdapter = new CheckBoxAdapter(R.layout.item_business_checkboxes,
-                        recycleBean.getData());
+                        recycleBean.getData(),recycleBean.isSigleSelect());
                 LinearLayoutManager manager = null;
                 switch (layoutType) {
                     case 0:

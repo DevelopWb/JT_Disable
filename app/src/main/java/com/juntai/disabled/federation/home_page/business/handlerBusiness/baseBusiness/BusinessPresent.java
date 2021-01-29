@@ -20,6 +20,7 @@ import com.juntai.disabled.federation.bean.business.BusinessNeedInfoBean;
 import com.juntai.disabled.federation.bean.business.BusinessPicBean;
 import com.juntai.disabled.federation.bean.business.BusinessRadioBean;
 import com.juntai.disabled.federation.bean.business.BusinessTextValueBean;
+import com.juntai.disabled.federation.bean.business.ItemCheckBoxBean;
 import com.juntai.disabled.federation.bean.business.ItemSignBean;
 import com.juntai.disabled.federation.bean.business.MyBusinessBean;
 import com.juntai.disabled.federation.bean.business.MyBusinessDetailBean;
@@ -477,27 +478,30 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_CHILD_IQ);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOME_ADDR2);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_PHONE);
-        initRecycleviewType(arrays, getOtherDisabilities(), BusinessContract.TABLE_TITLE_WITH_OTHER_DISABILITY, 0, 0);
+        initRecycleviewType(arrays, getOtherDisabilities(), BusinessContract.TABLE_TITLE_WITH_OTHER_DISABILITY, 0, 0,false);
         initRecycleviewType(arrays, getFamilyEcomanicStatus(), BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS, 1,
-                0);
+                0,true);
         initRecycleviewType(arrays, getPoorFamilyResion(), BusinessContract.TABLE_TITLE_POOR_FAMILY, 1,
-                2);
+                2,false);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_IS_POOR_FAMILY, 1, new String[]{"是", "否"});
-        initRecycleviewType(arrays, getMedicalSafes(), BusinessContract.TABLE_TITLE_POOR_FAMILY, 2,
-                2);
+        initRecycleviewType(arrays, getMedicalSafes(), BusinessContract.TABLE_TITLE_MEDICALSAFE, 2,
+                2,true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_HUKOU, 0, new String[]{"农业户口", "非农业户口"});
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HEALTH_AGENCY);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, BusinessContract.TABLE_TITLE_GUAIDIAN_REQUEST));
         initEditHighType(arrays, BusinessContract.TABLE_TITLE_GUAIDIAN_REQUEST);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_SIGN,new ItemSignBean("申请人",null,1)));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_NOTICE, "说明：本表由县（区）残联组织填写。受助儿童监护人提出申请时，需携带本人和患儿户口本或身份证或居住证原件及复印件，持患儿残疾"));
+
         return arrays;
     }
 
-    private void initRecycleviewType(List<MultipleItem> arrays, List<String> data, String typeName,
-                                     int layoutType, int spanCount) {
+    private void initRecycleviewType(List<MultipleItem> arrays, List<ItemCheckBoxBean> data, String typeName,
+                                     int layoutType, int spanCount,boolean isSigleSelect) {
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL,
                 typeName));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_NORMAL_RECYCLEVIEW,
-                new RecycleBean(layoutType, spanCount, data)));
+                new RecycleBean(layoutType, spanCount, data,typeName,isSigleSelect)));
     }
 
     /**
@@ -505,13 +509,13 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
      *
      * @return
      */
-    private List<String> getOtherDisabilities() {
-        List<String> arrays = new ArrayList<>();
-        arrays.add("视力");
-        arrays.add("听力");
-        arrays.add("肢体");
-        arrays.add("言语");
-        arrays.add("精神");
+    private List<ItemCheckBoxBean> getOtherDisabilities() {
+        List<ItemCheckBoxBean> arrays = new ArrayList<>();
+        arrays.add(new ItemCheckBoxBean("视力",false));
+        arrays.add(new ItemCheckBoxBean("听力",false));
+        arrays.add(new ItemCheckBoxBean("肢体",false));
+        arrays.add(new ItemCheckBoxBean("言语",false));
+        arrays.add(new ItemCheckBoxBean("精神",false));
         return arrays;
     }
 
@@ -520,13 +524,13 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
      *
      * @return
      */
-    private List<String> getPoorFamilyResion() {
-        List<String> arrays = new ArrayList<>();
-        arrays.add("双胞胎患儿");
-        arrays.add("一户多残");
-        arrays.add("单亲家庭");
-        arrays.add("无业职工家庭");
-        arrays.add("其他困难");
+    private List<ItemCheckBoxBean> getPoorFamilyResion() {
+        List<ItemCheckBoxBean> arrays = new ArrayList<>();
+        arrays.add(new ItemCheckBoxBean("双胞胎患儿",false));
+        arrays.add(new ItemCheckBoxBean("一户多残",false));
+        arrays.add(new ItemCheckBoxBean("单亲家庭",false));
+        arrays.add(new ItemCheckBoxBean("无业职工家庭",false));
+        arrays.add(new ItemCheckBoxBean("其他困难",false));
         return arrays;
     }
 
@@ -535,12 +539,12 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
      *
      * @return
      */
-    private List<String> getMedicalSafes() {
-        List<String> arrays = new ArrayList<>();
-        arrays.add("享受城乡居民基本医疗");
-        arrays.add("享受医疗救助 ");
-        arrays.add("享受其他保险");
-        arrays.add("无医疗保险");
+    private List<ItemCheckBoxBean> getMedicalSafes() {
+        List<ItemCheckBoxBean> arrays = new ArrayList<>();
+        arrays.add(new ItemCheckBoxBean("享受城乡居民基本医疗",false));
+        arrays.add(new ItemCheckBoxBean("享受医疗救助",false));
+        arrays.add(new ItemCheckBoxBean("享受其他保险",false));
+        arrays.add(new ItemCheckBoxBean("无医疗保险",false));
         return arrays;
     }
 
@@ -549,10 +553,10 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
      *
      * @return
      */
-    private List<String> getFamilyEcomanicStatus() {
-        List<String> arrays = new ArrayList<>();
-        arrays.add("家庭人均收入低于当地城乡居民最低生活保障线");
-        arrays.add("当地政府有关部门认定的低收入家庭");
+    private List<ItemCheckBoxBean> getFamilyEcomanicStatus() {
+        List<ItemCheckBoxBean> arrays = new ArrayList<>();
+        arrays.add(new ItemCheckBoxBean("家庭人均收入低于当地城乡居民最低生活保障线",false));
+        arrays.add(new ItemCheckBoxBean("当地政府有关部门认定的低收入家庭",false));
         return arrays;
     }
 
@@ -577,12 +581,12 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, typeName));
         if (MultipleItem.ITEM_BUSINESS_SELECT == layoutType) {
             arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_SELECT,
-                    new BusinessTextValueBean(typeName, null, String.format("%s%s", "请选择你的",
+                    new BusinessTextValueBean(typeName, null, String.format("%s%s", "请选择",
                             typeName), 0)));
         } else {
             arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
                     new BusinessTextValueBean(typeName, null,
-                            String.format("%s%s", "请输入你的", typeName), 0)));
+                            String.format("%s%s", "请输入", typeName), 0)));
         }
 
     }

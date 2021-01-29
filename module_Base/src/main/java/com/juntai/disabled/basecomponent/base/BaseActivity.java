@@ -147,7 +147,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
             // 这一步必须要做,否则不会显示.
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             mBackTv.setCompoundDrawables(drawable, null, null, null);
-            mBackTv.setText("返回");
+//            mBackTv.setText("返回");
             mBackTv.setCompoundDrawablePadding(-DisplayUtil.dp2px(this, 3));
             mBackTv.setOnClickListener(new View.OnClickListener() {
                 @Override

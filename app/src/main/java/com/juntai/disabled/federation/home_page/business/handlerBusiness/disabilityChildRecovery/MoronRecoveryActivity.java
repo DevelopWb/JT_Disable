@@ -3,9 +3,12 @@ package com.juntai.disabled.federation.home_page.business.handlerBusiness.disabi
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
 
@@ -17,6 +20,7 @@ import java.util.List;
  * @date 2021/1/27 17:35
  */
 public class MoronRecoveryActivity extends BaseBusinessActivity {
+    private TextView mCommitBusinessTv;
 
     @Override
     public void initData() {
@@ -36,7 +40,10 @@ public class MoronRecoveryActivity extends BaseBusinessActivity {
 
     @Override
     protected View getFootView() {
-        return null;
+        View view = LayoutInflater.from(mContext).inflate(R.layout.footview_commit, null);
+        mCommitBusinessTv = view.findViewById(R.id.commit_business_form_tv);
+        mCommitBusinessTv.setOnClickListener(this);
+        return view;
     }
 
     @Override
@@ -57,5 +64,20 @@ public class MoronRecoveryActivity extends BaseBusinessActivity {
     @Override
     public void onSuccess(String tag, Object o) {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()) {
+            case R.id.commit_business_form_tv:
+                StringBuilder sb = getStringBuilderOfAdapterData();
+                if (sb == null) {
+                    return;
+                }
+                break;
+            default:
+                break;
+        }
     }
 }
