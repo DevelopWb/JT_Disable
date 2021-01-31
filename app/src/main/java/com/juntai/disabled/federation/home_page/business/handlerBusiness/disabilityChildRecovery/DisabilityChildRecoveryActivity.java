@@ -49,13 +49,16 @@ public class DisabilityChildRecoveryActivity extends BaseAppActivity<BusinessPre
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                String name = (String) adapter.getData().get(position);
                 switch (position) {
                     case 0:
-                        startActivity(new Intent(mContext,MoronRecoveryActivity.class));
+                        startActivity(new Intent(mContext, MoronRecoveryActivity.class).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
                         break;
                     case 1:
+                        startActivity(new Intent(mContext, LonelyChildRecoveryActivity.class).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
                         break;
                     case 2:
+                        //聋哑儿童  deaf dumb
                         break;
                     case 3:
                         break;

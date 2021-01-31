@@ -30,6 +30,7 @@ public interface BusinessContract {
     String TABLE_TITLE_WORK_AREA= "择业地区";//
     String TABLE_TITLE_SALARY= "月薪要求";//薪资
     String TABLE_TITLE_IDCARD = "身份证号";//
+    String TABLE_TITLE_CHILD_IDCARD = "儿童身份证号";//
     String TABLE_TITLE_ADDR = "现住址";//
     String TABLE_TITLE_ADDR_LIVE_NOW = "现居住地";//
     String TABLE_TITLE_ZIP_CODE = "邮政编码";//
@@ -76,6 +77,7 @@ public interface BusinessContract {
     String TABLE_TITLE_DIAGNOSIS_AGENCY= "诊断机构";//
     String TABLE_TITLE_DIAGNOSIS_RESULT= "诊断结果";//
     String TABLE_TITLE_GUARDIAN_NAME= "监护人姓名";//
+    String TABLE_TITLE_PRESENT_NAME= "家长姓名";//
     String TABLE_TITLE_RELATION_TO_CHILD= "与儿童关系";//
     String TABLE_TITLE_CHILD_IQ= "儿童发育商";//
     String TABLE_TITLE_WITH_OTHER_DISABILITY= "是否伴有其他残疾";//
