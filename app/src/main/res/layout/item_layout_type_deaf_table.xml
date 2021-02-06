@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="平均听力损失：左耳:"
+            android:textColor="@color/text_title"
+            android:textSize="16dp"></TextView>
+
+        <EditText
+            android:id="@+id/left_ear_et"
+            android:layout_width="100dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_white_only_bottom_gray_shape_1px"
+            android:textColor="@color/text_title"
+            android:textSize="16dp"></EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="dBHL"
+            android:textColor="@color/text_title"
+            android:textSize="16dp"></TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\u3000\u3000\u3000\u3000\u3000\u3000\u3000右耳:"
+            android:textColor="@color/text_title"
+            android:textSize="16dp"></TextView>
+
+        <EditText
+            android:id="@+id/right_ear_et"
+            android:layout_width="100dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_white_only_bottom_gray_shape_1px"
+            android:textColor="@color/text_title"
+            android:textSize="16dp"></EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="dBHL"
+            android:textColor="@color/text_title"
+            android:textSize="16dp"></TextView>
+    </LinearLayout>
+
+
+    <RadioGroup
+        android:id="@+id/weared_aid_rg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="3dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="助听器佩戴"
+            android:textColor="@color/text_title"
+            android:textSize="16dp"></TextView>
+
+        <RadioButton
+            android:id="@+id/wear_aid_rb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="是"
+            android:textColor="@color/text_title"
+            android:textSize="16dp"></RadioButton>
+
+        <RadioButton
+            android:id="@+id/not_wear_aid_rb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="否"
+            android:textColor="@color/text_title"
+            android:textSize="16dp"></RadioButton>
+
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/wear_time_ll"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="3dp"
+        android:paddingRight="15dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开始佩戴时间"
+            android:textColor="@color/text_title"
+            android:textSize="16dp"></TextView>
+
+        <EditText
+            android:id="@+id/wear_time_year_et"
+            android:layout_width="80dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_white_only_bottom_gray_shape_1px"
+            android:imeOptions="actionDone"
+            android:padding="5dp"
+            android:textColor="@color/text_title"
+            android:textSize="16dp"></EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="岁"
+            android:textColor="@color/text_title"
+            android:textSize="16dp"></TextView>
+
+        <EditText
+            android:id="@+id/wear_time_month_et"
+            android:layout_width="80dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_white_only_bottom_gray_shape_1px"
+            android:imeOptions="actionDone"
+            android:padding="5dp"
+            android:textColor="@color/text_title"
+            android:textSize="16dp"></EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="个月"
+            android:textColor="@color/text_title"
+            android:textSize="16dp"></TextView>
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/which_ear_wear_rg"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="佩戴耳"
+            android:textColor="@color/text_title"
+            android:textSize="16dp"></TextView>
+
+        <RadioButton
+            android:id="@+id/left_ear_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="左"
+            android:textColor="@color/text_title"
+            android:textSize="16dp"></RadioButton>
+
+        <RadioButton
+            android:id="@+id/right_ear_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="右"
+            android:textColor="@color/text_title"
+            android:textSize="16dp"></RadioButton>
+
+
+    </RadioGroup>
+</LinearLayout>

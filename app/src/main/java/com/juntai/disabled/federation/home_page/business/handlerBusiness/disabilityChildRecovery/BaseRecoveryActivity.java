@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
@@ -70,6 +71,7 @@ public abstract class BaseRecoveryActivity extends BaseBusinessActivity {
                 if (sb == null) {
                     return;
                 }
+                ToastUtils.toast(mContext,sb.toString());
                 break;
             default:
                 break;

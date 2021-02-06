@@ -1,14 +1,11 @@
 package com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness;
 
 
-import android.widget.ArrayAdapter;
-
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
-import com.juntai.disabled.bdmap.utils.MapUtil;
 import com.juntai.disabled.federation.AppNetModule;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
@@ -20,6 +17,7 @@ import com.juntai.disabled.federation.bean.business.BusinessNeedInfoBean;
 import com.juntai.disabled.federation.bean.business.BusinessPicBean;
 import com.juntai.disabled.federation.bean.business.BusinessRadioBean;
 import com.juntai.disabled.federation.bean.business.BusinessTextValueBean;
+import com.juntai.disabled.federation.bean.business.DeafBean;
 import com.juntai.disabled.federation.bean.business.ItemCheckBoxBean;
 import com.juntai.disabled.federation.bean.business.ItemSignBean;
 import com.juntai.disabled.federation.bean.business.MyBusinessBean;
@@ -558,10 +556,37 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_BIRTH);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_NATION);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CHILD_IDCARD);
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DISABLE_CARD_ID);
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DIAGNOSIS_AGENCY);
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DIAGNOSIS_RESULT);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_GUARDIAN_NAME);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_WORKER);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_RELATION_TO_CHILD);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_GUARDIAN_ID_CARD);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOUSE_PHONE);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOME_ADDR2);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_MOBILE_NUM);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_COMMUNICATION_ADDR);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ZIP_CODE);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, BusinessContract.TABLE_TITLE_HEARING_LOSE_RECOVERY));
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT2, BusinessContract.TABLE_TITLE_DISCOVER_DISABILITY_YEAR);
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_FAMILY_HAS_DISABILITY, 0, new String[]{"无", "有"});
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT2, BusinessContract.TABLE_TITLE_RELATION_TO_CHILD);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_DEAF_TABLE,new DeafBean(1)));
+        initRecycleviewType(arrays, getRecoveryStatus(), BusinessContract.TABLE_TITLE_CURRENT_RECOVERY, 2,
+                2,true);
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_HAS_CARE_WORKER, 0, new String[]{"无", "有"});
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT2, BusinessContract.TABLE_TITLE_RELATION_TO_CHILD);
+        initRecycleviewType(arrays, getFamilyEcomanicStatus(), BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS, 1,
+                0,true);
+        initRecycleviewType(arrays, getMedicalSafes(), BusinessContract.TABLE_TITLE_MEDICALSAFE, 2,
+                2,true);
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_HUKOU, 0, new String[]{"农业户口", "非农业户口"});
+        initRecycleviewType(arrays, getRequestsRecovery(), BusinessContract.TABLE_TITLE_REQUEST_RECOVERY, 1,
+                2,true);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, BusinessContract.TABLE_TITLE_GUAIDIAN_REQUEST));
+
+
+
+
+
         initEditHighType(arrays, BusinessContract.TABLE_TITLE_GUAIDIAN_REQUEST);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_SIGN,new ItemSignBean("申请人",null,1)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_NOTICE, "说明：本表由县（区）残联组织填写。受助儿童监护人提出申请时，需携带本人和患儿户口本或身份证或居住证原件及复印件，持患儿残疾"));
@@ -593,6 +618,18 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
     }
 
     /**
+     * 康复状态
+     *
+     * @return
+     */
+    private List<ItemCheckBoxBean> getRecoveryStatus() {
+        List<ItemCheckBoxBean> arrays = new ArrayList<>();
+        arrays.add(new ItemCheckBoxBean("机构康复",false));
+        arrays.add(new ItemCheckBoxBean("家庭康复",false));
+        arrays.add(new ItemCheckBoxBean("未接受康复",false));
+        return arrays;
+    }
+    /**
      * 获取贫困家庭
      *
      * @return
@@ -618,6 +655,17 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         arrays.add(new ItemCheckBoxBean("享受医疗救助",false));
         arrays.add(new ItemCheckBoxBean("享受其他保险",false));
         arrays.add(new ItemCheckBoxBean("无医疗保险",false));
+        return arrays;
+    }
+    /**
+     * 康复需求项目
+     *
+     * @return
+     */
+    private List<ItemCheckBoxBean> getRequestsRecovery() {
+        List<ItemCheckBoxBean> arrays = new ArrayList<>();
+        arrays.add(new ItemCheckBoxBean("聋儿人工耳蜗植入及术后首次语训救助项目",false));
+        arrays.add(new ItemCheckBoxBean("聋儿（助听器或耳蜗）语训项目",false));
         return arrays;
     }
 
@@ -651,15 +699,26 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
      * @param typeName
      */
     private void initTextType(List<MultipleItem> arrays, int layoutType, String typeName) {
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, typeName));
-        if (MultipleItem.ITEM_BUSINESS_SELECT == layoutType) {
-            arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_SELECT,
-                    new BusinessTextValueBean(typeName, null, String.format("%s%s", "请选择",
-                            typeName), 0)));
-        } else {
-            arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
-                    new BusinessTextValueBean(typeName, null,
-                            String.format("%s%s", "请输入", typeName), 0)));
+        switch (layoutType) {
+            case MultipleItem.ITEM_BUSINESS_SELECT:
+                arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, typeName));
+                arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_SELECT,
+                        new BusinessTextValueBean(typeName, null, String.format("%s%s", "请选择",
+                                typeName), 0)));
+                break;
+            case MultipleItem.ITEM_BUSINESS_EDIT:
+                arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, typeName));
+                arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
+                        new BusinessTextValueBean(typeName, null,
+                                String.format("%s%s", "请输入", typeName), 0)));
+                break;
+            case MultipleItem.ITEM_BUSINESS_EDIT2:
+                arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT2,
+                        new BusinessTextValueBean(typeName, null,
+                                String.format("%s%s", "请输入", typeName), 0)));
+                break;
+            default:
+                break;
         }
 
     }

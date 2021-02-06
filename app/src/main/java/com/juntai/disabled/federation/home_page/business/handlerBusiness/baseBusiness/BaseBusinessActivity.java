@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -18,6 +19,7 @@ import com.juntai.disabled.federation.base.customview.GestureSignatureView;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.bean.business.BusinessPicBean;
 import com.juntai.disabled.federation.bean.business.BusinessTextValueBean;
+import com.juntai.disabled.federation.bean.business.DeafBean;
 import com.juntai.disabled.federation.bean.business.ItemCheckBoxBean;
 import com.juntai.disabled.federation.bean.business.RecycleBean;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -222,55 +224,59 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         StringBuilder sb = new StringBuilder();
         for (MultipleItem array : arrays) {
             switch (array.getItemType()) {
-                //                case MultipleItem.ITEM_BUSINESS_YEAR:
-                //                    BusinessTextValueBean yearBean = (BusinessTextValueBean) array.getObject();
-                //                    sb.append(yearBean.getValue());
-                //                    sb.append(".....\n");
-                //                    if (TextUtils.isEmpty(yearBean.getValue())) {
-                //                        ToastUtils.toast(mContext, "请输入" + yearBean.getKey());
-                //                        return null;
-                //                    }
-                //                    break;
-                //                case MultipleItem.ITEM_BUSINESS_HEAD_PIC:
-                //                    BusinessPicBean headPicBean = (BusinessPicBean) array.getObject();
-                //                    sb.append(headPicBean.getPicName());
-                //                    sb.append(".....\n");
-                //                    sb.append(headPicBean.getPicPath());
-                //                    sb.append(".....\n");
-                //                    if (TextUtils.isEmpty(headPicBean.getPicPath())) {
-                //                        ToastUtils.toast(mContext, "请选择申请人照片");
-                //                        return null;
-                //                    }
-                //                    break;
-                //                case MultipleItem.ITEM_BUSINESS_EDIT:
-                //                    BusinessTextValueBean textValueEditBean = (BusinessTextValueBean) array
-                //                    .getObject();
-                //                    sb.append(textValueEditBean.getKey());
-                //                    sb.append(".....\n");
-                //                    sb.append(textValueEditBean.getValue());
-                //                    sb.append(".....\n");
-                //                    if (TextUtils.isEmpty(textValueEditBean.getValue())) {
-                //                        ToastUtils.toast(mContext, "请输入" + textValueEditBean.getKey());
-                //                        return null;
-                //                    }
-                //                    break;
-                //                case MultipleItem.ITEM_BUSINESS_PIC:
-                //                    BusinessPicBean picBean = (BusinessPicBean) array.getObject();
-                //                    sb.append(picBean.getPicName());
-                //                    sb.append(".....\n");
-                //                    sb.append(picBean.getPicPath());
-                //                    if (TextUtils.isEmpty(picBean.getPicPath())) {
-                //                        ToastUtils.toast(mContext, "请上传资料图片");
-                //                        return null;
-                //                    }
-                //                    break;
-                case MultipleItem.ITEM_BUSINESS_NORMAL_RECYCLEVIEW:
-                    RecycleBean recycleBean = (RecycleBean) array.getObject();
-                    List<ItemCheckBoxBean> data = recycleBean.getData();
-                    if (!isCheckBoxSelected(data)) {
-                        ToastUtils.toast(mContext, "请选择"+recycleBean.getTitleKey());
-                        return null;
-                    }
+//                case MultipleItem.ITEM_BUSINESS_YEAR:
+//                    BusinessTextValueBean yearBean = (BusinessTextValueBean) array.getObject();
+//                    sb.append(yearBean.getValue());
+//                    sb.append(".....\n");
+//                    if (TextUtils.isEmpty(yearBean.getValue())) {
+//                        ToastUtils.toast(mContext, "请输入" + yearBean.getKey());
+//                        return null;
+//                    }
+//                    break;
+//                case MultipleItem.ITEM_BUSINESS_HEAD_PIC:
+//                    BusinessPicBean headPicBean = (BusinessPicBean) array.getObject();
+//                    sb.append(headPicBean.getPicName());
+//                    sb.append(".....\n");
+//                    sb.append(headPicBean.getPicPath());
+//                    sb.append(".....\n");
+//                    if (TextUtils.isEmpty(headPicBean.getPicPath())) {
+//                        ToastUtils.toast(mContext, "请选择申请人照片");
+//                        return null;
+//                    }
+//                    break;
+//                case MultipleItem.ITEM_BUSINESS_EDIT:
+//                    BusinessTextValueBean textValueEditBean = (BusinessTextValueBean) array
+//                            .getObject();
+//                    sb.append(textValueEditBean.getKey());
+//                    sb.append(".....\n");
+//                    sb.append(textValueEditBean.getValue());
+//                    sb.append(".....\n");
+//                    if (TextUtils.isEmpty(textValueEditBean.getValue())) {
+//                        ToastUtils.toast(mContext, "请输入" + textValueEditBean.getKey());
+//                        return null;
+//                    }
+//                    break;
+//                case MultipleItem.ITEM_BUSINESS_PIC:
+//                    BusinessPicBean picBean = (BusinessPicBean) array.getObject();
+//                    sb.append(picBean.getPicName());
+//                    sb.append(".....\n");
+//                    sb.append(picBean.getPicPath());
+//                    if (TextUtils.isEmpty(picBean.getPicPath())) {
+//                        ToastUtils.toast(mContext, "请上传资料图片");
+//                        return null;
+//                    }
+//                    break;
+//                case MultipleItem.ITEM_BUSINESS_NORMAL_RECYCLEVIEW:
+//                    RecycleBean recycleBean = (RecycleBean) array.getObject();
+//                    List<ItemCheckBoxBean> data = recycleBean.getData();
+//                    if (!isCheckBoxSelected(data)) {
+//                        ToastUtils.toast(mContext, "请选择" + recycleBean.getTitleKey());
+//                        return null;
+//                    }
+//                    break;
+                case MultipleItem.ITEM_BUSINESS_DEAF_TABLE:
+                    DeafBean deafBean = (DeafBean) array.getObject();
+                    sb.append(deafBean.toString());
                     break;
                 default:
                     break;
@@ -281,6 +287,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
 
     /**
      * 查看有没有选中的box
+     *
      * @param data
      * @return
      */

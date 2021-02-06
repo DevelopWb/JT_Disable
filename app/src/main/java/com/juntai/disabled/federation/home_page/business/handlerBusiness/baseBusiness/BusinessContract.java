@@ -77,6 +77,7 @@ public interface BusinessContract {
     String TABLE_TITLE_DIAGNOSIS_AGENCY= "诊断机构";//
     String TABLE_TITLE_DIAGNOSIS_RESULT= "诊断结果";//
     String TABLE_TITLE_GUARDIAN_NAME= "监护人姓名";//
+    String TABLE_TITLE_GUARDIAN_ID_CARD= "监护人身份证号";//
     String TABLE_TITLE_PRESENT_NAME= "家长姓名";//
     String TABLE_TITLE_RELATION_TO_CHILD= "与儿童关系";//
     String TABLE_TITLE_CHILD_IQ= "儿童发育商";//
@@ -87,6 +88,15 @@ public interface BusinessContract {
     String TABLE_TITLE_IS_POOR_FAMILY= "是否为县区扶贫办确定的“精准扶贫建档立卡户”";//
     String TABLE_TITLE_HEALTH_AGENCY= "申请的定点康复机构名称";//
     String TABLE_TITLE_GUAIDIAN_REQUEST= "监护人申请";//
+    String TABLE_TITLE_HOUSE_PHONE= "住宅电话";//
+    String TABLE_TITLE_MOBILE_NUM= "手机号码";//
+    String TABLE_TITLE_COMMUNICATION_ADDR= "通讯地址";//
+    String TABLE_TITLE_DISCOVER_DISABILITY_YEAR= "发现耳聋月龄：";//
+    String TABLE_TITLE_FAMILY_HAS_DISABILITY= "是否家族耳聋史：";//
+    String TABLE_TITLE_HEARING_LOSE_RECOVERY= "听力损失及康复情况";//
+    String TABLE_TITLE_CURRENT_RECOVERY= "目前康复状态";//
+    String TABLE_TITLE_HAS_CARE_WORKER= "接受救助后家庭中有无专人陪伴康复";//护工
+    String TABLE_TITLE_REQUEST_RECOVERY= "康复需求项目";//护工
 
 
     interface IBusinessView extends IView {

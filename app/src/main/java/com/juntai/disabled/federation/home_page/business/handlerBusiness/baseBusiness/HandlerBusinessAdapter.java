@@ -17,19 +17,17 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
-import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.bean.business.BusinessPicBean;
 import com.juntai.disabled.federation.bean.business.BusinessRadioBean;
 import com.juntai.disabled.federation.bean.business.BusinessTextValueBean;
+import com.juntai.disabled.federation.bean.business.DeafBean;
 import com.juntai.disabled.federation.bean.business.ItemSignBean;
 import com.juntai.disabled.federation.bean.business.RecycleBean;
-import com.mob.tools.gui.PullToRequestAdatper;
 
 import java.util.List;
 
@@ -51,6 +49,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
         addItemType(MultipleItem.ITEM_BUSINESS_TITILE_BIG, R.layout.item_layout_type_title_big);
         addItemType(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, R.layout.item_layout_type_title_small);
         addItemType(MultipleItem.ITEM_BUSINESS_EDIT, R.layout.item_layout_type_edit);
+        addItemType(MultipleItem.ITEM_BUSINESS_EDIT2, R.layout.item_layout_type_edit2);
         addItemType(MultipleItem.ITEM_BUSINESS_SELECT, R.layout.item_layout_type_select);
         addItemType(MultipleItem.ITEM_BUSINESS_RADIO, R.layout.item_layout_type_radio);
         addItemType(MultipleItem.ITEM_BUSINESS_PIC, R.layout.item_layout_type_pic);
@@ -58,6 +57,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
         addItemType(MultipleItem.ITEM_BUSINESS_NOTICE, R.layout.item_layout_type_notice);
         addItemType(MultipleItem.ITEM_BUSINESS_YEAR, R.layout.item_layout_type_year);
         addItemType(MultipleItem.ITEM_BUSINESS_NORMAL_RECYCLEVIEW, R.layout.item_layout_type_recyclerview);
+        addItemType(MultipleItem.ITEM_BUSINESS_DEAF_TABLE, R.layout.item_layout_type_deaf_table);
     }
 
     @Override
@@ -119,6 +119,19 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 String editKey = textValueEditBean.getKey();
                 if (BusinessContract.TABLE_TITLE_CONTACT_MODE.equals(editKey) || BusinessContract.TABLE_TITLE_PHONE.equals(editKey)) {
                     editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                }
+                break;
+            case MultipleItem.ITEM_BUSINESS_EDIT2:
+                BusinessTextValueBean textValueEditBean2 = (BusinessTextValueBean) item.getObject();
+                EditText editText2 = helper.getView(R.id.value_et);
+                TextView textView2 = helper.getView(R.id.key_tv);
+                editText2.setTag(textValueEditBean2);
+                addTextChange(editText2);
+                editText2.setText(textValueEditBean2.getValue());
+                String editKeyTv = textValueEditBean2.getKey();
+                textView2.setText(editKeyTv);
+                if (BusinessContract.TABLE_TITLE_CONTACT_MODE.equals(editKeyTv) || BusinessContract.TABLE_TITLE_PHONE.equals(editKeyTv)) {
+                    editText2.setInputType(InputType.TYPE_CLASS_NUMBER);
                 }
                 break;
             case MultipleItem.ITEM_BUSINESS_SELECT:
@@ -212,7 +225,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 RecyclerView recyclerView = helper.getView(R.id.item_normal_rv);
                 int layoutType = recycleBean.getLayoutManagerType();
                 CheckBoxAdapter checkBoxAdapter = new CheckBoxAdapter(R.layout.item_business_checkboxes,
-                        recycleBean.getData(),recycleBean.isSigleSelect());
+                        recycleBean.getData(), recycleBean.isSigleSelect());
                 LinearLayoutManager manager = null;
                 switch (layoutType) {
                     case 0:
@@ -235,17 +248,117 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
 
             case MultipleItem.ITEM_BUSINESS_SIGN:
                 ItemSignBean signBean = (ItemSignBean) item.getObject();
-                int  gravity = signBean.getLayoutGravity();
+                int gravity = signBean.getLayoutGravity();
                 LinearLayout signLl = helper.getView(R.id.item_sign_ll);
-                if (0==gravity) {
+                if (0 == gravity) {
                     signLl.setGravity(Gravity.LEFT);
-                }else {
+                } else {
                     signLl.setGravity(Gravity.RIGHT);
                 }
-                helper.setText(R.id.sign_name_tv,signBean.getSignName());
+                helper.setText(R.id.sign_name_tv, signBean.getSignName());
+                break;
+
+            case MultipleItem.ITEM_BUSINESS_DEAF_TABLE:
+                DeafBean deafBean = (DeafBean) item.getObject();
+                EditText leftEarLoseEt = helper.getView(R.id.left_ear_et);
+                leftEarLoseEt.setTag(deafBean);
+                EditText rightEarLoseEt = helper.getView(R.id.right_ear_et);
+                rightEarLoseEt.setTag(deafBean);
+                EditText wearYearEt = helper.getView(R.id.wear_time_year_et);
+                wearYearEt.setTag(deafBean);
+                EditText wearMonthEt = helper.getView(R.id.wear_time_month_et);
+                wearMonthEt.setTag(deafBean);
+                addTextChange(leftEarLoseEt);
+                addTextChange(rightEarLoseEt);
+                addTextChange(wearYearEt);
+                addTextChange(wearMonthEt);
+                LinearLayout wearTimeLl = helper.getView(R.id.wear_time_ll);
+                RadioGroup whichEarWearRg = helper.getView(R.id.which_ear_wear_rg);
+                RadioGroup wearAidRg = helper.getView(R.id.weared_aid_rg);
+                wearAidRg.setTag(deafBean);
+                whichEarWearRg.setTag(deafBean);
+                wearAidRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        DeafBean deafBean1 = (DeafBean) group.getTag();
+                        switch (checkedId) {
+                            case R.id.wear_aid_rb:
+                                deafBean1.setWear(0);
+                                wearTimeLl.setVisibility(View.VISIBLE);
+                                whichEarWearRg.setVisibility(View.VISIBLE);
+                                break;
+                            case R.id.not_wear_aid_rb:
+                                deafBean1.setWear(1);
+                                wearTimeLl.setVisibility(View.GONE);
+                                whichEarWearRg.setVisibility(View.GONE);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                });
+                whichEarWearRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        DeafBean deafBean1 = (DeafBean) group.getTag();
+                        switch (checkedId) {
+                            case R.id.left_ear_bt:
+                                deafBean1.setWearEar(0);
+                                break;
+                            case R.id.right_ear_bt:
+                                deafBean1.setWearEar(1);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                });
                 break;
             default:
                 break;
         }
+    }
+
+    private void addTextChange(EditText editText) {
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                switch (editText.getId()) {
+                    case R.id.left_ear_et:
+                        DeafBean deafBeanleft = (DeafBean) editText.getTag();
+                        deafBeanleft.setLeftEar(s.toString().trim());
+                        break;
+                    case R.id.right_ear_et:
+                        DeafBean deafBeanRight = (DeafBean) editText.getTag();
+                        deafBeanRight.setRightEar(s.toString().trim());
+                        break;
+                    case R.id.wear_time_year_et:
+                        DeafBean wearYearBean = (DeafBean) editText.getTag();
+                        wearYearBean.setWearTimeYear(s.toString().trim());
+                        break;
+                    case R.id.wear_time_month_et:
+                        DeafBean wearMonthBean = (DeafBean) editText.getTag();
+                        wearMonthBean.setWearTimeMonth(s.toString().trim());
+                        break;
+                    case R.id.value_et:
+                        BusinessTextValueBean editBean = (BusinessTextValueBean) editText.getTag();
+                        editBean.setValue(s.toString().trim());
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
 }

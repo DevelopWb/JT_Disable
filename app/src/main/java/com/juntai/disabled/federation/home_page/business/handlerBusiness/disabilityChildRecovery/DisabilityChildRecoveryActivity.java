@@ -59,8 +59,13 @@ public class DisabilityChildRecoveryActivity extends BaseAppActivity<BusinessPre
                         break;
                     case 2:
                         //聋哑儿童  deaf dumb
+                        startActivity(new Intent(mContext, DeafDumbChildRecoveryActivity.class).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
+
                         break;
                     case 3:
+                        //脑瘫痪brainpalsy
+                        startActivity(new Intent(mContext, BrainPalsyRecoveryActivity.class).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
+
                         break;
                     default:
                         break;
