@@ -81,6 +81,7 @@ public interface BusinessContract {
     String TABLE_TITLE_PRESENT_NAME= "家长姓名";//
     String TABLE_TITLE_RELATION_TO_CHILD= "与儿童关系";//
     String TABLE_TITLE_CHILD_IQ= "儿童发育商";//
+    String TABLE_TITLE_BRAIN_PALSY_STYLE= "脑瘫类型";//
     String TABLE_TITLE_WITH_OTHER_DISABILITY= "是否伴有其他残疾";//
     String TABLE_TITLE_FAMILY_EMONIC_STATUS= "家庭经济状况";//
     String TABLE_TITLE_POOR_FAMILY= "贫困家庭";//
@@ -97,6 +98,8 @@ public interface BusinessContract {
     String TABLE_TITLE_CURRENT_RECOVERY= "目前康复状态";//
     String TABLE_TITLE_HAS_CARE_WORKER= "接受救助后家庭中有无专人陪伴康复";//护工
     String TABLE_TITLE_REQUEST_RECOVERY= "康复需求项目";//护工
+    String TABLE_TITLE_SELECT_ASSIST_TOOL= "辅具";//护工
+    String TABLE_TITLE_ASSIST_TOOL_AMOUNT= "器具数量";//护工
 
 
     interface IBusinessView extends IView {
@@ -118,6 +121,15 @@ public interface BusinessContract {
         void businessDetail(RequestBody requestBody, String tag);
 
         void businessProgress(RequestBody requestBody, String tag);
+
+        /**
+         * 获取所有的业务
+         * @param tag
+         */
+        void getAllBusinesses(String tag);
+
+
+
     }
 
 }

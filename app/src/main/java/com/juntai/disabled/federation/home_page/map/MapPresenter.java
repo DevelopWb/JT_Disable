@@ -48,7 +48,7 @@ public class MapPresenter extends BaseAppPresent<IModel, MapContract.View> imple
     @Override
     public void getMenus(String tag) {
         AppNetModule.createrRetrofit()
-                .getMapMenu("1")
+                .getMapMenu()
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<MapMenuButton>(getView()) {
                     @Override

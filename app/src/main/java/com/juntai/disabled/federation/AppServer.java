@@ -27,6 +27,7 @@ import com.juntai.disabled.federation.bean.SearchBean;
 import com.juntai.disabled.federation.bean.SearchResultBean;
 import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.bean.UserScoreListBean;
+import com.juntai.disabled.federation.bean.business.AllBusinessBean;
 import com.juntai.disabled.federation.bean.business.BusinessListBean;
 import com.juntai.disabled.federation.bean.business.BusinessNeedInfoBean;
 import com.juntai.disabled.federation.bean.business.MyBusinessBean;
@@ -104,13 +105,11 @@ public interface AppServer {
      * @param password
      * @param weChatId
      * @param qqId
-     * @param source   app类型（1警小宝；2巡小管；3邻小帮）
      * @return
      */
     @POST(AppHttpPath.LOGIN)
     Observable<UserBean> login(@Query("account") String account, @Query("password") String password,
-                               @Query("weChatId") String weChatId, @Query("qqId") String qqId,
-                               @Query("source") int source);
+                               @Query("weChatId") String weChatId, @Query("qqId") String qqId);
 
     /************************************************************************注册模块
      * *******************************************************************/
@@ -553,11 +552,10 @@ public interface AppServer {
     /**
      * 获取首页地图右侧菜单
      *
-     * @param typeId App类型(1：警小宝）（3：巡小管）（2：邻小帮）
      * @return
      */
-    @POST(AppHttpPath.MAP_MENU_BUTTON)
-    Observable<MapMenuButton> getMapMenu(@Query("typeId") String typeId);
+    @GET(AppHttpPath.MAP_MENU_BUTTON)
+    Observable<MapMenuButton> getMapMenu();
 
     /**
      * 请求监控坐标列表
@@ -699,12 +697,12 @@ public interface AppServer {
 
 
     //实时天气
-    @POST(AppHttpPath.REALTIME_WEATHER)
+    @GET(AppHttpPath.REALTIME_WEATHER)
     Observable<ResponseRealTimeWeather> getWeatherRealtime(@Query("longitude") String longitude,
                                                            @Query("latitude") String latitude);
 
     //天气预报
-    @POST(AppHttpPath.FORCAST_WEATHER)
+    @GET(AppHttpPath.FORCAST_WEATHER)
     Observable<ResponseForcastWeather> getForcast(@Query("longitude") String longitude,
                                                   @Query("latitude") String latitude);
 
@@ -1687,6 +1685,18 @@ public interface AppServer {
     @POST(AppHttpPath.REPORT)
     Observable<BaseResult> report(@Body RequestBody jsonBody);
 
+
+
+
+    /*==============================================  残联业务办理 =============================================*/
+
+    /**
+     * 获取所有的业务列表
+     *
+     * @return
+     */
+    @GET(AppHttpPath.GET_ALL_BUSINESSES)
+    Observable<AllBusinessBean> getAllBusinesses();
 
 
 }

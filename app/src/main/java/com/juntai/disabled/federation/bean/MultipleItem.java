@@ -26,6 +26,7 @@ public class MultipleItem implements MultiItemEntity {
     public static final int ITEM_BUSINESS_NORMAL_RECYCLEVIEW = 14;//年度
     public static final int ITEM_BUSINESS_EDIT2 = 15;//
     public static final int ITEM_BUSINESS_DEAF_TABLE = 16;//聋儿表单中的部分布局
+    public static final int ITEM_BUSINESS_LIST = 17;//业务列表
 
     private int itemType;
     private Object object;

@@ -51,7 +51,7 @@ public class EntrancePresent extends BasePresenter<IModel, EntranceContract.IEnt
         IView finalViewCallBack = viewCallBack;
         AppNetModule
                 .createrRetrofit()
-                .login(account, password, weChatId, qqId, 1)
+                .login(account, password, weChatId, qqId)
                 .compose(RxScheduler.ObsIoMain(viewCallBack))
                 .subscribe(new Consumer<UserBean>() {
                     @Override

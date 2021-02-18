@@ -247,6 +247,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 break;
 
             case MultipleItem.ITEM_BUSINESS_SIGN:
+                helper.addOnClickListener(R.id.sign_name_iv);
                 ItemSignBean signBean = (ItemSignBean) item.getObject();
                 int gravity = signBean.getLayoutGravity();
                 LinearLayout signLl = helper.getView(R.id.item_sign_ll);

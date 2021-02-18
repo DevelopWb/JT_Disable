@@ -21,6 +21,6 @@ public class BrainPalsyRecoveryActivity extends BaseRecoveryActivity {
 
     @Override
     protected List<MultipleItem> getAdapterData() {
-        return null;
+        return mPresenter.getBrainPalsyRecoveryData();
     }
 }

@@ -45,7 +45,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     private GestureSignatureView gsv_signature;
     private BottomSheetDialog bottomSheetDialog;
     private String signPath;
-
+    private ImageView mSignIv = null;
     protected abstract String getTitleName();
 
     protected abstract View getFootView();
@@ -87,6 +87,8 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
 
 
+
+
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 currentPosition = position;
@@ -105,6 +107,12 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         break;
                     case R.id.select_value_tv:
                         ToastUtils.toast(mContext, "select");
+                        break;
+                    case R.id.sign_name_iv:
+                        //签名
+                        mSignIv = (ImageView) adapter.getViewByPosition(mRecyclerview, position, R.id
+                                                .sign_name_iv);
+                        showSignatureView();
                         break;
                     default:
                         break;
@@ -182,6 +190,9 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         gsv_signature.save(signPath);
                         Bitmap bitmap1 =
                                 FileCacheUtils.getLoacalBitmap(signPath); //从本地取图片(在cdcard中获取)  //
+                        if (mSignIv != null) {
+                            mSignIv.setImageBitmap(bitmap1); //设置Bitmap
+                        }
                         if (getSignIv() != null) {
                             getSignIv().setImageBitmap(bitmap1); //设置Bitmap
                         }

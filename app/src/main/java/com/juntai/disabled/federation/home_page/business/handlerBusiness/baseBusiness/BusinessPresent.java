@@ -12,6 +12,7 @@ import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.bean.MyMenuBean;
 import com.juntai.disabled.federation.bean.TextListBean;
+import com.juntai.disabled.federation.bean.business.AllBusinessBean;
 import com.juntai.disabled.federation.bean.business.BusinessListBean;
 import com.juntai.disabled.federation.bean.business.BusinessNeedInfoBean;
 import com.juntai.disabled.federation.bean.business.BusinessPicBean;
@@ -155,6 +156,29 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                 });
     }
 
+    @Override
+    public void getAllBusinesses(String tag) {
+        AppNetModule.createrRetrofit()
+                .getAllBusinesses()
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<AllBusinessBean>(getView()) {
+                    @Override
+                    public void onSuccess(AllBusinessBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
 
     /**
      * 获取builder
@@ -260,6 +284,35 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_MATERIAL_PIC, 2, "")));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_LIFE_PIC, 3, "")));
+        return arrays;
+    }
+
+    /**
+     * 辅助用品
+     *
+     * @return
+     */
+    public List<MultipleItem> getAssistToolAdapterData() {
+        List<MultipleItem> arrays = new ArrayList<>();
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "申请人基本信息"));
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME);
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, 0, new String[]{"男", "女"});
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_BIRTH);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_PHONE);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_KINDS);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_LEVEL);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_SELECT_ASSIST_TOOL);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOME_ADDR2);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DISABLE_CARD_ID);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ASSIST_TOOL_AMOUNT);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_SIGN, new ItemSignBean("领取人签字", null, 0)));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC, 1, "")));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_LIFE_PIC, 2, "")));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_NOTICE, "备注：严格按照样表填写，器具类别数量填写一栏，数量用汉字写（壹）并且器具前后画杠，一张表只填一种器具，填写不规范一概不发放"));
+
         return arrays;
     }
 
@@ -450,7 +503,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
     }
 
     /**
-     * 脑残儿童恢复
+     * 智力残疾
      *
      * @return
      */
@@ -476,23 +529,74 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOME_ADDR2);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_PHONE);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_CHILD_IQ);
-        initRecycleviewType(arrays, getOtherDisabilities(), BusinessContract.TABLE_TITLE_WITH_OTHER_DISABILITY, 0, 0,false);
+        initRecycleviewType(arrays, getOtherDisabilities(), BusinessContract.TABLE_TITLE_WITH_OTHER_DISABILITY, 0, 0,
+                false);
         initRecycleviewType(arrays, getFamilyEcomanicStatus(), BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS, 1,
-                0,true);
+                0, true);
         initRecycleviewType(arrays, getPoorFamilyResion(), BusinessContract.TABLE_TITLE_POOR_FAMILY, 1,
-                2,false);
+                2, false);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_IS_POOR_FAMILY, 1, new String[]{"是", "否"});
         initRecycleviewType(arrays, getMedicalSafes(), BusinessContract.TABLE_TITLE_MEDICALSAFE, 2,
-                2,true);
+                2, true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_HUKOU, 0, new String[]{"农业户口", "非农业户口"});
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HEALTH_AGENCY);
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, BusinessContract.TABLE_TITLE_GUAIDIAN_REQUEST));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG,
+                BusinessContract.TABLE_TITLE_GUAIDIAN_REQUEST));
         initEditHighType(arrays, BusinessContract.TABLE_TITLE_GUAIDIAN_REQUEST);
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_SIGN,new ItemSignBean("申请人",null,1)));
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_NOTICE, "说明：本表由县（区）残联组织填写。受助儿童监护人提出申请时，需携带本人和患儿户口本或身份证或居住证原件及复印件，持患儿残疾"));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_SIGN, new ItemSignBean("申请人", null, 1)));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_NOTICE,
+                "说明：本表由县（区）残联组织填写。受助儿童监护人提出申请时，需携带本人和患儿户口本或身份证或居住证原件及复印件，持患儿残疾"));
 
         return arrays;
     }
+
+    /**
+     * 脑瘫儿童恢复
+     *
+     * @return
+     */
+    public List<MultipleItem> getBrainPalsyRecoveryData() {
+        List<MultipleItem> arrays = new ArrayList<>();
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_YEAR,
+                new BusinessTextValueBean(BusinessContract.TABLE_TITLE_YEAR, null,
+                        null, 0)));
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_PROJECT_LEVEL, 1, new String[]{"国家", "省级", "市级", "县级"});
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "申请人基本信息"));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, BusinessContract.TABLE_TITLE_PIC));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_HEAD_PIC,
+                new BusinessPicBean("", -1, "")));
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CHILD_NAME);
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, 0, new String[]{"男", "女"});
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_BIRTH);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_NATION);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CHILD_IDCARD);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DISABLE_CARD_ID);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_GUARDIAN_NAME);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_WORKER);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOME_ADDR2);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_PHONE);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_BRAIN_PALSY_STYLE);
+        initRecycleviewType(arrays, getOtherDisabilitiesOfBrainPalsy(),
+                BusinessContract.TABLE_TITLE_WITH_OTHER_DISABILITY, 0, 0,
+                false);
+        initRecycleviewType(arrays, getFamilyEcomanicStatus(), BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS, 1,
+                0, true);
+        initRecycleviewType(arrays, getPoorFamilyResion(), BusinessContract.TABLE_TITLE_POOR_FAMILY, 1,
+                2, false);
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_IS_POOR_FAMILY, 1, new String[]{"是", "否"});
+        initRecycleviewType(arrays, getMedicalSafes(), BusinessContract.TABLE_TITLE_MEDICALSAFE, 2,
+                2, true);
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_HUKOU, 0, new String[]{"农业户口", "非农业户口"});
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HEALTH_AGENCY);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG,
+                BusinessContract.TABLE_TITLE_GUAIDIAN_REQUEST));
+        initEditHighType(arrays, BusinessContract.TABLE_TITLE_GUAIDIAN_REQUEST);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_SIGN, new ItemSignBean("申请人", null, 1)));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_NOTICE,
+                "说明：本表由县（区）残联组织填写。受助儿童监护人提出申请时，需携带本人和患儿户口本或身份证或居住证原件及复印件，持患儿残疾"));
+        return arrays;
+    }
+
     /**
      * 孤独症儿童康复
      *
@@ -522,20 +626,23 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CONTACT_MODE);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ZIP_CODE);
         initRecycleviewType(arrays, getFamilyEcomanicStatus(), BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS, 1,
-                0,true);
+                0, true);
         initRecycleviewType(arrays, getPoorFamilyResion(), BusinessContract.TABLE_TITLE_POOR_FAMILY, 1,
-                2,false);
+                2, false);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_IS_POOR_FAMILY, 1, new String[]{"是", "否"});
         initRecycleviewType(arrays, getMedicalSafes(), BusinessContract.TABLE_TITLE_MEDICALSAFE, 2,
-                2,true);
+                2, true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HEALTH_AGENCY);
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, BusinessContract.TABLE_TITLE_GUAIDIAN_REQUEST));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG,
+                BusinessContract.TABLE_TITLE_GUAIDIAN_REQUEST));
         initEditHighType(arrays, BusinessContract.TABLE_TITLE_GUAIDIAN_REQUEST);
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_SIGN,new ItemSignBean("申请人",null,1)));
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_NOTICE, "说明：本表由县（区）残联组织填写。受助儿童监护人提出申请时，需携带本人和患儿户口本或身份证或居住证原件及复印件，持患儿残疾"));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_SIGN, new ItemSignBean("申请人", null, 1)));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_NOTICE,
+                "说明：本表由县（区）残联组织填写。受助儿童监护人提出申请时，需携带本人和患儿户口本或身份证或居住证原件及复印件，持患儿残疾"));
 
         return arrays;
     }
+
     /**
      * 聋哑儿童康复
      *
@@ -565,41 +672,41 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_MOBILE_NUM);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_COMMUNICATION_ADDR);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ZIP_CODE);
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, BusinessContract.TABLE_TITLE_HEARING_LOSE_RECOVERY));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL,
+                BusinessContract.TABLE_TITLE_HEARING_LOSE_RECOVERY));
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT2, BusinessContract.TABLE_TITLE_DISCOVER_DISABILITY_YEAR);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_FAMILY_HAS_DISABILITY, 0, new String[]{"无", "有"});
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT2, BusinessContract.TABLE_TITLE_RELATION_TO_CHILD);
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_DEAF_TABLE,new DeafBean(1)));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_DEAF_TABLE, new DeafBean(1)));
         initRecycleviewType(arrays, getRecoveryStatus(), BusinessContract.TABLE_TITLE_CURRENT_RECOVERY, 2,
-                2,true);
+                2, true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_HAS_CARE_WORKER, 0, new String[]{"无", "有"});
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT2, BusinessContract.TABLE_TITLE_RELATION_TO_CHILD);
         initRecycleviewType(arrays, getFamilyEcomanicStatus(), BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS, 1,
-                0,true);
+                0, true);
         initRecycleviewType(arrays, getMedicalSafes(), BusinessContract.TABLE_TITLE_MEDICALSAFE, 2,
-                2,true);
+                2, true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_HUKOU, 0, new String[]{"农业户口", "非农业户口"});
         initRecycleviewType(arrays, getRequestsRecovery(), BusinessContract.TABLE_TITLE_REQUEST_RECOVERY, 1,
-                2,true);
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, BusinessContract.TABLE_TITLE_GUAIDIAN_REQUEST));
-
-
-
+                2, true);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG,
+                BusinessContract.TABLE_TITLE_GUAIDIAN_REQUEST));
 
 
         initEditHighType(arrays, BusinessContract.TABLE_TITLE_GUAIDIAN_REQUEST);
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_SIGN,new ItemSignBean("申请人",null,1)));
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_NOTICE, "说明：本表由县（区）残联组织填写。受助儿童监护人提出申请时，需携带本人和患儿户口本或身份证或居住证原件及复印件，持患儿残疾"));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_SIGN, new ItemSignBean("申请人", null, 1)));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_NOTICE,
+                "说明：本表由县（区）残联组织填写。受助儿童监护人提出申请时，需携带本人和患儿户口本或身份证或居住证原件及复印件，持患儿残疾"));
 
         return arrays;
     }
 
     private void initRecycleviewType(List<MultipleItem> arrays, List<ItemCheckBoxBean> data, String typeName,
-                                     int layoutType, int spanCount,boolean isSigleSelect) {
+                                     int layoutType, int spanCount, boolean isSigleSelect) {
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL,
                 typeName));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_NORMAL_RECYCLEVIEW,
-                new RecycleBean(layoutType, spanCount, data,typeName,isSigleSelect)));
+                new RecycleBean(layoutType, spanCount, data, typeName, isSigleSelect)));
     }
 
     /**
@@ -609,11 +716,26 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
      */
     private List<ItemCheckBoxBean> getOtherDisabilities() {
         List<ItemCheckBoxBean> arrays = new ArrayList<>();
-        arrays.add(new ItemCheckBoxBean("视力",false));
-        arrays.add(new ItemCheckBoxBean("听力",false));
-        arrays.add(new ItemCheckBoxBean("肢体",false));
-        arrays.add(new ItemCheckBoxBean("言语",false));
-        arrays.add(new ItemCheckBoxBean("精神",false));
+        arrays.add(new ItemCheckBoxBean("视力", false));
+        arrays.add(new ItemCheckBoxBean("听力", false));
+        arrays.add(new ItemCheckBoxBean("肢体", false));
+        arrays.add(new ItemCheckBoxBean("言语", false));
+        arrays.add(new ItemCheckBoxBean("精神", false));
+        return arrays;
+    }
+
+    /**
+     * 获取其他残疾类型
+     *
+     * @return
+     */
+    private List<ItemCheckBoxBean> getOtherDisabilitiesOfBrainPalsy() {
+        List<ItemCheckBoxBean> arrays = new ArrayList<>();
+        arrays.add(new ItemCheckBoxBean("视力", false));
+        arrays.add(new ItemCheckBoxBean("智力", false));
+        arrays.add(new ItemCheckBoxBean("听力", false));
+        arrays.add(new ItemCheckBoxBean("言语", false));
+        arrays.add(new ItemCheckBoxBean("精神", false));
         return arrays;
     }
 
@@ -624,11 +746,12 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
      */
     private List<ItemCheckBoxBean> getRecoveryStatus() {
         List<ItemCheckBoxBean> arrays = new ArrayList<>();
-        arrays.add(new ItemCheckBoxBean("机构康复",false));
-        arrays.add(new ItemCheckBoxBean("家庭康复",false));
-        arrays.add(new ItemCheckBoxBean("未接受康复",false));
+        arrays.add(new ItemCheckBoxBean("机构康复", false));
+        arrays.add(new ItemCheckBoxBean("家庭康复", false));
+        arrays.add(new ItemCheckBoxBean("未接受康复", false));
         return arrays;
     }
+
     /**
      * 获取贫困家庭
      *
@@ -636,11 +759,11 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
      */
     private List<ItemCheckBoxBean> getPoorFamilyResion() {
         List<ItemCheckBoxBean> arrays = new ArrayList<>();
-        arrays.add(new ItemCheckBoxBean("双胞胎患儿",false));
-        arrays.add(new ItemCheckBoxBean("一户多残",false));
-        arrays.add(new ItemCheckBoxBean("单亲家庭",false));
-        arrays.add(new ItemCheckBoxBean("无业职工家庭",false));
-        arrays.add(new ItemCheckBoxBean("其他困难",false));
+        arrays.add(new ItemCheckBoxBean("双胞胎患儿", false));
+        arrays.add(new ItemCheckBoxBean("一户多残", false));
+        arrays.add(new ItemCheckBoxBean("单亲家庭", false));
+        arrays.add(new ItemCheckBoxBean("无业职工家庭", false));
+        arrays.add(new ItemCheckBoxBean("其他困难", false));
         return arrays;
     }
 
@@ -651,12 +774,13 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
      */
     private List<ItemCheckBoxBean> getMedicalSafes() {
         List<ItemCheckBoxBean> arrays = new ArrayList<>();
-        arrays.add(new ItemCheckBoxBean("享受城乡居民基本医疗",false));
-        arrays.add(new ItemCheckBoxBean("享受医疗救助",false));
-        arrays.add(new ItemCheckBoxBean("享受其他保险",false));
-        arrays.add(new ItemCheckBoxBean("无医疗保险",false));
+        arrays.add(new ItemCheckBoxBean("享受城乡居民基本医疗", false));
+        arrays.add(new ItemCheckBoxBean("享受医疗救助", false));
+        arrays.add(new ItemCheckBoxBean("享受其他保险", false));
+        arrays.add(new ItemCheckBoxBean("无医疗保险", false));
         return arrays;
     }
+
     /**
      * 康复需求项目
      *
@@ -664,8 +788,8 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
      */
     private List<ItemCheckBoxBean> getRequestsRecovery() {
         List<ItemCheckBoxBean> arrays = new ArrayList<>();
-        arrays.add(new ItemCheckBoxBean("聋儿人工耳蜗植入及术后首次语训救助项目",false));
-        arrays.add(new ItemCheckBoxBean("聋儿（助听器或耳蜗）语训项目",false));
+        arrays.add(new ItemCheckBoxBean("聋儿人工耳蜗植入及术后首次语训救助项目", false));
+        arrays.add(new ItemCheckBoxBean("聋儿（助听器或耳蜗）语训项目", false));
         return arrays;
     }
 
@@ -676,8 +800,8 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
      */
     private List<ItemCheckBoxBean> getFamilyEcomanicStatus() {
         List<ItemCheckBoxBean> arrays = new ArrayList<>();
-        arrays.add(new ItemCheckBoxBean("家庭人均收入低于当地城乡居民最低生活保障线",false));
-        arrays.add(new ItemCheckBoxBean("当地政府有关部门认定的低收入家庭",false));
+        arrays.add(new ItemCheckBoxBean("家庭人均收入低于当地城乡居民最低生活保障线", false));
+        arrays.add(new ItemCheckBoxBean("当地政府有关部门认定的低收入家庭", false));
         return arrays;
     }
 
