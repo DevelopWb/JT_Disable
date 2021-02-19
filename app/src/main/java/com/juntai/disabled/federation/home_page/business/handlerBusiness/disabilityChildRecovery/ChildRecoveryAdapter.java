@@ -3,6 +3,7 @@ package com.juntai.disabled.federation.home_page.business.handlerBusiness.disabi
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.disabled.federation.R;
+import com.juntai.disabled.federation.bean.business.ChildBusinessesBean;
 
 /**
  * @Author: tobato
@@ -11,14 +12,14 @@ import com.juntai.disabled.federation.R;
  * @UpdateUser: 更新者
  * @UpdateDate: 2021/1/23 9:22
  */
-public class ChildRecoveryAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+public class ChildRecoveryAdapter extends BaseQuickAdapter<ChildBusinessesBean.DataBean, BaseViewHolder> {
     public ChildRecoveryAdapter(int layoutResId) {
         super(layoutResId);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, String item) {
-        helper.setText(R.id.item_business_title_tv, item);
+    protected void convert(BaseViewHolder helper, ChildBusinessesBean.DataBean item) {
+        helper.setText(R.id.item_business_title_tv, item.getName());
     }
 
 }

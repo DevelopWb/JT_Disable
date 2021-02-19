@@ -25,8 +25,4 @@ public class DisabilityFamilyStudentActivity extends BaseStudentBursaryActivity 
         return fragments;
     }
 
-    @Override
-    protected String getTitleName() {
-        return "重度残疾人家庭大学生";
-    }
 }

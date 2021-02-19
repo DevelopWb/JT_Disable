@@ -8,9 +8,12 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseAppActivity;
+import com.juntai.disabled.federation.bean.business.ChildBusinessesBean;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessContract;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessPresent;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.disabilityChildRecovery.BaseRecoveryActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.disabilityChildRecovery.ChildRecoveryAdapter;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.disabilityChildRecovery.DisabilityChildRecoveryActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.studentBursary.disabilityFamilyStudent.DisabilityFamilyStudentActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.studentBursary.disabilitystudentbursary.DisabilityStudentBursaryActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -47,16 +50,17 @@ public class StudentBursaryActivity extends BaseAppActivity<BusinessPresent> imp
         mSmartrefreshlayout.setEnableLoadMore(false);
         adapter = new ChildRecoveryAdapter(R.layout.item_child_recovery);
         initRecyclerview(mRecyclerview, adapter, LinearLayoutManager.VERTICAL);
-        adapter.setNewData(getAdapterData());
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ChildBusinessesBean.DataBean bean = (ChildBusinessesBean.DataBean) adapter.getData().get(position);
+                String name = bean.getName();
                 switch (position) {
                     case 0:
-                        startActivity(new Intent(mContext, DisabilityStudentBursaryActivity.class));
+                        startActivity(new Intent(mContext, DisabilityStudentBursaryActivity.class).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
                         break;
                     case 1:
-                        startActivity(new Intent(mContext, DisabilityFamilyStudentActivity.class));
+                        startActivity(new Intent(mContext, DisabilityFamilyStudentActivity.class).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
                         break;
                     default:
                         break;
@@ -65,26 +69,23 @@ public class StudentBursaryActivity extends BaseAppActivity<BusinessPresent> imp
         });
     }
 
-    /**
-     * 获取数据
-     *
-     * @return
-     */
-    private List<String> getAdapterData() {
-        List<String> arrays = new ArrayList<>();
-        arrays.add("残疾人大学生");
-        arrays.add("重度残疾人家庭大学生");
-        return arrays;
-    }
 
     @Override
     public void initData() {
+        if (getIntent() != null) {
+            int matterId = getIntent().getIntExtra(DisabilityChildRecoveryActivity.BUSINESS_ID,0);
+            mPresenter.getChildBusinesses(matterId,null);
+        }
 
     }
 
 
     @Override
     public void onSuccess(String tag, Object o) {
-
+        ChildBusinessesBean childBusinessesBean = (ChildBusinessesBean) o;
+        if (childBusinessesBean != null) {
+            List<ChildBusinessesBean.DataBean> arrays =   childBusinessesBean.getData();
+            adapter.setNewData(arrays);
+        }
     }
 }

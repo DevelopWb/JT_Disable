@@ -18,6 +18,7 @@ import com.juntai.disabled.federation.bean.business.BusinessNeedInfoBean;
 import com.juntai.disabled.federation.bean.business.BusinessPicBean;
 import com.juntai.disabled.federation.bean.business.BusinessRadioBean;
 import com.juntai.disabled.federation.bean.business.BusinessTextValueBean;
+import com.juntai.disabled.federation.bean.business.ChildBusinessesBean;
 import com.juntai.disabled.federation.bean.business.DeafBean;
 import com.juntai.disabled.federation.bean.business.ItemCheckBoxBean;
 import com.juntai.disabled.federation.bean.business.ItemSignBean;
@@ -178,6 +179,28 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                     }
                 });
     }
+    @Override
+    public void getChildBusinesses(int matterId,String tag) {
+        AppNetModule.createrRetrofit()
+                .getChildBusinesses(matterId)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<ChildBusinessesBean>(getView()) {
+                    @Override
+                    public void onSuccess(ChildBusinessesBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
 
 
     /**
@@ -284,6 +307,54 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_MATERIAL_PIC, 2, "")));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_LIFE_PIC, 3, "")));
+        return arrays;
+    }
+    /**
+     * 培训申请
+     *
+     * @return
+     */
+    public List<MultipleItem> getTrainingRequestAdapterData() {
+        List<MultipleItem> arrays = new ArrayList<>();
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "申请人基本信息"));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, BusinessContract.TABLE_TITLE_PIC));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_HEAD_PIC,
+                new BusinessPicBean("", -1, "")));
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME);
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, 0, new String[]{"男", "女"});
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_BIRTH);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_NATION);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, BusinessContract.TABLE_TITLE_HUKOU_ADDR));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
+                new BusinessTextValueBean(BusinessContract.TABLE_TITLE_STREET, null,
+                        String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_STREET), 0)));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
+                new BusinessTextValueBean(BusinessContract.TABLE_TITLE_VILLAGE, null,
+                        String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_VILLAGE), 0)));
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_EDUCATION_LEVEL);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_MARRIAGE);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_IDCARD);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_PHONE);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CONTACTER);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CURRENT_LIVE_ADDR);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_KINDS);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_LEVEL);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_SPECIALTY);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_JOB_STATUS);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, "希望参加何种培训"));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
+                new BusinessTextValueBean(BusinessContract.TABLE_TITLE_TRAIN_TYPE, null,
+                        String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_TRAIN_TYPE), 0)));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, BusinessContract.TABLE_TITLE_RESUME_WORK));
+        initEditHighType(arrays, BusinessContract.TABLE_TITLE_RESUME_WORK);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, BusinessContract.TABLE_TITLE_RESUME_TRAIN));
+        initEditHighType(arrays, BusinessContract.TABLE_TITLE_RESUME_TRAIN);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC, 1, "")));
+
+
+
         return arrays;
     }
 

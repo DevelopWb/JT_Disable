@@ -33,8 +33,5 @@ public class DisabilityStudentBursaryActivity extends BaseStudentBursaryActivity
         return fragments;
     }
 
-    @Override
-    protected String getTitleName() {
-        return "残疾人大学生助学金";
-    }
+
 }

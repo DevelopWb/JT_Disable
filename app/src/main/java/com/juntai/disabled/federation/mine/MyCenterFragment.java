@@ -157,7 +157,7 @@ public class MyCenterFragment extends BaseMvpFragment<MyCenterPresent> implement
         if (MyApp.isLogin()){
             mLoginOut.setVisibility(View.VISIBLE);
             mPresenter.getUserData(MyCenterContract.USER_DATA_TAG);
-            mPresenter.getUnReadCount(MyCenterContract.GET_UNREAD_COUNT);
+//            mPresenter.getUnReadCount(MyCenterContract.GET_UNREAD_COUNT);
         }else {
             mLoginOut.setVisibility(View.GONE);
         }

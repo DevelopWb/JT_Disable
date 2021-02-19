@@ -8,11 +8,11 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseAppActivity;
+import com.juntai.disabled.federation.bean.business.ChildBusinessesBean;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessContract;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessPresent;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,6 +25,7 @@ public class DisabilityChildRecoveryActivity extends BaseAppActivity<BusinessPre
     private RecyclerView mRecyclerview;
     private SmartRefreshLayout mSmartrefreshlayout;
     private ChildRecoveryAdapter adapter;
+    public static String BUSINESS_ID = "businessId";
 
     @Override
     protected BusinessPresent createPresenter() {
@@ -45,11 +46,11 @@ public class DisabilityChildRecoveryActivity extends BaseAppActivity<BusinessPre
         mSmartrefreshlayout.setEnableLoadMore(false);
         adapter = new ChildRecoveryAdapter(R.layout.item_child_recovery);
         initRecyclerview(mRecyclerview, adapter, LinearLayoutManager.VERTICAL);
-        adapter.setNewData(getAdapterData());
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                String name = (String) adapter.getData().get(position);
+                ChildBusinessesBean.DataBean bean = (ChildBusinessesBean.DataBean) adapter.getData().get(position);
+                String name = bean.getName();
                 switch (position) {
                     case 0:
                         startActivity(new Intent(mContext, MoronRecoveryActivity.class).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
@@ -74,28 +75,24 @@ public class DisabilityChildRecoveryActivity extends BaseAppActivity<BusinessPre
         });
     }
 
-    /**
-     * 获取数据
-     *
-     * @return
-     */
-    private List<String> getAdapterData() {
-        List<String> arrays = new ArrayList<>();
-        arrays.add("精准康复智力残疾儿童康复救助");
-        arrays.add("精准康复孤独症儿童康复救助");
-        arrays.add("精准康复聋儿康复救助");
-        arrays.add("精准康复脑瘫儿童康复救助");
-        return arrays;
-    }
 
     @Override
     public void initData() {
+        if (getIntent() != null) {
+            int matterId = getIntent().getIntExtra(BUSINESS_ID,0);
+            mPresenter.getChildBusinesses(matterId,null);
+        }
+
 
     }
 
 
     @Override
     public void onSuccess(String tag, Object o) {
-
+        ChildBusinessesBean childBusinessesBean = (ChildBusinessesBean) o;
+        if (childBusinessesBean != null) {
+          List<ChildBusinessesBean.DataBean> arrays =   childBusinessesBean.getData();
+          adapter.setNewData(arrays);
+        }
     }
 }

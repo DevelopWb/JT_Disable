@@ -11,8 +11,10 @@ import com.juntai.disabled.basecomponent.utils.PubUtil;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseAppActivity;
 import com.juntai.disabled.federation.base.MainPagerAdapter;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessContract;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessPresent;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.disabilityChildRecovery.BaseRecoveryActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.studentBursary.disabilitystudentbursary.DisabilityStudentBursaryFragment;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.studentBursary.disabilitystudentbursary.DisabilityStudentBursaryNextYearFragment;
 
@@ -21,13 +23,14 @@ import com.juntai.disabled.federation.home_page.business.handlerBusiness.student
  * @description 描述  大学生助学金
  * @date 2021/1/26 9:45
  */
-public abstract  class BaseStudentBursaryActivity extends BaseAppActivity<BusinessPresent> implements BusinessContract.IBusinessView {
+public abstract class BaseStudentBursaryActivity extends BaseAppActivity<BusinessPresent> implements BusinessContract.IBusinessView {
 
     private String[] tabs = {"首次申请", "第2年以后申请"};
     private TabLayout mBursaryTab;
     private ViewPager mBursaryVp;
+
     protected abstract SparseArray<Fragment> getFragments();
-    protected abstract String getTitleName();
+
     @Override
     public int getLayoutView() {
         return R.layout.activity_disability_bursary;
@@ -36,17 +39,22 @@ public abstract  class BaseStudentBursaryActivity extends BaseAppActivity<Busine
     @Override
     public void initView() {
 
-        setTitleName(getTitleName());
+
         mBursaryTab = (TabLayout) findViewById(R.id.bursary_tab);
         mBursaryVp = (ViewPager) findViewById(R.id.bursary_vp);
         initViewPageWithTabLayout();
     }
 
-
+    protected String getTitleName() {
+        if (getIntent() != null) {
+            return getIntent().getStringExtra(BaseRecoveryActivity.RECOVERY_NAME);
+        }
+        return "";
+    }
 
     @Override
     public void initData() {
-
+        setTitleName(getTitleName());
     }
 
 
@@ -76,15 +84,11 @@ public abstract  class BaseStudentBursaryActivity extends BaseAppActivity<Busine
         //tab的下划线颜色,默认是粉红色
         mBursaryTab.setSelectedTabIndicatorColor(ContextCompat.getColor(mContext, R.color.colorAccent));
         //        //        //更改tab下划线的宽度
-                PubUtil.setIndicator(mBursaryTab, 20, 20);
+        PubUtil.setIndicator(mBursaryTab, 20, 20);
         //        将tab下划线隐藏，也可以在xml里面配置高的值为0dp来实现隐藏
-//        mBursaryTab.setSelectedTabIndicatorHeight(0);
+        //        mBursaryTab.setSelectedTabIndicatorHeight(0);
 
     }
-
-
-
-
 
 
     @Override

@@ -717,4 +717,8 @@ public class AppHttpPath {
      * 所有的业务
      */
     public static final String GET_ALL_BUSINESSES = BASE + "/getWorkTypeList.shtml";
+    /**
+     * 查询子业务
+     */
+    public static final String GET_CHILD_BUSINESSES = BASE + "/getWorkMatter.shtml";
 }

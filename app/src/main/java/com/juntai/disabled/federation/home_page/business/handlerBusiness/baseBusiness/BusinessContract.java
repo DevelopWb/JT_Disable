@@ -20,12 +20,17 @@ public interface BusinessContract {
     String TABLE_TITLE_DISABILITY_LIMB= "肢体残疾";//表单的标题
     String TABLE_TITLE_BIRTH = "出生年月";//表单的标题
     String TABLE_TITLE_RESUME = "本人简历";//表单的标题
+    String TABLE_TITLE_RESUME_WORK = "工作简历";//表单的标题
+    String TABLE_TITLE_RESUME_TRAIN = "培训简历";//表单的标题
     String TABLE_TITLE_DISABLE_CARD_ID = "残疾证号";//表单的标题
     String TABLE_TITLE_NATION = "民族";//民族
     String TABLE_TITLE_MARRIAGE = "婚姻状况";//婚姻
     String TABLE_TITLE_EDUCATION_LEVEL = "文化程度";//
     String TABLE_TITLE_HOMETOWN = "籍贯";//
     String TABLE_TITLE_HOME_ADDR= "户籍所在地";//
+    String TABLE_TITLE_HUKOU_ADDR= "户口所在地";//
+    String TABLE_TITLE_STREET= "街道";//
+    String TABLE_TITLE_VILLAGE= "(村)社区";//
     String TABLE_TITLE_WANTED_POST= "意向岗位";//
     String TABLE_TITLE_WORK_AREA= "择业地区";//
     String TABLE_TITLE_SALARY= "月薪要求";//薪资
@@ -39,6 +44,8 @@ public interface BusinessContract {
     String TABLE_TITLE_GUARDIAN_RELATION = "与监护人关系";//
     String TABLE_TITLE_PHONE = "联系电话";//
     String TABLE_TITLE_CONTACT_MODE = "联系方式";//
+    String TABLE_TITLE_CONTACTER = "联系人";//
+    String TABLE_TITLE_CURRENT_LIVE_ADDR = "目前居住地";//
     String TABLE_TITLE_WORKER = "工作单位";//
     String TABLE_TITLE_WORKER_TYPE = "职业工种";//
     String TABLE_TITLE_UNIT_NATURE = "单位性质";//
@@ -100,6 +107,9 @@ public interface BusinessContract {
     String TABLE_TITLE_REQUEST_RECOVERY= "康复需求项目";//护工
     String TABLE_TITLE_SELECT_ASSIST_TOOL= "辅具";//护工
     String TABLE_TITLE_ASSIST_TOOL_AMOUNT= "器具数量";//护工
+    String TABLE_TITLE_SPECIALTY= "特长";//
+    String TABLE_TITLE_JOB_STATUS= "就业状况";//
+    String TABLE_TITLE_TRAIN_TYPE= "培训种类";//
 
 
     interface IBusinessView extends IView {
@@ -127,6 +137,11 @@ public interface BusinessContract {
          * @param tag
          */
         void getAllBusinesses(String tag);
+
+        /**
+         * @param tag
+         */
+        void getChildBusinesses(int matterId,String tag);
 
 
 

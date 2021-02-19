@@ -30,6 +30,7 @@ import com.juntai.disabled.federation.bean.UserScoreListBean;
 import com.juntai.disabled.federation.bean.business.AllBusinessBean;
 import com.juntai.disabled.federation.bean.business.BusinessListBean;
 import com.juntai.disabled.federation.bean.business.BusinessNeedInfoBean;
+import com.juntai.disabled.federation.bean.business.ChildBusinessesBean;
 import com.juntai.disabled.federation.bean.business.MyBusinessBean;
 import com.juntai.disabled.federation.bean.business.MyBusinessDetailBean;
 import com.juntai.disabled.federation.bean.case_bean.CaseDesBean;
@@ -1697,6 +1698,12 @@ public interface AppServer {
      */
     @GET(AppHttpPath.GET_ALL_BUSINESSES)
     Observable<AllBusinessBean> getAllBusinesses();
+    /**
+     *
+     * @return
+     */
+    @GET(AppHttpPath.GET_CHILD_BUSINESSES)
+    Observable<ChildBusinessesBean> getChildBusinesses(@Query("matterId") int matterId);
 
 
 }

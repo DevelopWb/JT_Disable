@@ -21,6 +21,7 @@ import com.juntai.disabled.federation.home_page.business.handlerBusiness.CardRei
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.EmploymentRegistActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.HandlerCardActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.RenewalActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.TrainingRequestActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.disabilityChildRecovery.DisabilityChildRecoveryActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.studentBursary.StudentBursaryActivity;
 
@@ -100,12 +101,14 @@ public class BusinessItemAdapter extends BaseMultiItemQuickAdapter<MultipleItem,
                                 mContext.startActivity(new Intent(mContext, EmploymentRegistActivity.class));
                                 break;
                             case 9:
-                                //就业登记
-                                mContext.startActivity(new Intent(mContext, DisabilityChildRecoveryActivity.class));
+                                //残疾儿童抢救性康复项目
+                                mContext.startActivity(new Intent(mContext, DisabilityChildRecoveryActivity.class)
+                                        .putExtra(DisabilityChildRecoveryActivity.BUSINESS_ID, bean.getId()));
                                 break;
                             case 10:
-                                //就业登记
-                                mContext.startActivity(new Intent(mContext, StudentBursaryActivity.class));
+                                //残疾学生助学金
+                                mContext.startActivity(new Intent(mContext, StudentBursaryActivity.class)
+                                        .putExtra(DisabilityChildRecoveryActivity.BUSINESS_ID, bean.getId()));
                                 break;
                             case 12:
                                 //辅助用品申请
@@ -113,7 +116,7 @@ public class BusinessItemAdapter extends BaseMultiItemQuickAdapter<MultipleItem,
                                 break;
                             case 13:
                                 //残疾人培训申请
-                                mContext.startActivity(new Intent(mContext, AssistToolsRequestActivity.class));
+                                mContext.startActivity(new Intent(mContext, TrainingRequestActivity.class));
                                 break;
                             case 14:
                                 //居家托养

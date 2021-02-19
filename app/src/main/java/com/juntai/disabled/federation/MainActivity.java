@@ -493,9 +493,9 @@ public class MainActivity extends UpdateActivity<MainPagePresent> implements Vie
             //刷新未读标记
             adapter.setUnReadMsg(MyApp.getUnReadCountBean().getMessageCount() + MyApp.getUnReadCountBean().getImCount());
         } else if (ActionConfig.BROAD_LOGIN_AFTER.equals(test)) {
-            getIMUsers();
-            /**登录IM*/
-            ModuleIm_Init.connectIM(MyApp.getUserRongYunToken());
+//            getIMUsers();
+//            /**登录IM*/
+//            ModuleIm_Init.connectIM(MyApp.getUserRongYunToken());
         }
     }
 }
