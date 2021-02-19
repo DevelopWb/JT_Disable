@@ -4,7 +4,7 @@ public class AppHttpPath {
     /**
      * base
      */
-//        public static final String BASE = "http://192.168.124.115:8080/disabledPersonsFederation/u/app";
+    //        public static final String BASE = "http://192.168.124.115:8080/disabledPersonsFederation/u/app";
     public static final String BASE = "http://juntaikeji.com:19120/disabledPersonsFederation/u/app";
 
     //    public static final String BASE = "http://192.168.124.118:8080/dongGuanPolice/";
@@ -12,17 +12,19 @@ public class AppHttpPath {
     /**
      * 车辆流直播
      */
-    public static final String CAR_STREAM ="rtmp://www.juntaikeji.net:1955/live/";
+    public static final String CAR_STREAM = "rtmp://www.juntaikeji.net:1955/live/";
 
     /**
      * 巡检缩略图
      */
-    public static final String INSPECTION_THUMBNAI_IMAGE = "http://61.156.157.132:30080/crm//getThumbnailImg.shtml";//"http://61.156.157.132:32180"
+    public static final String INSPECTION_THUMBNAI_IMAGE = "http://61.156.157.132:30080/crm//getThumbnailImg.shtml";
+    //"http://61.156.157.132:32180"
 
     /**
      * 巡检原始图片地址
      */
-    public static final String INSPECTION_ORIGINAL_IMAGE = "http://61.156.157.132:30080/crm//getImg.shtml";//"http://61.156.157.132:32180"
+    public static final String INSPECTION_ORIGINAL_IMAGE = "http://61.156.157.132:30080/crm//getImg.shtml";//"http
+    // ://61.156.157.132:32180"
 
 
     public static final String BASE_IMAGE = "http://61.156.157.132:8092";
@@ -721,4 +723,114 @@ public class AppHttpPath {
      * 查询子业务
      */
     public static final String GET_CHILD_BUSINESSES = BASE + "/getWorkMatter.shtml";
+
+    /**
+     * 查询残疾类别列表接口
+     */
+    public static final String GET_DISABLED_TYPE = BASE + "/getDisabledCategory.shtml";
+    /**
+     * 查询残疾等级列表接口
+     */
+    public static final String GET_DISABLED_LEVEL = BASE + "/getDisabledLevel.shtml";
+    /**
+     * 查询残疾文化程度列表接口
+     */
+    public static final String GET_DISABLED_EDUCATION = BASE + "/getDisabledEducation.shtml";
+    /**
+     * 查询民族
+     */
+    public static final String GET_DISABLED_NATION = BASE + "/getDisabledNation.shtml";
+    /**
+     * 根据残疾类别ID查询残疾辅具列表接口
+     */
+    public static final String GET_DISABLED_AIDS = BASE + "/getDisabledAIDS.shtml";
+    /**
+     * 根据残疾类别ID查询残疾障碍类型列表接口
+     */
+    public static final String GET_DISABLED_BARRIER = BASE + "/getDisabledBarrier.shtml";
+
+
+    /**
+     * 用户提交残疾人证办理申请接口
+     */
+    public static final String HANDLER_DISABLED_CARD = BASE + "/addDisabilityCertificate.shtml";
+    /**
+     * 残疾证换领
+     */
+    public static final String DISABLED_CARD_RENEWAL = BASE + "/addCertificatesExchange.shtml";
+
+    /**
+     * 等级变更
+     */
+    public static final String DISABLED_CARD_CHANGE_LEVEL = BASE + "/addCertificatesChange.shtml";
+    /**
+     * 补办
+     */
+    public static final String DISABLED_CARD_REISSUE = BASE + "/addCertificatesReissue.shtml";
+    /**
+     * 迁入
+     */
+    public static final String DISABLED_CARD_MOVE_IN = BASE + "/addCertificatesMovein.shtml";
+
+    /**
+     * 迁chu
+     */
+    public static final String DISABLED_CARD_MOVE_OUT = BASE + "/addCertificatesMoveout.shtml";
+
+    /**
+     * 注销
+     */
+    public static final String DISABLED_CARD_LOGOUT = BASE + "/addCertificatesCancel.shtml";
+
+    /**
+     * 就业登记
+     */
+    public static final String DISABLED_EMPLOYMENT_REGIST = BASE + "/addDisabledObtainEmployment.shtml";
+
+    /**
+     * 脑瘫儿童救助
+     */
+    public static final String CEREBRAL_PALSY_RECOVERY = BASE + "/addDisabledChildrenCerebralPalsy.shtml";
+
+    /**
+     * 聋儿童救助
+     */
+    public static final String DEAF_CHILD_RECOVERY = BASE + "/addDisabledChildrenDeaf.shtml";
+    /**
+     * 孤独儿童救助
+     */
+    public static final String LONELY_CHILD_RECOVERY = BASE + "/addDisabledChildrenAutism.shtml";
+
+    /**
+     * 智力儿童救助
+     */
+    public static final String IQ_CHILD_RECOVERY = BASE + "/addDisabledChildrenIntellectual.shtml";
+
+    /**
+     * 用户提交残疾人大学生（残疾学生助学金）申请接口
+     */
+    public static final String DISABLED_CHILD_BURSARY = BASE + "/addDisabledStudentGrant.shtml";
+    /**
+     * 残疾家庭学生
+     */
+    public static final String DISABLED_FAMILY_CHILD_BURSARY = BASE + "/addDisabledStudentFamilyGrant.shtml";
+    /**
+     * 辅助用品用具申请
+     */
+    public static final String REQUEST_AIDS = BASE + "/addAIDS.shtml";
+    /**
+     * 用户提交残疾人培训申请业务接口
+     */
+    public static final String REQUEST_TRAIN = BASE + "/addTrain.shtml";
+
+    /**
+     * 居家托养
+     */
+    public static final String HOME_CARE = BASE + "/addHomCare.shtml";
+    /**
+     * 建议
+     */
+    public static final String REQUEST_SUGGESTION = BASE + "/addOpinionsAndSuggestions.shtml";
+
+
 }

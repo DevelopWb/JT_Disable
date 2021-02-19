@@ -30,6 +30,7 @@ import com.juntai.disabled.federation.bean.UserScoreListBean;
 import com.juntai.disabled.federation.bean.business.AllBusinessBean;
 import com.juntai.disabled.federation.bean.business.BusinessListBean;
 import com.juntai.disabled.federation.bean.business.BusinessNeedInfoBean;
+import com.juntai.disabled.federation.bean.business.BusinessPropertyBean;
 import com.juntai.disabled.federation.bean.business.ChildBusinessesBean;
 import com.juntai.disabled.federation.bean.business.MyBusinessBean;
 import com.juntai.disabled.federation.bean.business.MyBusinessDetailBean;
@@ -534,7 +535,7 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.BIND_QQ_WECHAT)
-    Observable<BaseResult> bindQQAndWeChat(@Query("account") String account, @Query("token") String token,@Query(
+    Observable<BaseResult> bindQQAndWeChat(@Query("account") String account, @Query("token") String token, @Query(
             "source") int source,
                                            @Query("weChatId") String weChatId, @Query("weChatName") String weChatName,
                                            @Query("qqId") String qqId, @Query("qqName") String qqName);
@@ -773,7 +774,8 @@ public interface AppServer {
      */
     @POST(AppHttpPath.UPDATE_PHONE)
     Observable<BaseResult> updatePhone(@Query("account") String account, @Query("token") String token,
-                                       @Query("phoneNumber") String phoneNumber, @Query("userId") int userId, @Query("newAccount") String newAccount,
+                                       @Query("phoneNumber") String phoneNumber, @Query("userId") int userId, @Query(
+                                               "newAccount") String newAccount,
                                        @Query("password") String password, @Query("oldPassword") String oldPassword);
 
 
@@ -1667,8 +1669,8 @@ public interface AppServer {
     @POST(AppHttpPath.GET_USER_EQUIPMENT_LIST)
     Observable<EquipmentListBean> getUserEquipmentList(@Query("account") String account, @Query("token") String token
             , @Query("unreadId") int unreadId,
-                                                       @Query("currentPage") int currentPage, @Query("pageSize") int pageSize);
-
+                                                       @Query("currentPage") int currentPage,
+                                                       @Query("pageSize") int pageSize);
 
 
     /**
@@ -1678,6 +1680,7 @@ public interface AppServer {
      */
     @POST(AppHttpPath.GET_REPORT_TYPES)
     Observable<ReportTypeBean> getReportTypes(@Body RequestBody jsonBody);
+
     /**
      * 获取举报类型
      *
@@ -1698,12 +1701,160 @@ public interface AppServer {
      */
     @GET(AppHttpPath.GET_ALL_BUSINESSES)
     Observable<AllBusinessBean> getAllBusinesses();
+
     /**
-     *
      * @return
      */
     @GET(AppHttpPath.GET_CHILD_BUSINESSES)
     Observable<ChildBusinessesBean> getChildBusinesses(@Query("matterId") int matterId);
+
+    /**
+     * @return
+     */
+    @GET(AppHttpPath.GET_DISABLED_TYPE)
+    Observable<BusinessPropertyBean> getDisabledCategory();
+
+    /**
+     * @return
+     */
+    @GET(AppHttpPath.GET_DISABLED_LEVEL)
+    Observable<BusinessPropertyBean> getDisabledLevel();
+
+    /**
+     * @return
+     */
+    @GET(AppHttpPath.GET_DISABLED_EDUCATION)
+    Observable<BusinessPropertyBean> getDisabledEducation();
+
+    /**
+     * @return
+     */
+    @GET(AppHttpPath.GET_DISABLED_NATION)
+    Observable<BusinessPropertyBean> getDisabledNation();
+
+    /**
+     * @return
+     */
+    @GET(AppHttpPath.GET_DISABLED_AIDS)
+    Observable<BusinessPropertyBean> getDisabledAIDS();
+
+    /**
+     * @return
+     */
+    @GET(AppHttpPath.GET_DISABLED_BARRIER)
+    Observable<BusinessPropertyBean> getDisabledBarrier();
+
+    /**
+     *
+     * @return
+     */
+    @POST(AppHttpPath.HANDLER_DISABLED_CARD)
+    Observable<BaseResult> addDisabilityCertificate(@Body RequestBody requestBody);
+    /**
+     *
+     * @return
+     */
+    @POST(AppHttpPath.DISABLED_CARD_RENEWAL)
+    Observable<BaseResult> addCertificatesExchange(@Body RequestBody requestBody);
+    /**
+     *
+     * @return
+     */
+    @POST(AppHttpPath.DISABLED_CARD_CHANGE_LEVEL)
+    Observable<BaseResult> addCertificatesChange(@Body RequestBody requestBody);
+    /**
+     *
+     * @return
+     */
+    @POST(AppHttpPath.DISABLED_CARD_REISSUE)
+    Observable<BaseResult> addCertificatesReissue(@Body RequestBody requestBody);
+    /**
+     *
+     * @return
+     */
+    @POST(AppHttpPath.DISABLED_CARD_MOVE_IN)
+    Observable<BaseResult> addCertificatesMovein(@Body RequestBody requestBody);
+    /**
+     *
+     * @return
+     */
+    @POST(AppHttpPath.DISABLED_CARD_MOVE_OUT)
+    Observable<BaseResult> addCertificatesMoveout(@Body RequestBody requestBody);
+    /**
+     *
+     * @return
+     */
+    @POST(AppHttpPath.DISABLED_CARD_LOGOUT)
+    Observable<BaseResult> addCertificatesCancel(@Body RequestBody requestBody);
+    /**
+     *
+     * @return
+     */
+    @POST(AppHttpPath.DISABLED_EMPLOYMENT_REGIST)
+    Observable<BaseResult> addDisabledObtainEmployment(@Body RequestBody requestBody);
+    /**
+     *
+     * @return
+     */
+    @POST(AppHttpPath.CEREBRAL_PALSY_RECOVERY)
+    Observable<BaseResult> addDisabledChildrenCerebralPalsy(@Body RequestBody requestBody);
+    /**
+     *
+     * @return
+     */
+    @POST(AppHttpPath.DEAF_CHILD_RECOVERY)
+    Observable<BaseResult> addDisabledChildrenDeaf(@Body RequestBody requestBody);
+    /**
+     *
+     * @return
+     */
+    @POST(AppHttpPath.LONELY_CHILD_RECOVERY)
+    Observable<BaseResult> addDisabledChildrenAutism(@Body RequestBody requestBody);
+    /**
+     *
+     * @return
+     */
+    @POST(AppHttpPath.IQ_CHILD_RECOVERY)
+    Observable<BaseResult> addDisabledChildrenIntellectual(@Body RequestBody requestBody);
+    /**
+     *
+     * @return
+     */
+    @POST(AppHttpPath.DISABLED_CHILD_BURSARY)
+    Observable<BaseResult> addDisabledStudentGrant(@Body RequestBody requestBody);
+    /**
+     *
+     * @return
+     */
+    @POST(AppHttpPath.DISABLED_FAMILY_CHILD_BURSARY)
+    Observable<BaseResult> addDisabledStudentFamilyGrant(@Body RequestBody requestBody);
+    /**
+     *
+     * @return
+     */
+    @POST(AppHttpPath.REQUEST_AIDS)
+    Observable<BaseResult> addAIDS(@Body RequestBody requestBody);
+
+
+    /**
+     *
+     * @return
+     */
+    @POST(AppHttpPath.REQUEST_TRAIN)
+    Observable<BaseResult> addTrain(@Body RequestBody requestBody);
+
+    /**
+     *
+     * @return
+     */
+    @POST(AppHttpPath.HOME_CARE)
+    Observable<BaseResult> addHomCare(@Body RequestBody requestBody);
+    /**
+     *
+     * @return
+     */
+    @POST(AppHttpPath.REQUEST_SUGGESTION)
+    Observable<BaseResult> addOpinionsAndSuggestions(@Body RequestBody requestBody);
 
 
 }

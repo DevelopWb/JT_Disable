@@ -16,6 +16,7 @@ import com.juntai.disabled.federation.bean.business.AllBusinessBean;
 import com.juntai.disabled.federation.bean.business.BusinessListBean;
 import com.juntai.disabled.federation.bean.business.BusinessNeedInfoBean;
 import com.juntai.disabled.federation.bean.business.BusinessPicBean;
+import com.juntai.disabled.federation.bean.business.BusinessPropertyBean;
 import com.juntai.disabled.federation.bean.business.BusinessRadioBean;
 import com.juntai.disabled.federation.bean.business.BusinessTextValueBean;
 import com.juntai.disabled.federation.bean.business.ChildBusinessesBean;
@@ -179,14 +180,560 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                     }
                 });
     }
+
     @Override
-    public void getChildBusinesses(int matterId,String tag) {
+    public void getChildBusinesses(int matterId, String tag) {
         AppNetModule.createrRetrofit()
                 .getChildBusinesses(matterId)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<ChildBusinessesBean>(getView()) {
                     @Override
                     public void onSuccess(ChildBusinessesBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void getDisabledCategory(String tag) {
+        AppNetModule.createrRetrofit()
+                .getDisabledCategory()
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BusinessPropertyBean>(getView()) {
+                    @Override
+                    public void onSuccess(BusinessPropertyBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void getDisabledLevel(String tag) {
+        AppNetModule.createrRetrofit()
+                .getDisabledLevel()
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BusinessPropertyBean>(getView()) {
+                    @Override
+                    public void onSuccess(BusinessPropertyBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void getDisabledEducation(String tag) {
+        AppNetModule.createrRetrofit()
+                .getDisabledEducation()
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BusinessPropertyBean>(getView()) {
+                    @Override
+                    public void onSuccess(BusinessPropertyBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void getDisabledNation(String tag) {
+        AppNetModule.createrRetrofit()
+                .getDisabledNation()
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BusinessPropertyBean>(getView()) {
+                    @Override
+                    public void onSuccess(BusinessPropertyBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void getDisabledAIDS(String tag) {
+        AppNetModule.createrRetrofit()
+                .getDisabledAIDS()
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BusinessPropertyBean>(getView()) {
+                    @Override
+                    public void onSuccess(BusinessPropertyBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void getDisabledBarrier(String tag) {
+        AppNetModule.createrRetrofit()
+                .getDisabledBarrier()
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BusinessPropertyBean>(getView()) {
+                    @Override
+                    public void onSuccess(BusinessPropertyBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void addDisabilityCertificate(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .addDisabilityCertificate(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void addCertificatesExchange(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .addCertificatesExchange(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void addCertificatesChange(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .addCertificatesChange(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void addCertificatesReissue(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .addCertificatesReissue(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    @Override
+    public void addCertificatesMovein(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .addCertificatesMovein(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void addCertificatesMoveout(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .addCertificatesMoveout(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void addCertificatesCancel(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .addCertificatesCancel(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    @Override
+    public void addDisabledObtainEmployment(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .addDisabledObtainEmployment(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void addDisabledChildrenCerebralPalsy(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .addDisabledChildrenCerebralPalsy(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    @Override
+    public void addDisabledChildrenDeaf(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .addDisabledChildrenDeaf(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void addDisabledChildrenAutism(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .addDisabledChildrenAutism(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    @Override
+    public void addDisabledChildrenIntellectual(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .addDisabledChildrenIntellectual(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    @Override
+    public void addDisabledStudentGrant(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .addDisabledStudentGrant(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void addDisabledStudentFamilyGrant(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .addDisabledStudentFamilyGrant(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void addAIDS(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .addAIDS(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    @Override
+    public void addTrain(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .addTrain(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    @Override
+    public void addHomCare(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .addHomCare(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void addOpinionsAndSuggestions(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .addOpinionsAndSuggestions(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }
@@ -309,6 +856,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_LIFE_PIC, 3, "")));
         return arrays;
     }
+
     /**
      * 培训申请
      *
@@ -354,7 +902,6 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC, 1, "")));
 
 
-
         return arrays;
     }
 
@@ -382,7 +929,8 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC, 1, "")));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_LIFE_PIC, 2, "")));
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_NOTICE, "备注：严格按照样表填写，器具类别数量填写一栏，数量用汉字写（壹）并且器具前后画杠，一张表只填一种器具，填写不规范一概不发放"));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_NOTICE,
+                "备注：严格按照样表填写，器具类别数量填写一栏，数量用汉字写（壹）并且器具前后画杠，一张表只填一种器具，填写不规范一概不发放"));
 
         return arrays;
     }
