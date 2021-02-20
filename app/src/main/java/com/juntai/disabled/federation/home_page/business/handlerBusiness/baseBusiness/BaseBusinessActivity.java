@@ -9,15 +9,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
+import com.juntai.disabled.basecomponent.utils.PickerManager;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseAppActivity;
 import com.juntai.disabled.federation.base.customview.GestureSignatureView;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.bean.business.BusinessPicBean;
+import com.juntai.disabled.federation.bean.business.BusinessPropertyBean;
+import com.juntai.disabled.federation.bean.business.BusinessRadioBean;
 import com.juntai.disabled.federation.bean.business.BusinessTextValueBean;
 import com.juntai.disabled.federation.bean.business.DeafBean;
 import com.juntai.disabled.federation.bean.business.ItemCheckBoxBean;
@@ -26,7 +30,12 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * @Author: tobato
@@ -46,6 +55,13 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     private BottomSheetDialog bottomSheetDialog;
     private String signPath;
     private ImageView mSignIv = null;
+    private TextView mSelectTv;
+    private int selectedCardType = 1;//1新申请；2换领申请；3补办申请
+    private int selectedMarrayStatus = 0;//0未婚；1已婚(有配偶)；2丧偶；3离婚
+    private int selectedNation = 0;//民族
+    private int selectedEducationLevel = 0;//学历登记
+    private BusinessTextValueBean selectBean;
+
     protected abstract String getTitleName();
 
     protected abstract View getFootView();
@@ -87,17 +103,15 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
 
 
-
-
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 currentPosition = position;
+                MultipleItem multipleItem = (MultipleItem) adapter.getData().get(position);
                 //                mHeadIv = (ImageView) adapter.getViewByPosition(mRecyclerview, position, R.id
                 //                .form_head_pic_iv);
                 //                mFormPicIv = (ImageView) adapter.getViewByPosition(mRecyclerview, position,
                 //                        R.id.form_pic_src_iv);
-                //                TextView selectTv = (TextView) adapter.getViewByPosition(mRecyclerview, position, R
-                //                .id.select_value_tv);
+
                 switch (view.getId()) {
                     case R.id.form_pic_src_iv:
                         choseImage(0, BaseBusinessActivity.this, 1);
@@ -106,12 +120,50 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         choseImage(0, BaseBusinessActivity.this, 1);
                         break;
                     case R.id.select_value_tv:
-                        ToastUtils.toast(mContext, "select");
+                        mSelectTv = (TextView) adapter.getViewByPosition(mRecyclerview, position,
+                                R.id.select_value_tv);
+                        selectBean = (BusinessTextValueBean) multipleItem.getObject();
+                        switch (selectBean.getKey()) {
+                            case BusinessContract.TABLE_TITLE_NATION:
+                                mPresenter.getDisabledNation(BusinessContract.TABLE_TITLE_NATION);
+                                break;
+                            case BusinessContract.TABLE_TITLE_MARRIAGE:
+                                List<String> marrayStatus = getMarrayStatus();
+                                PickerManager.getInstance().showOptionPicker(mContext, marrayStatus,
+                                        new PickerManager.OnOptionPickerSelectedListener() {
+                                            @Override
+                                            public void onOptionsSelect(int options1, int option2, int options3,
+                                                                        View v) {
+                                                selectedMarrayStatus = options1;
+                                                mSelectTv.setText(marrayStatus.get(options1));
+                                                selectBean.setValue(marrayStatus.get(options1));
+                                            }
+                                        });
+                                break;
+                            case BusinessContract.TABLE_TITLE_EDUCATION_LEVEL:
+                                mPresenter.getDisabledEducation(BusinessContract.TABLE_TITLE_EDUCATION_LEVEL);
+                                break;
+                            case BusinessContract.TABLE_TITLE_CARD_TYPE:
+                                List<String> cards = getCardTypes();
+                                PickerManager.getInstance().showOptionPicker(mContext, cards,
+                                        new PickerManager.OnOptionPickerSelectedListener() {
+                                            @Override
+                                            public void onOptionsSelect(int options1, int option2, int options3,
+                                                                        View v) {
+                                                selectedCardType = options1 + 1;
+                                                mSelectTv.setText(cards.get(options1));
+                                                selectBean.setValue(cards.get(options1));
+                                            }
+                                        });
+                                break;
+                            default:
+                                break;
+                        }
                         break;
                     case R.id.sign_name_iv:
                         //签名
                         mSignIv = (ImageView) adapter.getViewByPosition(mRecyclerview, position, R.id
-                                                .sign_name_iv);
+                                .sign_name_iv);
                         showSignatureView();
                         break;
                     default:
@@ -120,6 +172,33 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
 
             }
         });
+    }
+
+    /**
+     * 获取证件类型
+     *
+     * @return
+     */
+    protected List<String> getCardTypes() {
+        List<String> arrays = new ArrayList<>();
+        arrays.add("新申请");
+        arrays.add("换领申请");
+        arrays.add("补办申请");
+        return arrays;
+    }
+
+    /**
+     * 婚姻状况 0未婚；1已婚(有配偶)；2丧偶；3离婚
+     *
+     * @return
+     */
+    protected List<String> getMarrayStatus() {
+        List<String> arrays = new ArrayList<>();
+        arrays.add("未婚");
+        arrays.add("已婚(有配偶)");
+        arrays.add("丧偶");
+        arrays.add("离婚");
+        return arrays;
     }
 
     @Override
@@ -230,70 +309,138 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
      *
      * @return
      */
-    protected StringBuilder getStringBuilderOfAdapterData() {
+    protected MultipartBody.Builder getBuilderOfAdapterData() {
+        MultipartBody.Builder builder = mPresenter.getPublishMultipartBody();
         List<MultipleItem> arrays = adapter.getData();
         StringBuilder sb = new StringBuilder();
         for (MultipleItem array : arrays) {
             switch (array.getItemType()) {
-//                case MultipleItem.ITEM_BUSINESS_YEAR:
-//                    BusinessTextValueBean yearBean = (BusinessTextValueBean) array.getObject();
-//                    sb.append(yearBean.getValue());
-//                    sb.append(".....\n");
-//                    if (TextUtils.isEmpty(yearBean.getValue())) {
-//                        ToastUtils.toast(mContext, "请输入" + yearBean.getKey());
-//                        return null;
-//                    }
-//                    break;
-//                case MultipleItem.ITEM_BUSINESS_HEAD_PIC:
-//                    BusinessPicBean headPicBean = (BusinessPicBean) array.getObject();
-//                    sb.append(headPicBean.getPicName());
-//                    sb.append(".....\n");
-//                    sb.append(headPicBean.getPicPath());
-//                    sb.append(".....\n");
-//                    if (TextUtils.isEmpty(headPicBean.getPicPath())) {
-//                        ToastUtils.toast(mContext, "请选择申请人照片");
-//                        return null;
-//                    }
-//                    break;
-//                case MultipleItem.ITEM_BUSINESS_EDIT:
-//                    BusinessTextValueBean textValueEditBean = (BusinessTextValueBean) array
-//                            .getObject();
-//                    sb.append(textValueEditBean.getKey());
-//                    sb.append(".....\n");
-//                    sb.append(textValueEditBean.getValue());
-//                    sb.append(".....\n");
-//                    if (TextUtils.isEmpty(textValueEditBean.getValue())) {
-//                        ToastUtils.toast(mContext, "请输入" + textValueEditBean.getKey());
-//                        return null;
-//                    }
-//                    break;
-//                case MultipleItem.ITEM_BUSINESS_PIC:
-//                    BusinessPicBean picBean = (BusinessPicBean) array.getObject();
-//                    sb.append(picBean.getPicName());
-//                    sb.append(".....\n");
-//                    sb.append(picBean.getPicPath());
-//                    if (TextUtils.isEmpty(picBean.getPicPath())) {
-//                        ToastUtils.toast(mContext, "请上传资料图片");
-//                        return null;
-//                    }
-//                    break;
-//                case MultipleItem.ITEM_BUSINESS_NORMAL_RECYCLEVIEW:
-//                    RecycleBean recycleBean = (RecycleBean) array.getObject();
-//                    List<ItemCheckBoxBean> data = recycleBean.getData();
-//                    if (!isCheckBoxSelected(data)) {
-//                        ToastUtils.toast(mContext, "请选择" + recycleBean.getTitleKey());
-//                        return null;
-//                    }
-//                    break;
+
+                case MultipleItem.ITEM_BUSINESS_HEAD_PIC:
+                    BusinessPicBean headPicBean = (BusinessPicBean) array.getObject();
+                    if (TextUtils.isEmpty(headPicBean.getPicPath())) {
+                        ToastUtils.toast(mContext, "请选择申请人照片");
+                        return null;
+                    }
+                    builder.addFormDataPart("photoFile", "photoFile", RequestBody.create(MediaType.parse("file"), new File(headPicBean.getPicPath())));
+                    break;
+                case MultipleItem.ITEM_BUSINESS_EDIT:
+                    BusinessTextValueBean textValueEditBean = (BusinessTextValueBean) array
+                            .getObject();
+                    if (TextUtils.isEmpty(textValueEditBean.getValue())) {
+                        ToastUtils.toast(mContext, "请输入" + textValueEditBean.getKey());
+                        return null;
+                    }
+                    String formKey = null;
+                    switch (textValueEditBean.getKey()) {
+                        case BusinessContract.TABLE_TITLE_NAME:
+                            formKey = "name";
+                            break;
+                        case BusinessContract.TABLE_TITLE_BIRTH:
+                            formKey = "birth";
+                            break;
+                        case BusinessContract.TABLE_TITLE_HOMETOWN:
+                            formKey = "nativePlace";
+                            break;
+                        case BusinessContract.TABLE_TITLE_IDCARD:
+                            formKey = "idNumber";
+                            break;
+                        case BusinessContract.TABLE_TITLE_ADDR:
+                            formKey = "address";
+                            break;
+                        case BusinessContract.TABLE_TITLE_ZIP_CODE:
+                            formKey = "postCode";
+                            break;
+                        case BusinessContract.TABLE_TITLE_GUARDIAN:
+                            formKey = "guardian";
+                            break;
+                        case BusinessContract.TABLE_TITLE_GUARDIAN_RELATION:
+                            formKey = "relationship";
+                            break;
+                        case BusinessContract.TABLE_TITLE_PHONE:
+                            formKey = "telephone";
+                            break;
+                        case BusinessContract.TABLE_TITLE_WORKER:
+                            formKey = "workingUnit";
+                            break;
+                        case BusinessContract.TABLE_TITLE_WORKER_TYPE:
+                            formKey = "profession";
+                            break;
+                        case BusinessContract.TABLE_TITLE_UNIT_NATURE:
+                            formKey = "unitNature";
+                            break;
+                        case BusinessContract.TABLE_TITLE_CARD_TYPE:
+                            formKey = "type";
+                            break;
+
+                        default:
+                            break;
+                    }
+                    builder.addFormDataPart(formKey,textValueEditBean.getValue());
+                    break;
+                case MultipleItem.ITEM_BUSINESS_RADIO:
+                    BusinessRadioBean radioBean = (BusinessRadioBean) array.getObject();
+                    switch (radioBean.getKey()) {
+                        case BusinessContract.TABLE_TITLE_SEX:
+                            builder.addFormDataPart("sex",String.valueOf(radioBean.getDefaultSelectedIndex()));
+                            break;
+                        case BusinessContract.TABLE_TITLE_HUKOU:
+                            builder.addFormDataPart("accountType",String.valueOf(radioBean.getDefaultSelectedIndex()));
+                            break;
+                        case BusinessContract.TABLE_TITLE_IS_WEEL_COMPANY:
+                            builder.addFormDataPart("unitWelfare",String.valueOf(radioBean.getDefaultSelectedIndex()));
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case MultipleItem.ITEM_BUSINESS_SELECT:
+                    BusinessTextValueBean textValueSelectBean = (BusinessTextValueBean) array.getObject();
+                    switch (textValueSelectBean.getKey()) {
+                        case BusinessContract.TABLE_TITLE_NATION:
+                            builder.addFormDataPart("nation",String.valueOf(selectedNation));
+                            break;
+                        case BusinessContract.TABLE_TITLE_MARRIAGE:
+                            builder.addFormDataPart("marriage",String.valueOf(selectedMarrayStatus));
+                            break;
+                        case BusinessContract.TABLE_TITLE_EDUCATION_LEVEL:
+                            builder.addFormDataPart("education",String.valueOf(selectedEducationLevel));
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case MultipleItem.ITEM_BUSINESS_PIC:
+                    BusinessPicBean picBean = (BusinessPicBean) array.getObject();
+                    if (TextUtils.isEmpty(picBean.getPicPath())) {
+                        ToastUtils.toast(mContext, "请上传资料图片");
+                        return null;
+                    }
+                    break;
+                case MultipleItem.ITEM_BUSINESS_NORMAL_RECYCLEVIEW:
+                    RecycleBean recycleBean = (RecycleBean) array.getObject();
+                    List<ItemCheckBoxBean> data = recycleBean.getData();
+                    if (!isCheckBoxSelected(data)) {
+                        ToastUtils.toast(mContext, "请选择" + recycleBean.getTitleKey());
+                        return null;
+                    }
+                                    break;
                 case MultipleItem.ITEM_BUSINESS_DEAF_TABLE:
                     DeafBean deafBean = (DeafBean) array.getObject();
                     sb.append(deafBean.toString());
+                    break;
+                case MultipleItem.ITEM_BUSINESS_YEAR:
+                    BusinessTextValueBean yearBean = (BusinessTextValueBean) array.getObject();
+                    if (TextUtils.isEmpty(yearBean.getValue())) {
+                        ToastUtils.toast(mContext, "请输入" + yearBean.getKey());
+                        return null;
+                    }
                     break;
                 default:
                     break;
             }
         }
-        return sb;
+        return builder;
     }
 
     /**
@@ -309,5 +456,52 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
             }
         }
         return false;
+    }
+
+
+    @Override
+    public void onSuccess(String tag, Object o) {
+        BusinessPropertyBean propertyNationBean = null;
+        List<BusinessPropertyBean.DataBean> data = null;
+        if (BusinessContract.TABLE_TITLE_NATION.equals(tag)||BusinessContract.TABLE_TITLE_EDUCATION_LEVEL.equals(tag)) {
+            propertyNationBean = (BusinessPropertyBean) o;
+            data = propertyNationBean.getData();
+        }
+        switch (tag) {
+            case BusinessContract.TABLE_TITLE_NATION:
+                if (propertyNationBean != null && data.size() > 0) {
+                    List<BusinessPropertyBean.DataBean> finalData = data;
+                    PickerManager.getInstance().showOptionPicker(mContext, finalData,
+                            new PickerManager.OnOptionPickerSelectedListener() {
+                                @Override
+                                public void onOptionsSelect(int options1, int option2, int options3, View v) {
+                                    BusinessPropertyBean.DataBean dataBean = finalData.get(options1);
+                                    selectedNation = dataBean.getId();
+                                    selectBean.setValue(dataBean.getName());
+                                    mSelectTv.setText(dataBean.getName());
+                                }
+                            });
+                }
+
+                break;
+            case BusinessContract.TABLE_TITLE_EDUCATION_LEVEL:
+                if (propertyNationBean != null && data.size() > 0) {
+                    List<BusinessPropertyBean.DataBean> finalData = data;
+                    PickerManager.getInstance().showOptionPicker(mContext, finalData,
+                            new PickerManager.OnOptionPickerSelectedListener() {
+                                @Override
+                                public void onOptionsSelect(int options1, int option2, int options3, View v) {
+                                    BusinessPropertyBean.DataBean dataBean = finalData.get(options1);
+                                    selectedEducationLevel = dataBean.getId();
+                                    mSelectTv.setText(dataBean.getName());
+                                    selectBean.setValue(dataBean.getName());
+                                }
+                            });
+                }
+
+                break;
+            default:
+                break;
+        }
     }
 }

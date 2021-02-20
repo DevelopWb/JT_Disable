@@ -99,6 +99,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
         FormBody.Builder builder = new FormBody.Builder();
         builder.add("account", UserInfoManager.getUserAccount());
         builder.add("token", UserInfoManager.getUserToken());
+        builder.add("userId", String.valueOf(UserInfoManager.getUserId()));
         return builder;
     }
 
@@ -121,7 +122,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("account", UserInfoManager.getUserAccount())
                 .addFormDataPart("token", UserInfoManager.getUserToken())
-                .addFormDataPart("uid", String.valueOf(UserInfoManager.getUserId()));
+                .addFormDataPart("userId", String.valueOf(UserInfoManager.getUserId()));
     }
 
     //    /**

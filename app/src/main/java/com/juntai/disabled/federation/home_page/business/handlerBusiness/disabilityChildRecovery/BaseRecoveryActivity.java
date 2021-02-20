@@ -8,10 +8,9 @@ import android.widget.TextView;
 
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.R;
-import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
 
-import java.util.List;
+import okhttp3.MultipartBody;
 
 /**
  * @aouther tobato
@@ -67,11 +66,11 @@ public abstract class BaseRecoveryActivity extends BaseBusinessActivity {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.commit_business_form_tv:
-                StringBuilder sb = getStringBuilderOfAdapterData();
-                if (sb == null) {
+                MultipartBody.Builder builder = getBuilderOfAdapterData();
+                if (builder == null) {
                     return;
                 }
-                ToastUtils.toast(mContext,sb.toString());
+                ToastUtils.toast(mContext,builder.toString());
                 break;
             default:
                 break;

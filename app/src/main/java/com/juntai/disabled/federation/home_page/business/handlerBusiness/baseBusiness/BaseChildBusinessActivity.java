@@ -13,6 +13,8 @@ import com.juntai.disabled.federation.bean.MultipleItem;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
+
 /**
  * @aouther tobato
  * @description 描述  期满换证 登记变更 遗失补办 迁入迁出 注销等业务
@@ -63,8 +65,8 @@ public abstract class BaseChildBusinessActivity extends BaseBusinessActivity {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.commit_business_form_tv:
-                StringBuilder sb = getStringBuilderOfAdapterData();
-                if (sb == null) {
+                MultipartBody.Builder builder = getBuilderOfAdapterData();
+                if (builder == null) {
                     return;
                 }
                 if (TextUtils.isEmpty(getSignPath())) {
@@ -72,8 +74,6 @@ public abstract class BaseChildBusinessActivity extends BaseBusinessActivity {
                     return;
                 }
 
-                LogUtil.e(sb.toString());
-                ToastUtils.toast(mContext, sb.toString());
                 switch (getTitleName()) {
                     case BUSINESS_NAME_RENEWAL:
                         break;

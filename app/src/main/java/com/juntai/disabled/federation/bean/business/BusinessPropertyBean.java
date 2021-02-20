@@ -1,5 +1,6 @@
 package com.juntai.disabled.federation.bean.business;
 
+import com.contrarywind.interfaces.IPickerViewData;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class BusinessPropertyBean  extends BaseResult {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements IPickerViewData {
         /**
          * id : 1
          * name : 汉族
@@ -53,6 +54,11 @@ public class BusinessPropertyBean  extends BaseResult {
 
         public void setName(String name) {
             this.name = name;
+        }
+
+        @Override
+        public String getPickerViewText() {
+            return name;
         }
     }
 }

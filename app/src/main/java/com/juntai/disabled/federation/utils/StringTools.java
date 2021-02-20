@@ -11,6 +11,8 @@ import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.TextView;
 
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Matcher;
@@ -51,27 +53,51 @@ public class StringTools {
             textView.setText(spannableString);
         }
     }
+//    /**
+//     * 设置文字部分颜色
+//     *
+//     * @return
+//     */
+//    public static void setTextPartColor2(TextView textView, String content, int startIndex, int endIndex,
+//                                        String textColor) {
+//        SpannableStringBuilder spannableString = null;
+//        if (StringTools.isStringValueOk(content)) {
+//            spannableString = new SpannableStringBuilder (content);
+//
+//            spannableString.setSpan(new ClickableSpan() {
+//                @Override
+//                public void onClick(@NonNull View widget) {
+//                    textView.setText("2寸近照");
+////                    if (onClickListener != null) {
+////                        onClickListener.onClick(widget);
+////                    }
+//                }
+//            }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//            textView.setText(spannableString);
+//        }
+//    }
+
     /**
      * 设置文字部分颜色
      *
      * @return
      */
     public static void setTextPartColor2(TextView textView, String content, int startIndex, int endIndex,
-                                        String textColor) {
-        SpannableStringBuilder spannableString = null;
+                                         String textColor) {
+        SpannableStringBuilder spannableStringBuilder = null;
         if (StringTools.isStringValueOk(content)) {
-            spannableString = new SpannableStringBuilder (content);
             ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor(textColor));
+            spannableStringBuilder = new SpannableStringBuilder ();
+            SpannableString spannableString = new SpannableString(content);
             spannableString.setSpan(new ClickableSpan() {
                 @Override
                 public void onClick(@NonNull View widget) {
-                    textView.setText("2寸近照");
-//                    if (onClickListener != null) {
-//                        onClickListener.onClick(widget);
-//                    }
+                    textView.setText("111");
                 }
             }, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            textView.setText(spannableString);
+            spannableString.setSpan(colorSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableStringBuilder.append(spannableString);
+            textView.setText(spannableStringBuilder);
         }
     }
 

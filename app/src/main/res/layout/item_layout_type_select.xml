@@ -14,6 +14,7 @@
         android:layout_height="32dp"
         android:background="@drawable/stroke_gray_square_bg"
         android:lines="1"
+        android:textColor="@color/text_title"
         android:gravity="center_vertical"
         android:maxLength="11"
         android:minHeight="26dp"

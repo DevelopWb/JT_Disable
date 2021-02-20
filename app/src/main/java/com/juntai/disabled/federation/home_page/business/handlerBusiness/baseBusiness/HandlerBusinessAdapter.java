@@ -138,8 +138,10 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 BusinessTextValueBean textValueSelectBean = (BusinessTextValueBean) item.getObject();
                 TextView textViewTv = helper.getView(R.id.select_value_tv);
                 helper.addOnClickListener(R.id.select_value_tv);
-                textViewTv.setHint(textValueSelectBean.getHint());
-                textViewTv.setText(textValueSelectBean.getValue());
+                textViewTv.setTag(textValueSelectBean);
+                BusinessTextValueBean selectBean = (BusinessTextValueBean) textViewTv.getTag();
+                textViewTv.setHint(selectBean.getHint());
+                textViewTv.setText(selectBean.getValue());
                 break;
             case MultipleItem.ITEM_BUSINESS_RADIO:
                 BusinessRadioBean radioBean = (BusinessRadioBean) item.getObject();
