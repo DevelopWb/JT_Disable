@@ -3,6 +3,8 @@ package com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBu
 import com.juntai.disabled.basecomponent.mvp.IPresenter;
 import com.juntai.disabled.basecomponent.mvp.IView;
 
+import java.util.List;
+
 import okhttp3.RequestBody;
 
 /**
@@ -132,6 +134,7 @@ public interface BusinessContract {
         void businessDetail(RequestBody requestBody, String tag);
 
         void businessProgress(RequestBody requestBody, String tag);
+        void deleteUserBusiness(List<Integer> ids,String tag);
 
 
 

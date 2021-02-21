@@ -26,6 +26,7 @@ import com.juntai.disabled.federation.bean.business.ItemSignBean;
 import com.juntai.disabled.federation.bean.business.MyBusinessBean;
 import com.juntai.disabled.federation.bean.business.MyBusinessDetailBean;
 import com.juntai.disabled.federation.bean.business.RecycleBean;
+import com.juntai.disabled.federation.utils.UserInfoManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -143,6 +144,29 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                 .subscribe(new BaseObserver<MyBusinessBean>(getView()) {
                     @Override
                     public void onSuccess(MyBusinessBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void deleteUserBusiness(List<Integer> ids,String tag) {
+        AppNetModule.createrRetrofit()
+                .deleteUserBusiness(UserInfoManager.getUserAccount(),UserInfoManager.getUserToken(),ids)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }
@@ -433,6 +457,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                     }
                 });
     }
+
     @Override
     public void addCertificatesMovein(RequestBody requestBody, String tag) {
         AppNetModule.createrRetrofit()
@@ -501,6 +526,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                     }
                 });
     }
+
     @Override
     public void addDisabledObtainEmployment(RequestBody requestBody, String tag) {
         AppNetModule.createrRetrofit()
@@ -546,6 +572,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                     }
                 });
     }
+
     @Override
     public void addDisabledChildrenDeaf(RequestBody requestBody, String tag) {
         AppNetModule.createrRetrofit()
@@ -591,6 +618,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                     }
                 });
     }
+
     @Override
     public void addDisabledChildrenIntellectual(RequestBody requestBody, String tag) {
         AppNetModule.createrRetrofit()
@@ -613,6 +641,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                     }
                 });
     }
+
     @Override
     public void addDisabledStudentGrant(RequestBody requestBody, String tag) {
         AppNetModule.createrRetrofit()
@@ -681,6 +710,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                     }
                 });
     }
+
     @Override
     public void addTrain(RequestBody requestBody, String tag) {
         AppNetModule.createrRetrofit()
@@ -703,6 +733,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                     }
                 });
     }
+
     @Override
     public void addHomCare(RequestBody requestBody, String tag) {
         AppNetModule.createrRetrofit()

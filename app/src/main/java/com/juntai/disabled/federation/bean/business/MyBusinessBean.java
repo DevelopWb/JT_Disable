@@ -13,14 +13,13 @@ import java.util.List;
  * @UpdateDate: 2020/5/22 10:43
  */
 public class MyBusinessBean extends BaseResult {
+
     /**
      * error : null
-     * returnValue : null
-     * msg : null
-     * code : null
-     * data : {"datas":[{"businessId":47,"title":"出生随父母落户","gmtCreate":"2020-05-22 09:59:27","status":0,"auditOpinion":"正在审核中","typeId":1},{"businessId":42,"title":"出生随父母落户","gmtCreate":"2020-05-21 17:22:15","status":1,"auditOpinion":"审核通过","typeId":1}],"total":2,"listSize":2,"pageCount":1}
+     * data : {"datas":[{"id":1,"matterId":14,"matterName":"残疾人居家托养","businessId":1,"gmtCreate":"2020-11-20 16:38:52
+     * .0","status":0,"auditOpinion":"正在审核中"}],"total":1,"listSize":1,"pageCount":1}
      * type : null
-     * message : null
+     * list : null
      */
 
     private DataBean data;
@@ -35,9 +34,10 @@ public class MyBusinessBean extends BaseResult {
 
     public static class DataBean {
         /**
-         * datas : [{"businessId":47,"title":"出生随父母落户","gmtCreate":"2020-05-22 09:59:27","status":0,"auditOpinion":"正在审核中","typeId":1},{"businessId":42,"title":"出生随父母落户","gmtCreate":"2020-05-21 17:22:15","status":1,"auditOpinion":"审核通过","typeId":1}]
-         * total : 2
-         * listSize : 2
+         * datas : [{"id":1,"matterId":14,"matterName":"残疾人居家托养","businessId":1,"gmtCreate":"2020-11-20 16:38:52.0",
+         * "status":0,"auditOpinion":"正在审核中"}]
+         * total : 1
+         * listSize : 1
          * pageCount : 1
          */
 
@@ -80,49 +80,67 @@ public class MyBusinessBean extends BaseResult {
 
         public static class DatasBean {
             /**
-             * businessId : 47
-             * title : 出生随父母落户
-             * gmtCreate : 2020-05-22 09:59:27
+             * id : 1
+             * matterId : 14
+             * matterName : 残疾人居家托养
+             * businessId : 1
+             * gmtCreate : 2020-11-20 16:38:52.0
              * status : 0
              * auditOpinion : 正在审核中
-             * typeId : 1
              */
 
-            private int businessId;//业务id
-            private String title;//业务名称
-            private String gmtCreate;//办理时间
+            private int id;
+            private int matterId;
+            private String matterName;
+            private int businessId;
+            private boolean checked;
+            private String gmtCreate;
             @SerializedName("status")
-            private int statusX;//审批状态（0：审核中）（1：审核通过）（2：审核失败）
-            private String auditOpinion;//反馈信息
-            private int typeId;//类型id（1:户籍业务；2:调解室业务）
-            private int categoryId;
+            private int statusX;
+            private String auditOpinion;
+
+            public int getId() {
+                return id;
+            }
+
+            public boolean isChecked() {
+                return checked;
+            }
+
+            public void setChecked(boolean checked) {
+                this.checked = checked;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public int getMatterId() {
+                return matterId;
+            }
+
+            public void setMatterId(int matterId) {
+                this.matterId = matterId;
+            }
+
+            public String getMatterName() {
+                return matterName;
+            }
+
+            public void setMatterName(String matterName) {
+                this.matterName = matterName;
+            }
 
             public int getBusinessId() {
                 return businessId;
-            }
-
-            public int getCategoryId() {
-                return categoryId;
-            }
-
-            public void setCategoryId(int categoryId) {
-                this.categoryId = categoryId;
             }
 
             public void setBusinessId(int businessId) {
                 this.businessId = businessId;
             }
 
-            public String getTitle() {
-                return title == null? "" : title;
-            }
-
-            public void setTitle(String title) {
-                this.title = title;
-            }
-
             public String getGmtCreate() {
-                return gmtCreate == null? "" : gmtCreate;
+                return gmtCreate;
             }
 
             public void setGmtCreate(String gmtCreate) {
@@ -138,19 +156,11 @@ public class MyBusinessBean extends BaseResult {
             }
 
             public String getAuditOpinion() {
-                return auditOpinion == null? "" : auditOpinion;
+                return auditOpinion;
             }
 
             public void setAuditOpinion(String auditOpinion) {
                 this.auditOpinion = auditOpinion;
-            }
-
-            public int getTypeId() {
-                return typeId;
-            }
-
-            public void setTypeId(int typeId) {
-                this.typeId = typeId;
             }
         }
     }

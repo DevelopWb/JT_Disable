@@ -914,6 +914,13 @@ public interface AppServer {
      */
     @POST(AppHttpPath.BUSINESS_PROGRESS)
     Observable<MyBusinessBean> businessProgress(@Body RequestBody jsonBody);
+    /**
+     *
+     * @return
+     */
+    @POST(AppHttpPath.DELETE_MY_BUSINESS)
+    Observable<BaseResult> deleteUserBusiness( @Query("account") String account,
+                                               @Query("token") String token,@Query("ids") List<Integer> ids);
 
     /**
      * 查询用户提交申请业务详情

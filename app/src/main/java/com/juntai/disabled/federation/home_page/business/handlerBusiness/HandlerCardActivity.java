@@ -20,10 +20,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessContract;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -108,11 +111,10 @@ public class HandlerCardActivity extends BaseBusinessActivity {
                 commitmentSb.append(",残疾人监护人");
                 commitmentSb.append(getTextViewValue(mGuardianNameEt) + ",");
                 commitmentSb.append(getTextViewValue(mCommitmentTv));
-                ToastUtils.toast(mContext, commitmentSb.toString());
                 builder.addFormDataPart("commitment", commitmentSb.toString());
                 builder.addFormDataPart("applicantSignFile", "applicantSignFile", RequestBody.create(MediaType.parse(
                         "file"), new File(getSignPath())));
-                mPresenter.addDisabilityCertificate(builder.build(),null);
+                mPresenter.addDisabilityCertificate(builder.build(), AppHttpPath.HANDLER_DISABLED_CARD);
                 break;
             case R.id.guardian__name_sign_iv:
                 showSignatureView();
@@ -129,6 +131,8 @@ public class HandlerCardActivity extends BaseBusinessActivity {
 
     @Override
     public void initData() {
+        //清除签名文件
+        FileCacheUtils.clearImage(FileCacheUtils.getAppImagePath() + FileCacheUtils.SIGN_PIC_NAME);
         String content = getString(R.string.commitment);
         initCommitmentText(content);
     }
@@ -197,32 +201,19 @@ public class HandlerCardActivity extends BaseBusinessActivity {
         return new CharSequence[]{"视力", "听力", "言语", "肢体", "智力", "精神"};
     }
 
-    private SpannableString getClickableSpan() {
-        String provacyStr1 = "我已阅读并同意相关";
-        String provacyStr2 = "隐私政策和用户协议";
-        String privacyPolicyMsg = provacyStr1 + provacyStr2;
-        int start = privacyPolicyMsg.indexOf(provacyStr2);
-        int end = privacyPolicyMsg.length();
-
-        SpannableString spannableString = new SpannableString(privacyPolicyMsg);
-        //设置下划线文字
-        spannableString.setSpan(new UnderlineSpan(), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        //设置文字的单击事件
-        spannableString.setSpan(new ClickableSpan() {
-            @Override
-            public void onClick(View widget) {
-                // 前往查看隐私政策与用户协议
-            }
-        }, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        //设置文字的前景色
-        spannableString.setSpan(new ForegroundColorSpan(Color.BLUE), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return spannableString;
-    }
 
     @Override
     public void onSuccess(String tag, Object o) {
         super.onSuccess(tag, o);
-    }
+        switch (tag) {
+            case AppHttpPath.HANDLER_DISABLED_CARD:
+                ToastUtils.toast(mContext,"办理成功");
+                finish();
+                break;
+            default:
+                break;
+        }
 
+    }
 
 }

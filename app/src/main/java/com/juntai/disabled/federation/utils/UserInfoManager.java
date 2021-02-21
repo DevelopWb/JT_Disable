@@ -74,13 +74,14 @@ public class UserInfoManager {
         return getUser() != null && getUser().getData() != null ? getUser().getData().getAccount() : "";
     }
     /**
-     * 获取getUserToken
+     * 获取usertoken
      *
      * @return
      */
     public static String getUserToken() {
-        return getUser() != null && getUser().getData() != null ? getUser().getData().getToken() : "";
+        return Hawk.get(AppUtils.SP_KEY_TOKEN);
     }
+
     /**
      * 获取getUserId
      *

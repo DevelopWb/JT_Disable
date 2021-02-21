@@ -386,7 +386,11 @@ public class AppHttpPath {
     /**
      * 用户业务办理进度
      */
-    public static final String BUSINESS_PROGRESS = BASE + "/selectUserBusinessSchedule.shtml";
+    public static final String BUSINESS_PROGRESS = BASE + "/getUserWorkBusiness.shtml";
+    /**
+     * 删除业务
+     */
+    public static final String DELETE_MY_BUSINESS = BASE + "/deleteUserBusiness.shtml";
     /**
      * 查询用户提交申请业务详情
      */
@@ -831,6 +835,12 @@ public class AppHttpPath {
      * 建议
      */
     public static final String REQUEST_SUGGESTION = BASE + "/addOpinionsAndSuggestions.shtml";
+
+
+
+
+
+
 
 
 }

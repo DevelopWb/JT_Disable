@@ -1,5 +1,7 @@
 package com.juntai.disabled.federation.home_page.business.my_business;
 
+import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -15,67 +17,41 @@ import com.juntai.disabled.federation.bean.business.MyBusinessBean;
  */
 public class MyBusinessAdapter extends BaseQuickAdapter<MyBusinessBean.DataBean.DatasBean, BaseViewHolder> {
 
+
+    private boolean  isEdit;
+
+    public boolean isEdit() {
+        return isEdit;
+    }
+
+    public void setEdit(boolean edit) {
+        isEdit = edit;
+        notifyDataSetChanged();
+    }
+
     public MyBusinessAdapter(int layoutResId) {
         super(layoutResId);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, MyBusinessBean.DataBean.DatasBean item) {
-       helper.setImageResource(R.id.item_iv,getBusinessResId(item.getCategoryId()));
-        helper.setText(R.id.item_name,item.getTitle());
+        if (isEdit){
+            //编辑状态
+            helper.setChecked(R.id.item_check,item.isChecked());
+            helper.getView(R.id.item_check).setVisibility(View.VISIBLE);
+            helper.getView(R.id.item_check).setOnClickListener(v -> {
+                item.setChecked(((CheckBox)v).isChecked());
+            });
+        }else {
+            helper.getView(R.id.item_check).setVisibility(View.GONE);
+            item.setChecked(false);
+        }
+        helper.setText(R.id.item_name,item.getMatterName());
         helper.setText(R.id.item_content,item.getGmtCreate());
         helper.setVisible(R.id.item_status,true);
         setStatus(helper.getView(R.id.item_status),item.getStatusX());
     }
 
-    /**
-     * 获取业务对应的id
-     * @param typeId
-     * @return
-     */
-    private int getBusinessResId(int typeId) {
-        int resourceId = 0;
-        switch (typeId) {
-            case 1:
-                resourceId = R.mipmap.business_hukou_by_present;
-                break;
-            case 2:
-                resourceId = R.mipmap.business_die_unregist;
-                break;
-            case 3:
-                resourceId = R.mipmap.business_join;
-                break;
-            case 4:
-                resourceId = R.mipmap.business_house_move;
-                break;
-            case 5:
-                resourceId = R.mipmap.business_hukou_by_house;
-                break;
-            case 6:
-                resourceId = R.mipmap.business_hukou_out_by_prove;
-                break;
-            case 7:
-                resourceId = R.mipmap.business_hukou_out_by_school;
-                break;
-            case 8:
-                resourceId = R.mipmap.business_change_name;
-                break;
-            case 9:
-                resourceId = R.mipmap.business_change_idcard;
-                break;
-            case 10:
-                resourceId = R.mipmap.business_idcard_iterim;
-                break;
-            case 11:
-                resourceId = R.mipmap.business_receive_live_card;
-                break;
-            default:
-                resourceId = R.mipmap.business_more;
-                break;
-
-        }
-        return resourceId;
-    }
     //审批状态（0：审核中）（1：审核通过）（2：审核失败）
     public void setStatus(TextView textView, int status){
         switch (status){
