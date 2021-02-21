@@ -6,14 +6,19 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
 
+import java.io.File;
 import java.util.List;
 
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * @aouther tobato
@@ -57,7 +62,9 @@ public abstract class BaseChildBusinessActivity extends BaseBusinessActivity {
 
     @Override
     public void onSuccess(String tag, Object o) {
-
+        BaseResult baseResult = (BaseResult) o;
+        ToastUtils.toast(mContext,baseResult.message);
+        finish();
     }
 
     @Override
@@ -73,23 +80,33 @@ public abstract class BaseChildBusinessActivity extends BaseBusinessActivity {
                     ToastUtils.toast(mContext,"请签名");
                     return;
                 }
+                builder.addFormDataPart("applicantSignFile", "applicantSignFile", RequestBody.create(MediaType.parse(
+                        "file"), new File(getSignPath())));
 
                 switch (getTitleName()) {
                     case BUSINESS_NAME_RENEWAL:
+                        mPresenter.addCertificatesExchange(builder.build(), AppHttpPath.DISABLED_CARD_RENEWAL);
                         break;
                     case BUSINESS_NAME_LEVEL_CHANGE:
+                        mPresenter.addCertificatesChange(builder.build(), AppHttpPath.DISABLED_CARD_RENEWAL);
                         break;
                     case BUSINESS_NAME_REISSUE:
+                        mPresenter.addCertificatesReissue(builder.build(), AppHttpPath.DISABLED_CARD_RENEWAL);
                         break;
                     case BUSINESS_NAME_MOVE_IN:
+                        mPresenter.addCertificatesMovein(builder.build(), AppHttpPath.DISABLED_CARD_RENEWAL);
+
                         break;
                     case BUSINESS_NAME_MOVE_OUT:
+                        mPresenter.addCertificatesMoveout(builder.build(), AppHttpPath.DISABLED_CARD_RENEWAL);
                         break;
                     case BUSINESS_NAME_LOGOUT:
+                        mPresenter.addCertificatesCancel(builder.build(), AppHttpPath.DISABLED_CARD_RENEWAL);
                         break;
                     default:
                         break;
                 }
+
                 break;
             case R.id.guardian__name_sign_iv:
                 showSignatureView();

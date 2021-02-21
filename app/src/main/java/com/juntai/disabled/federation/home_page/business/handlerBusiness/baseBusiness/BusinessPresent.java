@@ -935,6 +935,58 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
 
         return arrays;
     }
+    /**
+     * 居家托养
+     *
+     * @return
+     */
+    public List<MultipleItem> getHomeCareAdapterData() {
+        List<MultipleItem> arrays = new ArrayList<>();
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "监护人家庭情况"));
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME);
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, 0, new String[]{"男", "女"});
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_AGE);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_JOB);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DISABILITY_PEOPLE_RELATION);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_PHONE);
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS, 1, new String[]{"低保家庭", "建档立卡贫困家庭", "其他困难"});
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, "家庭地址:河东区"));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
+                new BusinessTextValueBean(BusinessContract.TABLE_TITLE_STREET, null,
+                        String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_STREET), 0)));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
+                new BusinessTextValueBean(BusinessContract.TABLE_TITLE_VILLAGE, null,
+                        String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_VILLAGE), 0)));
+
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "残疾人概况"));
+
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME);
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, 0, new String[]{"男", "女"});
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_AGE);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_EDUCATION_LEVEL);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_KINDS);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_LEVEL);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DISABLE_CARD_ID);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, "家庭地址:河东区"));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
+                new BusinessTextValueBean(BusinessContract.TABLE_TITLE_STREET, null,
+                        String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_STREET), 0)));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
+                new BusinessTextValueBean(BusinessContract.TABLE_TITLE_VILLAGE, null,
+                        String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_VILLAGE), 0)));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PHOTO, 1, "")));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_GUARDIAN_ID_PIC, 2, "")));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_HUKOU_RELATION_PIC, 3, "")));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_LIFE_PIC_MYSELF, 4, "")));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_SIGN, new ItemSignBean("申请人签字", null, 0)));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_NOTICE, "注：此表一式两份，区残联、居家托养服务机构各执一份"));
+        return arrays;
+    }
 
     /**
      * 辅助用品
@@ -1116,7 +1168,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOMETOWN);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_IDCARD);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DISABILITY_PEOPLE_NAME);
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DISABILITY_PEOPLE_RELATION);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DISABILITY_STUDENT_RELATION);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DISABLE_CARD_ID);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_KINDS);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_LEVEL);

@@ -20,30 +20,29 @@
             android:id="@+id/radio_zero_rb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
-           ></RadioButton>
+            android:checked="true"></RadioButton>
 
         <RadioButton
             android:id="@+id/radio_first_rb"
-            android:layout_marginLeft="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="false"
-            ></RadioButton>
+            android:layout_marginLeft="5dp"
+            android:baselineAligned="false"
+            android:checked="false"></RadioButton>
+
         <RadioButton
             android:id="@+id/radio_second_rb"
-            android:layout_marginLeft="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="false"
-            ></RadioButton>
+            android:layout_marginLeft="5dp"
+            android:checked="false"></RadioButton>
+
         <RadioButton
             android:id="@+id/radio_third_rb"
-            android:layout_marginLeft="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="false"
-            ></RadioButton>
+            android:layout_marginLeft="5dp"
+            android:checked="false"></RadioButton>
 
     </RadioGroup>
 

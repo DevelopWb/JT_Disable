@@ -254,8 +254,10 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 int gravity = signBean.getLayoutGravity();
                 LinearLayout signLl = helper.getView(R.id.item_sign_ll);
                 if (0 == gravity) {
+                   helper.setGone(R.id.sign_tag,true);
                     signLl.setGravity(Gravity.LEFT);
                 } else {
+                    helper.setGone(R.id.sign_tag,false);
                     signLl.setGravity(Gravity.RIGHT);
                 }
                 helper.setText(R.id.sign_name_tv, signBean.getSignName());

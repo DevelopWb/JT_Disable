@@ -20,6 +20,7 @@ import com.juntai.disabled.federation.home_page.business.handlerBusiness.CardMov
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.CardReissueActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.EmploymentRegistActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.HandlerCardActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.HomeCareActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.RenewalActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.TrainingRequestActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.disabilityChildRecovery.DisabilityChildRecoveryActivity;
@@ -120,7 +121,7 @@ public class BusinessItemAdapter extends BaseMultiItemQuickAdapter<MultipleItem,
                                 break;
                             case 14:
                                 //居家托养
-                                mContext.startActivity(new Intent(mContext, AssistToolsRequestActivity.class));
+                                mContext.startActivity(new Intent(mContext, HomeCareActivity.class));
                                 break;
                             case 15:
                                 //意见建议

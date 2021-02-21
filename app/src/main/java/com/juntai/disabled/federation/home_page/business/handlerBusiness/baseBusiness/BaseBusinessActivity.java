@@ -26,6 +26,7 @@ import com.juntai.disabled.federation.bean.business.BusinessTextValueBean;
 import com.juntai.disabled.federation.bean.business.DeafBean;
 import com.juntai.disabled.federation.bean.business.ItemCheckBoxBean;
 import com.juntai.disabled.federation.bean.business.RecycleBean;
+import com.juntai.disabled.federation.utils.StringTools;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.io.File;
@@ -322,7 +323,8 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         ToastUtils.toast(mContext, "请选择申请人照片");
                         return null;
                     }
-                    builder.addFormDataPart("photoFile", "photoFile", RequestBody.create(MediaType.parse("file"), new File(headPicBean.getPicPath())));
+                    builder.addFormDataPart("photoFile", "photoFile", RequestBody.create(MediaType.parse("file"),
+                            new File(headPicBean.getPicPath())));
                     break;
                 case MultipleItem.ITEM_BUSINESS_EDIT:
                     BusinessTextValueBean textValueEditBean = (BusinessTextValueBean) array
@@ -345,6 +347,9 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         case BusinessContract.TABLE_TITLE_IDCARD:
                             formKey = "idNumber";
                             break;
+                        case BusinessContract.TABLE_TITLE_DISABLE_CARD_ID:
+                            formKey = "disabilityCertificate";
+                            break;
                         case BusinessContract.TABLE_TITLE_ADDR:
                             formKey = "address";
                             break;
@@ -358,6 +363,9 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             formKey = "relationship";
                             break;
                         case BusinessContract.TABLE_TITLE_PHONE:
+                            formKey = "telephone";
+                            break;
+                        case BusinessContract.TABLE_TITLE_CONTACT_MODE:
                             formKey = "telephone";
                             break;
                         case BusinessContract.TABLE_TITLE_WORKER:
@@ -376,19 +384,22 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         default:
                             break;
                     }
-                    builder.addFormDataPart(formKey,textValueEditBean.getValue());
+                    if (formKey != null) {
+                        builder.addFormDataPart(formKey, textValueEditBean.getValue());
+                    }
+
                     break;
                 case MultipleItem.ITEM_BUSINESS_RADIO:
                     BusinessRadioBean radioBean = (BusinessRadioBean) array.getObject();
                     switch (radioBean.getKey()) {
                         case BusinessContract.TABLE_TITLE_SEX:
-                            builder.addFormDataPart("sex",String.valueOf(radioBean.getDefaultSelectedIndex()));
+                            builder.addFormDataPart("sex", String.valueOf(radioBean.getDefaultSelectedIndex()));
                             break;
                         case BusinessContract.TABLE_TITLE_HUKOU:
-                            builder.addFormDataPart("accountType",String.valueOf(radioBean.getDefaultSelectedIndex()));
+                            builder.addFormDataPart("accountType", String.valueOf(radioBean.getDefaultSelectedIndex()));
                             break;
                         case BusinessContract.TABLE_TITLE_IS_WEEL_COMPANY:
-                            builder.addFormDataPart("unitWelfare",String.valueOf(radioBean.getDefaultSelectedIndex()));
+                            builder.addFormDataPart("unitWelfare", String.valueOf(radioBean.getDefaultSelectedIndex()));
                             break;
                         default:
                             break;
@@ -398,13 +409,13 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                     BusinessTextValueBean textValueSelectBean = (BusinessTextValueBean) array.getObject();
                     switch (textValueSelectBean.getKey()) {
                         case BusinessContract.TABLE_TITLE_NATION:
-                            builder.addFormDataPart("nation",String.valueOf(selectedNation));
+                            builder.addFormDataPart("nation", String.valueOf(selectedNation));
                             break;
                         case BusinessContract.TABLE_TITLE_MARRIAGE:
-                            builder.addFormDataPart("marriage",String.valueOf(selectedMarrayStatus));
+                            builder.addFormDataPart("marriage", String.valueOf(selectedMarrayStatus));
                             break;
                         case BusinessContract.TABLE_TITLE_EDUCATION_LEVEL:
-                            builder.addFormDataPart("education",String.valueOf(selectedEducationLevel));
+                            builder.addFormDataPart("education", String.valueOf(selectedEducationLevel));
                             break;
                         default:
                             break;
@@ -412,9 +423,39 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                     break;
                 case MultipleItem.ITEM_BUSINESS_PIC:
                     BusinessPicBean picBean = (BusinessPicBean) array.getObject();
-                    if (TextUtils.isEmpty(picBean.getPicPath())) {
-                        ToastUtils.toast(mContext, "请上传资料图片");
-                        return null;
+                    String picKey = picBean.getPicName();
+                    if (picKey != null) {
+                        switch (picKey) {
+                            case BusinessContract.TABLE_TITLE_DISABLE_PIC:
+                                if (!StringTools.isStringValueOk(picBean.getPicPath())) {
+                                    ToastUtils.toast(mContext,"请选择残疾证照片");
+                                    return null;
+                                }
+                                //残疾证照片
+                                builder.addFormDataPart("pictureFile", "pictureFile", RequestBody.create(MediaType.parse("file"),
+                                        new File(picBean.getPicPath())));
+                                break;
+                            case BusinessContract.TABLE_TITLE_MATERIAL_PIC:
+                                if (!StringTools.isStringValueOk(picBean.getPicPath())) {
+                                    ToastUtils.toast(mContext,"请选择病例材料照片");
+                                    return null;
+                                }
+                                //残疾证照片
+                                builder.addFormDataPart("casePictureFile", "casePictureFile", RequestBody.create(MediaType.parse("file"),
+                                        new File(picBean.getPicPath())));
+                                break;
+                            case BusinessContract.TABLE_TITLE_LIFE_PIC:
+                                if (!StringTools.isStringValueOk(picBean.getPicPath())) {
+                                    ToastUtils.toast(mContext,"请选择生活照片");
+                                    return null;
+                                }
+                                //残疾证照片
+                                builder.addFormDataPart("lifePictureFile", "lifePictureFile", RequestBody.create(MediaType.parse("file"),
+                                        new File(picBean.getPicPath())));
+                                break;
+                            default:
+                                break;
+                        }
                     }
                     break;
                 case MultipleItem.ITEM_BUSINESS_NORMAL_RECYCLEVIEW:
@@ -424,7 +465,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         ToastUtils.toast(mContext, "请选择" + recycleBean.getTitleKey());
                         return null;
                     }
-                                    break;
+                    break;
                 case MultipleItem.ITEM_BUSINESS_DEAF_TABLE:
                     DeafBean deafBean = (DeafBean) array.getObject();
                     sb.append(deafBean.toString());
@@ -463,7 +504,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     public void onSuccess(String tag, Object o) {
         BusinessPropertyBean propertyNationBean = null;
         List<BusinessPropertyBean.DataBean> data = null;
-        if (BusinessContract.TABLE_TITLE_NATION.equals(tag)||BusinessContract.TABLE_TITLE_EDUCATION_LEVEL.equals(tag)) {
+        if (BusinessContract.TABLE_TITLE_NATION.equals(tag) || BusinessContract.TABLE_TITLE_EDUCATION_LEVEL.equals(tag)) {
             propertyNationBean = (BusinessPropertyBean) o;
             data = propertyNationBean.getData();
         }

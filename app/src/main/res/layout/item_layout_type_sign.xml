@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
     android:id="@+id/item_sign_ll"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp">
+
+        <View
+            android:id="@+id/sign_tag"
+            android:layout_width="3dp"
+            android:layout_height="15dp"
+            android:background="@color/colorAccent"></View>
 
         <TextView
             android:id="@+id/sign_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="15dp"
+            android:paddingLeft="5dp"
             android:paddingTop="5dp"
-            android:textColor="@color/text_title"
             android:paddingBottom="5dp"
+            android:textColor="@color/text_title"
             android:textSize="16dp"></TextView>
 
         <ImageView
