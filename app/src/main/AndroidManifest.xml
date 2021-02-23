@@ -30,7 +30,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".home_page.business.handlerBusiness.HomeCareActivity"></activity>
+        <activity android:name=".home_page.business.handlerBusiness.HandlerCardDetailActivity"></activity>
+        <activity android:name=".home_page.business.handlerBusiness.HomeCareActivity" />
         <activity android:name=".home_page.business.handlerBusiness.TrainingRequestActivity" />
         <activity android:name=".home_page.business.handlerBusiness.AssistToolsRequestActivity" />
         <activity android:name=".home_page.business.handlerBusiness.disabilityChildRecovery.BrainPalsyRecoveryActivity" />

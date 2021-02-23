@@ -141,7 +141,8 @@ public interface BusinessContract {
         void businessDetail(RequestBody requestBody, String tag);
 
         void businessProgress(RequestBody requestBody, String tag);
-        void deleteUserBusiness(List<Integer> ids,String tag);
+
+        void deleteUserBusiness(List<Integer> ids, String tag);
 
 
 
@@ -210,42 +211,52 @@ public interface BusinessContract {
          * @param tag
          */
         void addCertificatesReissue(RequestBody requestBody, String tag);
+
         /**
          * @param tag
          */
         void addCertificatesMovein(RequestBody requestBody, String tag);
+
         /**
          * @param tag
          */
         void addCertificatesMoveout(RequestBody requestBody, String tag);
+
         /**
          * @param tag
          */
         void addCertificatesCancel(RequestBody requestBody, String tag);
+
         /**
          * @param tag
          */
         void addDisabledObtainEmployment(RequestBody requestBody, String tag);
+
         /**
          * @param tag
          */
         void addDisabledChildrenCerebralPalsy(RequestBody requestBody, String tag);
+
         /**
          * @param tag
          */
         void addDisabledChildrenDeaf(RequestBody requestBody, String tag);
+
         /**
          * @param tag
          */
         void addDisabledChildrenAutism(RequestBody requestBody, String tag);
+
         /**
          * @param tag
          */
         void addDisabledChildrenIntellectual(RequestBody requestBody, String tag);
+
         /**
          * @param tag
          */
         void addDisabledStudentGrant(RequestBody requestBody, String tag);
+
         /**
          * @param tag
          */
@@ -272,6 +283,101 @@ public interface BusinessContract {
         void addOpinionsAndSuggestions(RequestBody requestBody, String tag);
 
 
-    }
 
+
+
+        /*==============================================  详情接口  =============================================*/
+
+        /**
+         * @param businessId
+         * @param tag
+         */
+        void getDisabilityCertificateInfo(int businessId, String tag);
+
+        /**
+         * @param businessId
+         * @param tag
+         */
+        void getCertificatesExchangeInfo(int businessId, String tag);
+
+        /**
+         * @param businessId
+         * @param tag
+         */
+        void getCertificatesChangeInfo(int businessId, String tag);
+
+        /**
+         * @param businessId
+         * @param tag
+         */
+        void getCertificatesReissueInfo(int businessId, String tag);
+
+        /**
+         * @param businessId
+         * @param tag
+         */
+        void getCertificatesMoveinInfo(int businessId, String tag);
+
+        /**
+         * @param businessId
+         * @param tag
+         */
+        void getCertificatesMoveoutInfo(int businessId, String tag);
+        /**
+         * @param businessId
+         * @param tag
+         */
+        void getCertificatesCancelInfo(int businessId, String tag);
+        /**
+         * @param businessId
+         * @param tag
+         */
+        void getDisabledObtainEmploymentInfo(int businessId, String tag);
+        /**
+         * @param businessId
+         * @param tag
+         */
+        void getDisabledChildrenCerebralPalsyInfo(int businessId, String tag);
+        /**
+         * @param businessId
+         * @param tag
+         */
+        void getDisabledChildrenDeafInfo(int businessId, String tag);
+        /**
+         * @param businessId
+         * @param tag
+         */
+        void getDisabledChildrenAutismInfo(int businessId, String tag);
+        /**
+         * @param businessId
+         * @param tag
+         */
+        void getDisabledChildrenIntellectualInfo(int businessId, String tag);
+        /**
+         * @param businessId
+         * @param tag
+         */
+        void getDisabledStudentFamilyGrantInfo(int businessId, String tag);
+        /**
+         * @param businessId
+         * @param tag
+         */
+        void getDisabledStudentGrantInfo(int businessId, String tag);
+        /**
+         * @param businessId
+         * @param tag
+         */
+        void getAIDSInfo(int businessId, String tag);
+        /**
+         * @param businessId
+         * @param tag
+         */
+        void getTrainInfo(int businessId, String tag);
+        /**
+         * @param businessId
+         * @param tag
+         */
+        void getHomCareInfo(int businessId, String tag);
+
+    }
 }

@@ -62,6 +62,8 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     private int selectedNation = 0;//民族
     private int selectedEducationLevel = 0;//学历登记
     private BusinessTextValueBean selectBean;
+    public static String BUSINESS_ID = "businessid";
+    protected int businessId = -1;
 
     protected abstract String getTitleName();
 
@@ -88,12 +90,19 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
 
     @Override
     public void initView() {
-        setTitleName(getTitleName());
+        ////businessId=-1进入详情模式
+        businessId = getIntent().getIntExtra(BUSINESS_ID,-1);
+        if (-1!=businessId) {
+            setTitleName(getTitleName()+"详情");
+        }else {
+            setTitleName(getTitleName());
+        }
+
         mRecyclerview = (RecyclerView) findViewById(R.id.recyclerview);
         mSmartrefreshlayout = (SmartRefreshLayout) findViewById(R.id.smartrefreshlayout);
         mSmartrefreshlayout.setEnableLoadMore(false);
         mSmartrefreshlayout.setEnableRefresh(false);
-        adapter = new HandlerBusinessAdapter(getAdapterData());
+        adapter = new HandlerBusinessAdapter(getAdapterData(),businessId==-1?false:true);
         initRecyclerview(mRecyclerview, adapter, LinearLayoutManager.VERTICAL);
         if (getFootView() != null) {
             adapter.setFooterView(getFootView());
@@ -416,6 +425,9 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             break;
                         case BusinessContract.TABLE_TITLE_EDUCATION_LEVEL:
                             builder.addFormDataPart("education", String.valueOf(selectedEducationLevel));
+                            break;
+                        case BusinessContract.TABLE_TITLE_CARD_TYPE:
+                            builder.addFormDataPart("type", String.valueOf(selectedCardType));
                             break;
                         default:
                             break;

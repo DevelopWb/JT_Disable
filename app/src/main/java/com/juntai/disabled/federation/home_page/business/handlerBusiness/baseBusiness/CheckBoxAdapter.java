@@ -25,17 +25,26 @@ import java.util.List;
 public class CheckBoxAdapter extends BaseQuickAdapter<ItemCheckBoxBean, BaseViewHolder> {
 
     private boolean isSingleSelect = false;// 默认不是单选
+    private boolean isDetail = false;//是否是详情模式
 
-    public CheckBoxAdapter(int layoutResId, @Nullable List<ItemCheckBoxBean> data, boolean isSingleSelect) {
+    public CheckBoxAdapter(int layoutResId, @Nullable List<ItemCheckBoxBean> data, boolean isSingleSelect,
+                           boolean isDetail) {
         super(layoutResId, data);
         this.isSingleSelect = isSingleSelect;
+        this.isDetail = isDetail;
     }
 
 
     @Override
     protected void convert(BaseViewHolder helper, ItemCheckBoxBean item) {
 
+
         CheckBox checkBox = helper.getView(R.id.business_checkboxes_cb);
+        if (isDetail) {
+            checkBox.setEnabled(false);
+        }else {
+            checkBox.setEnabled(true);
+        }
         checkBox.setText(item.getKey());
         if ("其他困难".equals(item.getKey())) {
             helper.setGone(R.id.item_description_ll, true);

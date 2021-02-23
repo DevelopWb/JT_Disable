@@ -24,11 +24,10 @@
         android:background="@drawable/bg_white_only_bottom_gray_shape_1px"
         android:gravity="center"
         android:paddingTop="5dp"
-        app:layout_constraintTop_toTopOf="parent"
         android:paddingBottom="5dp"
         android:textSize="16dp"
         app:layout_constraintRight_toLeftOf="@+id/guardian_tv"
-        ></EditText>
+        app:layout_constraintTop_toTopOf="parent"></EditText>
 
     <TextView
         android:id="@+id/guardian_tv"
@@ -49,12 +48,17 @@
         android:layout_marginRight="15dp"
         android:background="@drawable/bg_white_only_bottom_gray_shape_1px"
         android:gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:textSize="16dp"
         app:layout_constraintRight_toRightOf="parent"
-      ></EditText>
+        app:layout_constraintTop_toTopOf="parent"></EditText>
+
+    <android.support.constraint.Group
+        android:id="@+id/commitment_g"
+        app:constraint_referenced_ids="am_diable_tv,diable_name_et,guardian_tv,guardian__name_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></android.support.constraint.Group>
 
     <TextView
         android:id="@+id/commitment_tv"
@@ -86,15 +90,14 @@
             android:text="承诺人（监护人）："
             android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="@+id/guardian__name_sign_iv"
-            app:layout_constraintRight_toLeftOf="@+id/guardian__name_sign_iv"
-            ></TextView>
+            app:layout_constraintRight_toLeftOf="@+id/guardian__name_sign_iv"></TextView>
 
         <ImageView
             android:id="@+id/guardian__name_sign_iv"
             android:layout_width="60dp"
             android:layout_height="40dp"
-            android:scaleType="fitCenter"
             android:layout_marginRight="15dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/bg_white_only_bottom_gray_shape_1px"
             android:textSize="16dp"
             app:layout_constraintRight_toRightOf="parent"

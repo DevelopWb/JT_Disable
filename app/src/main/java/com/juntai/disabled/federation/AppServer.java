@@ -32,6 +32,7 @@ import com.juntai.disabled.federation.bean.business.BusinessListBean;
 import com.juntai.disabled.federation.bean.business.BusinessNeedInfoBean;
 import com.juntai.disabled.federation.bean.business.BusinessPropertyBean;
 import com.juntai.disabled.federation.bean.business.ChildBusinessesBean;
+import com.juntai.disabled.federation.bean.business.HandlerCardDetailBean;
 import com.juntai.disabled.federation.bean.business.MyBusinessBean;
 import com.juntai.disabled.federation.bean.business.MyBusinessDetailBean;
 import com.juntai.disabled.federation.bean.case_bean.CaseDesBean;
@@ -1863,5 +1864,111 @@ public interface AppServer {
     @POST(AppHttpPath.REQUEST_SUGGESTION)
     Observable<BaseResult> addOpinionsAndSuggestions(@Body RequestBody requestBody);
 
+
+
+
+    /*==============================================  业务详情  =============================================*/
+    /**
+     *
+     * @return
+     */
+    @GET(AppHttpPath.DISABLED_ID_CARD_DETAIL)
+    Observable<HandlerCardDetailBean> getDisabilityCertificateInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    /**
+     *
+     * @return
+     */
+    @GET(AppHttpPath.DISABLED_RENEWAL_DETAIL)
+    Observable<BaseResult> getCertificatesExchangeInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    /**
+     *
+     * @return
+     */
+    @GET(AppHttpPath.DISABLED_LEVEL_CHANGE_DETAIL)
+    Observable<BaseResult> getCertificatesChangeInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    /**
+     *
+     * @return
+     */
+    @GET(AppHttpPath.DISABLED_REISSUE_DETAIL)
+    Observable<BaseResult> getCertificatesReissueInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    /**
+     *
+     * @return
+     */
+    @GET(AppHttpPath.DISABLED_CARD_MOVE_IN_DETAIL)
+    Observable<BaseResult> getCertificatesMoveinInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    /**
+     *
+     * @return
+     */
+    @GET(AppHttpPath.DISABLED_CARD_MOVE_OUT_DETAIL)
+    Observable<BaseResult> getCertificatesMoveoutInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    /**
+     *
+     * @return
+     */
+    @GET(AppHttpPath.DISABLED_CARD_LOGOUT_DETAIL)
+    Observable<BaseResult> getCertificatesCancelInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    /**
+     *
+     * @return
+     */
+    @GET(AppHttpPath.DISABLED_CARD_EMPLOYMENT_REGIST_DETAIL)
+    Observable<BaseResult> getDisabledObtainEmploymentInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    /**
+     *
+     * @return
+     */
+    @GET(AppHttpPath.CEREBRAL_PALSY_RECOVERY_DETAIL)
+    Observable<BaseResult> getDisabledChildrenCerebralPalsyInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    /**
+     *
+     * @return
+     */
+    @GET(AppHttpPath.DEAF_CHILD_RECOVERY_DETAIL)
+    Observable<BaseResult> getDisabledChildrenDeafInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    /**
+     *
+     * @return
+     */
+    @GET(AppHttpPath.LONELY_CHILD_RECOVERY_DETAIL)
+    Observable<BaseResult> getDisabledChildrenAutismInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    /**
+     *
+     * @return
+     */
+    @GET(AppHttpPath.IQ_CHILD_RECOVERY_DETAIL)
+    Observable<BaseResult> getDisabledChildrenIntellectualInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    /**
+     *
+     * @return
+     */
+    @GET(AppHttpPath.DISABLED_CHILD_BURSARY_DETAIL)
+    Observable<BaseResult> getDisabledStudentFamilyGrantInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    /**
+     *
+     * @return
+     */
+    @GET(AppHttpPath.DISABLED_FAMILY_CHILD_BURSARY_DETAIL)
+    Observable<BaseResult> getDisabledStudentGrantInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    /**
+     *
+     * @return
+     */
+    @GET(AppHttpPath.REQUEST_AIDS_DETAIL)
+    Observable<BaseResult> getAIDSInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    /**
+     *
+     * @return
+     */
+    @GET(AppHttpPath.REQUEST_TRAIN_DETAIL)
+    Observable<BaseResult> getTrainInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    /**
+     *
+     * @return
+     */
+    @GET(AppHttpPath.HOME_CARE_DETAIL)
+    Observable<BaseResult> getHomCareInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
 
 }

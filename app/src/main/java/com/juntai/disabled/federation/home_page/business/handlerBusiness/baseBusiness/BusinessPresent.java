@@ -21,6 +21,7 @@ import com.juntai.disabled.federation.bean.business.BusinessRadioBean;
 import com.juntai.disabled.federation.bean.business.BusinessTextValueBean;
 import com.juntai.disabled.federation.bean.business.ChildBusinessesBean;
 import com.juntai.disabled.federation.bean.business.DeafBean;
+import com.juntai.disabled.federation.bean.business.HandlerCardDetailBean;
 import com.juntai.disabled.federation.bean.business.ItemCheckBoxBean;
 import com.juntai.disabled.federation.bean.business.ItemSignBean;
 import com.juntai.disabled.federation.bean.business.MyBusinessBean;
@@ -160,9 +161,9 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
     }
 
     @Override
-    public void deleteUserBusiness(List<Integer> ids,String tag) {
+    public void deleteUserBusiness(List<Integer> ids, String tag) {
         AppNetModule.createrRetrofit()
-                .deleteUserBusiness(UserInfoManager.getUserAccount(),UserInfoManager.getUserToken(),ids)
+                .deleteUserBusiness(UserInfoManager.getUserAccount(), UserInfoManager.getUserToken(), ids)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {
                     @Override
@@ -780,6 +781,416 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                 });
     }
 
+    @Override
+    public void getDisabilityCertificateInfo(int businessId, String tag) {
+        AppNetModule.createrRetrofit()
+                .getDisabilityCertificateInfo(UserInfoManager.getUserAccount(), UserInfoManager.getUserToken(),
+                        String.valueOf(businessId))
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<HandlerCardDetailBean>(getView()) {
+                    @Override
+                    public void onSuccess(HandlerCardDetailBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void getCertificatesExchangeInfo(int businessId, String tag) {
+        AppNetModule.createrRetrofit()
+                .getCertificatesExchangeInfo(UserInfoManager.getUserAccount(),
+                        UserInfoManager.getUserToken(),
+                        String.valueOf(businessId))
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    @Override
+    public void getCertificatesChangeInfo(int businessId, String tag) {
+        AppNetModule.createrRetrofit()
+                .getCertificatesChangeInfo(UserInfoManager.getUserAccount(),
+                        UserInfoManager.getUserToken(),
+                        String.valueOf(businessId))
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    @Override
+    public void getCertificatesReissueInfo(int businessId, String tag) {
+        AppNetModule.createrRetrofit()
+                .getCertificatesReissueInfo(UserInfoManager.getUserAccount(),
+                        UserInfoManager.getUserToken(),
+                        String.valueOf(businessId))
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    @Override
+    public void getCertificatesMoveinInfo(int businessId, String tag) {
+        AppNetModule.createrRetrofit()
+                .getCertificatesMoveinInfo(UserInfoManager.getUserAccount(),
+                        UserInfoManager.getUserToken(),
+                        String.valueOf(businessId))
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    @Override
+    public void getCertificatesMoveoutInfo(int businessId, String tag) {
+        AppNetModule.createrRetrofit()
+                .getCertificatesMoveoutInfo(UserInfoManager.getUserAccount(),
+                        UserInfoManager.getUserToken(),
+                        String.valueOf(businessId))
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    @Override
+    public void getCertificatesCancelInfo(int businessId, String tag) {
+        AppNetModule.createrRetrofit()
+                .getCertificatesCancelInfo(UserInfoManager.getUserAccount(),
+                        UserInfoManager.getUserToken(),
+                        String.valueOf(businessId))
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    @Override
+    public void getDisabledObtainEmploymentInfo(int businessId, String tag) {
+        AppNetModule.createrRetrofit()
+                .getDisabledObtainEmploymentInfo(UserInfoManager.getUserAccount(),
+                        UserInfoManager.getUserToken(),
+                        String.valueOf(businessId))
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    @Override
+    public void getDisabledChildrenCerebralPalsyInfo(int businessId, String tag) {
+        AppNetModule.createrRetrofit()
+                .getDisabledChildrenCerebralPalsyInfo(UserInfoManager.getUserAccount(),
+                        UserInfoManager.getUserToken(),
+                        String.valueOf(businessId))
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void getDisabledChildrenDeafInfo(int businessId, String tag) {
+        AppNetModule.createrRetrofit()
+                .getDisabledChildrenDeafInfo(UserInfoManager.getUserAccount(),
+                        UserInfoManager.getUserToken(),
+                        String.valueOf(businessId))
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    @Override
+    public void getDisabledChildrenAutismInfo(int businessId, String tag) {
+        AppNetModule.createrRetrofit()
+                .getDisabledChildrenAutismInfo(UserInfoManager.getUserAccount(),
+                        UserInfoManager.getUserToken(),
+                        String.valueOf(businessId))
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    @Override
+    public void getDisabledChildrenIntellectualInfo(int businessId, String tag) {
+        AppNetModule.createrRetrofit()
+                .getDisabledChildrenIntellectualInfo(UserInfoManager.getUserAccount(),
+                        UserInfoManager.getUserToken(),
+                        String.valueOf(businessId))
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    @Override
+    public void getDisabledStudentFamilyGrantInfo(int businessId, String tag) {
+        AppNetModule.createrRetrofit()
+                .getDisabledStudentFamilyGrantInfo(UserInfoManager.getUserAccount(),
+                        UserInfoManager.getUserToken(),
+                        String.valueOf(businessId))
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    @Override
+    public void getDisabledStudentGrantInfo(int businessId, String tag) {
+        AppNetModule.createrRetrofit()
+                .getDisabledStudentGrantInfo(UserInfoManager.getUserAccount(),
+                        UserInfoManager.getUserToken(),
+                        String.valueOf(businessId))
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    @Override
+    public void getAIDSInfo(int businessId, String tag) {
+        AppNetModule.createrRetrofit()
+                .getAIDSInfo(UserInfoManager.getUserAccount(),
+                        UserInfoManager.getUserToken(),
+                        String.valueOf(businessId))
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    @Override
+    public void getTrainInfo(int businessId, String tag) {
+        AppNetModule.createrRetrofit()
+                .getTrainInfo(UserInfoManager.getUserAccount(),
+                        UserInfoManager.getUserToken(),
+                        String.valueOf(businessId))
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    @Override
+    public void getHomCareInfo(int businessId, String tag) {
+        AppNetModule.createrRetrofit()
+                .getHomCareInfo(UserInfoManager.getUserAccount(),
+                        UserInfoManager.getUserToken(),
+                        String.valueOf(businessId))
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
 
     /**
      * 获取builder
@@ -833,15 +1244,15 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
      *
      * @return
      */
-    public List<MultipleItem> getHandlerIdCardAdapterData() {
+    public List<MultipleItem> getHandlerIdCardAdapterData(HandlerCardDetailBean.DataBean dataBean) {
         List<MultipleItem> arrays = new ArrayList<>();
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "申请人基本信息"));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, BusinessContract.TABLE_TITLE_PIC));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_HEAD_PIC,
-                new BusinessPicBean("", -1, "")));
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME);
+                new BusinessPicBean("", -1, dataBean==null?"":dataBean.getPhoto())));
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME,dataBean.getName());
         initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, 0, new String[]{"男", "女"});
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_BIRTH);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_BIRTH,dataBean.getBirth());
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_NATION);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_MARRIAGE);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_EDUCATION_LEVEL);
@@ -863,7 +1274,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
     }
 
     /**
-     * 期满换证 登记变更 遗失补办 迁入迁出 注销等业务
+     * 期满换证 登记变更 遗失补办 迁入、迁出 注销等业务
      *
      * @return
      */
@@ -935,6 +1346,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
 
         return arrays;
     }
+
     /**
      * 居家托养
      *
@@ -949,7 +1361,8 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_JOB);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DISABILITY_PEOPLE_RELATION);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_PHONE);
-        initRadioType(arrays, BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS, 1, new String[]{"低保家庭", "建档立卡贫困家庭", "其他困难"});
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS, 1, new String[]{"低保家庭", "建档立卡贫困家庭",
+                "其他困难"});
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, "家庭地址:河东区"));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
                 new BusinessTextValueBean(BusinessContract.TABLE_TITLE_STREET, null,
@@ -1541,6 +1954,36 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
             case MultipleItem.ITEM_BUSINESS_EDIT2:
                 arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT2,
                         new BusinessTextValueBean(typeName, null,
+                                String.format("%s%s", "请输入", typeName), 0)));
+                break;
+            default:
+                break;
+        }
+
+    }
+    /**
+     * initTextType
+     *
+     * @param arrays
+     * @param typeName
+     */
+    private void initTextType(List<MultipleItem> arrays, int layoutType, String typeName,String value) {
+        switch (layoutType) {
+            case MultipleItem.ITEM_BUSINESS_SELECT:
+                arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, typeName));
+                arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_SELECT,
+                        new BusinessTextValueBean(typeName, value, String.format("%s%s", "请选择",
+                                typeName), 0)));
+                break;
+            case MultipleItem.ITEM_BUSINESS_EDIT:
+                arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, typeName));
+                arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
+                        new BusinessTextValueBean(typeName, value,
+                                String.format("%s%s", "请输入", typeName), 0)));
+                break;
+            case MultipleItem.ITEM_BUSINESS_EDIT2:
+                arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT2,
+                        new BusinessTextValueBean(typeName, value,
                                 String.format("%s%s", "请输入", typeName), 0)));
                 break;
             default:

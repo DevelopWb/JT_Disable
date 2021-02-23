@@ -75,7 +75,7 @@ public class HandlerCardActivity extends BaseBusinessActivity {
 
     @Override
     protected List<MultipleItem> getAdapterData() {
-        return mPresenter.getHandlerIdCardAdapterData();
+        return mPresenter.getHandlerIdCardAdapterData(null);
     }
 
 

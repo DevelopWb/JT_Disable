@@ -37,13 +37,16 @@ import java.util.List;
  * @date 2021/1/16 11:22
  */
 public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseViewHolder> {
+    private boolean  isDetail = false;//是否是详情模式
+
+
     /**
      * Same as QuickAdapter#QuickAdapter(Context,int) but with
      * some initialization data.
      *
      * @param data A new list is created out of this one to avoid mutable list
      */
-    public HandlerBusinessAdapter(List<MultipleItem> data) {
+    public HandlerBusinessAdapter(List<MultipleItem> data, boolean  isDetail ) {
         super(data);
         addItemType(MultipleItem.ITEM_BUSINESS_HEAD_PIC, R.layout.item_layout_type_head_pic);
         addItemType(MultipleItem.ITEM_BUSINESS_TITILE_BIG, R.layout.item_layout_type_title_big);
@@ -58,13 +61,16 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
         addItemType(MultipleItem.ITEM_BUSINESS_YEAR, R.layout.item_layout_type_year);
         addItemType(MultipleItem.ITEM_BUSINESS_NORMAL_RECYCLEVIEW, R.layout.item_layout_type_recyclerview);
         addItemType(MultipleItem.ITEM_BUSINESS_DEAF_TABLE, R.layout.item_layout_type_deaf_table);
+        this.isDetail = isDetail;
     }
 
     @Override
     protected void convert(BaseViewHolder helper, MultipleItem item) {
         switch (item.getItemType()) {
             case MultipleItem.ITEM_BUSINESS_HEAD_PIC:
-                helper.addOnClickListener(R.id.form_head_pic_iv);
+                if (!isDetail) {
+                    helper.addOnClickListener(R.id.form_head_pic_iv);
+                }
                 BusinessPicBean headPicBean = (BusinessPicBean) item.getObject();
                 ImageView headIv = helper.getView(R.id.form_head_pic_iv);
                 String headPicPath = headPicBean.getPicPath();
@@ -82,7 +88,15 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 break;
             case MultipleItem.ITEM_BUSINESS_EDIT:
                 BusinessTextValueBean textValueEditBean = (BusinessTextValueBean) item.getObject();
+
                 EditText editText = helper.getView(R.id.edit_value_et);
+                if (isDetail) {
+                    editText.setClickable(false);
+                    editText.setFocusable(false);
+                }else {
+                    editText.setClickable(true);
+                    editText.setFocusable(true);
+                }
                 int editType = textValueEditBean.getType();
                 LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) editText.getLayoutParams();
                 if (0 == editType) {
@@ -124,6 +138,13 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
             case MultipleItem.ITEM_BUSINESS_EDIT2:
                 BusinessTextValueBean textValueEditBean2 = (BusinessTextValueBean) item.getObject();
                 EditText editText2 = helper.getView(R.id.value_et);
+                if (isDetail) {
+                    editText2.setClickable(false);
+                    editText2.setFocusable(false);
+                }else {
+                    editText2.setClickable(true);
+                    editText2.setFocusable(true);
+                }
                 TextView textView2 = helper.getView(R.id.key_tv);
                 editText2.setTag(textValueEditBean2);
                 addTextChange(editText2);
@@ -137,7 +158,9 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
             case MultipleItem.ITEM_BUSINESS_SELECT:
                 BusinessTextValueBean textValueSelectBean = (BusinessTextValueBean) item.getObject();
                 TextView textViewTv = helper.getView(R.id.select_value_tv);
-                helper.addOnClickListener(R.id.select_value_tv);
+                if (!isDetail) {
+                    helper.addOnClickListener(R.id.select_value_tv);
+                }
                 textViewTv.setTag(textValueSelectBean);
                 BusinessTextValueBean selectBean = (BusinessTextValueBean) textViewTv.getTag();
                 textViewTv.setHint(selectBean.getHint());
@@ -146,6 +169,15 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
             case MultipleItem.ITEM_BUSINESS_RADIO:
                 BusinessRadioBean radioBean = (BusinessRadioBean) item.getObject();
                 RadioGroup radioGroup = helper.getView(R.id.item_radio_g);
+                if (isDetail) {
+                    for (int i = 0; i < radioGroup.getChildCount(); i++) {
+                        radioGroup.getChildAt(i).setEnabled(false);
+                    }
+                }else {
+                    for (int i = 0; i < radioGroup.getChildCount(); i++) {
+                        radioGroup.getChildAt(i).setEnabled(true);
+                    }
+                }
                 radioGroup.setTag(radioBean);
                 RadioButton radioButton0 = helper.getView(R.id.radio_zero_rb);
                 RadioButton radioButton1 = helper.getView(R.id.radio_first_rb);
@@ -209,7 +241,10 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                     helper.setText(R.id.form_pic_title_tv, businessPicBean.getPicName());
                 }
                 ImageView picIv = helper.getView(R.id.form_pic_src_iv);
-                helper.addOnClickListener(R.id.form_pic_src_iv);
+                if (!isDetail) {
+                    helper.addOnClickListener(R.id.form_pic_src_iv);
+                }
+
                 String picPath = businessPicBean.getPicPath();
                 if (!TextUtils.isEmpty(picPath)) {
                     ImageLoadUtil.loadImage(mContext, picPath, picIv);
@@ -227,7 +262,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 RecyclerView recyclerView = helper.getView(R.id.item_normal_rv);
                 int layoutType = recycleBean.getLayoutManagerType();
                 CheckBoxAdapter checkBoxAdapter = new CheckBoxAdapter(R.layout.item_business_checkboxes,
-                        recycleBean.getData(), recycleBean.isSigleSelect());
+                        recycleBean.getData(), recycleBean.isSigleSelect(),isDetail);
                 LinearLayoutManager manager = null;
                 switch (layoutType) {
                     case 0:
@@ -249,7 +284,9 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 break;
 
             case MultipleItem.ITEM_BUSINESS_SIGN:
-                helper.addOnClickListener(R.id.sign_name_iv);
+                if (!isDetail) {
+                    helper.addOnClickListener(R.id.sign_name_iv);
+                }
                 ItemSignBean signBean = (ItemSignBean) item.getObject();
                 int gravity = signBean.getLayoutGravity();
                 LinearLayout signLl = helper.getView(R.id.item_sign_ll);

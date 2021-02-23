@@ -30,6 +30,7 @@ public abstract class BaseStudentBursaryActivity extends BaseAppActivity<Busines
     private ViewPager mBursaryVp;
 
     protected abstract SparseArray<Fragment> getFragments();
+    public int businessId = -1;
 
     @Override
     public int getLayoutView() {
@@ -38,7 +39,8 @@ public abstract class BaseStudentBursaryActivity extends BaseAppActivity<Busines
 
     @Override
     public void initView() {
-
+        ////businessId=-1进入详情模式
+        businessId = getIntent().getIntExtra(BaseBusinessActivity.BUSINESS_ID,-1);
 
         mBursaryTab = (TabLayout) findViewById(R.id.bursary_tab);
         mBursaryVp = (ViewPager) findViewById(R.id.bursary_vp);

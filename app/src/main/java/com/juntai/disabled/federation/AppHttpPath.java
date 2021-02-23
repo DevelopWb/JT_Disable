@@ -800,37 +800,45 @@ public class AppHttpPath {
      * 聋儿童救助
      */
     public static final String DEAF_CHILD_RECOVERY = BASE + "/addDisabledChildrenDeaf.shtml";
+
     /**
      * 孤独儿童救助
      */
     public static final String LONELY_CHILD_RECOVERY = BASE + "/addDisabledChildrenAutism.shtml";
+
 
     /**
      * 智力儿童救助
      */
     public static final String IQ_CHILD_RECOVERY = BASE + "/addDisabledChildrenIntellectual.shtml";
 
+
     /**
      * 用户提交残疾人大学生（残疾学生助学金）申请接口
      */
     public static final String DISABLED_CHILD_BURSARY = BASE + "/addDisabledStudentGrant.shtml";
+
     /**
      * 残疾家庭学生
      */
     public static final String DISABLED_FAMILY_CHILD_BURSARY = BASE + "/addDisabledStudentFamilyGrant.shtml";
+
     /**
      * 辅助用品用具申请
      */
     public static final String REQUEST_AIDS = BASE + "/addAIDS.shtml";
+
     /**
      * 用户提交残疾人培训申请业务接口
      */
     public static final String REQUEST_TRAIN = BASE + "/addTrain.shtml";
 
+
     /**
      * 居家托养
      */
     public static final String HOME_CARE = BASE + "/addHomCare.shtml";
+
     /**
      * 建议
      */
@@ -839,8 +847,85 @@ public class AppHttpPath {
 
 
 
+    /*==============================================  业务详情  =============================================*/
+
+    /**
+     * 残疾人证办理申请详情接口
+     */
+    public static final String DISABLED_ID_CARD_DETAIL = BASE + "/getDisabilityCertificateInfo.shtml";
+    /**
+     * 残疾证换领申请详情接口
+     */
+    public static final String DISABLED_RENEWAL_DETAIL = BASE + "/getCertificatesExchangeInfo.shtml";
+    /**
+     * 残疾证等级变更申请详情接口
+     */
+    public static final String DISABLED_LEVEL_CHANGE_DETAIL = BASE + "/getCertificatesChangeInfo.shtml";
+
+    /**
+     * 残疾证补办申请详情接口
+     */
+    public static final String DISABLED_REISSUE_DETAIL = BASE + "/getCertificatesReissueInfo.shtml";
+    /**
+     * 残疾证迁入申请详情接口
+     */
+    public static final String DISABLED_CARD_MOVE_IN_DETAIL = BASE + "/getCertificatesMoveinInfo.shtml";
+
+    /**
+     * 残疾证迁出申请详情接口
+     */
+    public static final String DISABLED_CARD_MOVE_OUT_DETAIL = BASE + "/getCertificatesMoveoutInfo.shtml";
+    /**
+     * 残疾证注销申请详情接口
+     */
+    public static final String DISABLED_CARD_LOGOUT_DETAIL = BASE + "/getCertificatesCancelInfo.shtml";
+    /**
+     * 就业登记
+     */
+    public static final String DISABLED_CARD_EMPLOYMENT_REGIST_DETAIL = BASE + "/getDisabledObtainEmploymentInfo.shtml";
 
 
+    /**
+     * 脑瘫儿童救助
+     */
+    public static final String CEREBRAL_PALSY_RECOVERY_DETAIL = BASE + "/getDisabledChildrenCerebralPalsyInfo.shtml";
+
+    /**
+     * 聋儿童救助
+     */
+    public static final String DEAF_CHILD_RECOVERY_DETAIL = BASE + "/getDisabledChildrenDeafInfo.shtml";
+    /**
+     * 孤独儿童救助
+     */
+    public static final String LONELY_CHILD_RECOVERY_DETAIL = BASE + "/getDisabledChildrenAutismInfo.shtml";
+
+
+    /**
+     * 智力儿童救助
+     */
+    public static final String IQ_CHILD_RECOVERY_DETAIL = BASE + "/getDisabledChildrenIntellectualInfo.shtml";
+    /**
+     * 用户提交残疾人大学生（残疾学生助学金）申请接口
+     */
+    public static final String DISABLED_CHILD_BURSARY_DETAIL = BASE + "/getDisabledStudentFamilyGrantInfo.shtml";
+
+
+    /**
+     * 残疾家庭学生
+     */
+    public static final String DISABLED_FAMILY_CHILD_BURSARY_DETAIL = BASE + "/getDisabledStudentGrantInfo.shtml";
+    /**
+     * 辅助用品用具申请
+     */
+    public static final String REQUEST_AIDS_DETAIL = BASE + "/getAIDSInfo.shtml";
+    /**
+     * 用户提交残疾人培训申请业务接口
+     */
+    public static final String REQUEST_TRAIN_DETAIL = BASE + "/getTrainInfo.shtml";
+    /**
+     * 居家托养
+     */
+    public static final String HOME_CARE_DETAIL = BASE + "/getHomCareInfo.shtml";
 
 
 }
