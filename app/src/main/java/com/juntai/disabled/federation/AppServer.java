@@ -3,7 +3,6 @@ package com.juntai.disabled.federation;
 
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.BaseStreamBean;
-import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.bean.BannerNewsBean;
 import com.juntai.disabled.federation.bean.BaseDataBean;
 import com.juntai.disabled.federation.bean.CityBean;
@@ -32,7 +31,8 @@ import com.juntai.disabled.federation.bean.business.BusinessListBean;
 import com.juntai.disabled.federation.bean.business.BusinessNeedInfoBean;
 import com.juntai.disabled.federation.bean.business.BusinessPropertyBean;
 import com.juntai.disabled.federation.bean.business.ChildBusinessesBean;
-import com.juntai.disabled.federation.bean.business.HandlerCardDetailBean;
+import com.juntai.disabled.federation.bean.business.detail.BusinessChildDetailBean;
+import com.juntai.disabled.federation.bean.business.detail.HandlerCardDetailBean;
 import com.juntai.disabled.federation.bean.business.MyBusinessBean;
 import com.juntai.disabled.federation.bean.business.MyBusinessDetailBean;
 import com.juntai.disabled.federation.bean.case_bean.CaseDesBean;
@@ -1879,37 +1879,37 @@ public interface AppServer {
      * @return
      */
     @GET(AppHttpPath.DISABLED_RENEWAL_DETAIL)
-    Observable<BaseResult> getCertificatesExchangeInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<BusinessChildDetailBean> getCertificatesExchangeInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
     /**
      *
      * @return
      */
     @GET(AppHttpPath.DISABLED_LEVEL_CHANGE_DETAIL)
-    Observable<BaseResult> getCertificatesChangeInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<BusinessChildDetailBean> getCertificatesChangeInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
     /**
      *
      * @return
      */
     @GET(AppHttpPath.DISABLED_REISSUE_DETAIL)
-    Observable<BaseResult> getCertificatesReissueInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<BusinessChildDetailBean> getCertificatesReissueInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
     /**
      *
      * @return
      */
     @GET(AppHttpPath.DISABLED_CARD_MOVE_IN_DETAIL)
-    Observable<BaseResult> getCertificatesMoveinInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<BusinessChildDetailBean> getCertificatesMoveinInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
     /**
      *
      * @return
      */
     @GET(AppHttpPath.DISABLED_CARD_MOVE_OUT_DETAIL)
-    Observable<BaseResult> getCertificatesMoveoutInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<BusinessChildDetailBean> getCertificatesMoveoutInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
     /**
      *
      * @return
      */
     @GET(AppHttpPath.DISABLED_CARD_LOGOUT_DETAIL)
-    Observable<BaseResult> getCertificatesCancelInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<BusinessChildDetailBean> getCertificatesCancelInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
     /**
      *
      * @return

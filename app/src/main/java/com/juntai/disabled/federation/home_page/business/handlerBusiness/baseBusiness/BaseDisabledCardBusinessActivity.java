@@ -25,9 +25,8 @@ import okhttp3.RequestBody;
  * @description 描述  期满换证 登记变更 遗失补办 迁入迁出 注销等业务
  * @date 2021/1/19 9:53
  */
-public abstract class BaseChildBusinessActivity extends BaseBusinessActivity {
+public abstract class BaseDisabledCardBusinessActivity extends BaseBusinessActivity {
 
-    private ImageView mGuardianNameSignIv;
     public static final  String BUSINESS_NAME_RENEWAL = "残疾证期满换证";
     public static final  String BUSINESS_NAME_LEVEL_CHANGE = "残疾证等级变更";
     public static final  String BUSINESS_NAME_REISSUE = "残疾证遗失补办";
@@ -47,17 +46,15 @@ public abstract class BaseChildBusinessActivity extends BaseBusinessActivity {
 
     @Override
     protected View getFootView() {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.footview_renewal, null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.footview_commit, null);
         TextView mCommitBusinessTv = view.findViewById(R.id.commit_business_form_tv);
-        mGuardianNameSignIv = view.findViewById(R.id.guardian__name_sign_iv);
         mCommitBusinessTv.setOnClickListener(this);
-        mGuardianNameSignIv.setOnClickListener(this);
         return view;
     }
 
     @Override
     protected List<MultipleItem> getAdapterData() {
-        return mPresenter.getBaseChildAdapterData();
+        return mPresenter.getBaseChildAdapterData(null);
     }
 
     @Override
@@ -120,6 +117,6 @@ public abstract class BaseChildBusinessActivity extends BaseBusinessActivity {
 
     @Override
     protected ImageView getSignIv() {
-        return mGuardianNameSignIv;
+        return null;
     }
 }

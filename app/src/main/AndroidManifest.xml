@@ -30,7 +30,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".home_page.business.handlerBusiness.HandlerCardDetailActivity"></activity>
+        <activity android:name=".home_page.business.handlerBusiness.businessdetail.DisabledCardLogoutDetailActivity"></activity>
+        <activity android:name=".home_page.business.handlerBusiness.businessdetail.DisabledCardMoveOutDetailActivity" />
+        <activity android:name=".home_page.business.handlerBusiness.businessdetail.DisabledCardMoveInDetailActivity" />
+        <activity android:name=".home_page.business.handlerBusiness.businessdetail.DisabledCardReissueDetailActivity" />
+        <activity android:name=".home_page.business.handlerBusiness.businessdetail.DisabledCardLevelChangeDetailActivity" />
+        <activity android:name=".home_page.business.handlerBusiness.businessdetail.RenewalDetailActivity" />
+        <activity android:name=".home_page.business.handlerBusiness.businessdetail.HandlerCardDetailActivity" />
         <activity android:name=".home_page.business.handlerBusiness.HomeCareActivity" />
         <activity android:name=".home_page.business.handlerBusiness.TrainingRequestActivity" />
         <activity android:name=".home_page.business.handlerBusiness.AssistToolsRequestActivity" />

@@ -2,21 +2,24 @@ package com.juntai.disabled.federation.home_page.business.my_business;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseAppActivity;
 import com.juntai.disabled.federation.bean.business.MyBusinessBean;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.HandlerCardActivity;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.HandlerCardDetailActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.DisabledCardLevelChangeDetailActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.DisabledCardLogoutDetailActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.DisabledCardMoveInDetailActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.DisabledCardMoveOutDetailActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.DisabledCardReissueDetailActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.HandlerCardDetailActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.RenewalDetailActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessContract;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessPresent;
@@ -106,7 +109,36 @@ public class MyBusinessActivity extends BaseAppActivity<BusinessPresent> impleme
                 switch (matterId) {
                     case 1:
                         //残疾人证业务详情
-                        startActivity(new Intent(mContext, HandlerCardDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,businessId));
+                        startActivity(new Intent(mContext, HandlerCardDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID, businessId));
+                        break;
+                    case 2:
+                        //期满换证
+                        startActivity(new Intent(mContext, RenewalDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID, businessId));
+                        break;
+                    case 3:
+                        //等级变更
+                        startActivity(new Intent(mContext, DisabledCardLevelChangeDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
+                                businessId));
+                        break;
+                    case 4:
+                        //补办
+                        startActivity(new Intent(mContext, DisabledCardReissueDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
+                                businessId));
+                        break;
+                    case 5:
+                        //迁入
+                        startActivity(new Intent(mContext, DisabledCardMoveInDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
+                                businessId));
+                        break;
+                    case 6:
+                        //迁出
+                        startActivity(new Intent(mContext, DisabledCardMoveOutDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
+                                businessId));
+                        break;
+                    case 7:
+                        //注销
+                        startActivity(new Intent(mContext, DisabledCardLogoutDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
+                                businessId));
                         break;
                     default:
                         break;
@@ -137,31 +169,37 @@ public class MyBusinessActivity extends BaseAppActivity<BusinessPresent> impleme
                 ToastUtils.toast(mContext, baseResult.message);
                 List<MyBusinessBean.DataBean.DatasBean> arrays = adapter.getData();
                 Iterator iterator = arrays.iterator();
-                if (iterator.hasNext()) {
+                while (iterator.hasNext()) {
                     MyBusinessBean.DataBean.DatasBean datasBean = (MyBusinessBean.DataBean.DatasBean) iterator.next();
                     if (datasBean.isChecked()) {
                         iterator.remove();
                     }
                 }
-                getTitleRightTv().setText("编辑");
+                if (arrays.size()==0) {
+                    getTitleRightTv().setText("");
+                }else {
+                    getTitleRightTv().setText("编辑");
+                }
+
                 adapter.setEdit(false);
                 adapter.setNewData(arrays);
                 mDeleteTv.setVisibility(View.GONE);
                 break;
             default:
                 MyBusinessBean myBusinessBean = (MyBusinessBean) o;
+                List<MyBusinessBean.DataBean.DatasBean> data = myBusinessBean.getData().getDatas();
                 if (currentPage == 1) {
                     adapter.setNewData(null);
+                    if (data.size() == 0) {
+                        getTitleRightTv().setText("");
+                    }
                 }
                 if (myBusinessBean.getData().getDatas().size() < limit) {
                     mSmartrefreshlayout.finishLoadMoreWithNoMoreData();
                 } else {
                     mSmartrefreshlayout.setNoMoreData(false);
                 }
-                List<MyBusinessBean.DataBean.DatasBean> data = myBusinessBean.getData().getDatas();
-                if (data.size() == 0) {
-                    getTitleRightTv().setText("");
-                }
+
                 adapter.addData(data);
                 break;
         }

@@ -6,11 +6,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
 
 import java.util.List;
+
+import okhttp3.MultipartBody;
 
 /**
  * @aouther tobato
@@ -61,6 +66,16 @@ public class EmploymentRegistActivity extends BaseBusinessActivity {
 
     @Override
     public void onSuccess(String tag, Object o) {
+        super.onSuccess(tag,o);
+        switch (tag) {
+            case AppHttpPath.DISABLED_EMPLOYMENT_REGIST:
+                BaseResult baseResult = (BaseResult) o;
+                ToastUtils.toast(mContext,baseResult.message);
+                finish();
+                break;
+            default:
+                break;
+        }
 
     }
 
@@ -70,6 +85,12 @@ public class EmploymentRegistActivity extends BaseBusinessActivity {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.commit_business_form_tv:
+                MultipartBody.Builder builder = getBuilderOfAdapterData();
+                if (builder == null) {
+                    return;
+                }
+
+                mPresenter.addDisabledObtainEmployment(builder.build(), AppHttpPath.DISABLED_EMPLOYMENT_REGIST);
                 break;
             default:
                 break;

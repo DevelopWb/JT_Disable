@@ -1,4 +1,4 @@
-package com.juntai.disabled.federation.bean.business;
+package com.juntai.disabled.federation.bean.business.detail;
 
 import com.google.gson.annotations.SerializedName;
 import com.juntai.disabled.basecomponent.base.BaseResult;
@@ -15,14 +15,15 @@ public class HandlerCardDetailBean extends BaseResult {
 
     /**
      * error : null
-     * data : {"id":13,"type":null,"photo":"http://www.juntaikeji
-     * .com:17003//business_disability_certificate/f304b7c459cf4b54a64c43bd9d4a8567.jpeg","name":"1","sex":1,
-     * "birth":"2","nation":1,"marriage":0,"education":1,"nativePlace":"3","idNumber":"4","address":"5",
-     * "postCode":"6","accountType":1,"guardian":"7","relationship":"8","telephone":"9","workingUnit":"10",
-     * "profession":"11","unitNature":"12","unitWelfare":1,"commitment":"我是残疾人13,残疾人监护人14,因(视力)残
+     * data : {"id":14,"type":1,"typeName":"新申请","photo":"http://www.juntaikeji
+     * .com:17003//business_disability_certificate/8657fbc302d445a8842d1fd735d78e72.jpeg","name":"1","sex":1,
+     * "sexName":"女","birth":"2","nation":1,"nationName":"汉族","marriage":0,"marriageName":"未婚","education":1,
+     * "nativePlace":"3","idNumber":"4","address":"5","postCode":"6","accountType":1,"accountTypeName":"农业户口",
+     * "guardian":"7","relationship":"8","telephone":"9","workingUnit":"10","profession":"11","unitNature":"12",
+     * "unitWelfare":0,"unitWelfareName":"是","commitment":"我是残疾人13,残疾人监护人14,因(视力)残
      * 疾，申办残疾人证，我承诺同意将姓名、所在村居（社区）、残疾评定类别及等级，在河东区残联网站进行公示，公示期一年。并承诺配合区残联做好因公示可能产生的异议事项落实，自愿承担可能因异议事项落实产生的评定结论调整等后果。",
      * "applicantSign":"http://www.juntaikeji
-     * .com:17003//business_disability_certificate/a8e737d79d7f4f7597e258c19cd06132.jpeg"}
+     * .com:17003//business_disability_certificate/af89878da9494c13befc7ff1145f1ddb.jpeg"}
      */
 
     private DataBean data;
@@ -37,49 +38,64 @@ public class HandlerCardDetailBean extends BaseResult {
 
     public static class DataBean {
         /**
-         * id : 13
-         * type : null
-         * photo : http://www.juntaikeji.com:17003//business_disability_certificate/f304b7c459cf4b54a64c43bd9d4a8567
+         * id : 14
+         * type : 1
+         * typeName : 新申请
+         * photo : http://www.juntaikeji.com:17003//business_disability_certificate/8657fbc302d445a8842d1fd735d78e72
          * .jpeg
          * name : 1
          * sex : 1
+         * sexName : 女
          * birth : 2
          * nation : 1
+         * nationName : 汉族
          * marriage : 0
+         * marriageName : 未婚
          * education : 1
          * nativePlace : 3
          * idNumber : 4
          * address : 5
          * postCode : 6
          * accountType : 1
+         * accountTypeName : 农业户口
          * guardian : 7
          * relationship : 8
          * telephone : 9
          * workingUnit : 10
          * profession : 11
          * unitNature : 12
-         * unitWelfare : 1
+         * unitWelfare : 0
+         * unitWelfareName : 是
          * commitment : 我是残疾人13,残疾人监护人14,因(视力)残
          * 疾，申办残疾人证，我承诺同意将姓名、所在村居（社区）、残疾评定类别及等级，在河东区残联网站进行公示，公示期一年。并承诺配合区残联做好因公示可能产生的异议事项落实，自愿承担可能因异议事项落实产生的评定结论调整等后果。
          * applicantSign : http://www.juntaikeji
-         * .com:17003//business_disability_certificate/a8e737d79d7f4f7597e258c19cd06132.jpeg
+         * .com:17003//business_disability_certificate/af89878da9494c13befc7ff1145f1ddb.jpeg
          */
 
         private int id;
         @SerializedName("type")
-        private Object typeX;
+        private int typeX;
+        private String typeName;
         private String photo;
         private String name;
         private int sex;
+        private String sexName;
         private String birth;
         private int nation;
+        private String nationName;
         private int marriage;
+        private String marriageName;
         private int education;
         private String nativePlace;
         private String idNumber;
+        /**
+         * 文化程度
+         */
+        private String educationName;
         private String address;
         private String postCode;
         private int accountType;
+        private String accountTypeName;
         private String guardian;
         private String relationship;
         private String telephone;
@@ -87,8 +103,17 @@ public class HandlerCardDetailBean extends BaseResult {
         private String profession;
         private String unitNature;
         private int unitWelfare;
+        private String unitWelfareName;
         private String commitment;
         private String applicantSign;
+
+        public String getEducationName() {
+            return educationName == null ? "" : educationName;
+        }
+
+        public void setEducationName(String educationName) {
+            this.educationName = educationName == null ? "" : educationName;
+        }
 
         public int getId() {
             return id;
@@ -98,12 +123,20 @@ public class HandlerCardDetailBean extends BaseResult {
             this.id = id;
         }
 
-        public Object getTypeX() {
+        public int getTypeX() {
             return typeX;
         }
 
-        public void setTypeX(Object typeX) {
+        public void setTypeX(int typeX) {
             this.typeX = typeX;
+        }
+
+        public String getTypeName() {
+            return typeName;
+        }
+
+        public void setTypeName(String typeName) {
+            this.typeName = typeName;
         }
 
         public String getPhoto() {
@@ -130,6 +163,14 @@ public class HandlerCardDetailBean extends BaseResult {
             this.sex = sex;
         }
 
+        public String getSexName() {
+            return sexName;
+        }
+
+        public void setSexName(String sexName) {
+            this.sexName = sexName;
+        }
+
         public String getBirth() {
             return birth;
         }
@@ -146,12 +187,28 @@ public class HandlerCardDetailBean extends BaseResult {
             this.nation = nation;
         }
 
+        public String getNationName() {
+            return nationName;
+        }
+
+        public void setNationName(String nationName) {
+            this.nationName = nationName;
+        }
+
         public int getMarriage() {
             return marriage;
         }
 
         public void setMarriage(int marriage) {
             this.marriage = marriage;
+        }
+
+        public String getMarriageName() {
+            return marriageName;
+        }
+
+        public void setMarriageName(String marriageName) {
+            this.marriageName = marriageName;
         }
 
         public int getEducation() {
@@ -200,6 +257,14 @@ public class HandlerCardDetailBean extends BaseResult {
 
         public void setAccountType(int accountType) {
             this.accountType = accountType;
+        }
+
+        public String getAccountTypeName() {
+            return accountTypeName;
+        }
+
+        public void setAccountTypeName(String accountTypeName) {
+            this.accountTypeName = accountTypeName;
         }
 
         public String getGuardian() {
@@ -256,6 +321,14 @@ public class HandlerCardDetailBean extends BaseResult {
 
         public void setUnitWelfare(int unitWelfare) {
             this.unitWelfare = unitWelfare;
+        }
+
+        public String getUnitWelfareName() {
+            return unitWelfareName;
+        }
+
+        public void setUnitWelfareName(String unitWelfareName) {
+            this.unitWelfareName = unitWelfareName;
         }
 
         public String getCommitment() {

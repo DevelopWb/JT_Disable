@@ -119,6 +119,8 @@ public interface BusinessContract {
     String TABLE_TITLE_SPECIALTY = "特长";//
     String TABLE_TITLE_JOB_STATUS = "就业状况";//
     String TABLE_TITLE_TRAIN_TYPE = "培训种类";//
+    String TABLE_TITLE_TRAIN_INTENT = "培训意向";//
+    String TABLE_TITLE_REMARK = "备注";//
 
 
     interface IBusinessView extends IView {

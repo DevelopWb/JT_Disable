@@ -28,6 +28,7 @@ import com.juntai.disabled.federation.bean.business.BusinessTextValueBean;
 import com.juntai.disabled.federation.bean.business.DeafBean;
 import com.juntai.disabled.federation.bean.business.ItemSignBean;
 import com.juntai.disabled.federation.bean.business.RecycleBean;
+import com.juntai.disabled.federation.utils.StringTools;
 
 import java.util.List;
 
@@ -290,6 +291,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 ItemSignBean signBean = (ItemSignBean) item.getObject();
                 int gravity = signBean.getLayoutGravity();
                 LinearLayout signLl = helper.getView(R.id.item_sign_ll);
+                ImageView signIv = helper.getView(R.id.sign_name_iv);
                 if (0 == gravity) {
                    helper.setGone(R.id.sign_tag,true);
                     signLl.setGravity(Gravity.LEFT);
@@ -298,6 +300,9 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                     signLl.setGravity(Gravity.RIGHT);
                 }
                 helper.setText(R.id.sign_name_tv, signBean.getSignName());
+                if (StringTools.isStringValueOk(signBean.getSignPicPath())) {
+                    ImageLoadUtil.loadImage(mContext,signBean.getSignPicPath(),signIv);
+                }
                 break;
 
             case MultipleItem.ITEM_BUSINESS_DEAF_TABLE:

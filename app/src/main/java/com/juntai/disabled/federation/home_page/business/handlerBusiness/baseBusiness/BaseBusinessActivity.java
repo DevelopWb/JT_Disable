@@ -15,6 +15,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.PickerManager;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseAppActivity;
 import com.juntai.disabled.federation.base.customview.GestureSignatureView;
@@ -59,8 +60,11 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     private TextView mSelectTv;
     private int selectedCardType = 1;//1新申请；2换领申请；3补办申请
     private int selectedMarrayStatus = 0;//0未婚；1已婚(有配偶)；2丧偶；3离婚
+    private int selectedRegMode = 1;//1 是现场  2是来电
     private int selectedNation = 0;//民族
     private int selectedEducationLevel = 0;//学历登记
+    private int categoryId = 0;//残疾类别
+    private int levelId = 0;//残疾等级
     private BusinessTextValueBean selectBean;
     public static String BUSINESS_ID = "businessid";
     protected int businessId = -1;
@@ -92,12 +96,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     public void initView() {
         ////businessId=-1进入详情模式
         businessId = getIntent().getIntExtra(BUSINESS_ID,-1);
-        if (-1!=businessId) {
-            setTitleName(getTitleName()+"详情");
-        }else {
-            setTitleName(getTitleName());
-        }
-
+        setTitleName(getTitleName());
         mRecyclerview = (RecyclerView) findViewById(R.id.recyclerview);
         mSmartrefreshlayout = (SmartRefreshLayout) findViewById(R.id.smartrefreshlayout);
         mSmartrefreshlayout.setEnableLoadMore(false);
@@ -150,8 +149,29 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                             }
                                         });
                                 break;
+                            case BusinessContract.TABLE_TITLE_REG_MODE:
+                                List<String> regModes = getRegistMode();
+                                PickerManager.getInstance().showOptionPicker(mContext, regModes,
+                                        new PickerManager.OnOptionPickerSelectedListener() {
+                                            @Override
+                                            public void onOptionsSelect(int options1, int option2, int options3,
+                                                                        View v) {
+                                                selectedRegMode = options1;
+                                                mSelectTv.setText(regModes.get(options1));
+                                                selectBean.setValue(regModes.get(options1));
+                                            }
+                                        });
+                                break;
                             case BusinessContract.TABLE_TITLE_EDUCATION_LEVEL:
                                 mPresenter.getDisabledEducation(BusinessContract.TABLE_TITLE_EDUCATION_LEVEL);
+                                break;
+                            case BusinessContract.TABLE_TITLE_DISABILITY_KINDS:
+                                //残疾类别
+                                mPresenter.getDisabledCategory(AppHttpPath.GET_DISABLED_TYPE);
+                                break;
+                            case BusinessContract.TABLE_TITLE_DISABILITY_LEVEL:
+                                //残疾等级
+                                mPresenter.getDisabledLevel(AppHttpPath.GET_DISABLED_LEVEL);
                                 break;
                             case BusinessContract.TABLE_TITLE_CARD_TYPE:
                                 List<String> cards = getCardTypes();
@@ -208,6 +228,17 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         arrays.add("已婚(有配偶)");
         arrays.add("丧偶");
         arrays.add("离婚");
+        return arrays;
+    }
+    /**
+     * 登记方式  1 现场 2 来电
+     *
+     * @return
+     */
+    protected List<String> getRegistMode() {
+        List<String> arrays = new ArrayList<>();
+        arrays.add("现场");
+        arrays.add("来电");
         return arrays;
     }
 
@@ -345,12 +376,15 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                     String formKey = null;
                     switch (textValueEditBean.getKey()) {
                         case BusinessContract.TABLE_TITLE_NAME:
+                            //姓名
                             formKey = "name";
                             break;
                         case BusinessContract.TABLE_TITLE_BIRTH:
+                            //出生年月
                             formKey = "birth";
                             break;
                         case BusinessContract.TABLE_TITLE_HOMETOWN:
+                            //籍贯
                             formKey = "nativePlace";
                             break;
                         case BusinessContract.TABLE_TITLE_IDCARD:
@@ -389,6 +423,42 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         case BusinessContract.TABLE_TITLE_CARD_TYPE:
                             formKey = "type";
                             break;
+                        case BusinessContract.TABLE_TITLE_SPECIAL:
+                            //特长
+                            formKey = "specialty";
+                            break;
+                        case BusinessContract.TABLE_TITLE_HOME_ADDR:
+                            //户籍所在地
+                            formKey = "residenceAddress";
+                            break;
+                        case BusinessContract.TABLE_TITLE_ADDR_LIVE_NOW:
+                            //现居住地
+                            formKey = "residentialAddress";
+                            break;
+                        case BusinessContract.TABLE_TITLE_RESUME:
+                            //本人简历
+                            formKey = "mineResume";
+                            break;
+                        case BusinessContract.TABLE_TITLE_WANTED_POST:
+                            //意向岗位
+                            formKey = "postIntention";
+                            break;
+                        case BusinessContract.TABLE_TITLE_WORK_AREA:
+                            //择业地区
+                            formKey = "areaIntention";
+                            break;
+                        case BusinessContract.TABLE_TITLE_SALARY:
+                            //月薪要求
+                            formKey = "monthlySalaryIntention";
+                            break;
+                        case BusinessContract.TABLE_TITLE_TRAIN_INTENT:
+                            //培训意向
+                            formKey = "trainingIntention";
+                            break;
+                        case BusinessContract.TABLE_TITLE_REMARK:
+                            //备注
+                            formKey = "remark";
+                            break;
 
                         default:
                             break;
@@ -410,6 +480,12 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         case BusinessContract.TABLE_TITLE_IS_WEEL_COMPANY:
                             builder.addFormDataPart("unitWelfare", String.valueOf(radioBean.getDefaultSelectedIndex()));
                             break;
+                        case BusinessContract.TABLE_TITLE_DISABILITY_HEAR:
+                            builder.addFormDataPart("hearingDisability", String.valueOf(radioBean.getDefaultSelectedIndex()));
+                            break;
+                        case BusinessContract.TABLE_TITLE_DISABILITY_LIMB:
+                            builder.addFormDataPart("physicalDisability", String.valueOf(radioBean.getDefaultSelectedIndex()));
+                            break;
                         default:
                             break;
                     }
@@ -418,16 +494,29 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                     BusinessTextValueBean textValueSelectBean = (BusinessTextValueBean) array.getObject();
                     switch (textValueSelectBean.getKey()) {
                         case BusinessContract.TABLE_TITLE_NATION:
+                            //民族
                             builder.addFormDataPart("nation", String.valueOf(selectedNation));
                             break;
                         case BusinessContract.TABLE_TITLE_MARRIAGE:
+                            //婚姻状况
                             builder.addFormDataPart("marriage", String.valueOf(selectedMarrayStatus));
                             break;
+                        case BusinessContract.TABLE_TITLE_REG_MODE:
+                            //登记方式
+                            builder.addFormDataPart("way", String.valueOf(selectedRegMode));
+                            break;
                         case BusinessContract.TABLE_TITLE_EDUCATION_LEVEL:
+                            //文化程度
                             builder.addFormDataPart("education", String.valueOf(selectedEducationLevel));
                             break;
                         case BusinessContract.TABLE_TITLE_CARD_TYPE:
                             builder.addFormDataPart("type", String.valueOf(selectedCardType));
+                            break;
+                        case AppHttpPath.GET_DISABLED_TYPE:
+                            builder.addFormDataPart("category", String.valueOf(categoryId));
+                            break;
+                        case AppHttpPath.GET_DISABLED_LEVEL:
+                            builder.addFormDataPart("level", String.valueOf(levelId));
                             break;
                         default:
                             break;
@@ -516,45 +605,41 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     public void onSuccess(String tag, Object o) {
         BusinessPropertyBean propertyNationBean = null;
         List<BusinessPropertyBean.DataBean> data = null;
-        if (BusinessContract.TABLE_TITLE_NATION.equals(tag) || BusinessContract.TABLE_TITLE_EDUCATION_LEVEL.equals(tag)) {
+        if (BusinessContract.TABLE_TITLE_NATION.equals(tag) || BusinessContract.TABLE_TITLE_EDUCATION_LEVEL.equals(tag)
+                || AppHttpPath.GET_DISABLED_TYPE.equals(tag)|| AppHttpPath.GET_DISABLED_LEVEL.equals(tag)) {
             propertyNationBean = (BusinessPropertyBean) o;
             data = propertyNationBean.getData();
-        }
-        switch (tag) {
-            case BusinessContract.TABLE_TITLE_NATION:
-                if (propertyNationBean != null && data.size() > 0) {
-                    List<BusinessPropertyBean.DataBean> finalData = data;
-                    PickerManager.getInstance().showOptionPicker(mContext, finalData,
-                            new PickerManager.OnOptionPickerSelectedListener() {
-                                @Override
-                                public void onOptionsSelect(int options1, int option2, int options3, View v) {
-                                    BusinessPropertyBean.DataBean dataBean = finalData.get(options1);
-                                    selectedNation = dataBean.getId();
-                                    selectBean.setValue(dataBean.getName());
-                                    mSelectTv.setText(dataBean.getName());
+            if (propertyNationBean != null && data.size() > 0) {
+                List<BusinessPropertyBean.DataBean> finalData = data;
+                PickerManager.getInstance().showOptionPicker(mContext, finalData,
+                        new PickerManager.OnOptionPickerSelectedListener() {
+                            @Override
+                            public void onOptionsSelect(int options1, int option2, int options3, View v) {
+                                BusinessPropertyBean.DataBean dataBean = finalData.get(options1);
+                                selectBean.setValue(dataBean.getName());
+                                mSelectTv.setText(dataBean.getName());
+                                switch (tag) {
+                                    case BusinessContract.TABLE_TITLE_NATION:
+                                        selectedNation = dataBean.getId();
+                                        break;
+                                    case BusinessContract.TABLE_TITLE_EDUCATION_LEVEL:
+                                        selectedEducationLevel = dataBean.getId();
+                                        break;
+                                    case AppHttpPath.GET_DISABLED_TYPE:
+                                        categoryId = dataBean.getId();
+                                        break;
+                                    case AppHttpPath.GET_DISABLED_LEVEL:
+                                        levelId = dataBean.getId();
+                                        break;
+                                    default:
+                                        break;
                                 }
-                            });
-                }
 
-                break;
-            case BusinessContract.TABLE_TITLE_EDUCATION_LEVEL:
-                if (propertyNationBean != null && data.size() > 0) {
-                    List<BusinessPropertyBean.DataBean> finalData = data;
-                    PickerManager.getInstance().showOptionPicker(mContext, finalData,
-                            new PickerManager.OnOptionPickerSelectedListener() {
-                                @Override
-                                public void onOptionsSelect(int options1, int option2, int options3, View v) {
-                                    BusinessPropertyBean.DataBean dataBean = finalData.get(options1);
-                                    selectedEducationLevel = dataBean.getId();
-                                    mSelectTv.setText(dataBean.getName());
-                                    selectBean.setValue(dataBean.getName());
-                                }
-                            });
-                }
+                            }
+                        });
+            }
 
-                break;
-            default:
-                break;
         }
+
     }
 }

@@ -1,13 +1,13 @@
 package com.juntai.disabled.federation.home_page.business.handlerBusiness;
 
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseChildBusinessActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseDisabledCardBusinessActivity;
 
 /**
  * @aouther tobato
  * @description 描述  残疾证迁入
  * @date 2021/1/20 14:21
  */
-public class CardMoveInActivity extends BaseChildBusinessActivity {
+public class CardMoveInActivity extends BaseDisabledCardBusinessActivity {
 
 
     @Override

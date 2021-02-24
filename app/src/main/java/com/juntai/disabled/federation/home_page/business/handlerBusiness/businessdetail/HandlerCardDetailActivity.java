@@ -1,7 +1,6 @@
-package com.juntai.disabled.federation.home_page.business.handlerBusiness;
+package com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail;
 
 import android.support.constraint.Group;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,7 @@ import android.widget.TextView;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
-import com.juntai.disabled.federation.bean.business.HandlerCardDetailBean;
+import com.juntai.disabled.federation.bean.business.detail.HandlerCardDetailBean;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
 
 import java.util.List;
@@ -41,7 +40,7 @@ public class HandlerCardDetailActivity extends BaseBusinessActivity {
 
     @Override
     protected String getTitleName() {
-        return "残疾证办理";
+        return "残疾证办理详情";
     }
 
     @Override
