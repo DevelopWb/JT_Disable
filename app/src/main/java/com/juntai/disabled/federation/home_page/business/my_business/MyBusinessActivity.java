@@ -18,6 +18,7 @@ import com.juntai.disabled.federation.home_page.business.handlerBusiness.busines
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.DisabledCardMoveInDetailActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.DisabledCardMoveOutDetailActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.DisabledCardReissueDetailActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.EmploymentRegistDetailActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.HandlerCardDetailActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.RenewalDetailActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
@@ -138,6 +139,11 @@ public class MyBusinessActivity extends BaseAppActivity<BusinessPresent> impleme
                     case 7:
                         //注销
                         startActivity(new Intent(mContext, DisabledCardLogoutDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
+                                businessId));
+                        break;
+                    case 8:
+                        //就业登记
+                        startActivity(new Intent(mContext, EmploymentRegistDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
                                 businessId));
                         break;
                     default:

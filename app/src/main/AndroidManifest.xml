@@ -30,7 +30,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".home_page.business.handlerBusiness.businessdetail.DisabledCardLogoutDetailActivity"></activity>
+        <activity android:name=".home_page.business.handlerBusiness.businessdetail.EmploymentRegistDetailActivity"></activity>
+        <activity android:name=".home_page.business.handlerBusiness.businessdetail.DisabledCardLogoutDetailActivity" />
         <activity android:name=".home_page.business.handlerBusiness.businessdetail.DisabledCardMoveOutDetailActivity" />
         <activity android:name=".home_page.business.handlerBusiness.businessdetail.DisabledCardMoveInDetailActivity" />
         <activity android:name=".home_page.business.handlerBusiness.businessdetail.DisabledCardReissueDetailActivity" />

@@ -115,8 +115,4 @@ public abstract class BaseDisabledCardBusinessActivity extends BaseBusinessActiv
 
 
 
-    @Override
-    protected ImageView getSignIv() {
-        return null;
-    }
 }

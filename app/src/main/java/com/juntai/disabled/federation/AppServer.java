@@ -32,6 +32,7 @@ import com.juntai.disabled.federation.bean.business.BusinessNeedInfoBean;
 import com.juntai.disabled.federation.bean.business.BusinessPropertyBean;
 import com.juntai.disabled.federation.bean.business.ChildBusinessesBean;
 import com.juntai.disabled.federation.bean.business.detail.BusinessChildDetailBean;
+import com.juntai.disabled.federation.bean.business.detail.EmploymentRegDetailBean;
 import com.juntai.disabled.federation.bean.business.detail.HandlerCardDetailBean;
 import com.juntai.disabled.federation.bean.business.MyBusinessBean;
 import com.juntai.disabled.federation.bean.business.MyBusinessDetailBean;
@@ -1915,7 +1916,7 @@ public interface AppServer {
      * @return
      */
     @GET(AppHttpPath.DISABLED_CARD_EMPLOYMENT_REGIST_DETAIL)
-    Observable<BaseResult> getDisabledObtainEmploymentInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<EmploymentRegDetailBean> getDisabledObtainEmploymentInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
     /**
      *
      * @return

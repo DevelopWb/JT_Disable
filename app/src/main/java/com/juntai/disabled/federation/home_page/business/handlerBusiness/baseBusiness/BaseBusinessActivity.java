@@ -77,11 +77,6 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
 
     protected abstract List<MultipleItem> getAdapterData();
 
-    /**
-     * @return
-     */
-    protected abstract ImageView getSignIv();
-
     @Override
     protected BusinessPresent createPresenter() {
         return new BusinessPresent();
@@ -156,7 +151,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                             @Override
                                             public void onOptionsSelect(int options1, int option2, int options3,
                                                                         View v) {
-                                                selectedRegMode = options1;
+                                                selectedRegMode = options1+1;
                                                 mSelectTv.setText(regModes.get(options1));
                                                 selectBean.setValue(regModes.get(options1));
                                             }
@@ -312,9 +307,6 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                 FileCacheUtils.getLoacalBitmap(signPath); //从本地取图片(在cdcard中获取)  //
                         if (mSignIv != null) {
                             mSignIv.setImageBitmap(bitmap1); //设置Bitmap
-                        }
-                        if (getSignIv() != null) {
-                            getSignIv().setImageBitmap(bitmap1); //设置Bitmap
                         }
                         //                        SINGE_STATE = true;
                     } catch (IOException e) {
@@ -512,10 +504,10 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         case BusinessContract.TABLE_TITLE_CARD_TYPE:
                             builder.addFormDataPart("type", String.valueOf(selectedCardType));
                             break;
-                        case AppHttpPath.GET_DISABLED_TYPE:
+                        case BusinessContract.TABLE_TITLE_DISABILITY_KINDS:
                             builder.addFormDataPart("category", String.valueOf(categoryId));
                             break;
-                        case AppHttpPath.GET_DISABLED_LEVEL:
+                        case BusinessContract.TABLE_TITLE_DISABILITY_LEVEL:
                             builder.addFormDataPart("level", String.valueOf(levelId));
                             break;
                         default:

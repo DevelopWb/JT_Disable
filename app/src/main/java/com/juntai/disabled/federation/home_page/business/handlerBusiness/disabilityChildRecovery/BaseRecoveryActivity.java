@@ -52,11 +52,6 @@ public abstract class BaseRecoveryActivity extends BaseBusinessActivity {
 
 
     @Override
-    protected ImageView getSignIv() {
-        return null;
-    }
-
-    @Override
     public void onSuccess(String tag, Object o) {
 
     }

@@ -54,8 +54,4 @@ public class HomeCareActivity extends BaseBusinessActivity {
         return mPresenter.getHomeCareAdapterData();
     }
 
-    @Override
-    protected ImageView getSignIv() {
-        return null;
-    }
 }

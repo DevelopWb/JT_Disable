@@ -66,10 +66,6 @@ public class HandlerCardDetailActivity extends BaseBusinessActivity {
         return null;
     }
 
-    @Override
-    protected ImageView getSignIv() {
-        return null;
-    }
 
     @Override
     public void onSuccess(String tag, Object o) {

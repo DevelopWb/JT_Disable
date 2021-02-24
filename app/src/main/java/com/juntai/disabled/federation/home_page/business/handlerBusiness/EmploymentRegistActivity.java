@@ -56,13 +56,9 @@ public class EmploymentRegistActivity extends BaseBusinessActivity {
 
     @Override
     protected List<MultipleItem> getAdapterData() {
-        return mPresenter.getEmploymentRegistAdapterData();
+        return mPresenter.getEmploymentRegistAdapterData(null);
     }
 
-    @Override
-    protected ImageView getSignIv() {
-        return null;
-    }
 
     @Override
     public void onSuccess(String tag, Object o) {

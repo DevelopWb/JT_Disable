@@ -124,10 +124,6 @@ public class HandlerCardActivity extends BaseBusinessActivity {
         }
     }
 
-    @Override
-    protected ImageView getSignIv() {
-        return mGuardianNameSignIv;
-    }
 
     @Override
     public void initData() {

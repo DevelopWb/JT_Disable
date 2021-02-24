@@ -1,29 +1,27 @@
-package com.juntai.disabled.federation.home_page.business.handlerBusiness;
+package com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
+import com.juntai.disabled.federation.bean.business.detail.EmploymentRegDetailBean;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
 
 import java.util.List;
 
 /**
  * @aouther tobato
- * @description 描述  辅助用品申领
- * @date 2021/2/9 9:31
+ * @description 描述  就业登记业务详情
+ * @date 2021/2/24 16:25
  */
-public class AssistToolsRequestActivity extends BaseBusinessActivity {
-    private TextView mCommitBusinessTv;
+public class EmploymentRegistDetailActivity extends BaseBusinessActivity {
 
     @Override
     public void initData() {
 
+        mPresenter.getDisabledObtainEmploymentInfo(businessId,"");
     }
 
     @Override
@@ -33,15 +31,12 @@ public class AssistToolsRequestActivity extends BaseBusinessActivity {
 
     @Override
     protected String getTitleName() {
-        return "残疾辅助用品用具申请";
+        return "残疾人就业登记详情";
     }
 
     @Override
     protected View getFootView() {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.footview_commit, null);
-        mCommitBusinessTv = view.findViewById(R.id.commit_business_form_tv);
-        mCommitBusinessTv.setOnClickListener(this);
-        return view;
+        return null;
     }
 
     @Override
@@ -51,12 +46,18 @@ public class AssistToolsRequestActivity extends BaseBusinessActivity {
 
     @Override
     protected List<MultipleItem> getAdapterData() {
-        return mPresenter.getAssistToolAdapterData();
+        return null;
     }
-
 
     @Override
     public void onSuccess(String tag, Object o) {
-
+        super.onSuccess(tag, o);
+        EmploymentRegDetailBean regDetailBean = (EmploymentRegDetailBean) o;
+        if (regDetailBean != null) {
+            EmploymentRegDetailBean.DataBean dataBean = regDetailBean.getData();
+            if (dataBean != null) {
+                adapter.setNewData(mPresenter.getEmploymentRegistAdapterData(dataBean));
+            }
+        }
     }
 }
