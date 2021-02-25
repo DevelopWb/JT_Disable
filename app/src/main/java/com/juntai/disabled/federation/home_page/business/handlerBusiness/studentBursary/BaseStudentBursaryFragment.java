@@ -45,10 +45,6 @@ public abstract class BaseStudentBursaryFragment extends BaseBusinessFragment {
     }
 
 
-    @Override
-    protected ImageView getSignIv() {
-        return null;
-    }
 
     @Override
     public void onClick(View v) {

@@ -2,6 +2,8 @@ package com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBu
 
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -11,6 +13,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.R;
+import com.juntai.disabled.federation.bean.business.BusinessTextValueBean;
+import com.juntai.disabled.federation.bean.business.DeafBean;
 import com.juntai.disabled.federation.bean.business.ItemCheckBoxBean;
 
 import java.util.List;
@@ -80,6 +84,31 @@ public class CheckBoxAdapter extends BaseQuickAdapter<ItemCheckBoxBean, BaseView
                         notifyDataSetChanged();
                     }
                 });
+            }
+        });
+
+        EditText desEt =helper.getView(R.id.item_description_et);
+        desEt.setText(item.getDes());
+        desEt.setTag(item);
+        addTextChange(desEt);
+    }
+
+    private void addTextChange(EditText editText) {
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                ItemCheckBoxBean item = (ItemCheckBoxBean) editText.getTag();
+                item.setDes(s.toString().trim());
             }
         });
     }

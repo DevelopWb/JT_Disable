@@ -24,7 +24,11 @@ public class MoronRecoveryActivity extends BaseRecoveryActivity {
 
     @Override
     protected List<MultipleItem> getAdapterData() {
-        return mPresenter.getMoronRecoveryData();
+        return mPresenter.getMoronRecoveryData(null);
     }
 
+    @Override
+    public int getChildId() {
+        return 0;
+    }
 }

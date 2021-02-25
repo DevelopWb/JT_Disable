@@ -17,6 +17,11 @@ public class DeafDumbChildRecoveryActivity extends BaseRecoveryActivity {
 
     @Override
     protected List<MultipleItem> getAdapterData() {
-        return mPresenter.getDeafDumbChildRecoveryData();
+        return mPresenter.getDeafDumbChildRecoveryData(null);
+    }
+
+    @Override
+    public int getChildId() {
+        return 2;
     }
 }

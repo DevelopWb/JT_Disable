@@ -15,12 +15,17 @@ import java.util.List;
 public class BrainPalsyRecoveryActivity extends BaseRecoveryActivity {
 
     @Override
+    public int getChildId() {
+        return 3;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     @Override
     protected List<MultipleItem> getAdapterData() {
-        return mPresenter.getBrainPalsyRecoveryData();
+        return mPresenter.getBrainPalsyRecoveryData(null);
     }
 }

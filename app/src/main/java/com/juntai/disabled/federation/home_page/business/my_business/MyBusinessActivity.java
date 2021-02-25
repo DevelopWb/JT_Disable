@@ -24,6 +24,11 @@ import com.juntai.disabled.federation.home_page.business.handlerBusiness.busines
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessContract;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessPresent;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.recovery.BrainPalsyRecoveryDetailActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.recovery.DeafDumbChildRecoveryDetailActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.recovery.LonelyChildRecoveryDetailActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.recovery.MoronRecoveryDetailActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.disabilityChildRecovery.BaseRecoveryActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -107,6 +112,7 @@ public class MyBusinessActivity extends BaseAppActivity<BusinessPresent> impleme
                         (MyBusinessBean.DataBean.DatasBean) adapter.getData().get(position);
                 int matterId = bean.getMatterId();
                 int businessId = bean.getBusinessId();
+                String name = bean.getMatterName();
                 switch (matterId) {
                     case 1:
                         //残疾人证业务详情
@@ -145,6 +151,26 @@ public class MyBusinessActivity extends BaseAppActivity<BusinessPresent> impleme
                         //就业登记
                         startActivity(new Intent(mContext, EmploymentRegistDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
                                 businessId));
+                        break;
+                    case 16:
+                        //精准康复智力残疾儿童康复救助
+                        startActivity(new Intent(mContext, MoronRecoveryDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
+                                businessId).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
+                        break;
+                    case 17:
+                        //精准康复孤独儿童康复救助
+                        startActivity(new Intent(mContext, LonelyChildRecoveryDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
+                                businessId).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
+                        break;
+                    case 18:
+                        //精准康复孤独儿童康复救助
+                        startActivity(new Intent(mContext, DeafDumbChildRecoveryDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
+                                businessId).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
+                        break;
+                    case 19:
+                        //精准康复孤独儿童康复救助
+                        startActivity(new Intent(mContext, BrainPalsyRecoveryDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
+                                businessId).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
                         break;
                     default:
                         break;

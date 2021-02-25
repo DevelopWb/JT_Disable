@@ -30,7 +30,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".home_page.business.handlerBusiness.businessdetail.EmploymentRegistDetailActivity"></activity>
+        <activity android:name=".home_page.business.handlerBusiness.businessdetail.recovery.BrainPalsyRecoveryDetailActivity"></activity>
+        <activity android:name=".home_page.business.handlerBusiness.businessdetail.recovery.DeafDumbChildRecoveryDetailActivity" />
+        <activity android:name=".home_page.business.handlerBusiness.businessdetail.recovery.LonelyChildRecoveryDetailActivity" />
+        <activity android:name=".home_page.business.handlerBusiness.businessdetail.recovery.MoronRecoveryDetailActivity" />
+        <activity android:name=".home_page.business.handlerBusiness.businessdetail.EmploymentRegistDetailActivity" />
         <activity android:name=".home_page.business.handlerBusiness.businessdetail.DisabledCardLogoutDetailActivity" />
         <activity android:name=".home_page.business.handlerBusiness.businessdetail.DisabledCardMoveOutDetailActivity" />
         <activity android:name=".home_page.business.handlerBusiness.businessdetail.DisabledCardMoveInDetailActivity" />

@@ -101,10 +101,6 @@ public class HandlerCardActivity extends BaseBusinessActivity {
                     ToastUtils.toast(mContext, "请选择残疾种类");
                     return;
                 }
-                if (TextUtils.isEmpty(getSignPath())) {
-                    ToastUtils.toast(mContext, "请签名");
-                    return;
-                }
                 StringBuilder commitmentSb = new StringBuilder();
                 commitmentSb.append("我是残疾人");
                 commitmentSb.append(getTextViewValue(mDisableNameEt));
@@ -112,8 +108,6 @@ public class HandlerCardActivity extends BaseBusinessActivity {
                 commitmentSb.append(getTextViewValue(mGuardianNameEt) + ",");
                 commitmentSb.append(getTextViewValue(mCommitmentTv));
                 builder.addFormDataPart("commitment", commitmentSb.toString());
-                builder.addFormDataPart("applicantSignFile", "applicantSignFile", RequestBody.create(MediaType.parse(
-                        "file"), new File(getSignPath())));
                 mPresenter.addDisabilityCertificate(builder.build(), AppHttpPath.HANDLER_DISABLED_CARD);
                 break;
             case R.id.guardian__name_sign_iv:

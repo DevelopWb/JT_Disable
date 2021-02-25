@@ -36,6 +36,7 @@ import com.juntai.disabled.federation.bean.business.detail.EmploymentRegDetailBe
 import com.juntai.disabled.federation.bean.business.detail.HandlerCardDetailBean;
 import com.juntai.disabled.federation.bean.business.MyBusinessBean;
 import com.juntai.disabled.federation.bean.business.MyBusinessDetailBean;
+import com.juntai.disabled.federation.bean.business.detail.RecoveryDetailBean;
 import com.juntai.disabled.federation.bean.case_bean.CaseDesBean;
 import com.juntai.disabled.federation.bean.case_bean.CaseInfoBean;
 import com.juntai.disabled.federation.bean.case_bean.CaseTypeBean;
@@ -1922,25 +1923,25 @@ public interface AppServer {
      * @return
      */
     @GET(AppHttpPath.CEREBRAL_PALSY_RECOVERY_DETAIL)
-    Observable<BaseResult> getDisabledChildrenCerebralPalsyInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<RecoveryDetailBean> getDisabledChildrenCerebralPalsyInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
     /**
      *
      * @return
      */
     @GET(AppHttpPath.DEAF_CHILD_RECOVERY_DETAIL)
-    Observable<BaseResult> getDisabledChildrenDeafInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<RecoveryDetailBean> getDisabledChildrenDeafInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
     /**
      *
      * @return
      */
     @GET(AppHttpPath.LONELY_CHILD_RECOVERY_DETAIL)
-    Observable<BaseResult> getDisabledChildrenAutismInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<RecoveryDetailBean> getDisabledChildrenAutismInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
     /**
      *
      * @return
      */
     @GET(AppHttpPath.IQ_CHILD_RECOVERY_DETAIL)
-    Observable<BaseResult> getDisabledChildrenIntellectualInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<RecoveryDetailBean> getDisabledChildrenIntellectualInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
     /**
      *
      * @return

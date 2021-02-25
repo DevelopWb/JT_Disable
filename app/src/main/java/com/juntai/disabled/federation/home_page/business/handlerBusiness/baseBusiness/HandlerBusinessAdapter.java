@@ -156,6 +156,21 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                     editText2.setInputType(InputType.TYPE_CLASS_NUMBER);
                 }
                 break;
+            case MultipleItem.ITEM_BUSINESS_YEAR:
+                //年度
+                BusinessTextValueBean yearBean = (BusinessTextValueBean) item.getObject();
+                EditText yearEt = helper.getView(R.id.item_year_et);
+                yearEt.setTag(yearBean);
+                if (isDetail) {
+                    yearEt.setClickable(false);
+                    yearEt.setFocusable(false);
+                    yearEt.setText(yearBean.getValue());
+                }else {
+                    yearEt.setClickable(true);
+                    yearEt.setFocusable(true);
+                    addTextChange(yearEt);
+                }
+                break;
             case MultipleItem.ITEM_BUSINESS_SELECT:
                 BusinessTextValueBean textValueSelectBean = (BusinessTextValueBean) item.getObject();
                 TextView textViewTv = helper.getView(R.id.select_value_tv);
@@ -218,17 +233,44 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                             case R.id.radio_first_rb:
                                 radioBean.setDefaultSelectedIndex(1);
                                 break;
+                            case R.id.radio_second_rb:
+                                radioBean.setDefaultSelectedIndex(2);
+                                break;
+                            case R.id.radio_third_rb:
+                                radioBean.setDefaultSelectedIndex(3);
+                                break;
                             default:
                                 break;
                         }
                     }
                 });
-                if (0 == radioBean.getDefaultSelectedIndex()) {
-                    radioButton0.setChecked(true);
-                    radioButton1.setChecked(false);
-                } else {
-                    radioButton1.setChecked(true);
-                    radioButton0.setChecked(false);
+                switch (radioBean.getDefaultSelectedIndex()) {
+                    case 0:
+                        radioButton0.setChecked(true);
+                        radioButton1.setChecked(false);
+                        radioButton2.setChecked(false);
+                        radioButton3.setChecked(false);
+                        break;
+                    case 1:
+                        radioButton0.setChecked(false);
+                        radioButton1.setChecked(true);
+                        radioButton2.setChecked(false);
+                        radioButton3.setChecked(false);
+                        break;
+                    case 2:
+                        radioButton0.setChecked(false);
+                        radioButton1.setChecked(false);
+                        radioButton2.setChecked(true);
+                        radioButton3.setChecked(false);
+                        break;
+                    case 3:
+                        radioButton0.setChecked(false);
+                        radioButton1.setChecked(false);
+                        radioButton2.setChecked(false);
+                        radioButton3.setChecked(true);
+                        break;
+                    default:
+                        break;
                 }
 
                 break;
@@ -401,6 +443,10 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                     case R.id.value_et:
                         BusinessTextValueBean editBean = (BusinessTextValueBean) editText.getTag();
                         editBean.setValue(s.toString().trim());
+                        break;
+                    case R.id.item_year_et:
+                        BusinessTextValueBean yearBean = (BusinessTextValueBean) editText.getTag();
+                        yearBean.setValue(s.toString().trim());
                         break;
                     default:
                         break;

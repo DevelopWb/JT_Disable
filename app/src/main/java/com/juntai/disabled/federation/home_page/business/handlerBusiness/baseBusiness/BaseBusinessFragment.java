@@ -49,10 +49,6 @@ public abstract class BaseBusinessFragment extends BaseMvpFragment<BusinessPrese
 
     protected abstract List<MultipleItem> getAdapterData();
 
-    /**
-     * @return
-     */
-    protected abstract ImageView getSignIv();
 
     @Override
     protected BusinessPresent createPresenter() {
@@ -139,77 +135,10 @@ public abstract class BaseBusinessFragment extends BaseMvpFragment<BusinessPrese
 //        }
 //    }
 
-    /**
-     * 获取签名图片的路径
-     *
-     * @return
-     */
-    protected String getSignPath() {
-        File file = new File(FileCacheUtils.getAppImagePath() + FileCacheUtils.SIGN_PIC_NAME);
-        return file.exists() ? FileCacheUtils.getAppImagePath() + FileCacheUtils.SIGN_PIC_NAME : null;
-    }
 
-    /**
-     * 展示签名的画板
-     */
-    protected void showSignatureView() {
-
-        bottomSheetDialog = new BottomSheetDialog(mContext);
-        View view = LayoutInflater.from(mContext).inflate(R.layout.signature_view_layout, null);
-        view.findViewById(R.id.signature_view_save).setOnClickListener(this);
-        view.findViewById(R.id.signature_view_rewrite).setOnClickListener(this);
-        view.findViewById(R.id.signature_view_cancel).setOnClickListener(this);
-        //签名画板
-        gsv_signature = view.findViewById(R.id.gsv_signature);
-
-        bottomSheetDialog.setContentView(view);
-        bottomSheetDialog.setCanceledOnTouchOutside(false);
-        bottomSheetDialog.setCancelable(false);
-        bottomSheetDialog.show();
-
-
-    }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.signature_view_save:
-                if (gsv_signature.getTouched()) {
-                    try {
-                        signPath = FileCacheUtils.getAppImagePath() + FileCacheUtils.SIGN_PIC_NAME;
-                        //保存到本地
-                        gsv_signature.save(signPath);
-                        Bitmap bitmap1 =
-                                FileCacheUtils.getLoacalBitmap(signPath); //从本地取图片(在cdcard中获取)  //
-                        if (getSignIv() != null) {
-                            getSignIv().setImageBitmap(bitmap1); //设置Bitmap
-                        }
-                        //                        SINGE_STATE = true;
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    //                    mSignNameTagIv.setVisibility(View.GONE);
-                    //                    mSignNameNoticeTv.setVisibility(View.GONE);
-                    //                    mSignRedactImg.setVisibility(View.VISIBLE);
-                    bottomSheetDialog.dismiss();
-                    //                    mSignResign.getRightTextView().setVisibility(View.VISIBLE);
-                } else {
-                    ToastUtils.toast(mContext, "请签名！");
-                }
-
-                break;
-
-            case R.id.signature_view_rewrite:
-                gsv_signature.clear();
-                break;
-            case R.id.signature_view_cancel:
-                gsv_signature.clear();
-                bottomSheetDialog.dismiss();
-                break;
-
-            default:
-                break;
-        }
     }
 
 

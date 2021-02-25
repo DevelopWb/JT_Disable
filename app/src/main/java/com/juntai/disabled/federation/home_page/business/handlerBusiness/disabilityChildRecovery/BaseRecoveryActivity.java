@@ -6,7 +6,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
 
@@ -19,12 +21,15 @@ import okhttp3.MultipartBody;
  */
 public abstract class BaseRecoveryActivity extends BaseBusinessActivity {
     private TextView mCommitBusinessTv;
-    public static String RECOVERY_NAME="recoveryname";
+    public static String RECOVERY_NAME = "recoveryname";
+
+    public abstract   int getChildId();
 
     @Override
     public void initData() {
 
     }
+
     @Override
     protected String getTitleName() {
         if (getIntent() != null) {
@@ -32,6 +37,7 @@ public abstract class BaseRecoveryActivity extends BaseBusinessActivity {
         }
         return "";
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +59,13 @@ public abstract class BaseRecoveryActivity extends BaseBusinessActivity {
 
     @Override
     public void onSuccess(String tag, Object o) {
+        super.onSuccess(tag, o);
+        if (AppHttpPath.IQ_CHILD_RECOVERY.equals(tag)||AppHttpPath.LONELY_CHILD_RECOVERY.equals(tag)
+                ||AppHttpPath.DEAF_CHILD_RECOVERY.equals(tag)||AppHttpPath.CEREBRAL_PALSY_RECOVERY.equals(tag)) {
+            BaseResult baseResult = (BaseResult) o;
+            ToastUtils.toast(mContext,baseResult.message);
+            finish();
+        }
 
     }
 
@@ -65,7 +78,26 @@ public abstract class BaseRecoveryActivity extends BaseBusinessActivity {
                 if (builder == null) {
                     return;
                 }
-                ToastUtils.toast(mContext,builder.toString());
+                switch (getChildId()) {
+                    case 0:
+                        //智力残疾
+                        mPresenter.addDisabledChildrenIntellectual(builder.build(), AppHttpPath.IQ_CHILD_RECOVERY);
+                        break;
+                    case 1:
+                        //孤独
+                        mPresenter.addDisabledChildrenAutism(builder.build(), AppHttpPath.LONELY_CHILD_RECOVERY);
+                        break;
+                    case 2:
+                        //聋
+                        mPresenter.addDisabledChildrenDeaf(builder.build(), AppHttpPath.DEAF_CHILD_RECOVERY);
+                        break;
+                    case 3:
+                        //脑瘫
+                        mPresenter.addDisabledChildrenCerebralPalsy(builder.build(), AppHttpPath.CEREBRAL_PALSY_RECOVERY);
+                        break;
+                    default:
+                        break;
+                }
                 break;
             default:
                 break;

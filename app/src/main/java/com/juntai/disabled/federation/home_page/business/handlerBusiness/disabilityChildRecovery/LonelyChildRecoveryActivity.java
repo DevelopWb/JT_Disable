@@ -18,6 +18,11 @@ public class LonelyChildRecoveryActivity extends BaseRecoveryActivity {
 
     @Override
     protected List<MultipleItem> getAdapterData() {
-        return mPresenter.getLonelyChildRecoveryData();
+        return mPresenter.getLonelyChildRecoveryData(null);
+    }
+
+    @Override
+    public int getChildId() {
+        return 1;
     }
 }

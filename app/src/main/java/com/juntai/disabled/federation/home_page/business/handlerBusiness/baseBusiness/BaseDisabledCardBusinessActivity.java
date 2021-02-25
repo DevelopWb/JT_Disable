@@ -73,13 +73,6 @@ public abstract class BaseDisabledCardBusinessActivity extends BaseBusinessActiv
                 if (builder == null) {
                     return;
                 }
-                if (TextUtils.isEmpty(getSignPath())) {
-                    ToastUtils.toast(mContext,"请签名");
-                    return;
-                }
-                builder.addFormDataPart("applicantSignFile", "applicantSignFile", RequestBody.create(MediaType.parse(
-                        "file"), new File(getSignPath())));
-
                 switch (getTitleName()) {
                     case BUSINESS_NAME_RENEWAL:
                         mPresenter.addCertificatesExchange(builder.build(), AppHttpPath.DISABLED_CARD_RENEWAL);
