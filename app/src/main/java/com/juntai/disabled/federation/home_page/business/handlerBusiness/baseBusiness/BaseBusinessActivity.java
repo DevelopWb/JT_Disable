@@ -513,9 +513,17 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             //联系电话
                             formKey = "telephone";
                             break;
+                        case BusinessContract.TABLE_TITLE_CONTACTER:
+                            //联系人
+                            formKey = "contacts";
+                            break;
                         case BusinessContract.TABLE_TITLE_CONTACT_MODE:
                             //联系方式
                             formKey = "telephone";
+                            break;
+                        case BusinessContract.TABLE_TITLE_CURRENT_LIVE_ADDR:
+                            //目前居住地
+                            formKey = "residentialAddress";
                             break;
                         case BusinessContract.TABLE_TITLE_WORKER:
                             //工作单位
@@ -536,6 +544,12 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         case BusinessContract.TABLE_TITLE_HOME_ADDR:
                             //户籍所在地
                             formKey = "residenceAddress";
+                            break;
+                        case BusinessContract.TABLE_TITLE_STREET:
+                            //街道
+                            break;
+                        case BusinessContract.TABLE_TITLE_VILLAGE:
+                            //社区
                             break;
                         case BusinessContract.TABLE_TITLE_ADDR_LIVE_NOW:
                             //现居住地
@@ -588,6 +602,22 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         case BusinessContract.TABLE_TITLE_ASSIST_TOOL_AMOUNT:
                             //器具数量
                             formKey = "quantity";
+                            break;
+                        case BusinessContract.TABLE_TITLE_JOB_STATUS:
+                            //就业状况
+                            formKey = "jobSituation";
+                            break;
+                        case BusinessContract.TABLE_TITLE_TRAIN_TYPE:
+                            //培训种类
+                            formKey = "trains";
+                            break;
+                        case BusinessContract.TABLE_TITLE_RESUME_WORK:
+                            //工作简历
+                            formKey = "workingResume";
+                            break;
+                        case BusinessContract.TABLE_TITLE_RESUME_TRAIN:
+                            //培训简历
+                            formKey = "trainingResume";
                             break;
 
                         default:
@@ -782,6 +812,45 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
             }
         }
         return builder;
+    }
+
+    /**
+     * 获取户口信息
+     *
+     * @return
+     */
+    protected String getHukouInfoOfAdapterData() {
+        List<MultipleItem> arrays = adapter.getData();
+        StringBuilder sb = new StringBuilder();
+        for (MultipleItem array : arrays) {
+            switch (array.getItemType()) {
+
+                case MultipleItem.ITEM_BUSINESS_EDIT:
+                    BusinessTextValueBean textValueEditBean = (BusinessTextValueBean) array
+                            .getObject();
+                    if (TextUtils.isEmpty(textValueEditBean.getValue())) {
+                        ToastUtils.toast(mContext, "请输入" + textValueEditBean.getKey());
+                        return null;
+                    }
+                    switch (textValueEditBean.getKey()) {
+                        case BusinessContract.TABLE_TITLE_STREET:
+                            //街道
+                            sb.append(textValueEditBean.getValue()+",");
+                            break;
+                        case BusinessContract.TABLE_TITLE_VILLAGE:
+                            //社区
+                            sb.append(textValueEditBean.getValue());
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                default:
+                    break;
+
+            }
+        }
+        return sb.toString().trim();
     }
 
     /**

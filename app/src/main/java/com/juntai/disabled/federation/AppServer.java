@@ -38,6 +38,7 @@ import com.juntai.disabled.federation.bean.business.detail.HandlerCardDetailBean
 import com.juntai.disabled.federation.bean.business.MyBusinessBean;
 import com.juntai.disabled.federation.bean.business.MyBusinessDetailBean;
 import com.juntai.disabled.federation.bean.business.detail.RecoveryDetailBean;
+import com.juntai.disabled.federation.bean.business.detail.TrainRequestDetailBean;
 import com.juntai.disabled.federation.bean.case_bean.CaseDesBean;
 import com.juntai.disabled.federation.bean.case_bean.CaseInfoBean;
 import com.juntai.disabled.federation.bean.case_bean.CaseTypeBean;
@@ -1966,7 +1967,7 @@ public interface AppServer {
      * @return
      */
     @GET(AppHttpPath.REQUEST_TRAIN_DETAIL)
-    Observable<BaseResult> getTrainInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<TrainRequestDetailBean> getTrainInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
     /**
      *
      * @return

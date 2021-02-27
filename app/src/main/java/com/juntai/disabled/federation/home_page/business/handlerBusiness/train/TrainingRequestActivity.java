@@ -7,11 +7,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
 
 import java.util.List;
+
+import okhttp3.MultipartBody;
 
 /**
  * @aouther tobato
@@ -51,11 +54,29 @@ public class TrainingRequestActivity extends BaseBusinessActivity {
 
     @Override
     protected List<MultipleItem> getAdapterData() {
-        return mPresenter.getTrainingRequestAdapterData();
+        return mPresenter.getTrainingRequestAdapterData(null);
     }
 
     @Override
     public void onSuccess(String tag, Object o) {
+        super.onSuccess(tag, o);
+    }
 
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()) {
+            case R.id.commit_business_form_tv:
+                MultipartBody.Builder builder = getBuilderOfAdapterData();
+                if (builder == null) {
+                    return;
+                }
+                String hukouInfo = getHukouInfoOfAdapterData();
+                builder.addFormDataPart("residenceAddress",hukouInfo);
+                mPresenter.addTrain(builder.build(), AppHttpPath.REQUEST_TRAIN);
+                break;
+            default:
+                break;
+        }
     }
 }
