@@ -11,6 +11,8 @@ import com.juntai.disabled.basecomponent.utils.PubUtil;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseAppActivity;
 import com.juntai.disabled.federation.base.MainPagerAdapter;
+import com.juntai.disabled.federation.bean.MultipleItem;
+import com.juntai.disabled.federation.bean.business.BusinessPicBean;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessContract;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessPresent;
@@ -18,12 +20,14 @@ import com.juntai.disabled.federation.home_page.business.handlerBusiness.disabil
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.studentBursary.disabilitystudentbursary.DisabilityStudentBursaryFragment;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.studentBursary.disabilitystudentbursary.DisabilityStudentBursaryNextYearFragment;
 
+import java.util.List;
+
 /**
  * @aouther tobato
  * @description 描述  大学生助学金
  * @date 2021/1/26 9:45
  */
-public abstract class BaseStudentBursaryActivity extends BaseAppActivity<BusinessPresent> implements BusinessContract.IBusinessView {
+public abstract class BaseStudentBursaryActivity extends BaseBusinessActivity implements BusinessContract.IBusinessView {
 
     private String[] tabs = {"首次申请", "第2年以后申请"};
     private TabLayout mBursaryTab;
@@ -47,6 +51,7 @@ public abstract class BaseStudentBursaryActivity extends BaseAppActivity<Busines
         initViewPageWithTabLayout();
     }
 
+    @Override
     protected String getTitleName() {
         if (getIntent() != null) {
             return getIntent().getStringExtra(BaseRecoveryActivity.RECOVERY_NAME);
@@ -71,7 +76,7 @@ public abstract class BaseStudentBursaryActivity extends BaseAppActivity<Busines
                 mContext, tabs, getFragments());
         mBursaryVp.setAdapter(pagerAdapter);
         mBursaryTab.setupWithViewPager(mBursaryVp);
-
+        mBursaryVp.setOffscreenPageLimit(2);
         for (int i = 0; i < tabs.length; i++) {
             TabLayout.Tab tab = mBursaryTab.getTabAt(i);
             if (tab != null) {
@@ -102,5 +107,4 @@ public abstract class BaseStudentBursaryActivity extends BaseAppActivity<Busines
     protected BusinessPresent createPresenter() {
         return null;
     }
-
 }

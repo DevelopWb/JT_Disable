@@ -10,6 +10,8 @@ import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessFragment;
 import com.juntai.disabled.federation.utils.StringTools;
 
+import java.util.List;
+
 /**
  * @Author: tobato
  * @Description: 作用描述  残疾人大学生助学金申请
@@ -31,9 +33,10 @@ public abstract class BaseStudentBursaryFragment extends BaseBusinessFragment {
         TextView mCommitBusinessTv = view.findViewById(R.id.commit_business_form_tv);
         TextView mBursaryNoticeTv = view.findViewById(R.id.bursary_notice_tv);
         mCommitBusinessTv.setOnClickListener(this);
-        mBursaryNoticeTv.setOnClickListener(this);
-        StringTools.setTextPartColor(mBursaryNoticeTv, getNotice(), getNotice().lastIndexOf("《"), getNotice().lastIndexOf("》")+1,
-                "#FB7D06");
+        mBursaryNoticeTv.setText(getNotice());
+//        mBursaryNoticeTv.setOnClickListener(this);
+//        StringTools.setTextPartColor(mBursaryNoticeTv, getNotice(), getNotice().lastIndexOf("《"), getNotice().lastIndexOf("》")+1,
+//                "#FB7D06");
         return view;
     }
 
@@ -50,9 +53,6 @@ public abstract class BaseStudentBursaryFragment extends BaseBusinessFragment {
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
-            case R.id.bursary_notice_tv:
-                ToastUtils.toast(mContext,"跳转到申请表");
-                break;
             case R.id.commit_business_form_tv:
                 ToastUtils.toast(mContext,"提交");
                 break;

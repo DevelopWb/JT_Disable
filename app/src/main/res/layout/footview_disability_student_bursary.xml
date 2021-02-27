@@ -9,8 +9,8 @@
     android:paddingBottom="30dp">
 
 
-    <RadioButton
-        android:id="@+id/agree_rb"
+    <CheckBox
+        android:id="@+id/agree_cb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -28,9 +28,9 @@
         android:paddingRight="6dp"
         android:paddingBottom="6dp"
         android:text="@string/bursary_notice"
-        app:layout_constraintLeft_toRightOf="@+id/agree_rb"
+        app:layout_constraintLeft_toRightOf="@+id/agree_cb"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/agree_rb" />
+        app:layout_constraintTop_toTopOf="@+id/agree_cb" />
 
 
     <TextView

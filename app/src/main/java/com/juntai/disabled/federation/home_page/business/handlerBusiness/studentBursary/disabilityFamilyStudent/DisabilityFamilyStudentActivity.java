@@ -4,10 +4,14 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.SparseArray;
+import android.view.View;
 
+import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.studentBursary.BaseStudentBursaryActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.studentBursary.disabilitystudentbursary.DisabilityStudentBursaryFragment;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.studentBursary.disabilitystudentbursary.DisabilityStudentBursaryNextYearFragment;
+
+import java.util.List;
 
 /**
  * @aouther tobato
@@ -25,4 +29,18 @@ public class DisabilityFamilyStudentActivity extends BaseStudentBursaryActivity 
         return fragments;
     }
 
+    @Override
+    protected View getFootView() {
+        return null;
+    }
+
+    @Override
+    protected View getHeadView() {
+        return null;
+    }
+
+    @Override
+    protected List<MultipleItem> getAdapterData() {
+        return null;
+    }
 }

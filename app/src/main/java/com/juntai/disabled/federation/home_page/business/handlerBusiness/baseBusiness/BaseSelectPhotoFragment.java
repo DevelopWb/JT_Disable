@@ -1,4 +1,4 @@
-package com.juntai.disabled.federation.base;
+package com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -14,14 +14,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 
-import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
+import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.BaseAppUtils;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.GlideEngine4;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
-import com.juntai.disabled.federation.base.update.UpdateActivity;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseSelectPhotoFragment;
 import com.juntai.disabled.federation.utils.DateUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zhihu.matisse.Matisse;
@@ -40,16 +38,15 @@ import top.zibin.luban.OnCompressListener;
 
 /**
  * @Author: tobato
- * @Description: 作用描述  选择图片的基类
- * @CreateDate: 2020/5/21 15:04
+ * @Description: 作用描述
+ * @CreateDate: 2021/2/27 13:58
  * @UpdateUser: 更新者
- * @UpdateDate: 2020/5/21 15:04
+ * @UpdateDate: 2021/2/27 13:58
  */
-public abstract class BaseSelectPicsActivity <P extends BasePresenter>  extends UpdateActivity<P> {
+public abstract class BaseSelectPhotoFragment <P extends BasePresenter> extends BaseMvpFragment<P> {
 
-
-    private int SELECT_PIC_RESULT = 1000;
-    private int TAKE_PICTURE = 1001;
+    public static int SELECT_PIC_RESULT = 10001;
+    private int TAKE_PICTURE = 10002;
     public String cameraPath;
     private int compressedSize = 0;//被压缩的图片个数
     private List<String> icons = new ArrayList<>();
@@ -80,7 +77,7 @@ public abstract class BaseSelectPicsActivity <P extends BasePresenter>  extends 
                     } else {
                         //打开照相机
                         Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        Uri   imageUri = getOutputMediaFileUri(mContext.getApplicationContext());
+                        Uri imageUri = getOutputMediaFileUri(mContext.getApplicationContext());
                         openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                         //Android7.0添加临时权限标记，此步千万别忘了
                         openCameraIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
@@ -153,13 +150,9 @@ public abstract class BaseSelectPicsActivity <P extends BasePresenter>  extends 
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
-        if (BaseSelectPhotoFragment.SELECT_PIC_RESULT==requestCode) {
-            super.onActivityResult(requestCode,resultCode,data);
-            return;
-        }
-        if (requestCode == SELECT_PIC_RESULT && resultCode == RESULT_OK) {
+        if (requestCode == SELECT_PIC_RESULT) {
             imageCompress(Matisse.obtainPathResult(data));
-        } else if (requestCode == TAKE_PICTURE && resultCode == RESULT_OK) {
+        } else if (requestCode == TAKE_PICTURE ) {
             imageCompress(cameraPath);
         }
     }
@@ -168,7 +161,7 @@ public abstract class BaseSelectPicsActivity <P extends BasePresenter>  extends 
      */
     private void imageCompress(List<String> paths) {
         compressedSize = 0;
-       showLoadingDialog(mContext);
+//        showLoadingDialog(mContext);
         Luban.with(mContext).load(paths).ignoreBy(100).setTargetDir(FileCacheUtils.getAppImagePath()).filter(new CompressionPredicate() {
             @Override
             public boolean apply(String path) {
@@ -189,7 +182,7 @@ public abstract class BaseSelectPicsActivity <P extends BasePresenter>  extends 
                 icons.add(file.getPath());
                 selectedPicsAndEmpressed(icons);
                 if (compressedSize == paths.size()) {
-                   stopLoadingDialog();
+//                    stopLoadingDialog();
                 }
 
             }
@@ -200,7 +193,7 @@ public abstract class BaseSelectPicsActivity <P extends BasePresenter>  extends 
                 compressedSize++;
                 LogUtil.e("push-图片压缩失败");
                 if (compressedSize == paths.size()) {
-                   stopLoadingDialog();
+//                    stopLoadingDialog();
                 }
 
             }
@@ -211,7 +204,7 @@ public abstract class BaseSelectPicsActivity <P extends BasePresenter>  extends 
      * 图片压缩
      */
     private void imageCompress(String path) {
-        showLoadingDialog(mContext);
+//        showLoadingDialog(mContext);
         Luban.with(mContext).load(path).ignoreBy(100).setTargetDir(FileCacheUtils.getAppImagePath()).filter(new CompressionPredicate() {
             @Override
             public boolean apply(String path) {
@@ -229,15 +222,14 @@ public abstract class BaseSelectPicsActivity <P extends BasePresenter>  extends 
                 //  压缩成功后调用，返回压缩后的图片文件
                 icons.add(file.getPath());
                 selectedPicsAndEmpressed(icons);
-                stopLoadingDialog();
+//                stopLoadingDialog();
             }
 
             @Override
             public void onError(Throwable e) {
                 LogUtil.e("push-图片压缩失败");
-                stopLoadingDialog();
+//                stopLoadingDialog();
             }
         }).launch();
     }
-
 }

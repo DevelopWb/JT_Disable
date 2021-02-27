@@ -6,16 +6,20 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.SparseArray;
+import android.view.View;
 
 import com.juntai.disabled.basecomponent.utils.PubUtil;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseAppActivity;
 import com.juntai.disabled.federation.base.MainPagerAdapter;
+import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessContract;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessPresent;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.studentBursary.BaseStudentBursaryActivity;
 import com.juntai.disabled.federation.home_page.camera.yunkong.CameraYunControlChildFragment;
 import com.juntai.disabled.federation.home_page.camera.yunkong.CameraYunControlChildPositionsFragment;
+
+import java.util.List;
 
 /**
  * @aouther tobato
@@ -34,4 +38,18 @@ public class DisabilityStudentBursaryActivity extends BaseStudentBursaryActivity
     }
 
 
+    @Override
+    protected View getFootView() {
+        return null;
+    }
+
+    @Override
+    protected View getHeadView() {
+        return null;
+    }
+
+    @Override
+    protected List<MultipleItem> getAdapterData() {
+        return null;
+    }
 }

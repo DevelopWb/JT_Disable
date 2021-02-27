@@ -71,6 +71,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     public static String BUSINESS_ID = "businessid";
     protected int businessId = -1;
     private ItemSignBean itemSignBean = null;
+    private OnPicSelectedCallBack picSelectedCallBack;
 
     protected abstract String getTitleName();
 
@@ -107,6 +108,10 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         if (getHeadView() != null) {
             adapter.setHeaderView(getHeadView());
         }
+        setAdapterClick();
+    }
+
+    private void setAdapterClick() {
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
 
 
@@ -244,6 +249,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         arrays.add("<=55~75");
         return arrays;
     }
+
     /**
      * 1痉挛型；2手足徐动型；3共济失调；4弛缓型；5混合型
      *
@@ -301,8 +307,10 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        adapter.removeAllFooterView();
-        adapter.removeAllHeaderView();
+        if (adapter != null) {
+            adapter.removeAllFooterView();
+            adapter.removeAllHeaderView();
+        }
         if (bottomSheetDialog != null) {
             if (bottomSheetDialog.isShowing()) {
                 bottomSheetDialog.dismiss();
@@ -315,6 +323,10 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
 
     @Override
     protected void selectedPicsAndEmpressed(List<String> icons) {
+        if (picSelectedCallBack!=null&&adapter==null) {
+            picSelectedCallBack.picSelected(icons);
+            return;
+        }
         if (icons.size() > 0) {
             String path = icons.get(0);
             BusinessPicBean businessPicBean =
@@ -594,7 +606,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                     String.valueOf(radioBean.getDefaultSelectedIndex()));
                             break;
                         case BusinessContract.TABLE_TITLE_PROJECT_LEVEL:
-                            builder.addFormDataPart("grand", String.valueOf(radioBean.getDefaultSelectedIndex()));
+                            builder.addFormDataPart("grand", String.valueOf(radioBean.getDefaultSelectedIndex() + 1));
                             break;
                         case BusinessContract.TABLE_TITLE_IS_POOR_FAMILY:
                             builder.addFormDataPart("alleviation", String.valueOf(radioBean.getDefaultSelectedIndex()));
@@ -693,11 +705,12 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                     //签名
                     ItemSignBean signBean = (ItemSignBean) array.getObject();
                     if (!StringTools.isStringValueOk(signBean.getSignPicPath())) {
-                        ToastUtils.toast(mContext,  "请签名");
+                        ToastUtils.toast(mContext, "请签名");
                         return null;
                     }
-                    builder.addFormDataPart("applicantSignFile", "applicantSignFile", RequestBody.create(MediaType.parse(
-                            "file"), new File(getSignPath())));
+                    builder.addFormDataPart("applicantSignFile", "applicantSignFile",
+                            RequestBody.create(MediaType.parse(
+                                    "file"), new File(getSignPath())));
                     break;
                 case MultipleItem.ITEM_BUSINESS_NORMAL_RECYCLEVIEW:
                     RecycleBean recycleBean = (RecycleBean) array.getObject();
@@ -826,5 +839,17 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
 
         }
 
+    }
+
+    /**
+     * 图片被选中后的回调
+     */
+    public interface OnPicSelectedCallBack {
+        void picSelected(List<String> icons);
+    }
+
+
+    public void setOnPicSelectedCallBack(OnPicSelectedCallBack picSelectedCallBack) {
+        this.picSelectedCallBack = picSelectedCallBack;
     }
 }
