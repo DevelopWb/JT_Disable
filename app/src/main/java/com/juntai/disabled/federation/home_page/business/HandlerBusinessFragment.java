@@ -1,30 +1,15 @@
 package com.juntai.disabled.federation.home_page.business;
 
-import android.content.Intent;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.bean.business.AllBusinessBean;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.AssistToolsRequestActivity;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.CardLevelChangeActivity;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.CardLogoutActivity;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.CardMoveInActivity;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.CardMoveOutActivity;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.CardReissueActivity;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.EmploymentRegistActivity;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.HandlerCardActivity;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.RenewalActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessContract;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessPresent;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.disabilityChildRecovery.DisabilityChildRecoveryActivity;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.studentBursary.StudentBursaryActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;

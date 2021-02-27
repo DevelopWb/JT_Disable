@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.PickerManager;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
@@ -67,6 +68,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     private int selectedEducationLevel = 0;//学历登记
     private int categoryId = 0;//残疾类别
     private int levelId = 0;//残疾等级
+    private int toolId = 0;//辅具id
     private BusinessTextValueBean selectBean;
     public static String BUSINESS_ID = "businessid";
     protected int businessId = -1;
@@ -175,6 +177,14 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             case BusinessContract.TABLE_TITLE_DISABILITY_LEVEL:
                                 //残疾等级
                                 mPresenter.getDisabledLevel(AppHttpPath.GET_DISABLED_LEVEL);
+                                break;
+                            case BusinessContract.TABLE_TITLE_SELECT_ASSIST_TOOL:
+                                //辅具
+                                if (0 == categoryId) {
+                                    ToastUtils.toast(mContext, "请先选择残疾类别");
+                                    return;
+                                }
+                                mPresenter.getDisabledAIDS(categoryId, AppHttpPath.GET_DISABLED_AIDS);
                                 break;
                             case BusinessContract.TABLE_TITLE_CARD_TYPE:
                                 List<String> cards = getCardTypes();
@@ -323,7 +333,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
 
     @Override
     protected void selectedPicsAndEmpressed(List<String> icons) {
-        if (picSelectedCallBack!=null&&adapter==null) {
+        if (picSelectedCallBack != null && adapter == null) {
             picSelectedCallBack.picSelected(icons);
             return;
         }
@@ -575,6 +585,10 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             //监护人申请
                             formKey = "guardianApply";
                             break;
+                        case BusinessContract.TABLE_TITLE_ASSIST_TOOL_AMOUNT:
+                            //器具数量
+                            formKey = "quantity";
+                            break;
 
                         default:
                             break;
@@ -655,6 +669,9 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             break;
                         case BusinessContract.TABLE_TITLE_DISABILITY_LEVEL:
                             builder.addFormDataPart("level", String.valueOf(levelId));
+                            break;
+                        case BusinessContract.TABLE_TITLE_SELECT_ASSIST_TOOL:
+                            builder.addFormDataPart("aidsId", String.valueOf(toolId));
                             break;
                         default:
                             break;
@@ -804,7 +821,8 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         BusinessPropertyBean propertyNationBean = null;
         List<BusinessPropertyBean.DataBean> data = null;
         if (BusinessContract.TABLE_TITLE_NATION.equals(tag) || BusinessContract.TABLE_TITLE_EDUCATION_LEVEL.equals(tag)
-                || AppHttpPath.GET_DISABLED_TYPE.equals(tag) || AppHttpPath.GET_DISABLED_LEVEL.equals(tag)) {
+                || AppHttpPath.GET_DISABLED_TYPE.equals(tag) || AppHttpPath.GET_DISABLED_LEVEL.equals(tag)
+                || AppHttpPath.GET_DISABLED_AIDS.equals(tag)) {
             propertyNationBean = (BusinessPropertyBean) o;
             data = propertyNationBean.getData();
             if (propertyNationBean != null && data.size() > 0) {
@@ -829,6 +847,9 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                     case AppHttpPath.GET_DISABLED_LEVEL:
                                         levelId = dataBean.getId();
                                         break;
+                                    case AppHttpPath.GET_DISABLED_AIDS:
+                                        toolId = dataBean.getId();
+                                        break;
                                     default:
                                         break;
                                 }
@@ -837,8 +858,11 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         });
             }
 
+        } else {
+            BaseResult baseResult = (BaseResult) o;
+            ToastUtils.toast(mContext, baseResult.message);
+            finish();
         }
-
     }
 
     /**

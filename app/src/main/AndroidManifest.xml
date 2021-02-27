@@ -30,7 +30,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".home_page.business.handlerBusiness.businessdetail.recovery.BrainPalsyRecoveryDetailActivity"></activity>
+        <activity android:name=".home_page.business.handlerBusiness.train.TrainRequestDetailActivity"></activity>
+        <activity android:name=".home_page.business.handlerBusiness.assistTool.AssistToolDetailActivity" />
+        <activity android:name=".home_page.business.handlerBusiness.businessdetail.recovery.BrainPalsyRecoveryDetailActivity" />
         <activity android:name=".home_page.business.handlerBusiness.businessdetail.recovery.DeafDumbChildRecoveryDetailActivity" />
         <activity android:name=".home_page.business.handlerBusiness.businessdetail.recovery.LonelyChildRecoveryDetailActivity" />
         <activity android:name=".home_page.business.handlerBusiness.businessdetail.recovery.MoronRecoveryDetailActivity" />
@@ -43,8 +45,8 @@
         <activity android:name=".home_page.business.handlerBusiness.businessdetail.RenewalDetailActivity" />
         <activity android:name=".home_page.business.handlerBusiness.businessdetail.HandlerCardDetailActivity" />
         <activity android:name=".home_page.business.handlerBusiness.HomeCareActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.TrainingRequestActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.AssistToolsRequestActivity" />
+        <activity android:name=".home_page.business.handlerBusiness.train.TrainingRequestActivity" />
+        <activity android:name=".home_page.business.handlerBusiness.assistTool.AssistToolsRequestActivity" />
         <activity android:name=".home_page.business.handlerBusiness.disabilityChildRecovery.BrainPalsyRecoveryActivity" />
         <activity android:name=".home_page.business.handlerBusiness.disabilityChildRecovery.DeafDumbChildRecoveryActivity" />
         <activity android:name=".home_page.business.handlerBusiness.disabilityChildRecovery.LonelyChildRecoveryActivity" />

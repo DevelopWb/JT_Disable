@@ -12,7 +12,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.bean.business.AllBusinessBean;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.AssistToolsRequestActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.assistTool.AssistToolsRequestActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.CardLevelChangeActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.CardLogoutActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.CardMoveInActivity;
@@ -22,7 +22,7 @@ import com.juntai.disabled.federation.home_page.business.handlerBusiness.Employm
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.HandlerCardActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.HomeCareActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.RenewalActivity;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.TrainingRequestActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.train.TrainingRequestActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.disabilityChildRecovery.DisabilityChildRecoveryActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.studentBursary.StudentBursaryActivity;
 

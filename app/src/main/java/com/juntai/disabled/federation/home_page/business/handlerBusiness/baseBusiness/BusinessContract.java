@@ -187,7 +187,7 @@ public interface BusinessContract {
         /**
          * @param tag
          */
-        void getDisabledAIDS(String tag);
+        void getDisabledAIDS(int categoryId,String tag);
 
         /**
          * @param tag

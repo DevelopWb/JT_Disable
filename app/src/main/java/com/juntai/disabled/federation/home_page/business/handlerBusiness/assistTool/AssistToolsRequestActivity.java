@@ -1,4 +1,4 @@
-package com.juntai.disabled.federation.home_page.business.handlerBusiness;
+package com.juntai.disabled.federation.home_page.business.handlerBusiness.assistTool;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,11 +7,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
 
 import java.util.List;
+
+import okhttp3.MultipartBody;
 
 /**
  * @aouther tobato
@@ -51,12 +56,29 @@ public class AssistToolsRequestActivity extends BaseBusinessActivity {
 
     @Override
     protected List<MultipleItem> getAdapterData() {
-        return mPresenter.getAssistToolAdapterData();
+        return mPresenter.getAssistToolAdapterData(null);
     }
 
 
     @Override
     public void onSuccess(String tag, Object o) {
+        super.onSuccess(tag, o);
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()) {
+            case R.id.commit_business_form_tv:
+                MultipartBody.Builder builder = getBuilderOfAdapterData();
+                if (builder == null) {
+                    return;
+                }
+                mPresenter.addAIDS(builder.build(),AppHttpPath.REQUEST_AIDS);
+                break;
+            default:
+                break;
+        }
     }
 }

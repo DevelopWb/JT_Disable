@@ -13,6 +13,7 @@ import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseAppActivity;
 import com.juntai.disabled.federation.bean.business.MyBusinessBean;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.assistTool.AssistToolDetailActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.DisabledCardLevelChangeDetailActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.DisabledCardLogoutDetailActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.DisabledCardMoveInDetailActivity;
@@ -150,6 +151,11 @@ public class MyBusinessActivity extends BaseAppActivity<BusinessPresent> impleme
                     case 8:
                         //就业登记
                         startActivity(new Intent(mContext, EmploymentRegistDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
+                                businessId));
+                        break;
+                    case 12:
+                        //辅助用品申请
+                        startActivity(new Intent(mContext, AssistToolDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
                                 businessId));
                         break;
                     case 16:

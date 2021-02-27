@@ -31,6 +31,7 @@ import com.juntai.disabled.federation.bean.business.BusinessListBean;
 import com.juntai.disabled.federation.bean.business.BusinessNeedInfoBean;
 import com.juntai.disabled.federation.bean.business.BusinessPropertyBean;
 import com.juntai.disabled.federation.bean.business.ChildBusinessesBean;
+import com.juntai.disabled.federation.bean.business.detail.AssistToolDetailBean;
 import com.juntai.disabled.federation.bean.business.detail.BusinessChildDetailBean;
 import com.juntai.disabled.federation.bean.business.detail.EmploymentRegDetailBean;
 import com.juntai.disabled.federation.bean.business.detail.HandlerCardDetailBean;
@@ -1746,7 +1747,7 @@ public interface AppServer {
      * @return
      */
     @GET(AppHttpPath.GET_DISABLED_AIDS)
-    Observable<BusinessPropertyBean> getDisabledAIDS();
+    Observable<BusinessPropertyBean> getDisabledAIDS(@Query("categoryId")int categoryId);
 
     /**
      * @return
@@ -1959,7 +1960,7 @@ public interface AppServer {
      * @return
      */
     @GET(AppHttpPath.REQUEST_AIDS_DETAIL)
-    Observable<BaseResult> getAIDSInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<AssistToolDetailBean> getAIDSInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
     /**
      *
      * @return
