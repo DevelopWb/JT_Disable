@@ -49,6 +49,7 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
     private GestureSignatureView gsv_signature;
     private BottomSheetDialog bottomSheetDialog;
     private String signPath;
+    private int currentPosition;
 
     private ImageView mSignIv = null;
     private TextView mSelectTv;
@@ -89,7 +90,7 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
         mSmartrefreshlayout = (SmartRefreshLayout) getView(R.id.smartrefreshlayout);
         mSmartrefreshlayout.setEnableLoadMore(false);
         mSmartrefreshlayout.setEnableRefresh(false);
-        adapter = new HandlerBusinessAdapter(null, getBaseFragmentActivity().businessId == -1 ? false :
+        adapter = new HandlerBusinessAdapter(getAdapterData(), getBaseFragmentActivity().businessId == -1 ? false :
                 true);
         getBaseFragmentActivity().initRecyclerview(mRecyclerview, adapter, LinearLayoutManager.VERTICAL);
         if (getFootView() != null) {
@@ -103,7 +104,7 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
 
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                Hawk.put(HawkProperty.BUSINESS_ITEM_POSITION, position);
+                currentPosition = position;
                 MultipleItem multipleItem = (MultipleItem) adapter.getData().get(position);
                 //                mHeadIv = (ImageView) adapter.getViewByPosition(mRecyclerview, position, R.id
                 //                .form_head_pic_iv);
@@ -112,10 +113,10 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
 
                 switch (view.getId()) {
                     case R.id.form_pic_src_iv:
-                       choseImage(0,BaseBusinessFragment.this, 1);
+                        choseImageFromFragment(0,BaseBusinessFragment.this, 1,SELECT_PIC_RESULT);
                         break;
                     case R.id.form_head_pic_iv:
-                       choseImage(0, BaseBusinessFragment.this, 1);
+                        choseImageFromFragment(0, BaseBusinessFragment.this, 1,SELECT_PIC_RESULT);
                         break;
                     case R.id.select_value_tv:
                         mSelectTv = (TextView) adapter.getViewByPosition(mRecyclerview, position,
@@ -260,7 +261,6 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
     protected void selectedPicsAndEmpressed(List<String> icons) {
         if (icons.size() > 0) {
             String path = icons.get(0);
-            int currentPosition = Hawk.get(HawkProperty.BUSINESS_ITEM_POSITION, 0);
             MultipleItem multipleItem = adapter.getData().get(currentPosition);
             BusinessPicBean businessPicBean =
                     (BusinessPicBean) multipleItem.getObject();
@@ -325,7 +325,6 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
 
     @Override
     protected void lazyLoad() {
-        adapter.setNewData(getAdapterData());
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.juntai.disabled.basecomponent.base;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -185,6 +186,11 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
     public TextView getTitleLeftTv() {
         mBackTv.setVisibility(View.VISIBLE);
         return mBackTv;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     /**

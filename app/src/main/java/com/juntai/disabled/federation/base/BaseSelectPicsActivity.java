@@ -45,7 +45,7 @@ import top.zibin.luban.OnCompressListener;
  * @UpdateUser: 更新者
  * @UpdateDate: 2020/5/21 15:04
  */
-public abstract class BaseSelectPicsActivity <P extends BasePresenter>  extends UpdateActivity<P> {
+public abstract class BaseSelectPicsActivity<P extends BasePresenter> extends UpdateActivity<P> {
 
 
     private int SELECT_PIC_RESULT = 1000;
@@ -55,7 +55,7 @@ public abstract class BaseSelectPicsActivity <P extends BasePresenter>  extends 
     private List<String> icons = new ArrayList<>();
 
 
-    protected abstract  void  selectedPicsAndEmpressed(List<String> icons);
+    protected abstract void selectedPicsAndEmpressed(List<String> icons);
 
     /**
      * 图片选择
@@ -67,12 +67,14 @@ public abstract class BaseSelectPicsActivity <P extends BasePresenter>  extends 
     @SuppressLint("CheckResult")
     public void choseImage(int type, Activity activity, int maxSelectable) {
         icons.clear();
-        new RxPermissions(this).request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA).compose(this.bindToLife()).subscribe(new Consumer<Boolean>() {
+        new RxPermissions(this).request(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA).compose(this.bindToLife()).subscribe(new Consumer<Boolean>() {
             @Override
             public void accept(Boolean aBoolean) throws Exception {
                 if (aBoolean) {
                     if (type == 0) {
-                        Matisse.from(activity).choose(MimeType.ofImage()).showSingleMediaType(true)//是否只显示选择的类型的缩略图，就不会把所有图片视频都放在一起，而是需要什么展示什么
+                        Matisse.from(activity).choose(MimeType.ofImage()).showSingleMediaType(true)
+                                //是否只显示选择的类型的缩略图，就不会把所有图片视频都放在一起，而是需要什么展示什么
                                 .countable(true).maxSelectable(maxSelectable).capture(true).captureStrategy(new CaptureStrategy(true, BaseAppUtils.getFileprovider()))
                                 //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
                                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED).thumbnailScale(0.85f).imageEngine(new GlideEngine4()).forResult(SELECT_PIC_RESULT);
@@ -80,7 +82,7 @@ public abstract class BaseSelectPicsActivity <P extends BasePresenter>  extends 
                     } else {
                         //打开照相机
                         Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        Uri   imageUri = getOutputMediaFileUri(mContext.getApplicationContext());
+                        Uri imageUri = getOutputMediaFileUri(mContext.getApplicationContext());
                         openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                         //Android7.0添加临时权限标记，此步千万别忘了
                         openCameraIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
@@ -92,6 +94,7 @@ public abstract class BaseSelectPicsActivity <P extends BasePresenter>  extends 
             }
         });
     }
+
     /**
      * 图片选择
      *
@@ -102,12 +105,14 @@ public abstract class BaseSelectPicsActivity <P extends BasePresenter>  extends 
     @SuppressLint("CheckResult")
     public void choseImage(int type, Fragment fragment, int maxSelectable) {
         icons.clear();
-        new RxPermissions(this).request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA).compose(this.bindToLife()).subscribe(new Consumer<Boolean>() {
+        new RxPermissions(this).request(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA).compose(this.bindToLife()).subscribe(new Consumer<Boolean>() {
             @Override
             public void accept(Boolean aBoolean) throws Exception {
                 if (aBoolean) {
                     if (type == 0) {
-                        Matisse.from(fragment).choose(MimeType.ofImage()).showSingleMediaType(true)//是否只显示选择的类型的缩略图，就不会把所有图片视频都放在一起，而是需要什么展示什么
+                        Matisse.from(fragment).choose(MimeType.ofImage()).showSingleMediaType(true)
+                                //是否只显示选择的类型的缩略图，就不会把所有图片视频都放在一起，而是需要什么展示什么
                                 .countable(true).maxSelectable(maxSelectable).capture(true).captureStrategy(new CaptureStrategy(true, BaseAppUtils.getFileprovider()))
                                 //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
                                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED).thumbnailScale(0.85f).imageEngine(new GlideEngine4()).forResult(SELECT_PIC_RESULT);
@@ -115,7 +120,7 @@ public abstract class BaseSelectPicsActivity <P extends BasePresenter>  extends 
                     } else {
                         //打开照相机
                         Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        Uri   imageUri = getOutputMediaFileUri(mContext.getApplicationContext());
+                        Uri imageUri = getOutputMediaFileUri(mContext.getApplicationContext());
                         openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                         //Android7.0添加临时权限标记，此步千万别忘了
                         openCameraIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
@@ -143,7 +148,8 @@ public abstract class BaseSelectPicsActivity <P extends BasePresenter>  extends 
         cameraPath = mediaFile.getAbsolutePath();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {// sdk >= 24  android7.0以上
-            Uri contentUri = FileProvider.getUriForFile(context, BaseAppUtils.getFileprovider(),//与清单文件中android:authorities的值保持一致
+            Uri contentUri = FileProvider.getUriForFile(context, BaseAppUtils.getFileprovider(),//与清单文件中android
+                    // :authorities的值保持一致
                     mediaFile);//FileProvider方式或者ContentProvider。也可使用VmPolicy方式
             return contentUri;
         } else {
@@ -151,24 +157,24 @@ public abstract class BaseSelectPicsActivity <P extends BasePresenter>  extends 
 
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
-        if (BaseSelectPhotoFragment.SELECT_PIC_RESULT==requestCode) {
-            super.onActivityResult(requestCode,resultCode,data);
-            return;
-        }
         if (requestCode == SELECT_PIC_RESULT && resultCode == RESULT_OK) {
             imageCompress(Matisse.obtainPathResult(data));
         } else if (requestCode == TAKE_PICTURE && resultCode == RESULT_OK) {
             imageCompress(cameraPath);
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
+
     /**
      * 图片压缩
      */
     private void imageCompress(List<String> paths) {
         compressedSize = 0;
-       showLoadingDialog(mContext);
+        showLoadingDialog(mContext);
         Luban.with(mContext).load(paths).ignoreBy(100).setTargetDir(FileCacheUtils.getAppImagePath()).filter(new CompressionPredicate() {
             @Override
             public boolean apply(String path) {
@@ -189,7 +195,7 @@ public abstract class BaseSelectPicsActivity <P extends BasePresenter>  extends 
                 icons.add(file.getPath());
                 selectedPicsAndEmpressed(icons);
                 if (compressedSize == paths.size()) {
-                   stopLoadingDialog();
+                    stopLoadingDialog();
                 }
 
             }
@@ -200,7 +206,7 @@ public abstract class BaseSelectPicsActivity <P extends BasePresenter>  extends 
                 compressedSize++;
                 LogUtil.e("push-图片压缩失败");
                 if (compressedSize == paths.size()) {
-                   stopLoadingDialog();
+                    stopLoadingDialog();
                 }
 
             }
