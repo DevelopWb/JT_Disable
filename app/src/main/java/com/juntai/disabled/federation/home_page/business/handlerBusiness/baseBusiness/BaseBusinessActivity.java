@@ -654,6 +654,10 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             //与残疾人关系
                             formKey = "relationship";
                             break;
+                        case BusinessContract.TABLE_TITLE_SCHOOL_SYSTEM:
+                            //学制
+                            formKey = "system";
+                            break;
 
                         default:
                             break;
@@ -982,7 +986,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
      * @param data
      * @return
      */
-    private String getSelectedItems(List<ItemCheckBoxBean> data) {
+    protected String getSelectedItems(List<ItemCheckBoxBean> data) {
         List<String> sb = new ArrayList<>();
         for (ItemCheckBoxBean datum : data) {
             if (datum.isSelecte()) {
@@ -998,7 +1002,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
      * @param data
      * @return
      */
-    private ItemCheckBoxBean getSelectedItem(List<ItemCheckBoxBean> data) {
+    protected ItemCheckBoxBean getSelectedItem(List<ItemCheckBoxBean> data) {
         for (ItemCheckBoxBean datum : data) {
             if (datum.isSelecte()) {
                 return datum;

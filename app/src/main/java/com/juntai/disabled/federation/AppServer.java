@@ -33,6 +33,7 @@ import com.juntai.disabled.federation.bean.business.BusinessPropertyBean;
 import com.juntai.disabled.federation.bean.business.ChildBusinessesBean;
 import com.juntai.disabled.federation.bean.business.detail.AssistToolDetailBean;
 import com.juntai.disabled.federation.bean.business.detail.BusinessChildDetailBean;
+import com.juntai.disabled.federation.bean.business.detail.StudentBursaryDetailBean;
 import com.juntai.disabled.federation.bean.business.detail.EmploymentRegDetailBean;
 import com.juntai.disabled.federation.bean.business.detail.HandlerCardDetailBean;
 import com.juntai.disabled.federation.bean.business.MyBusinessBean;
@@ -1949,14 +1950,14 @@ public interface AppServer {
      *
      * @return
      */
-    @GET(AppHttpPath.DISABLED_CHILD_BURSARY_DETAIL)
-    Observable<BaseResult> getDisabledStudentFamilyGrantInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    @GET(AppHttpPath.DISABLED_FAMILY_CHILD_BURSARY_DETAIL)
+    Observable<StudentBursaryDetailBean> getDisabledStudentFamilyGrantInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
     /**
      *
      * @return
      */
-    @GET(AppHttpPath.DISABLED_FAMILY_CHILD_BURSARY_DETAIL)
-    Observable<BaseResult> getDisabledStudentGrantInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    @GET(AppHttpPath.DISABLED_CHILD_BURSARY_DETAIL)
+    Observable<StudentBursaryDetailBean> getDisabledStudentGrantInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
     /**
      *
      * @return

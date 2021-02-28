@@ -29,6 +29,11 @@ public  class BaseDisabilityStudentBursaryFragment extends BaseStudentBursaryFra
     }
 
     @Override
+    protected String getFragmentTag() {
+        return null;
+    }
+
+    @Override
     protected List<MultipleItem> getAdapterData() {
         return null;
     }

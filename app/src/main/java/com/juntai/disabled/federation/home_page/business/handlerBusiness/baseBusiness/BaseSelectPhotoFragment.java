@@ -148,9 +148,9 @@ public abstract class BaseSelectPhotoFragment <P extends BasePresenter> extends 
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
-        if (requestCode == SELECT_PIC_RESULT) {
+        if (requestCode == SELECT_PIC_RESULT&& resultCode == -1) {
             imageCompress(Matisse.obtainPathResult(data));
-        } else if (requestCode == TAKE_PICTURE ) {
+        } else if (requestCode == TAKE_PICTURE&& resultCode == -1 ) {
             imageCompress(cameraPath);
         }
     }

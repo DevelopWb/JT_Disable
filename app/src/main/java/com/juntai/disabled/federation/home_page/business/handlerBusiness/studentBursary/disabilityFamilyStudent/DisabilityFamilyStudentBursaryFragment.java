@@ -15,6 +15,11 @@ public class DisabilityFamilyStudentBursaryFragment extends BaseDisabilityFamily
 
     @Override
     protected List<MultipleItem> getAdapterData() {
-        return mPresenter.getDisabilityFamilyStudentBursaryAdapterData();
+        return mPresenter.getDisabilityFamilyStudentBursaryAdapterData(null);
+    }
+
+    @Override
+    protected String getFragmentTag() {
+        return FAMILY_STUDENT_BURSARY_FIRST;
     }
 }

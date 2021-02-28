@@ -907,13 +907,13 @@ public class AppHttpPath {
     /**
      * 用户提交残疾人大学生（残疾学生助学金）申请接口
      */
-    public static final String DISABLED_CHILD_BURSARY_DETAIL = BASE + "/getDisabledStudentFamilyGrantInfo.shtml";
+    public static final String DISABLED_CHILD_BURSARY_DETAIL = BASE + "/getDisabledStudentGrantInfo.shtml";
 
 
     /**
      * 残疾家庭学生
      */
-    public static final String DISABLED_FAMILY_CHILD_BURSARY_DETAIL = BASE + "/getDisabledStudentGrantInfo.shtml";
+    public static final String DISABLED_FAMILY_CHILD_BURSARY_DETAIL = BASE + "/getDisabledStudentFamilyGrantInfo.shtml";
     /**
      * 辅助用品用具申请
      */

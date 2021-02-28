@@ -31,6 +31,8 @@ import com.juntai.disabled.federation.home_page.business.handlerBusiness.busines
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.recovery.MoronRecoveryDetailActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.disabilityChildRecovery.BaseRecoveryActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.homecare.HomeCareDetailActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.studentBursary.detail.DisabledFamilyStudentBursaryDetailActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.studentBursary.detail.DisabledStudentBursaryDetailActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.train.TrainRequestDetailActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -188,6 +190,16 @@ public class MyBusinessActivity extends BaseAppActivity<BusinessPresent> impleme
                     case 19:
                         //精准康复孤独儿童康复救助
                         startActivity(new Intent(mContext, BrainPalsyRecoveryDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
+                                businessId).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
+                        break;
+                    case 20:
+                        //残疾人大学生助学金
+                        startActivity(new Intent(mContext, DisabledStudentBursaryDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
+                                businessId).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
+                        break;
+                    case 21:
+                        //重残家庭大学生助学金
+                        startActivity(new Intent(mContext, DisabledFamilyStudentBursaryDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
                                 businessId).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
                         break;
                     default:

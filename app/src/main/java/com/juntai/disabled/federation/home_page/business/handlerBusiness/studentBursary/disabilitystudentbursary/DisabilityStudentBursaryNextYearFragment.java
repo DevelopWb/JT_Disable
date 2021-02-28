@@ -13,6 +13,10 @@ public class DisabilityStudentBursaryNextYearFragment extends BaseDisabilityStud
 
     @Override
     protected List<MultipleItem> getAdapterData() {
-        return mPresenter.getDisabilityStudentBursaryNextYearAdapterData();
+        return mPresenter.getDisabilityStudentBursaryNextYearAdapterData(null);
+    }
+    @Override
+    protected String getFragmentTag() {
+        return STUDENT_BURSARY_SECOND;
     }
 }
