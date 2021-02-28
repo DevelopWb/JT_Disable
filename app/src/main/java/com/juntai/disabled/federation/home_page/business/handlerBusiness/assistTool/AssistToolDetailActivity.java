@@ -55,6 +55,11 @@ public class AssistToolDetailActivity extends BaseBusinessActivity {
     }
 
     @Override
+    protected void commit() {
+
+    }
+
+    @Override
     protected List<MultipleItem> getAdapterData() {
         return null;
     }

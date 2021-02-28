@@ -81,6 +81,8 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
 
     protected abstract View getHeadView();
 
+    protected abstract void commit();
+
     protected abstract List<MultipleItem> getAdapterData();
 
     @Override
@@ -416,7 +418,10 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                 gsv_signature.clear();
                 bottomSheetDialog.dismiss();
                 break;
-
+            case R.id.commit_business_form_tv:
+                //提交
+                commit();
+                break;
             default:
                 break;
         }
@@ -448,13 +453,27 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                     BusinessTextValueBean textValueEditBean = (BusinessTextValueBean) array
                             .getObject();
                     if (TextUtils.isEmpty(textValueEditBean.getValue())) {
-                        ToastUtils.toast(mContext, "请输入" + textValueEditBean.getKey());
+                        String key = textValueEditBean.getKey();
+                        if (key.contains(mPresenter.FAMILY_TAG)) {
+                            key = "监护人" + key.substring(1, key.length());
+                        } else if (key.contains(mPresenter.PERSIONAL_TAG)) {
+                            key = "残疾人" + key.substring(1, key.length());
+                        }
+                        ToastUtils.toast(mContext, "请输入" + key);
                         return null;
                     }
                     String formKey = null;
                     switch (textValueEditBean.getKey()) {
                         case BusinessContract.TABLE_TITLE_NAME:
                             //姓名
+                            formKey = "name";
+                            break;
+                        case BusinessContract.TABLE_TITLE_NAME_FAMILY:
+                            //监护人姓名  居家托养。。。
+                            formKey = "guardianName";
+                            break;
+                        case BusinessContract.TABLE_TITLE_NAME_PERSIONAL:
+                            //残疾人姓名   居家托养。。。
                             formKey = "name";
                             break;
                         case BusinessContract.TABLE_TITLE_CHILD_NAME:
@@ -464,6 +483,14 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         case BusinessContract.TABLE_TITLE_BIRTH:
                             //出生年月
                             formKey = "birth";
+                            break;
+                        case BusinessContract.TABLE_TITLE_AGE_FAMILY:
+                            //年龄
+                            formKey = "guardianAge";
+                            break;
+                        case BusinessContract.TABLE_TITLE_AGE_PERSIONAL:
+                            //年龄
+                            formKey = "age";
                             break;
                         case BusinessContract.TABLE_TITLE_HOMETOWN:
                             //籍贯
@@ -607,6 +634,10 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             //就业状况
                             formKey = "jobSituation";
                             break;
+                        case BusinessContract.TABLE_TITLE_JOB:
+                            //职业
+                            formKey = "profession";
+                            break;
                         case BusinessContract.TABLE_TITLE_TRAIN_TYPE:
                             //培训种类
                             formKey = "trains";
@@ -618,6 +649,10 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         case BusinessContract.TABLE_TITLE_RESUME_TRAIN:
                             //培训简历
                             formKey = "trainingResume";
+                            break;
+                        case BusinessContract.TABLE_TITLE_DISABILITY_PEOPLE_RELATION:
+                            //与残疾人关系
+                            formKey = "relationship";
                             break;
 
                         default:
@@ -634,6 +669,12 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         case BusinessContract.TABLE_TITLE_SEX:
                             builder.addFormDataPart("sex", String.valueOf(radioBean.getDefaultSelectedIndex()));
                             break;
+                        case BusinessContract.TABLE_TITLE_SEX_FAMILY:
+                            builder.addFormDataPart("guardianSex", String.valueOf(radioBean.getDefaultSelectedIndex()));
+                            break;
+                        case BusinessContract.TABLE_TITLE_SEX_PERSIONAL:
+                            builder.addFormDataPart("sex", String.valueOf(radioBean.getDefaultSelectedIndex()));
+                            break;
                         case BusinessContract.TABLE_TITLE_HUKOU:
                             //户口类别
                             builder.addFormDataPart("accountType", String.valueOf(radioBean.getDefaultSelectedIndex()));
@@ -644,6 +685,10 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         case BusinessContract.TABLE_TITLE_DISABILITY_HEAR:
                             builder.addFormDataPart("hearingDisability",
                                     String.valueOf(radioBean.getDefaultSelectedIndex()));
+                            break;
+                        case BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS:
+                            //家庭经济状况
+                            builder.addFormDataPart("familyEconomy", String.valueOf(radioBean.getDefaultSelectedIndex()+1));
                             break;
                         case BusinessContract.TABLE_TITLE_DISABILITY_LIMB:
                             builder.addFormDataPart("physicalDisability",
@@ -722,6 +767,36 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                         RequestBody.create(MediaType.parse("file"),
                                                 new File(picBean.getPicPath())));
                                 break;
+                            case BusinessContract.TABLE_TITLE_DISABLE_PHOTO:
+                                if (!StringTools.isStringValueOk(picBean.getPicPath())) {
+                                    ToastUtils.toast(mContext, "请选择残疾证照片");
+                                    return null;
+                                }
+                                //残疾证照片
+                                builder.addFormDataPart("pictureFile", "pictureFile",
+                                        RequestBody.create(MediaType.parse("file"),
+                                                new File(picBean.getPicPath())));
+                                break;
+                            case BusinessContract.TABLE_TITLE_GUARDIAN_ID_PIC:
+                                if (!StringTools.isStringValueOk(picBean.getPicPath())) {
+                                    ToastUtils.toast(mContext, "请选择监护人身份证照片");
+                                    return null;
+                                }
+                                //残疾证照片
+                                builder.addFormDataPart("guardianIdPictureFile", "guardianIdPictureFile",
+                                        RequestBody.create(MediaType.parse("file"),
+                                                new File(picBean.getPicPath())));
+                                break;
+                            case BusinessContract.TABLE_TITLE_HUKOU_RELATION_PIC:
+                                if (!StringTools.isStringValueOk(picBean.getPicPath())) {
+                                    ToastUtils.toast(mContext, "请选择户口本照片");
+                                    return null;
+                                }
+                                //残疾证照片
+                                builder.addFormDataPart("householdRegisterPictureFile", "householdRegisterPictureFile",
+                                        RequestBody.create(MediaType.parse("file"),
+                                                new File(picBean.getPicPath())));
+                                break;
                             case BusinessContract.TABLE_TITLE_MATERIAL_PIC:
                                 if (!StringTools.isStringValueOk(picBean.getPicPath())) {
                                     ToastUtils.toast(mContext, "请选择病例材料照片");
@@ -733,6 +808,16 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                                 new File(picBean.getPicPath())));
                                 break;
                             case BusinessContract.TABLE_TITLE_LIFE_PIC:
+                                if (!StringTools.isStringValueOk(picBean.getPicPath())) {
+                                    ToastUtils.toast(mContext, "请选择生活照片");
+                                    return null;
+                                }
+                                //残疾证照片
+                                builder.addFormDataPart("lifePictureFile", "lifePictureFile",
+                                        RequestBody.create(MediaType.parse("file"),
+                                                new File(picBean.getPicPath())));
+                                break;
+                            case BusinessContract.TABLE_TITLE_LIFE_PIC_MYSELF:
                                 if (!StringTools.isStringValueOk(picBean.getPicPath())) {
                                     ToastUtils.toast(mContext, "请选择生活照片");
                                     return null;
@@ -775,7 +860,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             break;
                         case BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS:
                             //家庭经济状况
-                            builder.addFormDataPart("familyEconomy", String.valueOf(selectedItem.getIndex()));
+                            builder.addFormDataPart("familyEconomy", String.valueOf(selectedItem.getIndex()+1));
                             break;
                         case BusinessContract.TABLE_TITLE_POOR_FAMILY:
                             //贫困家庭
@@ -815,11 +900,11 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     }
 
     /**
-     * 获取户口信息
+     * 获取户口信息  或者 监护人的地址
      *
      * @return
      */
-    protected String getHukouInfoOfAdapterData() {
+    protected String getHukouInfoOrFamilyAddrAdapterData() {
         List<MultipleItem> arrays = adapter.getData();
         StringBuilder sb = new StringBuilder();
         for (MultipleItem array : arrays) {
@@ -828,16 +913,54 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                 case MultipleItem.ITEM_BUSINESS_EDIT:
                     BusinessTextValueBean textValueEditBean = (BusinessTextValueBean) array
                             .getObject();
-                    if (TextUtils.isEmpty(textValueEditBean.getValue())) {
-                        ToastUtils.toast(mContext, "请输入" + textValueEditBean.getKey());
-                        return null;
-                    }
                     switch (textValueEditBean.getKey()) {
                         case BusinessContract.TABLE_TITLE_STREET:
                             //街道
-                            sb.append(textValueEditBean.getValue()+",");
+                            sb.append(textValueEditBean.getValue() + ",");
+                            break;
+                        case BusinessContract.TABLE_TITLE_STREET_FAMILY:
+                            //街道
+                            sb.append(textValueEditBean.getValue() + ",");
+                            break;
+                        case BusinessContract.TABLE_TITLE_VILLAGE_FAMILY:
+                            //社区
+                            sb.append(textValueEditBean.getValue());
                             break;
                         case BusinessContract.TABLE_TITLE_VILLAGE:
+                            //社区
+                            sb.append(textValueEditBean.getValue());
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                default:
+                    break;
+
+            }
+        }
+        return sb.toString().trim();
+    }
+    /**
+     * 获取残疾人住址
+     *
+     * @return
+     */
+    protected String getDisabledAddrAdapterData() {
+        List<MultipleItem> arrays = adapter.getData();
+        StringBuilder sb = new StringBuilder();
+        for (MultipleItem array : arrays) {
+            switch (array.getItemType()) {
+
+                case MultipleItem.ITEM_BUSINESS_EDIT:
+                    BusinessTextValueBean textValueEditBean = (BusinessTextValueBean) array
+                            .getObject();
+                    switch (textValueEditBean.getKey()) {
+                        case BusinessContract.TABLE_TITLE_STREET_PERSIONAL:
+                            //街道
+                            sb.append(textValueEditBean.getValue() + ",");
+                            break;
+                        case BusinessContract.TABLE_TITLE_VILLAGE_PERSIONAL:
                             //社区
                             sb.append(textValueEditBean.getValue());
                             break;

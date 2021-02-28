@@ -30,6 +30,7 @@ import com.juntai.disabled.federation.bean.business.ItemSignBean;
 import com.juntai.disabled.federation.bean.business.MyBusinessBean;
 import com.juntai.disabled.federation.bean.business.MyBusinessDetailBean;
 import com.juntai.disabled.federation.bean.business.RecycleBean;
+import com.juntai.disabled.federation.bean.business.detail.HomeCareDetailBean;
 import com.juntai.disabled.federation.bean.business.detail.RecoveryDetailBean;
 import com.juntai.disabled.federation.bean.business.detail.TrainRequestDetailBean;
 import com.juntai.disabled.federation.utils.StringTools;
@@ -46,6 +47,9 @@ import okhttp3.RequestBody;
  * @date 2019/3/14
  */
 public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBusinessView> implements BusinessContract.IBusinessPresent {
+    
+    public   String FAMILY_TAG = "F";
+    public   String PERSIONAL_TAG = "P";
     @Override
     protected IModel createModel() {
         return null;
@@ -1193,9 +1197,9 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                         UserInfoManager.getUserToken(),
                         String.valueOf(businessId))
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                .subscribe(new BaseObserver<HomeCareDetailBean>(getView()) {
                     @Override
-                    public void onSuccess(BaseResult o) {
+                    public void onSuccess(HomeCareDetailBean o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }
@@ -1442,51 +1446,93 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
      *
      * @return
      */
-    public List<MultipleItem> getHomeCareAdapterData() {
+    public List<MultipleItem> getHomeCareAdapterData(HomeCareDetailBean.DataBean dataBean) {
+        String  fStreet = null;
+        String  pStreet = null;
+        String  fVillage= null;
+        String  pVillage= null;
+
         List<MultipleItem> arrays = new ArrayList<>();
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "监护人家庭情况"));
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME);
-        initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, 0, new String[]{"男", "女"});
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_AGE);
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_JOB);
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DISABILITY_PEOPLE_RELATION);
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_PHONE);
-        initRadioType(arrays, BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS, 1, new String[]{"低保家庭", "建档立卡贫困家庭",
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME_FAMILY,dataBean==null
+                ?"":dataBean.getGuardianName());
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX_FAMILY,dataBean==null
+                ?0:dataBean.getGuardianSex(), new String[]{"男", "女"});
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_AGE_FAMILY,dataBean==null
+                ?"":String.valueOf(dataBean.getGuardianAge()));
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_JOB,dataBean==null
+                ?"":dataBean.getProfession());
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DISABILITY_PEOPLE_RELATION,dataBean==null
+                ?"":dataBean.getRelationship());
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_PHONE,dataBean==null
+                ?"":dataBean.getTelephone());
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS,dataBean==null
+                ?1:dataBean.getFamilyEconomy(), new String[]{"低保家庭", "建档立卡贫困家庭",
                 "其他困难"});
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, "家庭地址:河东区"));
+        if (dataBean != null) {
+            String  fAddr = dataBean.getAddress();
+            if (StringTools.isStringValueOk(fAddr)) {
+                if (fAddr.contains(",")) {
+                    fStreet = fAddr.split(",")[0];
+                    fVillage = fAddr.split(",")[1];
+                }
+            }
+        }
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
-                new BusinessTextValueBean(BusinessContract.TABLE_TITLE_STREET, null,
+                new BusinessTextValueBean(BusinessContract.TABLE_TITLE_STREET_FAMILY, fStreet,
                         String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_STREET), 0)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
-                new BusinessTextValueBean(BusinessContract.TABLE_TITLE_VILLAGE, null,
+                new BusinessTextValueBean(BusinessContract.TABLE_TITLE_VILLAGE_FAMILY, fVillage,
                         String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_VILLAGE), 0)));
 
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "残疾人概况"));
 
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME);
-        initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, 0, new String[]{"男", "女"});
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_AGE);
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_EDUCATION_LEVEL);
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_KINDS);
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_LEVEL);
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DISABLE_CARD_ID);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME_PERSIONAL,dataBean==null
+                ?"":dataBean.getName());
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX_PERSIONAL,dataBean==null
+                ?0:dataBean.getSex(), new String[]{"男", "女"});
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_AGE_PERSIONAL,dataBean==null
+                ?"":String.valueOf(dataBean.getAge()));
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_EDUCATION_LEVEL,dataBean==null
+                ?"":dataBean.getEducationName());
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_KINDS,dataBean==null
+                ?"":dataBean.getCategoryName());
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_LEVEL,dataBean==null
+                ?"":dataBean.getLevelName());
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DISABLE_CARD_ID,dataBean==null
+                ?"":dataBean.getDisabilityCertificate());
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, "家庭地址:河东区"));
+        if (dataBean != null) {
+            String  pAddr = dataBean.getResidentialAddress();
+            if (StringTools.isStringValueOk(pAddr)) {
+                if (pAddr.contains(",")) {
+                    pStreet = pAddr.split(",")[0];
+                    pVillage = pAddr.split(",")[1];
+                }
+            }
+        }
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
-                new BusinessTextValueBean(BusinessContract.TABLE_TITLE_STREET, null,
+                new BusinessTextValueBean(BusinessContract.TABLE_TITLE_STREET_PERSIONAL, pStreet,
                         String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_STREET), 0)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
-                new BusinessTextValueBean(BusinessContract.TABLE_TITLE_VILLAGE, null,
+                new BusinessTextValueBean(BusinessContract.TABLE_TITLE_VILLAGE_PERSIONAL, pVillage,
                         String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_VILLAGE), 0)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
-                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PHOTO, 1, "")));
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PHOTO, 1,dataBean==null
+                        ?"":dataBean.getDisabilityCertificatePicture())));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
-                new BusinessPicBean(BusinessContract.TABLE_TITLE_GUARDIAN_ID_PIC, 2, "")));
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_GUARDIAN_ID_PIC, 2, dataBean==null
+                        ?"":dataBean.getGuardianIdPicture())));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
-                new BusinessPicBean(BusinessContract.TABLE_TITLE_HUKOU_RELATION_PIC, 3, "")));
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_HUKOU_RELATION_PIC, 3, dataBean==null
+                        ?"":dataBean.getHouseholdRegisterPicture())));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
-                new BusinessPicBean(BusinessContract.TABLE_TITLE_LIFE_PIC_MYSELF, 4, "")));
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_SIGN, new ItemSignBean("申请人签字", null, 0)));
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_LIFE_PIC_MYSELF, 4, dataBean==null
+                        ?"":dataBean.getLifePicture())));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_SIGN, new ItemSignBean("申请人签字", dataBean==null
+                ?"":dataBean.getApplicantSign(), 0)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_NOTICE, "注：此表一式两份，区残联、居家托养服务机构各执一份"));
         return arrays;
     }
@@ -2164,7 +2210,13 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
      * @param typeName
      */
     private void initRadioType(List<MultipleItem> arrays, String typeName, int defaultIndex, String[] values) {
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, typeName));
+        String  titleName = null;
+        if (typeName.contains("F")||typeName.contains("P")) {
+            titleName= typeName.substring(1,typeName.length());
+            arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, titleName));
+        }else {
+            arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, typeName));
+        }
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_RADIO, new BusinessRadioBean(typeName, defaultIndex,
                 values)));
     }
@@ -2184,10 +2236,20 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                                 typeName), 0)));
                 break;
             case MultipleItem.ITEM_BUSINESS_EDIT:
-                arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, typeName));
-                arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
-                        new BusinessTextValueBean(typeName, null,
-                                String.format("%s%s", "请输入", typeName), 0)));
+                String  titleName = null;
+                if (typeName.contains("F")||typeName.contains("P")) {
+                    titleName= typeName.substring(1,typeName.length());
+                    arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, titleName));
+                    arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
+                            new BusinessTextValueBean(typeName, null,
+                                    String.format("%s%s", "请输入", titleName), 0)));
+                }else {
+                    arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, typeName));
+                    arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
+                            new BusinessTextValueBean(typeName, null,
+                                    String.format("%s%s", "请输入", typeName), 0)));
+                }
+
                 break;
             case MultipleItem.ITEM_BUSINESS_EDIT2:
                 arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT2,
@@ -2215,10 +2277,20 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                                 typeName), 0)));
                 break;
             case MultipleItem.ITEM_BUSINESS_EDIT:
-                arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, typeName));
-                arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
-                        new BusinessTextValueBean(typeName, value,
-                                String.format("%s%s", "请输入", typeName), 0)));
+                String  titleName = null;
+                if (typeName.contains("F")||typeName.contains("P")) {
+                    titleName= typeName.substring(1,typeName.length());
+                    arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, titleName));
+                    arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
+                            new BusinessTextValueBean(typeName, value,
+                                    String.format("%s%s", "请输入", titleName), 0)));
+                }else {
+                    arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, typeName));
+                    arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
+                            new BusinessTextValueBean(typeName, value,
+                                    String.format("%s%s", "请输入", typeName), 0)));
+                }
+
                 break;
             case MultipleItem.ITEM_BUSINESS_EDIT2:
                 arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT2,

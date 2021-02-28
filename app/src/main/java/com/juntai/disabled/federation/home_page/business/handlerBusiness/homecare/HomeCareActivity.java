@@ -1,4 +1,4 @@
-package com.juntai.disabled.federation.home_page.business.handlerBusiness;
+package com.juntai.disabled.federation.home_page.business.handlerBusiness.homecare;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,11 +7,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
 
 import java.util.List;
+
+import okhttp3.MultipartBody;
+
 /**
  * @aouther tobato
  * @description 描述  居家托养
@@ -50,8 +54,27 @@ public class HomeCareActivity extends BaseBusinessActivity {
     }
 
     @Override
-    protected List<MultipleItem> getAdapterData() {
-        return mPresenter.getHomeCareAdapterData();
+    protected void commit() {
+        MultipartBody.Builder builder = getBuilderOfAdapterData();
+        if (builder == null) {
+            return;
+        }
+        String  fAddr = getHukouInfoOrFamilyAddrAdapterData();
+        String pAddr = getDisabledAddrAdapterData();
+        builder.addFormDataPart("address",fAddr);
+        builder.addFormDataPart("residentialAddress",pAddr);
+        mPresenter.addHomCare(builder.build(), AppHttpPath.REQUEST_TRAIN);
     }
+
+    @Override
+    protected List<MultipleItem> getAdapterData() {
+        return mPresenter.getHomeCareAdapterData(null);
+    }
+
+    @Override
+    public void onSuccess(String tag, Object o) {
+        super.onSuccess(tag, o);
+    }
+
 
 }

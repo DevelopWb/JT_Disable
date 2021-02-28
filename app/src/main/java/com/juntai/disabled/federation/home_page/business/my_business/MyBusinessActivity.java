@@ -30,6 +30,7 @@ import com.juntai.disabled.federation.home_page.business.handlerBusiness.busines
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.recovery.LonelyChildRecoveryDetailActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.recovery.MoronRecoveryDetailActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.disabilityChildRecovery.BaseRecoveryActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.homecare.HomeCareDetailActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.train.TrainRequestDetailActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -162,6 +163,11 @@ public class MyBusinessActivity extends BaseAppActivity<BusinessPresent> impleme
                     case 13:
                         //培训申请
                         startActivity(new Intent(mContext, TrainRequestDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
+                                businessId));
+                        break;
+                    case 14:
+                        //居家托养
+                        startActivity(new Intent(mContext, HomeCareDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
                                 businessId));
                         break;
                     case 16:

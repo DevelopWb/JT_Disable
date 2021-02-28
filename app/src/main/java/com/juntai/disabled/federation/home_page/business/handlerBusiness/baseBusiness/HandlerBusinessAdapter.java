@@ -244,7 +244,18 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                         }
                     }
                 });
-                switch (radioBean.getDefaultSelectedIndex()) {
+                int  defaultIndex = radioBean.getDefaultSelectedIndex();
+                switch (radioBean.getKey()) {
+                    case BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS:
+                        defaultIndex-=1;
+                        break;
+                    case BusinessContract.TABLE_TITLE_PROJECT_LEVEL:
+                        defaultIndex-=1;
+                        break;
+                    default:
+                        break;
+                }
+                switch (defaultIndex) {
                     case 0:
                         radioButton0.setChecked(true);
                         radioButton1.setChecked(false);

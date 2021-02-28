@@ -64,40 +64,42 @@ public abstract class BaseDisabledCardBusinessActivity extends BaseBusinessActiv
         finish();
     }
 
+
+    @Override
+    protected void commit() {
+        MultipartBody.Builder builder = getBuilderOfAdapterData();
+        if (builder == null) {
+            return;
+        }
+        switch (getTitleName()) {
+            case BUSINESS_NAME_RENEWAL:
+                mPresenter.addCertificatesExchange(builder.build(), AppHttpPath.DISABLED_CARD_RENEWAL);
+                break;
+            case BUSINESS_NAME_LEVEL_CHANGE:
+                mPresenter.addCertificatesChange(builder.build(), AppHttpPath.DISABLED_CARD_RENEWAL);
+                break;
+            case BUSINESS_NAME_REISSUE:
+                mPresenter.addCertificatesReissue(builder.build(), AppHttpPath.DISABLED_CARD_RENEWAL);
+                break;
+            case BUSINESS_NAME_MOVE_IN:
+                mPresenter.addCertificatesMovein(builder.build(), AppHttpPath.DISABLED_CARD_RENEWAL);
+
+                break;
+            case BUSINESS_NAME_MOVE_OUT:
+                mPresenter.addCertificatesMoveout(builder.build(), AppHttpPath.DISABLED_CARD_RENEWAL);
+                break;
+            case BUSINESS_NAME_LOGOUT:
+                mPresenter.addCertificatesCancel(builder.build(), AppHttpPath.DISABLED_CARD_RENEWAL);
+                break;
+            default:
+                break;
+        }
+    }
+
     @Override
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
-            case R.id.commit_business_form_tv:
-                MultipartBody.Builder builder = getBuilderOfAdapterData();
-                if (builder == null) {
-                    return;
-                }
-                switch (getTitleName()) {
-                    case BUSINESS_NAME_RENEWAL:
-                        mPresenter.addCertificatesExchange(builder.build(), AppHttpPath.DISABLED_CARD_RENEWAL);
-                        break;
-                    case BUSINESS_NAME_LEVEL_CHANGE:
-                        mPresenter.addCertificatesChange(builder.build(), AppHttpPath.DISABLED_CARD_RENEWAL);
-                        break;
-                    case BUSINESS_NAME_REISSUE:
-                        mPresenter.addCertificatesReissue(builder.build(), AppHttpPath.DISABLED_CARD_RENEWAL);
-                        break;
-                    case BUSINESS_NAME_MOVE_IN:
-                        mPresenter.addCertificatesMovein(builder.build(), AppHttpPath.DISABLED_CARD_RENEWAL);
-
-                        break;
-                    case BUSINESS_NAME_MOVE_OUT:
-                        mPresenter.addCertificatesMoveout(builder.build(), AppHttpPath.DISABLED_CARD_RENEWAL);
-                        break;
-                    case BUSINESS_NAME_LOGOUT:
-                        mPresenter.addCertificatesCancel(builder.build(), AppHttpPath.DISABLED_CARD_RENEWAL);
-                        break;
-                    default:
-                        break;
-                }
-
-                break;
             case R.id.guardian__name_sign_iv:
                 showSignatureView();
                 break;

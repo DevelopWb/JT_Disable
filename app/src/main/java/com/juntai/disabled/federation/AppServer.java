@@ -37,6 +37,7 @@ import com.juntai.disabled.federation.bean.business.detail.EmploymentRegDetailBe
 import com.juntai.disabled.federation.bean.business.detail.HandlerCardDetailBean;
 import com.juntai.disabled.federation.bean.business.MyBusinessBean;
 import com.juntai.disabled.federation.bean.business.MyBusinessDetailBean;
+import com.juntai.disabled.federation.bean.business.detail.HomeCareDetailBean;
 import com.juntai.disabled.federation.bean.business.detail.RecoveryDetailBean;
 import com.juntai.disabled.federation.bean.business.detail.TrainRequestDetailBean;
 import com.juntai.disabled.federation.bean.case_bean.CaseDesBean;
@@ -1973,6 +1974,6 @@ public interface AppServer {
      * @return
      */
     @GET(AppHttpPath.HOME_CARE_DETAIL)
-    Observable<BaseResult> getHomCareInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<HomeCareDetailBean> getHomCareInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
 
 }

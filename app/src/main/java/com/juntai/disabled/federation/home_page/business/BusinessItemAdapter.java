@@ -20,7 +20,7 @@ import com.juntai.disabled.federation.home_page.business.handlerBusiness.CardMov
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.CardReissueActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.EmploymentRegistActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.HandlerCardActivity;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.HomeCareActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.homecare.HomeCareActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.RenewalActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.train.TrainingRequestActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.disabilityChildRecovery.DisabilityChildRecoveryActivity;

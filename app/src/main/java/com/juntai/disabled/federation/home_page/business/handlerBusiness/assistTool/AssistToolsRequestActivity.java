@@ -55,6 +55,15 @@ public class AssistToolsRequestActivity extends BaseBusinessActivity {
     }
 
     @Override
+    protected void commit() {
+        MultipartBody.Builder builder = getBuilderOfAdapterData();
+        if (builder == null) {
+            return;
+        }
+        mPresenter.addAIDS(builder.build(),AppHttpPath.REQUEST_AIDS);
+    }
+
+    @Override
     protected List<MultipleItem> getAdapterData() {
         return mPresenter.getAssistToolAdapterData(null);
     }
@@ -66,19 +75,4 @@ public class AssistToolsRequestActivity extends BaseBusinessActivity {
 
     }
 
-    @Override
-    public void onClick(View v) {
-        super.onClick(v);
-        switch (v.getId()) {
-            case R.id.commit_business_form_tv:
-                MultipartBody.Builder builder = getBuilderOfAdapterData();
-                if (builder == null) {
-                    return;
-                }
-                mPresenter.addAIDS(builder.build(),AppHttpPath.REQUEST_AIDS);
-                break;
-            default:
-                break;
-        }
-    }
 }

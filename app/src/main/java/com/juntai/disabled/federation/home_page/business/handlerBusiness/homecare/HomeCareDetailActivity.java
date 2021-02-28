@@ -1,26 +1,25 @@
-package com.juntai.disabled.federation.home_page.business.handlerBusiness.train;
+package com.juntai.disabled.federation.home_page.business.handlerBusiness.homecare;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
 import com.juntai.disabled.federation.bean.MultipleItem;
-import com.juntai.disabled.federation.bean.business.detail.TrainRequestDetailBean;
+import com.juntai.disabled.federation.bean.business.detail.HomeCareDetailBean;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
 
 import java.util.List;
 
 /**
  * @aouther tobato
- * @description 描述  培训申请详情
- * @date 2021/2/27 15:40
+ * @description 描述  居家托养详情
+ * @date 2021/2/27 16:32
  */
-public class TrainRequestDetailActivity extends BaseBusinessActivity {
+public class HomeCareDetailActivity extends BaseBusinessActivity {
 
     @Override
     public void initData() {
-
-        mPresenter.getTrainInfo(businessId, null);
+        mPresenter.getHomCareInfo(businessId,null);
     }
 
     @Override
@@ -30,12 +29,22 @@ public class TrainRequestDetailActivity extends BaseBusinessActivity {
 
     @Override
     protected String getTitleName() {
-        return "残疾培训申请详情";
+        return "残疾人居家托养详情";
     }
 
     @Override
     protected View getFootView() {
         return null;
+    }
+
+    @Override
+    public void onSuccess(String tag, Object o) {
+        HomeCareDetailBean homeCareDetailBean = (HomeCareDetailBean) o;
+        if (homeCareDetailBean != null) {
+            HomeCareDetailBean.DataBean dataBean =   homeCareDetailBean.getData();
+            adapter.setNewData(mPresenter.getHomeCareAdapterData(dataBean));
+        }
+
     }
 
     @Override
@@ -46,17 +55,6 @@ public class TrainRequestDetailActivity extends BaseBusinessActivity {
     @Override
     protected void commit() {
 
-    }
-
-    @Override
-    public void onSuccess(String tag, Object o) {
-        TrainRequestDetailBean requestDetailBean = (TrainRequestDetailBean) o;
-        if (requestDetailBean != null) {
-            TrainRequestDetailBean.DataBean dataBean = requestDetailBean.getData();
-            if (dataBean != null) {
-                adapter.setNewData(mPresenter.getTrainingRequestAdapterData(dataBean));
-            }
-        }
     }
 
     @Override

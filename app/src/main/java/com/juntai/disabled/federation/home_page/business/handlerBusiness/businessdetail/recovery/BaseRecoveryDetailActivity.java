@@ -44,6 +44,11 @@ public abstract class BaseRecoveryDetailActivity extends BaseBusinessActivity {
     }
 
     @Override
+    protected void commit() {
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }

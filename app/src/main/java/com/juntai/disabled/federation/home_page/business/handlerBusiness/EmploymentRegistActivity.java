@@ -55,6 +55,15 @@ public class EmploymentRegistActivity extends BaseBusinessActivity {
     }
 
     @Override
+    protected void commit() {
+        MultipartBody.Builder builder = getBuilderOfAdapterData();
+        if (builder == null) {
+            return;
+        }
+        mPresenter.addDisabledObtainEmployment(builder.build(), AppHttpPath.DISABLED_EMPLOYMENT_REGIST);
+    }
+
+    @Override
     protected List<MultipleItem> getAdapterData() {
         return mPresenter.getEmploymentRegistAdapterData(null);
     }
@@ -75,21 +84,4 @@ public class EmploymentRegistActivity extends BaseBusinessActivity {
 
     }
 
-
-    @Override
-    public void onClick(View v) {
-        super.onClick(v);
-        switch (v.getId()) {
-            case R.id.commit_business_form_tv:
-                MultipartBody.Builder builder = getBuilderOfAdapterData();
-                if (builder == null) {
-                    return;
-                }
-
-                mPresenter.addDisabledObtainEmployment(builder.build(), AppHttpPath.DISABLED_EMPLOYMENT_REGIST);
-                break;
-            default:
-                break;
-        }
-    }
 }

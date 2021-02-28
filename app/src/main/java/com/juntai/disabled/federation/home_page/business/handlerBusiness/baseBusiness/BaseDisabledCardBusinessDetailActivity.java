@@ -61,6 +61,11 @@ public abstract class BaseDisabledCardBusinessDetailActivity extends BaseBusines
     }
 
     @Override
+    protected void commit() {
+
+    }
+
+    @Override
     protected View getHeadView() {
         return null;
     }

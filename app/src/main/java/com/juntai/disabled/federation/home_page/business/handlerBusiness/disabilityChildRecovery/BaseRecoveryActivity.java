@@ -69,38 +69,33 @@ public abstract class BaseRecoveryActivity extends BaseBusinessActivity {
 
     }
 
+
     @Override
-    public void onClick(View v) {
-        super.onClick(v);
-        switch (v.getId()) {
-            case R.id.commit_business_form_tv:
-                MultipartBody.Builder builder = getBuilderOfAdapterData();
-                if (builder == null) {
-                    return;
-                }
-                switch (getChildId()) {
-                    case 0:
-                        //智力残疾
-                        mPresenter.addDisabledChildrenIntellectual(builder.build(), AppHttpPath.IQ_CHILD_RECOVERY);
-                        break;
-                    case 1:
-                        //孤独
-                        mPresenter.addDisabledChildrenAutism(builder.build(), AppHttpPath.LONELY_CHILD_RECOVERY);
-                        break;
-                    case 2:
-                        //聋
-                        mPresenter.addDisabledChildrenDeaf(builder.build(), AppHttpPath.DEAF_CHILD_RECOVERY);
-                        break;
-                    case 3:
-                        //脑瘫
-                        mPresenter.addDisabledChildrenCerebralPalsy(builder.build(), AppHttpPath.CEREBRAL_PALSY_RECOVERY);
-                        break;
-                    default:
-                        break;
-                }
+    protected void commit() {
+        MultipartBody.Builder builder = getBuilderOfAdapterData();
+        if (builder == null) {
+            return;
+        }
+        switch (getChildId()) {
+            case 0:
+                //智力残疾
+                mPresenter.addDisabledChildrenIntellectual(builder.build(), AppHttpPath.IQ_CHILD_RECOVERY);
+                break;
+            case 1:
+                //孤独
+                mPresenter.addDisabledChildrenAutism(builder.build(), AppHttpPath.LONELY_CHILD_RECOVERY);
+                break;
+            case 2:
+                //聋
+                mPresenter.addDisabledChildrenDeaf(builder.build(), AppHttpPath.DEAF_CHILD_RECOVERY);
+                break;
+            case 3:
+                //脑瘫
+                mPresenter.addDisabledChildrenCerebralPalsy(builder.build(), AppHttpPath.CEREBRAL_PALSY_RECOVERY);
                 break;
             default:
                 break;
         }
     }
+
 }

@@ -74,6 +74,35 @@ public class HandlerCardActivity extends BaseBusinessActivity {
     }
 
     @Override
+    protected void commit() {
+        MultipartBody.Builder builder = getBuilderOfAdapterData();
+        if (builder == null) {
+            return;
+        }
+        if (TextUtils.isEmpty(getTextViewValue(mDisableNameEt))) {
+            ToastUtils.toast(mContext, "请输入承诺书中残疾人姓名");
+            return;
+        }
+        if (TextUtils.isEmpty(getTextViewValue(mGuardianNameEt))) {
+            ToastUtils.toast(mContext, "请输入承诺书中残疾人监护人姓名");
+            return;
+        }
+        String content = getTextViewValue(mCommitmentTv);
+        if (content.contains("请选择残疾种类")) {
+            ToastUtils.toast(mContext, "请选择残疾种类");
+            return;
+        }
+        StringBuilder commitmentSb = new StringBuilder();
+        commitmentSb.append("我是残疾人");
+        commitmentSb.append(getTextViewValue(mDisableNameEt));
+        commitmentSb.append(",残疾人监护人");
+        commitmentSb.append(getTextViewValue(mGuardianNameEt) + ",");
+        commitmentSb.append(getTextViewValue(mCommitmentTv));
+        builder.addFormDataPart("commitment", commitmentSb.toString());
+        mPresenter.addDisabilityCertificate(builder.build(), AppHttpPath.HANDLER_DISABLED_CARD);
+    }
+
+    @Override
     protected List<MultipleItem> getAdapterData() {
         return mPresenter.getHandlerIdCardAdapterData(null);
     }
@@ -83,33 +112,6 @@ public class HandlerCardActivity extends BaseBusinessActivity {
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
-            case R.id.commit_business_form_tv:
-                MultipartBody.Builder builder = getBuilderOfAdapterData();
-                if (builder == null) {
-                    return;
-                }
-                if (TextUtils.isEmpty(getTextViewValue(mDisableNameEt))) {
-                    ToastUtils.toast(mContext, "请输入承诺书中残疾人姓名");
-                    return;
-                }
-                if (TextUtils.isEmpty(getTextViewValue(mGuardianNameEt))) {
-                    ToastUtils.toast(mContext, "请输入承诺书中残疾人监护人姓名");
-                    return;
-                }
-                String content = getTextViewValue(mCommitmentTv);
-                if (content.contains("请选择残疾种类")) {
-                    ToastUtils.toast(mContext, "请选择残疾种类");
-                    return;
-                }
-                StringBuilder commitmentSb = new StringBuilder();
-                commitmentSb.append("我是残疾人");
-                commitmentSb.append(getTextViewValue(mDisableNameEt));
-                commitmentSb.append(",残疾人监护人");
-                commitmentSb.append(getTextViewValue(mGuardianNameEt) + ",");
-                commitmentSb.append(getTextViewValue(mCommitmentTv));
-                builder.addFormDataPart("commitment", commitmentSb.toString());
-                mPresenter.addDisabilityCertificate(builder.build(), AppHttpPath.HANDLER_DISABLED_CARD);
-                break;
             case R.id.guardian__name_sign_iv:
                 showSignatureView();
                 break;

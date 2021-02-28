@@ -15,13 +15,19 @@ import okhttp3.RequestBody;
 public interface BusinessContract {
     String CREAT_BUSINESS = "creat_business";//创建业务
     String TABLE_TITLE_NAME = "姓名";//表单的标题
+    String TABLE_TITLE_NAME_FAMILY = "F姓名";//表单的标题
+    String TABLE_TITLE_NAME_PERSIONAL = "P姓名";//表单的标题
     String TABLE_TITLE_CHILD_NAME = "儿童姓名";//表单的标题
     String TABLE_TITLE_PIC = "照片";//表单的标题
     String TABLE_TITLE_SEX = "性别";//表单的标题
+    String TABLE_TITLE_SEX_FAMILY = "F性别";//表单的标题
+    String TABLE_TITLE_SEX_PERSIONAL = "P性别";//表单的标题
     String TABLE_TITLE_DISABILITY_HEAR = "听力残疾";//表单的标题
     String TABLE_TITLE_DISABILITY_LIMB = "肢体残疾";//表单的标题
     String TABLE_TITLE_BIRTH = "出生年月";//表单的标题
     String TABLE_TITLE_AGE = "年龄";//表单的标题
+    String TABLE_TITLE_AGE_FAMILY = "F年龄";//表单的标题
+    String TABLE_TITLE_AGE_PERSIONAL = "P年龄";//表单的标题
     String TABLE_TITLE_RESUME = "本人简历";//表单的标题
     String TABLE_TITLE_RESUME_WORK = "工作简历";//表单的标题
     String TABLE_TITLE_RESUME_TRAIN = "培训简历";//表单的标题
@@ -33,7 +39,11 @@ public interface BusinessContract {
     String TABLE_TITLE_HOME_ADDR = "户籍所在地";//
     String TABLE_TITLE_HUKOU_ADDR = "户口所在地";//
     String TABLE_TITLE_STREET = "街道";//
+    String TABLE_TITLE_STREET_FAMILY = "F街道";//
+    String TABLE_TITLE_STREET_PERSIONAL = "P街道";//
     String TABLE_TITLE_VILLAGE = "(村)社区";//
+    String TABLE_TITLE_VILLAGE_FAMILY = "F(村)社区";//
+    String TABLE_TITLE_VILLAGE_PERSIONAL = "P(村)社区";//
     String TABLE_TITLE_WANTED_POST = "意向岗位";//
     String TABLE_TITLE_WORK_AREA = "择业地区";//
     String TABLE_TITLE_SALARY = "月薪要求";//薪资

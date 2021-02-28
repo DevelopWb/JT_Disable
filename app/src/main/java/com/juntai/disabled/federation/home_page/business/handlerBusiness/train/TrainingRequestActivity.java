@@ -53,6 +53,17 @@ public class TrainingRequestActivity extends BaseBusinessActivity {
     }
 
     @Override
+    protected void commit() {
+        MultipartBody.Builder builder = getBuilderOfAdapterData();
+        if (builder == null) {
+            return;
+        }
+        String hukouInfo = getHukouInfoOrFamilyAddrAdapterData();
+        builder.addFormDataPart("residenceAddress",hukouInfo);
+        mPresenter.addTrain(builder.build(), AppHttpPath.REQUEST_TRAIN);
+    }
+
+    @Override
     protected List<MultipleItem> getAdapterData() {
         return mPresenter.getTrainingRequestAdapterData(null);
     }
@@ -60,23 +71,5 @@ public class TrainingRequestActivity extends BaseBusinessActivity {
     @Override
     public void onSuccess(String tag, Object o) {
         super.onSuccess(tag, o);
-    }
-
-    @Override
-    public void onClick(View v) {
-        super.onClick(v);
-        switch (v.getId()) {
-            case R.id.commit_business_form_tv:
-                MultipartBody.Builder builder = getBuilderOfAdapterData();
-                if (builder == null) {
-                    return;
-                }
-                String hukouInfo = getHukouInfoOfAdapterData();
-                builder.addFormDataPart("residenceAddress",hukouInfo);
-                mPresenter.addTrain(builder.build(), AppHttpPath.REQUEST_TRAIN);
-                break;
-            default:
-                break;
-        }
     }
 }
