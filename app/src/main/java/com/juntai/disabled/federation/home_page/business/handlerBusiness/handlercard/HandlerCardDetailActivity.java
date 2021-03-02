@@ -1,4 +1,4 @@
-package com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail;
+package com.juntai.disabled.federation.home_page.business.handlerBusiness.handlercard;
 
 import android.support.constraint.Group;
 import android.os.Bundle;

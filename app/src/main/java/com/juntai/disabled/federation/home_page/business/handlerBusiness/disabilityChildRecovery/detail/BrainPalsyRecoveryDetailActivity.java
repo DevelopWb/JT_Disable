@@ -1,6 +1,5 @@
-package com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.recovery;
+package com.juntai.disabled.federation.home_page.business.handlerBusiness.disabilityChildRecovery.detail;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class BrainPalsyRecoveryDetailActivity extends BaseRecoveryDetailActivity {

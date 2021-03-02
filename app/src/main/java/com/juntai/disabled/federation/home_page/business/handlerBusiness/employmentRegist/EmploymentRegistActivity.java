@@ -1,12 +1,13 @@
-package com.juntai.disabled.federation.home_page.business.handlerBusiness.train;
+package com.juntai.disabled.federation.home_page.business.handlerBusiness.employmentRegist;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
@@ -18,10 +19,12 @@ import okhttp3.MultipartBody;
 
 /**
  * @aouther tobato
- * @description 描述  残疾培训申请
- * @date 2021/2/18 15:18
+ * @description 描述 就业登记
+ * @date 2021/1/21 13:47
  */
-public class TrainingRequestActivity extends BaseBusinessActivity {
+public class EmploymentRegistActivity extends BaseBusinessActivity {
+
+    private TextView mCommitBusinessTv;
 
     @Override
     public void initData() {
@@ -35,14 +38,13 @@ public class TrainingRequestActivity extends BaseBusinessActivity {
 
     @Override
     protected String getTitleName() {
-        return "残疾培训申请";
+        return "残疾人就业登记";
     }
-
 
     @Override
     protected View getFootView() {
         View view = LayoutInflater.from(mContext).inflate(R.layout.footview_commit, null);
-        TextView mCommitBusinessTv = view.findViewById(R.id.commit_business_form_tv);
+        mCommitBusinessTv = view.findViewById(R.id.commit_business_form_tv);
         mCommitBusinessTv.setOnClickListener(this);
         return view;
     }
@@ -58,18 +60,28 @@ public class TrainingRequestActivity extends BaseBusinessActivity {
         if (builder == null) {
             return;
         }
-        String hukouInfo = getHukouInfoOrFamilyAddrAdapterData();
-        builder.addFormDataPart("residenceAddress",hukouInfo);
-        mPresenter.addTrain(builder.build(), AppHttpPath.REQUEST_TRAIN);
+        mPresenter.addDisabledObtainEmployment(builder.build(), AppHttpPath.DISABLED_EMPLOYMENT_REGIST);
     }
 
     @Override
     protected List<MultipleItem> getAdapterData() {
-        return mPresenter.getTrainingRequestAdapterData(null);
+        return mPresenter.getEmploymentRegistAdapterData(null);
     }
+
 
     @Override
     public void onSuccess(String tag, Object o) {
-        super.onSuccess(tag, o);
+        super.onSuccess(tag,o);
+        switch (tag) {
+            case AppHttpPath.DISABLED_EMPLOYMENT_REGIST:
+                BaseResult baseResult = (BaseResult) o;
+                ToastUtils.toast(mContext,baseResult.message);
+                finish();
+                break;
+            default:
+                break;
+        }
+
     }
+
 }

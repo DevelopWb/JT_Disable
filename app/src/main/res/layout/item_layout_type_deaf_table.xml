@@ -105,7 +105,6 @@
 
     <LinearLayout
         android:id="@+id/wear_time_ll"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="3dp"
@@ -159,7 +158,6 @@
     <RadioGroup
         android:id="@+id/which_ear_wear_rg"
         android:layout_width="match_parent"
-        android:visibility="gone"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
@@ -172,16 +170,17 @@
             android:textSize="16dp"></TextView>
 
         <RadioButton
-            android:id="@+id/left_ear_bt"
+            android:id="@+id/left_ear_rb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:text="左"
+            android:checked="true"
             android:textColor="@color/text_title"
             android:textSize="16dp"></RadioButton>
 
         <RadioButton
-            android:id="@+id/right_ear_bt"
+            android:id="@+id/right_ear_rb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="右"

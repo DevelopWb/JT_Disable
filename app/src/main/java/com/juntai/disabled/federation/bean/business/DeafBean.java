@@ -16,10 +16,6 @@ public class DeafBean {
     private String wearTimeMonth;
     private int wearEar;//0是左耳 1是右耳
 
-    public DeafBean(int wear) {
-        this.wear = wear;
-    }
-
     public String getLeftEar() {
         return leftEar == null ? "" : leftEar;
     }

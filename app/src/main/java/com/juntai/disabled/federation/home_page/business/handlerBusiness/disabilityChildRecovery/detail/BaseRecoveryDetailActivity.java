@@ -1,4 +1,4 @@
-package com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.recovery;
+package com.juntai.disabled.federation.home_page.business.handlerBusiness.disabilityChildRecovery.detail;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -66,7 +66,6 @@ public abstract class BaseRecoveryDetailActivity extends BaseBusinessActivity {
 
     @Override
     public void onSuccess(String tag, Object o) {
-        super.onSuccess(tag, o);
         RecoveryDetailBean recoveryDetailBean = (RecoveryDetailBean) o;
         if (recoveryDetailBean != null) {
             RecoveryDetailBean.DataBean dataBean = recoveryDetailBean.getData();

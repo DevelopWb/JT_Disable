@@ -1,8 +1,12 @@
-package com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.recovery;
+package com.juntai.disabled.federation.home_page.business.handlerBusiness.disabilityChildRecovery.detail;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+/**
+ * @aouther tobato
+ * @description 描述  聋儿童康复详情
+ * @date 2021/3/1 10:54
+ */
 public class DeafDumbChildRecoveryDetailActivity extends BaseRecoveryDetailActivity {
 
     @Override

@@ -658,12 +658,54 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             //学制
                             formKey = "system";
                             break;
+                        case BusinessContract.TABLE_TITLE_HOUSE_PHONE:
+                            //住宅电话
+                            formKey = "telephone";
+                            break;
+                        case BusinessContract.TABLE_TITLE_MOBILE_NUM:
+                            //手机号码
+                            formKey = "phone";
+                            break;
+                        case BusinessContract.TABLE_TITLE_GUARDIAN_ID_CARD:
+                            //监护人身份证号
+                            formKey = "guardianId";
+                            break;
+                        case BusinessContract.TABLE_TITLE_COMMUNICATION_ADDR:
+                            //通讯地址
+                            formKey = "postalAddress";
+                            break;
 
                         default:
                             break;
                     }
                     if (formKey != null) {
                         builder.addFormDataPart(formKey, textValueEditBean.getValue());
+                    }
+
+                    break;
+                case MultipleItem.ITEM_BUSINESS_EDIT2:
+                    BusinessTextValueBean textValueEditBean2 = (BusinessTextValueBean) array
+                            .getObject();
+                    String titleKey = null;
+                    switch (textValueEditBean2.getKey()) {
+                        case BusinessContract.TABLE_TITLE_RELATION_TO_CHILD_F:
+                            //家族遗传与儿童关系
+                            titleKey = "geneticHistoryRelationship";
+                            break;
+                        case BusinessContract.TABLE_TITLE_RELATION_TO_CHILD_C:
+                            //护工与儿童关系
+                            titleKey = "accompanyRelationship";
+                            break;
+                        case BusinessContract.TABLE_TITLE_DISCOVER_DISABILITY_YEAR:
+                            //发现耳聋月龄
+                            titleKey = "findTime";
+                            break;
+
+                        default:
+                            break;
+                    }
+                    if (titleKey != null) {
+                        builder.addFormDataPart(titleKey, textValueEditBean2.getValue());
                     }
 
                     break;
@@ -692,7 +734,8 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             break;
                         case BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS:
                             //家庭经济状况
-                            builder.addFormDataPart("familyEconomy", String.valueOf(radioBean.getDefaultSelectedIndex()+1));
+                            builder.addFormDataPart("familyEconomy",
+                                    String.valueOf(radioBean.getDefaultSelectedIndex() + 1));
                             break;
                         case BusinessContract.TABLE_TITLE_DISABILITY_LIMB:
                             builder.addFormDataPart("physicalDisability",
@@ -703,6 +746,14 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             break;
                         case BusinessContract.TABLE_TITLE_IS_POOR_FAMILY:
                             builder.addFormDataPart("alleviation", String.valueOf(radioBean.getDefaultSelectedIndex()));
+                            break;
+                        case BusinessContract.TABLE_TITLE_FAMILY_HAS_DISABILITY:
+                            //是否有家族耳聋史
+                            builder.addFormDataPart("geneticHistory", String.valueOf(radioBean.getDefaultSelectedIndex()));
+                            break;
+                        case BusinessContract.TABLE_TITLE_HAS_CARE_WORKER:
+                            //接受救助后家庭中有无专人陪伴康复
+                            builder.addFormDataPart("accompany",String.valueOf(radioBean.getDefaultSelectedIndex()));
                             break;
                         default:
                             break;
@@ -864,7 +915,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             break;
                         case BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS:
                             //家庭经济状况
-                            builder.addFormDataPart("familyEconomy", String.valueOf(selectedItem.getIndex()+1));
+                            builder.addFormDataPart("familyEconomy", String.valueOf(selectedItem.getIndex() + 1));
                             break;
                         case BusinessContract.TABLE_TITLE_POOR_FAMILY:
                             //贫困家庭
@@ -878,6 +929,15 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             //享受医疗保险情况
                             builder.addFormDataPart("medicalInsurance", String.valueOf(selectedItem.getIndex()));
                             break;
+                        case BusinessContract.TABLE_TITLE_CURRENT_RECOVERY:
+                            //目前康复状态
+                            builder.addFormDataPart("recovery", String.valueOf(selectedItem.getIndex()));
+                            break;
+
+                        case BusinessContract.TABLE_TITLE_REQUEST_RECOVERY:
+                            //康复需求项目
+                            builder.addFormDataPart("recoveryProject", String.valueOf(selectedItem.getIndex()));
+                            break;
                         default:
                             break;
                     }
@@ -886,7 +946,38 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                     break;
                 case MultipleItem.ITEM_BUSINESS_DEAF_TABLE:
                     DeafBean deafBean = (DeafBean) array.getObject();
-                    sb.append(deafBean.toString());
+                    if (!StringTools.isStringValueOk(deafBean.getLeftEar())) {
+                        ToastUtils.toast(mContext, "请输入左耳听力值");
+                        return null;
+                    } else {
+                        builder.addFormDataPart("leftEar", deafBean.getLeftEar());
+                    }
+                    if (!StringTools.isStringValueOk(deafBean.getRightEar())) {
+                        ToastUtils.toast(mContext, "请输入右耳听力值");
+                        return null;
+                    } else {
+                        builder.addFormDataPart("rightEar", deafBean.getRightEar());
+                    }
+                    int isWear = deafBean.getWear();
+                    builder.addFormDataPart("wear", String.valueOf(isWear));
+                    if (0 == isWear) {
+                        //佩戴助听器了
+                        if (!StringTools.isStringValueOk(deafBean.getWearTimeYear())) {
+                            ToastUtils.toast(mContext, "请输入佩戴时间--岁");
+                            return null;
+                        }
+                        if (!StringTools.isStringValueOk(deafBean.getWearTimeMonth())) {
+                            ToastUtils.toast(mContext, "请输入佩戴时间--个月");
+                            return null;
+                        }
+                        StringBuilder wearTimeSb = new StringBuilder();
+                        wearTimeSb.append(deafBean.getWearTimeYear());
+                        wearTimeSb.append("年");
+                        wearTimeSb.append(deafBean.getWearTimeMonth());
+                        wearTimeSb.append("个月");
+                        builder.addFormDataPart("wearTime", wearTimeSb.toString().trim());
+                        builder.addFormDataPart("wearEar", String.valueOf(deafBean.getWearEar()));
+                    }
                     break;
                 case MultipleItem.ITEM_BUSINESS_YEAR:
                     BusinessTextValueBean yearBean = (BusinessTextValueBean) array.getObject();
@@ -945,6 +1036,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         }
         return sb.toString().trim();
     }
+
     /**
      * 获取残疾人住址
      *

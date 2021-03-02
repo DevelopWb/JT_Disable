@@ -14,26 +14,26 @@ import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseAppActivity;
 import com.juntai.disabled.federation.bean.business.MyBusinessBean;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.assistTool.AssistToolDetailActivity;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.DisabledCardLevelChangeDetailActivity;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.DisabledCardLogoutDetailActivity;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.DisabledCardMoveInDetailActivity;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.DisabledCardMoveOutDetailActivity;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.DisabledCardReissueDetailActivity;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.EmploymentRegistDetailActivity;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.HandlerCardDetailActivity;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.RenewalDetailActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.normalbusiness.DisabledCardLevelChangeDetailActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.normalbusiness.DisabledCardLogoutDetailActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.normalbusiness.DisabledCardMoveInDetailActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.normalbusiness.DisabledCardMoveOutDetailActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.normalbusiness.DisabledCardReissueDetailActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.employmentRegist.EmploymentRegistDetailActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.handlercard.HandlerCardDetailActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.normalbusiness.RenewalDetailActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessContract;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessPresent;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.recovery.BrainPalsyRecoveryDetailActivity;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.recovery.DeafDumbChildRecoveryDetailActivity;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.recovery.LonelyChildRecoveryDetailActivity;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail.recovery.MoronRecoveryDetailActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.disabilityChildRecovery.detail.BrainPalsyRecoveryDetailActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.disabilityChildRecovery.detail.DeafDumbChildRecoveryDetailActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.disabilityChildRecovery.detail.LonelyChildRecoveryDetailActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.disabilityChildRecovery.detail.MoronRecoveryDetailActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.disabilityChildRecovery.BaseRecoveryActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.homecare.HomeCareDetailActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.studentBursary.detail.DisabledFamilyStudentBursaryDetailActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.studentBursary.detail.DisabledStudentBursaryDetailActivity;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.train.TrainRequestDetailActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.trainRequest.TrainRequestDetailActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -183,7 +183,7 @@ public class MyBusinessActivity extends BaseAppActivity<BusinessPresent> impleme
                                 businessId).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
                         break;
                     case 18:
-                        //精准康复孤独儿童康复救助
+                        //精准康复聋儿童康复救助
                         startActivity(new Intent(mContext, DeafDumbChildRecoveryDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
                                 businessId).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
                         break;

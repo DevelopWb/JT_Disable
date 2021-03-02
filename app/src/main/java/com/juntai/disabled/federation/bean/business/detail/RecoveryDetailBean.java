@@ -110,6 +110,27 @@ public class RecoveryDetailBean extends BaseResult {
         private String guardianApply;
         private String applicantSign;
         /**
+         * 左耳听力
+         */
+        private String leftEar;
+        /**
+         * 右耳听力
+         */
+        private String rightEar;
+
+        /**
+         * 是否佩戴助听器（0是；1否）
+         */
+        private Integer wear;
+        /**
+         * 佩戴时间（佩戴助听器填写）
+         */
+        private String wearTime;
+        /**
+         * 佩戴耳（0左；1右）（佩戴助听器填写）
+         */
+        private Integer wearEar;
+        /**
          * 出生年月
          */
         private String birth;
@@ -169,113 +190,6 @@ public class RecoveryDetailBean extends BaseResult {
          * 脑瘫类型（1痉挛型；2手足徐动型；3共济失调；4弛缓型；5混合型）
          */
         private String typeName;
-        public String getTypeName() {
-            return typeName == null ? "" : typeName;
-        }
-
-        public void setTypeName(String typeName) {
-            this.typeName = typeName == null ? "" : typeName;
-        }
-
-        public void setRecoveryProject(Integer recoveryProject) {
-            this.recoveryProject = recoveryProject;
-        }
-
-        public String getAccompanyRelationship() {
-            return accompanyRelationship == null ? "" : accompanyRelationship;
-        }
-
-        public void setAccompanyRelationship(String accompanyRelationship) {
-            this.accompanyRelationship = accompanyRelationship == null ? "" : accompanyRelationship;
-        }
-
-        public Integer getAccompany() {
-            return accompany;
-        }
-
-        public void setAccompany(Integer accompany) {
-            this.accompany = accompany;
-        }
-
-        public Integer getRecovery() {
-            return recovery;
-        }
-
-        public void setRecovery(Integer recovery) {
-            this.recovery = recovery;
-        }
-
-        public String getGeneticHistoryRelationship() {
-            return geneticHistoryRelationship == null ? "" : geneticHistoryRelationship;
-        }
-
-        public void setGeneticHistoryRelationship(String geneticHistoryRelationship) {
-            this.geneticHistoryRelationship = geneticHistoryRelationship == null ? "" : geneticHistoryRelationship;
-        }
-
-        public Integer getGeneticHistory() {
-            return geneticHistory;
-        }
-
-        public void setGeneticHistory(Integer geneticHistory) {
-            this.geneticHistory = geneticHistory;
-        }
-
-        public String getFindTime() {
-            return findTime == null ? "" : findTime;
-        }
-
-        public void setFindTime(String findTime) {
-            this.findTime = findTime == null ? "" : findTime;
-        }
-
-        public String getPostalAddress() {
-            return postalAddress == null ? "" : postalAddress;
-        }
-
-        public void setPostalAddress(String postalAddress) {
-            this.postalAddress = postalAddress == null ? "" : postalAddress;
-        }
-
-        public String getPhone() {
-            return phone == null ? "" : phone;
-        }
-
-        public void setPhone(String phone) {
-            this.phone = phone == null ? "" : phone;
-        }
-
-        public String getGuardianId() {
-            return guardianId == null ? "" : guardianId;
-        }
-
-        public void setGuardianId(String guardianId) {
-            this.guardianId = guardianId == null ? "" : guardianId;
-        }
-
-        public String getWorkingUnit() {
-            return workingUnit == null ? "" : workingUnit;
-        }
-
-        public void setWorkingUnit(String workingUnit) {
-            this.workingUnit = workingUnit == null ? "" : workingUnit;
-        }
-
-        public String getPostCode() {
-            return postCode == null ? "" : postCode;
-        }
-
-        public void setPostCode(String postCode) {
-            this.postCode = postCode == null ? "" : postCode;
-        }
-
-        public String getBirth() {
-            return birth == null ? "" : birth;
-        }
-
-        public void setBirth(String birth) {
-            this.birth = birth == null ? "" : birth;
-        }
 
         public int getId() {
             return id;
@@ -294,35 +208,35 @@ public class RecoveryDetailBean extends BaseResult {
         }
 
         public String getGrandName() {
-            return grandName;
+            return grandName == null ? "" : grandName;
         }
 
         public void setGrandName(String grandName) {
-            this.grandName = grandName;
+            this.grandName = grandName == null ? "" : grandName;
         }
 
         public String getYear() {
-            return year;
+            return year == null ? "" : year;
         }
 
         public void setYear(String year) {
-            this.year = year;
+            this.year = year == null ? "" : year;
         }
 
         public String getPhoto() {
-            return photo;
+            return photo == null ? "" : photo;
         }
 
         public void setPhoto(String photo) {
-            this.photo = photo;
+            this.photo = photo == null ? "" : photo;
         }
 
         public String getName() {
-            return name;
+            return name == null ? "" : name;
         }
 
         public void setName(String name) {
-            this.name = name;
+            this.name = name == null ? "" : name;
         }
 
         public int getSex() {
@@ -334,11 +248,11 @@ public class RecoveryDetailBean extends BaseResult {
         }
 
         public String getSexName() {
-            return sexName;
+            return sexName == null ? "" : sexName;
         }
 
         public void setSexName(String sexName) {
-            this.sexName = sexName;
+            this.sexName = sexName == null ? "" : sexName;
         }
 
         public int getNation() {
@@ -350,75 +264,75 @@ public class RecoveryDetailBean extends BaseResult {
         }
 
         public String getNationName() {
-            return nationName;
+            return nationName == null ? "" : nationName;
         }
 
         public void setNationName(String nationName) {
-            this.nationName = nationName;
+            this.nationName = nationName == null ? "" : nationName;
         }
 
         public String getIdNumber() {
-            return idNumber;
+            return idNumber == null ? "" : idNumber;
         }
 
         public void setIdNumber(String idNumber) {
-            this.idNumber = idNumber;
+            this.idNumber = idNumber == null ? "" : idNumber;
         }
 
         public String getDisabilityCertificate() {
-            return disabilityCertificate;
+            return disabilityCertificate == null ? "" : disabilityCertificate;
         }
 
         public void setDisabilityCertificate(String disabilityCertificate) {
-            this.disabilityCertificate = disabilityCertificate;
+            this.disabilityCertificate = disabilityCertificate == null ? "" : disabilityCertificate;
         }
 
         public String getDiagnoseAgency() {
-            return diagnoseAgency;
+            return diagnoseAgency == null ? "" : diagnoseAgency;
         }
 
         public void setDiagnoseAgency(String diagnoseAgency) {
-            this.diagnoseAgency = diagnoseAgency;
+            this.diagnoseAgency = diagnoseAgency == null ? "" : diagnoseAgency;
         }
 
         public String getDiagnoseResult() {
-            return diagnoseResult;
+            return diagnoseResult == null ? "" : diagnoseResult;
         }
 
         public void setDiagnoseResult(String diagnoseResult) {
-            this.diagnoseResult = diagnoseResult;
+            this.diagnoseResult = diagnoseResult == null ? "" : diagnoseResult;
         }
 
         public String getGuardian() {
-            return guardian;
+            return guardian == null ? "" : guardian;
         }
 
         public void setGuardian(String guardian) {
-            this.guardian = guardian;
+            this.guardian = guardian == null ? "" : guardian;
         }
 
         public String getRelationship() {
-            return relationship;
+            return relationship == null ? "" : relationship;
         }
 
         public void setRelationship(String relationship) {
-            this.relationship = relationship;
+            this.relationship = relationship == null ? "" : relationship;
         }
 
         public String getAddress() {
-            return address;
+            return address == null ? "" : address;
         }
 
         public void setAddress(String address) {
-            this.address = address;
+            this.address = address == null ? "" : address;
         }
 
         public String getTelephone() {
-            return telephone;
+            return telephone == null ? "" : telephone;
         }
 
         public void setTelephone(String telephone) {
-            this.telephone = telephone;
+            this.telephone = telephone == null ? "" : telephone;
         }
 
         public int getIq() {
@@ -430,19 +344,19 @@ public class RecoveryDetailBean extends BaseResult {
         }
 
         public String getIqName() {
-            return iqName;
+            return iqName == null ? "" : iqName;
         }
 
         public void setIqName(String iqName) {
-            this.iqName = iqName;
+            this.iqName = iqName == null ? "" : iqName;
         }
 
         public String getOtherDisabled() {
-            return otherDisabled;
+            return otherDisabled == null ? "" : otherDisabled;
         }
 
         public void setOtherDisabled(String otherDisabled) {
-            this.otherDisabled = otherDisabled;
+            this.otherDisabled = otherDisabled == null ? "" : otherDisabled;
         }
 
         public int getFamilyEconomy() {
@@ -454,11 +368,11 @@ public class RecoveryDetailBean extends BaseResult {
         }
 
         public String getFamilyEconomyName() {
-            return familyEconomyName;
+            return familyEconomyName == null ? "" : familyEconomyName;
         }
 
         public void setFamilyEconomyName(String familyEconomyName) {
-            this.familyEconomyName = familyEconomyName;
+            this.familyEconomyName = familyEconomyName == null ? "" : familyEconomyName;
         }
 
         public int getPoorFamily() {
@@ -470,11 +384,11 @@ public class RecoveryDetailBean extends BaseResult {
         }
 
         public String getPoorFamilyName() {
-            return poorFamilyName;
+            return poorFamilyName == null ? "" : poorFamilyName;
         }
 
         public void setPoorFamilyName(String poorFamilyName) {
-            this.poorFamilyName = poorFamilyName;
+            this.poorFamilyName = poorFamilyName == null ? "" : poorFamilyName;
         }
 
         public Object getPoorFamilyExplain() {
@@ -494,11 +408,11 @@ public class RecoveryDetailBean extends BaseResult {
         }
 
         public String getAlleviationName() {
-            return alleviationName;
+            return alleviationName == null ? "" : alleviationName;
         }
 
         public void setAlleviationName(String alleviationName) {
-            this.alleviationName = alleviationName;
+            this.alleviationName = alleviationName == null ? "" : alleviationName;
         }
 
         public int getAccountType() {
@@ -510,11 +424,11 @@ public class RecoveryDetailBean extends BaseResult {
         }
 
         public String getAccountTypeName() {
-            return accountTypeName;
+            return accountTypeName == null ? "" : accountTypeName;
         }
 
         public void setAccountTypeName(String accountTypeName) {
-            this.accountTypeName = accountTypeName;
+            this.accountTypeName = accountTypeName == null ? "" : accountTypeName;
         }
 
         public int getMedicalInsurance() {
@@ -526,35 +440,183 @@ public class RecoveryDetailBean extends BaseResult {
         }
 
         public String getMedicalInsuranceName() {
-            return medicalInsuranceName;
+            return medicalInsuranceName == null ? "" : medicalInsuranceName;
         }
 
         public void setMedicalInsuranceName(String medicalInsuranceName) {
-            this.medicalInsuranceName = medicalInsuranceName;
+            this.medicalInsuranceName = medicalInsuranceName == null ? "" : medicalInsuranceName;
         }
 
         public String getRecoveryInstitution() {
-            return recoveryInstitution;
+            return recoveryInstitution == null ? "" : recoveryInstitution;
         }
 
         public void setRecoveryInstitution(String recoveryInstitution) {
-            this.recoveryInstitution = recoveryInstitution;
+            this.recoveryInstitution = recoveryInstitution == null ? "" : recoveryInstitution;
         }
 
         public String getGuardianApply() {
-            return guardianApply;
+            return guardianApply == null ? "" : guardianApply;
         }
 
         public void setGuardianApply(String guardianApply) {
-            this.guardianApply = guardianApply;
+            this.guardianApply = guardianApply == null ? "" : guardianApply;
         }
 
         public String getApplicantSign() {
-            return applicantSign;
+            return applicantSign == null ? "" : applicantSign;
         }
 
         public void setApplicantSign(String applicantSign) {
-            this.applicantSign = applicantSign;
+            this.applicantSign = applicantSign == null ? "" : applicantSign;
+        }
+
+        public String getLeftEar() {
+            return leftEar == null ? "" : leftEar;
+        }
+
+        public void setLeftEar(String leftEar) {
+            this.leftEar = leftEar == null ? "" : leftEar;
+        }
+
+        public String getRightEar() {
+            return rightEar == null ? "" : rightEar;
+        }
+
+        public void setRightEar(String rightEar) {
+            this.rightEar = rightEar == null ? "" : rightEar;
+        }
+
+        public Integer getWear() {
+            return wear;
+        }
+
+        public void setWear(Integer wear) {
+            this.wear = wear;
+        }
+
+        public String getWearTime() {
+            return wearTime == null ? "" : wearTime;
+        }
+
+        public void setWearTime(String wearTime) {
+            this.wearTime = wearTime == null ? "" : wearTime;
+        }
+
+        public Integer getWearEar() {
+            return wearEar;
+        }
+
+        public void setWearEar(Integer wearEar) {
+            this.wearEar = wearEar;
+        }
+
+        public String getBirth() {
+            return birth == null ? "" : birth;
+        }
+
+        public void setBirth(String birth) {
+            this.birth = birth == null ? "" : birth;
+        }
+
+        public String getPostCode() {
+            return postCode == null ? "" : postCode;
+        }
+
+        public void setPostCode(String postCode) {
+            this.postCode = postCode == null ? "" : postCode;
+        }
+
+        public String getWorkingUnit() {
+            return workingUnit == null ? "" : workingUnit;
+        }
+
+        public void setWorkingUnit(String workingUnit) {
+            this.workingUnit = workingUnit == null ? "" : workingUnit;
+        }
+
+        public String getGuardianId() {
+            return guardianId == null ? "" : guardianId;
+        }
+
+        public void setGuardianId(String guardianId) {
+            this.guardianId = guardianId == null ? "" : guardianId;
+        }
+
+        public String getPhone() {
+            return phone == null ? "" : phone;
+        }
+
+        public void setPhone(String phone) {
+            this.phone = phone == null ? "" : phone;
+        }
+
+        public String getPostalAddress() {
+            return postalAddress == null ? "" : postalAddress;
+        }
+
+        public void setPostalAddress(String postalAddress) {
+            this.postalAddress = postalAddress == null ? "" : postalAddress;
+        }
+
+        public String getFindTime() {
+            return findTime == null ? "" : findTime;
+        }
+
+        public void setFindTime(String findTime) {
+            this.findTime = findTime == null ? "" : findTime;
+        }
+
+        public Integer getGeneticHistory() {
+            return geneticHistory;
+        }
+
+        public void setGeneticHistory(Integer geneticHistory) {
+            this.geneticHistory = geneticHistory;
+        }
+
+        public String getGeneticHistoryRelationship() {
+            return geneticHistoryRelationship == null ? "" : geneticHistoryRelationship;
+        }
+
+        public void setGeneticHistoryRelationship(String geneticHistoryRelationship) {
+            this.geneticHistoryRelationship = geneticHistoryRelationship == null ? "" : geneticHistoryRelationship;
+        }
+
+        public Integer getRecovery() {
+            return recovery;
+        }
+
+        public void setRecovery(Integer recovery) {
+            this.recovery = recovery;
+        }
+
+        public Integer getAccompany() {
+            return accompany;
+        }
+
+        public void setAccompany(Integer accompany) {
+            this.accompany = accompany;
+        }
+
+        public String getAccompanyRelationship() {
+            return accompanyRelationship == null ? "" : accompanyRelationship;
+        }
+
+        public void setAccompanyRelationship(String accompanyRelationship) {
+            this.accompanyRelationship = accompanyRelationship == null ? "" : accompanyRelationship;
+        }
+
+        public void setRecoveryProject(Integer recoveryProject) {
+            this.recoveryProject = recoveryProject;
+        }
+
+        public String getTypeName() {
+            return typeName == null ? "" : typeName;
+        }
+
+        public void setTypeName(String typeName) {
+            this.typeName = typeName == null ? "" : typeName;
         }
     }
 }

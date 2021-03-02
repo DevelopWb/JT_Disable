@@ -151,6 +151,11 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 addTextChange(editText2);
                 editText2.setText(textValueEditBean2.getValue());
                 String editKeyTv = textValueEditBean2.getKey();
+
+                if (editKeyTv.contains("F") || editKeyTv.contains("C")) {
+                    //主要涉及聋儿童康复 与残疾儿童关系的地方 用于区分
+                    editKeyTv = editKeyTv.substring(1, editKeyTv.length());
+                }
                 textView2.setText(editKeyTv);
                 if (BusinessContract.TABLE_TITLE_CONTACT_MODE.equals(editKeyTv) || BusinessContract.TABLE_TITLE_PHONE.equals(editKeyTv)) {
                     editText2.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -362,61 +367,76 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 DeafBean deafBean = (DeafBean) item.getObject();
                 EditText leftEarLoseEt = helper.getView(R.id.left_ear_et);
                 leftEarLoseEt.setTag(deafBean);
+                leftEarLoseEt.setText(deafBean.getLeftEar());
                 EditText rightEarLoseEt = helper.getView(R.id.right_ear_et);
                 rightEarLoseEt.setTag(deafBean);
+                rightEarLoseEt.setText(deafBean.getRightEar());
                 EditText wearYearEt = helper.getView(R.id.wear_time_year_et);
                 wearYearEt.setTag(deafBean);
+                wearYearEt.setText(deafBean.getWearTimeYear());
                 EditText wearMonthEt = helper.getView(R.id.wear_time_month_et);
                 wearMonthEt.setTag(deafBean);
+                wearMonthEt.setText(deafBean.getWearTimeMonth());
                 addTextChange(leftEarLoseEt);
                 addTextChange(rightEarLoseEt);
                 addTextChange(wearYearEt);
                 addTextChange(wearMonthEt);
                 LinearLayout wearTimeLl = helper.getView(R.id.wear_time_ll);
-                RadioGroup whichEarWearRg = helper.getView(R.id.which_ear_wear_rg);
                 RadioGroup wearAidRg = helper.getView(R.id.weared_aid_rg);
+                int  isWear = deafBean.getWear();
+                if (0==isWear) {
+                    //佩戴
+                    wearAidRg.check(R.id.wear_aid_rb);
+                }else {
+                    wearAidRg.check(R.id.not_wear_aid_rb);
+                }
+
+                RadioGroup whichEarWearRg = helper.getView(R.id.which_ear_wear_rg);
+                int   witchEar = deafBean.getWearEar();
+                if (0==witchEar) {
+                    //左
+                    whichEarWearRg.check(R.id.left_ear_rb);
+                }else {
+                    whichEarWearRg.check(R.id.right_ear_rb);
+                }
                 wearAidRg.setTag(deafBean);
                 whichEarWearRg.setTag(deafBean);
-                wearAidRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(RadioGroup group, int checkedId) {
-                        DeafBean deafBean1 = (DeafBean) group.getTag();
-                        switch (checkedId) {
-                            case R.id.wear_aid_rb:
-                                deafBean1.setWear(0);
-                                wearTimeLl.setVisibility(View.VISIBLE);
-                                whichEarWearRg.setVisibility(View.VISIBLE);
-                                break;
-                            case R.id.not_wear_aid_rb:
-                                deafBean1.setWear(1);
-                                wearTimeLl.setVisibility(View.GONE);
-                                whichEarWearRg.setVisibility(View.GONE);
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                });
-                whichEarWearRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(RadioGroup group, int checkedId) {
-                        DeafBean deafBean1 = (DeafBean) group.getTag();
-                        switch (checkedId) {
-                            case R.id.left_ear_bt:
-                                deafBean1.setWearEar(0);
-                                break;
-                            case R.id.right_ear_bt:
-                                deafBean1.setWearEar(1);
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                });
+                addRadioCheckedListener(wearAidRg);
+                addRadioCheckedListener(whichEarWearRg);
                 break;
             default:
                 break;
         }
+    }
+
+    private void addRadioCheckedListener(RadioGroup whichEarWearRg) {
+        whichEarWearRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                DeafBean deafBean1 = (DeafBean) group.getTag();
+                switch (checkedId) {
+                    case R.id.left_ear_rb:
+                        deafBean1.setWearEar(0);
+                        break;
+                    case R.id.right_ear_rb:
+                        deafBean1.setWearEar(1);
+                        break;
+                    case R.id.wear_aid_rb:
+                        deafBean1.setWear(0);
+                        //                                wearTimeLl.setVisibility(View.VISIBLE);
+                        //                                whichEarWearRg.setVisibility(View.VISIBLE);
+                        break;
+                    case R.id.not_wear_aid_rb:
+                        deafBean1.setWear(1);
+                        //                                wearTimeLl.setVisibility(View.GONE);
+                        //                                whichEarWearRg.setVisibility(View.GONE);
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        });
     }
 
     private void addTextChange(EditText editText) {

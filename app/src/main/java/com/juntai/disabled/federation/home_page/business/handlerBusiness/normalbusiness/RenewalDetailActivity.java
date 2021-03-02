@@ -1,4 +1,4 @@
-package com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail;
+package com.juntai.disabled.federation.home_page.business.handlerBusiness.normalbusiness;
 
 import android.os.Bundle;
 

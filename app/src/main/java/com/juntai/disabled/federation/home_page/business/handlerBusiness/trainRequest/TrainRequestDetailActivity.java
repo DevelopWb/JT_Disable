@@ -1,6 +1,5 @@
-package com.juntai.disabled.federation.home_page.business.handlerBusiness.train;
+package com.juntai.disabled.federation.home_page.business.handlerBusiness.trainRequest;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 

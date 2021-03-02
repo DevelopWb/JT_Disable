@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * @aouther tobato
- * @description 描述  聋哑儿童康复
+ * @description 描述  聋儿童康复
  * @date 2021/1/31 11:04
  */
 public class DeafDumbChildRecoveryActivity extends BaseRecoveryActivity {

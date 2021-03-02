@@ -1,11 +1,11 @@
-package com.juntai.disabled.federation.home_page.business.handlerBusiness.businessdetail;
+package com.juntai.disabled.federation.home_page.business.handlerBusiness.normalbusiness;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseDisabledCardBusinessDetailActivity;
 
-public class DisabledCardReissueDetailActivity extends BaseDisabledCardBusinessDetailActivity {
+public class DisabledCardMoveOutDetailActivity extends BaseDisabledCardBusinessDetailActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,6 +14,6 @@ public class DisabledCardReissueDetailActivity extends BaseDisabledCardBusinessD
 
     @Override
     protected String getTitleName() {
-        return BaseDisabledCardBusinessDetailActivity.BUSINESS_NAME_REISSUE;
+        return BaseDisabledCardBusinessDetailActivity.BUSINESS_NAME_MOVE_OUT;
     }
 }
