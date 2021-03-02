@@ -38,7 +38,7 @@ import java.util.List;
  * @date 2021/1/16 11:22
  */
 public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseViewHolder> {
-    private boolean  isDetail = false;//是否是详情模式
+    private boolean isDetail = false;//是否是详情模式
 
 
     /**
@@ -47,7 +47,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
      *
      * @param data A new list is created out of this one to avoid mutable list
      */
-    public HandlerBusinessAdapter(List<MultipleItem> data, boolean  isDetail ) {
+    public HandlerBusinessAdapter(List<MultipleItem> data, boolean isDetail) {
         super(data);
         addItemType(MultipleItem.ITEM_BUSINESS_HEAD_PIC, R.layout.item_layout_type_head_pic);
         addItemType(MultipleItem.ITEM_BUSINESS_TITILE_BIG, R.layout.item_layout_type_title_big);
@@ -89,12 +89,16 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 break;
             case MultipleItem.ITEM_BUSINESS_EDIT:
                 BusinessTextValueBean textValueEditBean = (BusinessTextValueBean) item.getObject();
-
+                if (BusinessContract.TABLE_TITLE_CHECK_CODE.equals(textValueEditBean.getKey())) {
+                    helper.setGone(R.id.send_check_code_tv,true);
+                }else {
+                    helper.setGone(R.id.send_check_code_tv,false);
+                }
                 EditText editText = helper.getView(R.id.edit_value_et);
                 if (isDetail) {
                     editText.setClickable(false);
                     editText.setFocusable(false);
-                }else {
+                } else {
                     editText.setClickable(true);
                     editText.setFocusable(true);
                 }
@@ -142,7 +146,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 if (isDetail) {
                     editText2.setClickable(false);
                     editText2.setFocusable(false);
-                }else {
+                } else {
                     editText2.setClickable(true);
                     editText2.setFocusable(true);
                 }
@@ -170,7 +174,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                     yearEt.setClickable(false);
                     yearEt.setFocusable(false);
                     yearEt.setText(yearBean.getValue());
-                }else {
+                } else {
                     yearEt.setClickable(true);
                     yearEt.setFocusable(true);
                     addTextChange(yearEt);
@@ -194,7 +198,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                     for (int i = 0; i < radioGroup.getChildCount(); i++) {
                         radioGroup.getChildAt(i).setEnabled(false);
                     }
-                }else {
+                } else {
                     for (int i = 0; i < radioGroup.getChildCount(); i++) {
                         radioGroup.getChildAt(i).setEnabled(true);
                     }
@@ -249,13 +253,13 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                         }
                     }
                 });
-                int  defaultIndex = radioBean.getDefaultSelectedIndex();
+                int defaultIndex = radioBean.getDefaultSelectedIndex();
                 switch (radioBean.getKey()) {
                     case BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS:
-                        defaultIndex-=1;
+                        defaultIndex -= 1;
                         break;
                     case BusinessContract.TABLE_TITLE_PROJECT_LEVEL:
-                        defaultIndex-=1;
+                        defaultIndex -= 1;
                         break;
                     default:
                         break;
@@ -321,7 +325,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 RecyclerView recyclerView = helper.getView(R.id.item_normal_rv);
                 int layoutType = recycleBean.getLayoutManagerType();
                 CheckBoxAdapter checkBoxAdapter = new CheckBoxAdapter(R.layout.item_business_checkboxes,
-                        recycleBean.getData(), recycleBean.isSigleSelect(),isDetail);
+                        recycleBean.getData(), recycleBean.isSigleSelect(), isDetail);
                 LinearLayoutManager manager = null;
                 switch (layoutType) {
                     case 0:
@@ -351,15 +355,15 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 LinearLayout signLl = helper.getView(R.id.item_sign_ll);
                 ImageView signIv = helper.getView(R.id.sign_name_iv);
                 if (0 == gravity) {
-                   helper.setGone(R.id.sign_tag,true);
+                    helper.setGone(R.id.sign_tag, true);
                     signLl.setGravity(Gravity.LEFT);
                 } else {
-                    helper.setGone(R.id.sign_tag,false);
+                    helper.setGone(R.id.sign_tag, false);
                     signLl.setGravity(Gravity.RIGHT);
                 }
                 helper.setText(R.id.sign_name_tv, signBean.getSignName());
                 if (StringTools.isStringValueOk(signBean.getSignPicPath())) {
-                    ImageLoadUtil.loadImage(mContext,signBean.getSignPicPath(),signIv);
+                    ImageLoadUtil.loadImage(mContext, signBean.getSignPicPath(), signIv);
                 }
                 break;
 
@@ -383,20 +387,20 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 addTextChange(wearMonthEt);
                 LinearLayout wearTimeLl = helper.getView(R.id.wear_time_ll);
                 RadioGroup wearAidRg = helper.getView(R.id.weared_aid_rg);
-                int  isWear = deafBean.getWear();
-                if (0==isWear) {
+                int isWear = deafBean.getWear();
+                if (0 == isWear) {
                     //佩戴
                     wearAidRg.check(R.id.wear_aid_rb);
-                }else {
+                } else {
                     wearAidRg.check(R.id.not_wear_aid_rb);
                 }
 
                 RadioGroup whichEarWearRg = helper.getView(R.id.which_ear_wear_rg);
-                int   witchEar = deafBean.getWearEar();
-                if (0==witchEar) {
+                int witchEar = deafBean.getWearEar();
+                if (0 == witchEar) {
                     //左
                     whichEarWearRg.check(R.id.left_ear_rb);
-                }else {
+                } else {
                     whichEarWearRg.check(R.id.right_ear_rb);
                 }
                 wearAidRg.setTag(deafBean);

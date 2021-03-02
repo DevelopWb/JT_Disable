@@ -1,10 +1,15 @@
 package com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness;
 
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.support.v4.app.FragmentActivity;
+
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
+import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.disabled.federation.AppNetModule;
 import com.juntai.disabled.federation.MyApp;
@@ -36,10 +41,16 @@ import com.juntai.disabled.federation.bean.business.detail.RecoveryDetailBean;
 import com.juntai.disabled.federation.bean.business.detail.TrainRequestDetailBean;
 import com.juntai.disabled.federation.utils.StringTools;
 import com.juntai.disabled.federation.utils.UserInfoManager;
+import com.juntai.disabled.video.record.VideoPreviewActivity;
+import com.mabeijianxi.smallvideorecord2.MediaRecorderActivity;
+import com.mabeijianxi.smallvideorecord2.model.MediaRecorderConfig;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
+import io.reactivex.functions.Consumer;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -102,7 +113,39 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                     }
                 });
     }
-
+    /**
+     * 录制视频
+     *
+     * @param activity
+     */
+    @SuppressLint("CheckResult")
+    public void recordVideo(FragmentActivity activity) {
+        new RxPermissions(activity)
+                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.CAMERA)
+                .compose(com.juntai.disabled.federation.utils.RxScheduler.ObsIoMain(getView()))
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) throws Exception {
+                        if (aBoolean) {
+                            // 录制
+                            MediaRecorderConfig config = new MediaRecorderConfig.Buidler()
+                                    .fullScreen(false)
+                                    .smallVideoWidth(500)
+                                    .smallVideoHeight(480)
+                                    .recordTimeMax(10000)
+                                    .recordTimeMin(2000)
+                                    .videoBitrate(960 * 640)
+                                    .captureThumbnailsTime(1)
+                                    .build();
+                            MediaRecorderActivity.goSmallVideoRecorder(activity, VideoPreviewActivity.class.getName()
+                                    , config);
+                        } else {
+                            Toasty.info(activity, "请给与相应权限").show();
+                        }
+                    }
+                });
+    }
     @Override
     public void creatBusiness(RequestBody requestBody, String tag) {
         AppNetModule.createrRetrofit()
@@ -2056,7 +2099,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
             String wearTime = dataBean.getWearTime();
             if (StringTools.isStringValueOk(wearTime)) {
                 String year = wearTime.substring(0, wearTime.indexOf("年"));
-                String month = wearTime.substring(wearTime.indexOf("年")+1, wearTime.indexOf("个"));
+                String month = wearTime.substring(wearTime.indexOf("年") + 1, wearTime.indexOf("个"));
                 deafBean.setWearTimeYear(year);
                 deafBean.setWearTimeMonth(month);
             } else {
@@ -2166,6 +2209,28 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                 "说明：本表由县（区）残联组织填写。受助儿童监护人提出申请时，需携带本人和患儿户口本或身份证或居住证原件及复印件，持患儿残疾"));
         return arrays;
     }
+
+
+    /**
+     * 建议
+     *
+     * @return
+     */
+    public List<MultipleItem> getSuggestionAdapterData() {
+        List<MultipleItem> arrays = new ArrayList<>();
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME, null);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_IDCARD, null);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_MOBILE_NUM, null);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CHECK_CODE, null);
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_CONTENT_TYPE, 0,
+                new String[]{"意见", "建议"});
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, BusinessContract.TABLE_TITLE_CONTENT));
+        initEditHighType(arrays, BusinessContract.TABLE_TITLE_CONTENT,null);
+
+
+        return arrays;
+    }
+
 
     private void initRecycleviewType(List<MultipleItem> arrays, List<ItemCheckBoxBean> data, String typeName,
                                      int layoutType, int spanCount, boolean isSigleSelect) {
@@ -2340,7 +2405,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                     arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT2,
                             new BusinessTextValueBean(typeName, value,
                                     String.format("%s%s", "请输入", titleName), 0)));
-                }else {
+                } else {
                     arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT2,
                             new BusinessTextValueBean(typeName, value,
                                     String.format("%s%s", "请输入", typeName), 0)));
@@ -2350,19 +2415,6 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
             default:
                 break;
         }
-
-    }
-
-    /**
-     * initTextType
-     *
-     * @param arrays
-     * @param typeName
-     */
-    private void initEditHighType(List<MultipleItem> arrays, String typeName) {
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
-                new BusinessTextValueBean(typeName, null,
-                        "点击输入内容...", 1)));
 
     }
 

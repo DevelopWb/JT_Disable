@@ -119,6 +119,7 @@ public interface BusinessContract {
     String TABLE_TITLE_GUAIDIAN_REQUEST = "监护人申请";//
     String TABLE_TITLE_HOUSE_PHONE = "住宅电话";//
     String TABLE_TITLE_MOBILE_NUM = "手机号码";//
+    String TABLE_TITLE_CHECK_CODE = "验证码";//
     String TABLE_TITLE_COMMUNICATION_ADDR = "通讯地址";//
     String TABLE_TITLE_DISCOVER_DISABILITY_YEAR = "发现耳聋月龄：";//
     String TABLE_TITLE_FAMILY_HAS_DISABILITY = "是否有家族耳聋史：";//
@@ -133,6 +134,8 @@ public interface BusinessContract {
     String TABLE_TITLE_TRAIN_TYPE = "培训种类";//
     String TABLE_TITLE_TRAIN_INTENT = "培训意向";//
     String TABLE_TITLE_REMARK = "备注";//
+    String TABLE_TITLE_CONTENT = "详细内容";//
+    String TABLE_TITLE_CONTENT_TYPE = "内容分布";//
 
 
     interface IBusinessView extends IView {

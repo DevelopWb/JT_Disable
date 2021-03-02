@@ -30,7 +30,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".home_page.business.handlerBusiness.studentBursary.detail.DisabledFamilyStudentBursaryDetailActivity"></activity>
+        <activity android:name=".home_page.business.handlerBusiness.SuggestionActivity"></activity>
+        <activity android:name=".home_page.business.handlerBusiness.studentBursary.detail.DisabledFamilyStudentBursaryDetailActivity" />
         <activity android:name=".home_page.business.handlerBusiness.studentBursary.detail.DisabledStudentBursaryDetailActivity" />
         <activity android:name=".home_page.business.handlerBusiness.homecare.HomeCareDetailActivity" />
         <activity android:name=".home_page.business.handlerBusiness.trainRequest.TrainRequestDetailActivity" />

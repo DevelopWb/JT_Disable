@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.bean.business.AllBusinessBean;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.SuggestionActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.assistTool.AssistToolsRequestActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.normalbusiness.CardLevelChangeActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.normalbusiness.CardLogoutActivity;
@@ -125,7 +126,7 @@ public class BusinessItemAdapter extends BaseMultiItemQuickAdapter<MultipleItem,
                                 break;
                             case 15:
                                 //意见建议
-                                mContext.startActivity(new Intent(mContext, AssistToolsRequestActivity.class));
+                                mContext.startActivity(new Intent(mContext, SuggestionActivity.class));
                                 break;
                             default:
                                 break;

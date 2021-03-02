@@ -372,6 +372,7 @@ public class PublishCaseActivity extends BaseSelectPicsAndVedioActivity<PublishP
         }
     }
 
+
     @Override
     protected void onDestroy() {
         mRegistPresent.setCallBack(null);
@@ -379,6 +380,8 @@ public class PublishCaseActivity extends BaseSelectPicsAndVedioActivity<PublishP
         releasePickerView(optionsPickerViewType);
         super.onDestroy();
     }
+
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

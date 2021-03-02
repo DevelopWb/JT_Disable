@@ -201,4 +201,6 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
     protected void selectedPicsAndEmpressed(List<String> icons) {
 
     }
+
+
 }
