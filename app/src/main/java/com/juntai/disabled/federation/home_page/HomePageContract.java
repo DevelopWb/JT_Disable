@@ -64,6 +64,13 @@ public interface HomePageContract {
          * @param privinceNum
          */
         void getCitys(String tag, String privinceNum);
+        /**
+         * 康复机构详情
+         *
+         * @param requestBody
+         * @param tag
+         */
+        void getHealthOrganizeDetail(RequestBody requestBody, String tag);
 
         /**
          * 获取县列表

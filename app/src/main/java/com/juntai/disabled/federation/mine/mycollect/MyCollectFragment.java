@@ -260,7 +260,9 @@ public class MyCollectFragment extends BaseMvpFragment<MyCollectPresent> impleme
                     mPresenter.getCollectListCamera(page, pagesize, MyCenterContract.LOAD_COLLECT_LIST, showProgress);
                     break;
                 case 8:
-                    mPresenter.getCollectListNews(page, pagesize, MyCenterContract.LOAD_COLLECT_LIST, showProgress);
+                    // TODO: 2021/3/3   二期再开放
+                    ToastUtils.toast(mContext,getString(R.string.not_open_notice));
+//                    mPresenter.getCollectListNews(page, pagesize, MyCenterContract.LOAD_COLLECT_LIST, showProgress);
                     break;
             }
         } else {
@@ -270,7 +272,9 @@ public class MyCollectFragment extends BaseMvpFragment<MyCollectPresent> impleme
                     mPresenter.getShareListCamera(page, pagesize, MyCenterContract.LOAD_COLLECT_LIST, showProgress);
                     break;
                 case 8:
-                    mPresenter.getShareListNews(page, pagesize, MyCenterContract.LOAD_COLLECT_LIST, showProgress);
+                    // TODO: 2021/3/3   二期再开放
+                    ToastUtils.toast(mContext,getString(R.string.not_open_notice));
+//                    mPresenter.getShareListNews(page, pagesize, MyCenterContract.LOAD_COLLECT_LIST, showProgress);
                     break;
             }
         }

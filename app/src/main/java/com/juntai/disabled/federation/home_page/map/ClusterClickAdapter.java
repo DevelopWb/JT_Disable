@@ -66,19 +66,20 @@ public class ClusterClickAdapter extends BaseQuickAdapter<MapClusterItem, BaseVi
                 helper.getView(R.id.item_right).setVisibility(View.VISIBLE);
                 helper.addOnClickListener(R.id.item_right);
                 break;
-            case MapClusterItem.PEOPLE:
+            case MapClusterItem.SERVERS:
                 imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 ImageLoadUtil.loadCircularImage(mContext.getApplicationContext(),
-                        item.people.getHeadPortrait(),
+                        item.server.getHeadPortrait(),
                         R.mipmap.default_user_head_icon,
                         R.mipmap.default_user_head_icon, imageView);
-                helper.setText(R.id.item_title, "" + item.people.getNickname())
-                        .setText(R.id.item_content, "职务:" + item.people.getPostName())
+                helper.setText(R.id.item_title, "" + item.server.getNickname())
+                        .setText(R.id.item_content, "职务:" + item.server.getPostName())
 //                        .setText(R.id.item_case_content, "状态:" + "离线")
-                        .setText(R.id.item_time, "所属单位:" + item.people.getDepartmentName());
+                        .setText(R.id.item_time, "所属单位:" + item.server.getDepartmentName());
                 break;
-            case MapClusterItem.SITE:
-                ImageLoadUtil.loadImageCache(mContext.getApplicationContext(), item.site.getLogoUrl(),imageView);
+            case MapClusterItem.HEALTH_OG:
+                //康复机构
+                ImageLoadUtil.loadImageCache(mContext.getApplicationContext(), item.site.getPhoto(),imageView);
                 helper.setText(R.id.item_title, "" + item.site.getName());
                 helper.setText(R.id.item_content, item.site.getAddress());
                 helper.getView(R.id.item_time).setVisibility(View.GONE);
@@ -95,13 +96,6 @@ public class ClusterClickAdapter extends BaseQuickAdapter<MapClusterItem, BaseVi
                 ((TextView)helper.getView(R.id.item_title)).setMaxLines(2);
                 helper.setText(R.id.item_title, item.news.getTitle())
                         .setText(R.id.item_content, item.news.getGmtCreate());
-                helper.getView(R.id.item_time).setVisibility(View.GONE);
-                break;
-            case MapClusterItem.KEY_PERSONNEL:
-                ImageLoadUtil.loadImageCache(mContext.getApplicationContext(),
-                        item.keyPersonnel.getHeadPortrait(),imageView);
-                helper.setText(R.id.item_title, item.keyPersonnel.getName())
-                        .setText(R.id.item_content, item.keyPersonnel.getPhone());
                 helper.getView(R.id.item_time).setVisibility(View.GONE);
                 break;
         }

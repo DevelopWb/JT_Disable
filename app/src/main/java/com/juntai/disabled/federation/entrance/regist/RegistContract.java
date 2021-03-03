@@ -64,7 +64,7 @@ public interface RegistContract {
         /**
          * 获取部门列表
          */
-        void getPoliceBranch(String keyWord, String tag);
+        void getPoliceBranch( String tag);
 
         /**
          * 获取网格列表

@@ -18,8 +18,7 @@ public interface MapContract {
 
 
     String GET_CASES = "get_cases";//获取案件
-    String GET_POLICE = "get_police";//获取警员
-    String GET_POLICE_DETAIL = "GET_POLICE_DETAIL";//获取警员
+    String GET_PEOPLE_DETAIL = "GET_POLICE_DETAIL";//获取警员
     String GET_CARS = "get_cars";//获取车辆
     String GET_SITES = "get_sites";//获取场所
     String GET_NEWS = "get_news";//获取资讯
@@ -31,7 +30,7 @@ public interface MapContract {
     String INSPECTION_POINT_INFO = "inspection_point_info";//巡检点详情
     String INSPECTIONS_RECORD = "inspections_info";//巡检记录
     //重点人员
-    String GET_KEY_PERSONNEL = "get_key_personnel";//获取重点人员
+    String GET_SERVERS = "get_key_personnel";//获取重点人员
     String GET_KEY_PERSONNEL_INFO = "get_key_personnel_info";//获取重点人员详情
     String GET_INTERVIEW = "get_interview";//获取走访记录
 
@@ -104,8 +103,7 @@ public interface MapContract {
         void getNews(String tag);
 
         /**
-         * 获取单位管理数据
-         *
+         * 获取康复机构         *
          * @param tag
          */
         void getSiteManagers(String tag);
@@ -163,7 +161,7 @@ public interface MapContract {
          *
          * @param tag
          */
-        void getKeyPersonnels(String tag);
+        void requestServer(String tag);
 
         /**
          * 重点人员详情

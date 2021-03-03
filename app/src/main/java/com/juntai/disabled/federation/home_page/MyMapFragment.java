@@ -56,23 +56,21 @@ import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.MainActivity;
 import com.juntai.disabled.federation.base.BaseAppFragment;
 import com.juntai.disabled.federation.bean.BannerNewsBean;
+import com.juntai.disabled.federation.bean.ServerPeopleBean;
 import com.juntai.disabled.federation.bean.case_bean.CaseDesBean;
 import com.juntai.disabled.federation.bean.MapClusterItem;
 import com.juntai.disabled.federation.bean.MapMenuButton;
 import com.juntai.disabled.federation.bean.PoliceCarBean;
 import com.juntai.disabled.federation.bean.ResponseSiteBean;
 import com.juntai.disabled.federation.bean.ResponseInspection;
-import com.juntai.disabled.federation.bean.ResponseKeyPersonnel;
 import com.juntai.disabled.federation.bean.ResponseNews;
-import com.juntai.disabled.federation.bean.ResponsePeople;
 import com.juntai.disabled.federation.bean.history_track.LocationBean;
 import com.juntai.disabled.federation.bean.stream.StreamCameraBean;
 import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.home_page.call_to_police.CallToPoliceActivity;
 import com.juntai.disabled.federation.home_page.call_to_police.VerifiedActivity;
-import com.juntai.disabled.federation.home_page.camera.ijkplayer.CarLiveActivity;
 import com.juntai.disabled.federation.home_page.camera.ijkplayer.PlayerLiveActivity;
-import com.juntai.disabled.federation.home_page.key_personnel.KeyPersonnelInfoActivity;
+import com.juntai.disabled.federation.home_page.healthOrgnize.HealthOrganizeActivity;
 import com.juntai.disabled.federation.home_page.law_case.CaseInfoActivity;
 import com.juntai.disabled.federation.home_page.map.DistanceUtilActivity;
 import com.juntai.disabled.federation.home_page.map.HistoryTrack;
@@ -85,13 +83,11 @@ import com.juntai.disabled.federation.home_page.map.SelectTime;
 import com.juntai.disabled.federation.home_page.search.SearchActivity;
 import com.juntai.disabled.federation.home_page.weather.WeatherActivity;
 import com.juntai.disabled.federation.home_page.inspection.InspectionInfoActivity;
-import com.juntai.disabled.federation.home_page.conciliation.conciliation_publish.PublishConciliationActivity;
 import com.juntai.disabled.federation.home_page.site_manager.site_info.NewUnitDetailActivity;
 import com.juntai.disabled.federation.utils.AppUtils;
 import com.juntai.disabled.federation.utils.DateUtil;
 import com.juntai.disabled.federation.utils.ImageUtil;
 import com.juntai.disabled.federation.utils.StringTools;
-import com.juntai.disabled.federation.utils.UrlFormatUtil;
 import com.juntai.disabled.im.ModuleIm_Init;
 import com.orhanobut.hawk.Hawk;
 import com.sunfusheng.marqueeview.MarqueeView;
@@ -501,18 +497,20 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
                         clearTheMap(mMap);
                         mPresenter.getCameras(MapContract.GET_STREAM_CAMERAS);
                         break;
-                    case 4://警情分布(案件)
-                        if (MyApp.isCompleteUserInfo()) {
-                            clearTheMap(mMap);
-                            mPresenter.getCases(MapContract.GET_CASES);
-                        } else {
-                            item.setSelected(false);
-                        }
+                    case 4://托养分布
+                        // TODO: 2021/3/3   二期开放
+                        ToastUtils.toast(mContext,getString(R.string.not_open_notice));
+//                        if (MyApp.isCompleteUserInfo()) {
+//                            clearTheMap(mMap);
+//                            mPresenter.getCases(MapContract.GET_CASES);
+//                        } else {
+//                            item.setSelected(false);
+//                        }
                         break;
-                    case 5://警员分布
+                    case 5://服务人员
                         if (MyApp.isCompleteUserInfo()) {
                             clearTheMap(mMap);
-                            mPresenter.getPolices(MapContract.GET_POLICE);
+                            mPresenter.requestServer(MapContract.GET_SERVERS);
                         } else {
                             item.setSelected(false);
                         }
@@ -529,7 +527,7 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
                             item.setSelected(false);
                         }
                         break;
-                    case 7://场所管理
+                    case 7://康复机构
                         if (MyApp.isCompleteUserInfo()) {
                             clearTheMap(mMap);
                             mPresenter.getSiteManagers(MapContract.GET_SITES);
@@ -537,43 +535,11 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
                             item.setSelected(false);
                         }
                         break;
-                    case 8://巡检
-                        if (MyApp.isCompleteUserInfo()) {
-                            clearTheMap(mMap);
-                            mPresenter.getInspection(MapContract.GET_INSPECTION);
-                        } else {
-                            item.setSelected(false);
-                        }
-                        break;
-                    case 9://重点人员
-                        if (MyApp.isCompleteUserInfo()) {
-                            clearTheMap(mMap);
-                            mPresenter.getKeyPersonnels(MapContract.GET_KEY_PERSONNEL);
-                        } else {
-                            item.setSelected(false);
-                        }
-                        break;
-
-                    case 10://缴费
+                    case 8://资讯
                         clearTheMap(mMap);
-                        AppUtils.checkIsInstall(getContext(), "com.eg.android.AlipayGphone");
-                        item.setSelected(false);
-                        break;
-                    case 11://资讯
-                        clearTheMap(mMap);
-                        mPresenter.getNews(MapContract.GET_NEWS);
-                        break;
-                    case 12://调解法庭
-                        if (MyApp.getUser() != null) {
-                            //实名认证状态（0：未提交）（1：提交审核中）（2：审核通过）（3：审核失败）
-                            int status = MyApp.getUser().getData().getRealNameStatus();
-                            if (2 != status) {
-                                startActivity(new Intent(mContext, VerifiedActivity.class).putExtra(VerifiedActivity.VERIFIED_STATUS, status));
-                            } else {
-                                startActivity(new Intent(mContext, PublishConciliationActivity.class));
-                            }
-                        }
-                        item.setSelected(false);
+                        // TODO: 2021/3/3   二期开放
+                        ToastUtils.toast(mContext,getString(R.string.not_open_notice));
+//                        mPresenter.getNews(MapContract.GET_NEWS);
                         break;
                     default:
                         break;
@@ -697,8 +663,9 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
                     mMap.addOverlay(mTextOptions);
                     distancePoints.add(latLng);
                 } else {
-                    if (distancePoints.size() == 2)
+                    if (distancePoints.size() == 2) {
                         distancePoints.remove(0);
+                    }
                     distancePoints.add(latLng);
                     distance =
                             distance + DistanceUtil.getDistance(distancePoints.get(distancePoints.size() - 1),
@@ -762,8 +729,8 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
         ImageLoadUtil.loadImageCache(getContext(), mCase.getPhotoOne(),
                 (ImageView) infowindowPeople.findViewById(R.id.case_img));
         infowindowPeople.findViewById(R.id.case_navigation).setOnClickListener(v -> {
-            getBaseAppActivity().navigationLogic(new LatLng( mCase.getLatitude(),
-                    mCase.getLongitude()),mCase.getAddress());
+            getBaseAppActivity().navigationLogic(new LatLng(mCase.getLatitude(),
+                    mCase.getLongitude()), mCase.getAddress());
         });
         infowindowPeople.findViewById(R.id.case_follow).setOnClickListener(v -> {
             startActivity(new Intent(mContext, CaseInfoActivity.class).putExtra("id",
@@ -817,10 +784,11 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
         infowindowPeople.findViewById(R.id.car_contact).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(mContext, CarLiveActivity.class).putExtra(CarLiveActivity.STREAM_CAMERA_NAME
-                        , car.getDeviceName()).putExtra(CarLiveActivity.STREAM_CAMERA_URL,
-                        UrlFormatUtil.getCarStream(car.getImei()))
-                );
+                //                startActivity(new Intent(mContext, CarLiveActivity.class).putExtra(CarLiveActivity
+                //                .STREAM_CAMERA_NAME
+                //                        , car.getDeviceName()).putExtra(CarLiveActivity.STREAM_CAMERA_URL,
+                //                        UrlFormatUtil.getCarStream(car.getImei()))
+                //                );
             }
         });
 
@@ -856,10 +824,10 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
     }
 
     /**
-     * 地图点警员
+     * 服务人员详情
      */
     private void clickPeopleItem(MapClusterItem item, BaiduMap map) {
-        ResponsePeople.DataBean people = item.people;
+        ServerPeopleBean.DataBean people = item.server;
         LatLng peopleLocation = new LatLng(people.getLatitude(), people.getLongitude());
         MapUtil.mapMoveTo(map, peopleLocation);
         infowindowPeople = View.inflate(mContext, R.layout.infowindow_people, null);//将一个布局文件转换成一个view对象
@@ -933,21 +901,12 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
     }
 
     /**
-     * 地图点重点人员
-     */
-    private void clickKeyPersonnelItem(MapClusterItem item, BaiduMap map) {
-        ResponseKeyPersonnel.DataBean keyPersonnel = item.keyPersonnel;
-        startActivity(new Intent(mContext, KeyPersonnelInfoActivity.class).putExtra("id", keyPersonnel.getId()));
-    }
-
-    /**
-     * 场所管理
+     * 康复机构
      */
     private void clickSiteItem(MapClusterItem item) {
         ResponseSiteBean.DataBean dataBean = item.site;
-        startActivity(new Intent(mContext, NewUnitDetailActivity.class)
-                .putExtra(AppUtils.ID_KEY, dataBean.getId())
-                .putExtra(NewUnitDetailActivity.UNIT_NAME, dataBean.getName()));
+        startActivity(new Intent(mContext, HealthOrganizeActivity.class).putExtra(HealthOrganizeActivity.ID,
+                dataBean.getId()));
     }
 
     private boolean panoramaSwitch = false;
@@ -1106,14 +1065,6 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
                 }
                 nowMarkerId = String.valueOf(item.streamCamera.getNumber());
                 break;
-            case MapClusterItem.PEOPLE:
-                updateMarkerIcon(item.people.getHeadPortrait());
-                if (clickType == 1 || nowMarkerId.equals(String.valueOf(item.people.getId()))) {
-                    //请求警员详情
-                    mPresenter.getPolicePeopleDetail(item, MapContract.GET_POLICE_DETAIL);
-                }
-                nowMarkerId = String.valueOf(item.people.getId());
-                break;
             case MapClusterItem.CASE:
                 updateMarkerIcon(item.mcase.getPhotoOne());
                 if (clickType == 1 || nowMarkerId.equals(String.valueOf(item.mcase.getId()))) {
@@ -1144,20 +1095,22 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
                 }
                 nowMarkerId = String.valueOf(item.news.getId());
                 break;
-            case MapClusterItem.SITE:
-                updateMarkerIcon(item.site.getLogoUrl());
+            case MapClusterItem.HEALTH_OG:
+                //康复机构
+                updateMarkerIcon(item.site.getPhoto());
                 if (clickType == 1 || nowMarkerId.equals(String.valueOf(item.site.getId()))) {
                     clickSiteItem(item);
                 }
                 nowMarkerId = String.valueOf(item.site.getId());
                 break;
-            case MapClusterItem.KEY_PERSONNEL:
-                //重点人员
-                updateMarkerIcon(item.keyPersonnel.getHeadPortrait());
-                if (clickType == 1 || nowMarkerId.equals(String.valueOf(item.keyPersonnel.getId()))) {
-                    clickKeyPersonnelItem(item, mMap);
+            case MapClusterItem.SERVERS:
+                //服务人员
+                updateMarkerIcon(item.server.getHeadPortrait());
+                if (clickType == 1 || nowMarkerId.equals(String.valueOf(item.server.getId()))) {
+                    //请求服务人员详情
+                    mPresenter.getPolicePeopleDetail(item, MapContract.GET_PEOPLE_DETAIL);
                 }
-                nowMarkerId = String.valueOf(item.keyPersonnel.getId());
+                nowMarkerId = String.valueOf(item.server.getId());
                 break;
         }
         return false;
@@ -1260,8 +1213,9 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
      */
     @Override
     public void onBottomListItemClick(MapClusterItem item) {
-        if (infowindowPeople != null)
+        if (infowindowPeople != null) {
             mMapView.removeView(infowindowPeople);
+        }
         if (nowMarker != null) {
             nowMarker.setIcon(bitmapDescriptor);
         }
@@ -1274,7 +1228,7 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
 
     @Override
     public void onNavagition(LatLng latLng, String addr) {
-        getBaseAppActivity().navigationLogic(latLng,addr);
+        getBaseAppActivity().navigationLogic(latLng, addr);
     }
 
     /**
@@ -1370,23 +1324,6 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
                 clusterManager.addItems(clusterItemList);
                 clusterManager.cluster();
                 break;
-            case MapContract.GET_POLICE://警员们
-                bitmapDescriptor = BitmapDescriptorFactory.fromResource(R.mipmap.people_tip);
-                ResponsePeople responsePeople = (ResponsePeople) o;
-                for (ResponsePeople.DataBean item : responsePeople.getData()) {
-                    MapClusterItem mCItem = new MapClusterItem(
-                            new LatLng(item.getLatitude(), item.getLongitude()), item);
-                    clusterItemList.add(mCItem);
-                }
-                clusterManager.addItems(clusterItemList);
-                clusterManager.cluster();
-                break;
-            case MapContract.GET_POLICE_DETAIL://警员详情
-                MapClusterItem item = (MapClusterItem) o;
-                if (item.people != null) {
-                    clickPeopleItem(item, mMap);
-                }
-                break;
             case MapContract.GET_INSPECTION://巡检
                 bitmapDescriptor = BitmapDescriptorFactory.fromResource(R.mipmap.inspection_tip);
                 ResponseInspection responseInspection = (ResponseInspection) o;
@@ -1417,7 +1354,8 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
                     clusterManager.cluster();
                 }
                 break;
-            case MapContract.GET_SITES://场所
+            case MapContract.GET_SITES:
+                //康复机构
                 bitmapDescriptor = BitmapDescriptorFactory.fromResource(R.mipmap.site_tip);
                 ResponseSiteBean realLocBean = (ResponseSiteBean) o;
                 int size = realLocBean.getData().size();
@@ -1431,12 +1369,20 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
                 clusterManager.addItems(clusterItemList);
                 clusterManager.cluster();
                 break;
-            case MapContract.GET_KEY_PERSONNEL://重点人员
+            case MapContract.GET_PEOPLE_DETAIL:
+                //服务人员详情
+                MapClusterItem server = (MapClusterItem) o;
+                if (server.server != null) {
+                    clickPeopleItem(server, mMap);
+                }
+                break;
+            case MapContract.GET_SERVERS://服务人员
+                //
                 bitmapDescriptor = BitmapDescriptorFactory.fromResource(R.mipmap.key_personnel_tip);
-                ResponseKeyPersonnel responseKeyPersonnel = (ResponseKeyPersonnel) o;
+                ServerPeopleBean responseKeyPersonnel = (ServerPeopleBean) o;
                 if (responseKeyPersonnel != null) {
-                    List<ResponseKeyPersonnel.DataBean> keyPersonnels = responseKeyPersonnel.getData();
-                    for (ResponseKeyPersonnel.DataBean keyPersonnel : keyPersonnels) {
+                    List<ServerPeopleBean.DataBean> keyPersonnels = responseKeyPersonnel.getData();
+                    for (ServerPeopleBean.DataBean keyPersonnel : keyPersonnels) {
                         MapClusterItem mCItem = new MapClusterItem(
                                 new LatLng(keyPersonnel.getLatitude(), keyPersonnel.getLongitude()),
                                 keyPersonnel);
@@ -1464,15 +1410,13 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
                 break;
             case MapContract.GET_SITES://获取场所
                 break;
-            case MapContract.GET_POLICE:
-                break;
             case MapContract.GET_CASES:
                 break;
             case MapContract.GET_INSPECTION:
                 break;
             case MapContract.GET_NEWS:
                 break;
-            case MapContract.GET_KEY_PERSONNEL:
+            case MapContract.GET_SERVERS:
                 break;
             default:
                 if (mMenuAdapter.getData().size() > 0 && clickedButton > -1) {

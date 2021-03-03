@@ -81,4 +81,5 @@
     <string name="bursary_notice">"诚信声明：申请人必须如实填写该《申请表》，如遇弄虚作假，一经核实，将取消受助资格并追回助学金。"</string>
     <string name="family_student_bursary_notice">"诚信声明：申请人必须如实填写该《河东区重残家庭大学生子女助学金申请表》，如遇弄虚作假，一经核实，将取消受助资格并追回助学金。"
     </string>
+    <string name="not_open_notice">暂未开放，敬请期待</string>
 </resources>

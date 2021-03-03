@@ -15,7 +15,7 @@ import com.juntai.disabled.federation.bean.PoliceCarBean;
 import com.juntai.disabled.federation.bean.PoliceDetailBean;
 import com.juntai.disabled.federation.bean.ResponseCarHistory;
 import com.juntai.disabled.federation.bean.ResponseInspection;
-import com.juntai.disabled.federation.bean.ResponseKeyPersonnel;
+import com.juntai.disabled.federation.bean.ServerPeopleBean;
 import com.juntai.disabled.federation.bean.ResponseNews;
 import com.juntai.disabled.federation.bean.ResponsePeople;
 import com.juntai.disabled.federation.bean.ResponseSiteBean;
@@ -291,14 +291,14 @@ public class MapPresenter extends BaseAppPresent<IModel, MapContract.View> imple
     @Override
     public void getPolicePeopleDetail(MapClusterItem item, String tag) {
         AppNetModule.createrRetrofit()
-                .requestPeopleDetail(getBaseFormBodyBuilder().add("id",String.valueOf(item.people.getId())).build())
+                .requestPeopleDetail(getBaseFormBodyBuilder().add("id",String.valueOf(item.server.getId())).build())
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<PoliceDetailBean>(getView()) {
                     @Override
                     public void onSuccess(PoliceDetailBean o) {
                         if (getView() != null) {
-                            item.people.setState(o.getData().getState());
-                            item.people.setAccount(o.getData().getAccount());
+//                            item.people.setState(o.getData().getState());
+//                            item.people.setAccount(o.getData().getAccount());
                             getView().onSuccess(tag, item);
                         }
                     }
@@ -358,13 +358,13 @@ public class MapPresenter extends BaseAppPresent<IModel, MapContract.View> imple
     }
 
     @Override
-    public void getKeyPersonnels(String tag) {
+    public void requestServer(String tag) {
         AppNetModule.createrRetrofit()
-                .requestKeyPersonnel(getRequestBodyOf())
+                .requestServer(getRequestBodyOf())
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<ResponseKeyPersonnel>(getView()) {
+                .subscribe(new BaseObserver<ServerPeopleBean>(getView()) {
                     @Override
-                    public void onSuccess(ResponseKeyPersonnel o) {
+                    public void onSuccess(ServerPeopleBean o) {
                         if (toastMessage(o.getData(),"")){
                             return;
                         }

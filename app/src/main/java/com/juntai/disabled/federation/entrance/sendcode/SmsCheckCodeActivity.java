@@ -6,10 +6,14 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 
+import com.baidu.location.BDLocation;
 import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.federation.base.BaseSelectPicsActivity;
+
+import java.util.List;
 
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
@@ -19,7 +23,20 @@ import cn.smssdk.SMSSDK;
  * @description 描述
  * @date 2020/3/25 8:46
  */
-public abstract class SmsCheckCodeActivity<P extends BasePresenter> extends BaseMvpActivity<P> {
+public abstract class SmsCheckCodeActivity<P extends BasePresenter> extends BaseSelectPicsActivity<P> {
+    @Override
+    protected void selectedPicsAndEmpressed(List<String> icons) {
+
+    }
+    @Override
+    public void onLocationReceived(BDLocation bdLocation) {
+
+    }
+
+    @Override
+    public boolean requestLocation() {
+        return false;
+    }
 
     protected boolean verify = false;//验证是否成功
     protected  String SMS_TEMP_CODE = "16132134";//模板编号

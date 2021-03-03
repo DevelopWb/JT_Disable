@@ -8,6 +8,7 @@ import com.juntai.disabled.federation.bean.BaseDataBean;
 import com.juntai.disabled.federation.bean.CityBean;
 import com.juntai.disabled.federation.bean.CollectListBean;
 import com.juntai.disabled.federation.bean.CommentListBean;
+import com.juntai.disabled.federation.bean.HealthOrganizeDetailBean;
 import com.juntai.disabled.federation.bean.IMUsersBean;
 import com.juntai.disabled.federation.bean.MapMenuButton;
 import com.juntai.disabled.federation.bean.PoliceBranchBean;
@@ -18,7 +19,7 @@ import com.juntai.disabled.federation.bean.PolicePositionBean;
 import com.juntai.disabled.federation.bean.PublishListBean;
 import com.juntai.disabled.federation.bean.ResponseCarHistory;
 import com.juntai.disabled.federation.bean.ResponseInspection;
-import com.juntai.disabled.federation.bean.ResponseKeyPersonnel;
+import com.juntai.disabled.federation.bean.ServerPeopleBean;
 import com.juntai.disabled.federation.bean.ResponseNews;
 import com.juntai.disabled.federation.bean.ResponsePeople;
 import com.juntai.disabled.federation.bean.ResponseSiteBean;
@@ -129,7 +130,7 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.SEARCH_POLICE_POSITION)
-    Observable<PolicePositionBean> getPolicePosition(@Body RequestBody jsonBody);
+    Observable<PolicePositionBean> getPolicePosition();
 
     /**
      * 获取部门信息
@@ -137,7 +138,7 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.SEARCH_POLICE_BRANCH)
-    Observable<PoliceBranchBean> getPoliceBranch(@Body RequestBody jsonBody);
+    Observable<PoliceBranchBean> getPoliceBranch();
 
     /**
      * 获取网格信息
@@ -607,12 +608,18 @@ public interface AppServer {
     Observable<ResponseInspection> requestInspection();
 
     /**
-     * 场所管理
+     * 康复机构
      *
      * @return
      */
     @POST(AppHttpPath.MAP_SITE_LIST)
     Observable<ResponseSiteBean> requestSiteList(@Body RequestBody requestBody);
+    /**
+     * 康复机构详情
+     * @return
+     */
+    @POST(AppHttpPath.HEATH_ORGANIZE_DETAIL)
+    Observable<HealthOrganizeDetailBean> getHealthOrganizeDetail(@Body RequestBody requestBody);
 
     /**
      * 请求资讯
@@ -623,15 +630,15 @@ public interface AppServer {
     Observable<ResponseNews> requestNews(@Body RequestBody requestBody);
 
     /**
-     * 请求重点人员列表
+     * 服务人员
      *
      * @return
      */
-    @POST(AppHttpPath.MAP_KEY_PERSONNAL_LIST)
-    Observable<ResponseKeyPersonnel> requestKeyPersonnel(@Body RequestBody requestBody);
+    @POST(AppHttpPath.MAP_SERVER_PEOPLE_LIST)
+    Observable<ServerPeopleBean> requestServer(@Body RequestBody requestBody);
 
     /**
-     * 警员详情
+     * 服务人员详情
      *
      * @return
      */

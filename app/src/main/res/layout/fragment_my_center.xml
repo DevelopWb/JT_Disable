@@ -50,6 +50,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:padding="10dp"
+            android:visibility="gone"
             android:layout_marginRight="20dp"
             android:src="@mipmap/my_center_set"
             app:layout_constraintBottom_toBottomOf="@+id/headImage"

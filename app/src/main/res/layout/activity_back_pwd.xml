@@ -63,7 +63,7 @@
 
                 <EditText
                     android:id="@+id/regist_phone_et"
-                    style="@style/login_edit_tv_style"
+                    style="@style/edit_tv_style"
                     android:hint="请输入注册手机号码"
                     android:inputType="phone"
                     android:maxLength="11" />
@@ -81,7 +81,7 @@
 
                 <EditText
                     android:id="@+id/regist_check_code_et"
-                    style="@style/login_edit_tv_style"
+                    style="@style/edit_tv_style"
                     android:layout_weight="1"
                     android:hint="请输入短信验证码"
                     android:inputType="number"
@@ -123,7 +123,7 @@
 
                 <EditText
                     android:id="@+id/regist_set_pwd_et"
-                    style="@style/login_edit_tv_style"
+                    style="@style/edit_tv_style"
                     android:hint="请设置6-20位(字母数字下划线)密码"
                     android:maxLength="20" />
             </LinearLayout>
@@ -141,7 +141,7 @@
 
                 <EditText
                     android:id="@+id/regist_check_pwd_et"
-                    style="@style/login_edit_tv_style"
+                    style="@style/edit_tv_style"
                     android:hint="请再次确认密码"
                     android:maxLength="20" />
             </LinearLayout>

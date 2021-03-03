@@ -67,7 +67,7 @@ public class RegistPresent extends BasePresenter<IModel, RegistContract.IRegistV
     @Override
     public void getPolicePosition(String tag) {//职务
         AppNetModule.createrRetrofit()
-                .getPolicePosition(getBaseFormBodyBuilder().build())
+                .getPolicePosition()
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<PolicePositionBean>(getView()) {
                     @Override
@@ -88,9 +88,9 @@ public class RegistPresent extends BasePresenter<IModel, RegistContract.IRegistV
     }
 
     @Override
-    public void getPoliceBranch(String keyWord, String tag) {
+    public void getPoliceBranch( String tag) {
         AppNetModule.createrRetrofit()
-                .getPoliceBranch(getBaseFormBodyBuilder().add("keyWord", keyWord).build())
+                .getPoliceBranch()
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<PoliceBranchBean>(getView()) {
                     @Override

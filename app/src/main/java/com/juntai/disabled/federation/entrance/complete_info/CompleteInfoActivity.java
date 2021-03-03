@@ -1,12 +1,17 @@
 package com.juntai.disabled.federation.entrance.complete_info;
 
+import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bigkoo.pickerview.view.OptionsPickerView;
-import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
 import com.juntai.disabled.basecomponent.utils.PickerManager;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.MyApp;
@@ -14,13 +19,17 @@ import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.PoliceBranchBean;
 import com.juntai.disabled.federation.bean.PolicePositionBean;
 import com.juntai.disabled.federation.bean.weather.PoliceGriddingBean;
+import com.juntai.disabled.federation.entrance.complete_info.DataValueAdapter;
 import com.juntai.disabled.federation.entrance.regist.RegistContract;
 import com.juntai.disabled.federation.entrance.regist.RegistPresent;
+import com.juntai.disabled.federation.entrance.sendcode.SmsCheckCodeActivity;
 import com.juntai.disabled.federation.utils.StringTools;
+import com.juntai.disabled.federation.utils.UserInfoManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.smssdk.SMSSDK;
 import okhttp3.FormBody;
 
 /**
@@ -28,7 +37,7 @@ import okhttp3.FormBody;
  * @aouther ZhangZhenlong
  * @date 2020-9-11
  */
-public class CompleteInfoActivity extends BaseMvpActivity<RegistPresent> implements RegistContract.IRegistView,
+public class CompleteInfoActivity extends SmsCheckCodeActivity<RegistPresent> implements RegistContract.IRegistView,
         View.OnClickListener,
         AdapterView.OnItemClickListener {
 
@@ -69,6 +78,19 @@ public class CompleteInfoActivity extends BaseMvpActivity<RegistPresent> impleme
     private PolicePositionBean.DataBean policePositionBean;//选中的职务
 
     private DataValueAdapter dataValueAdapter;
+    /**
+     * 请输入手机号码
+     */
+    private EditText mPhoneEt;
+    /**
+     * 请输入短信验证码
+     */
+    private EditText mCheckCodeEt;
+    /**
+     * 发送验证码
+     */
+    private TextView mSendCheckCodeTv;
+    private LinearLayout mCompleteInfoPhoneLl;
 
     @Override
     protected RegistPresent createPresenter() {
@@ -93,15 +115,43 @@ public class CompleteInfoActivity extends BaseMvpActivity<RegistPresent> impleme
         mRegistGriddingTv.setOnClickListener(this);
         mOkTv = (TextView) findViewById(R.id.ok_tv);
         mOkTv.setOnClickListener(this);
-
         dataValueAdapter = new DataValueAdapter(mContext, departMents);
         mRegistBranchTv.setAdapter(dataValueAdapter);
         mRegistBranchTv.setOnItemClickListener(this);
+
+        mRegistBranchTv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (departMentBean != null){
+                    departMentBean = null;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        mPhoneEt = (EditText) findViewById(R.id.phone_et);
+        mCheckCodeEt = (EditText) findViewById(R.id.check_code_et);
+        mSendCheckCodeTv = (TextView) findViewById(R.id.send_check_code_tv);
+        mCompleteInfoPhoneLl = (LinearLayout) findViewById(R.id.complete_info_phone_ll);
+        if (UserInfoManager.getAccountStatus() == 1) {
+            mCompleteInfoPhoneLl.setVisibility(View.GONE);
+        } else {
+            mCompleteInfoPhoneLl.setVisibility(View.VISIBLE);
+        }
+        mSendCheckCodeTv.setOnClickListener(this);
     }
 
     @Override
     public void initData() {
-        mPresenter.getPoliceBranch("", RegistContract.GET_POLICE_BRANCH);
+        mPresenter.getPoliceBranch(RegistContract.GET_POLICE_BRANCH);
     }
 
 
@@ -120,19 +170,19 @@ public class CompleteInfoActivity extends BaseMvpActivity<RegistPresent> impleme
                 break;
             case R.id.regist_child_branch_tv:
                 //二级部门
-                if (departMentBean == null){
-                    ToastUtils.warning(mContext,"请先选择上级部门");
+                if (departMentBean == null) {
+                    ToastUtils.warning(mContext, "请先选择上级部门");
                     return;
                 }
                 if (pickerViewChildDepart != null && !pickerViewChildDepart.isShowing()) {
                     pickerViewChildDepart.show();
-                }else {
-                    ToastUtils.warning(mContext,"该部门下暂无二级部门");
+                } else {
+                    ToastUtils.warning(mContext, "该部门下暂无二级部门");
                 }
                 break;
             case R.id.regist_gridding_tv:
-                if (departMentBean == null){
-                    ToastUtils.warning(mContext,"请先选择部门");
+                if (departMentBean == null) {
+                    ToastUtils.warning(mContext, "请先选择部门");
                     return;
                 }
                 //责任网格
@@ -140,7 +190,7 @@ public class CompleteInfoActivity extends BaseMvpActivity<RegistPresent> impleme
                 break;
             case R.id.ok_tv:
                 if (MyApp.isFastClick()) {
-                    ToastUtils.warning(mContext,"点击过于频繁");
+                    ToastUtils.warning(mContext, "点击过于频繁");
                     return;
                 }
                 if (departMentBean == null || !StringTools.isStringValueOk(getTextViewValue(mRegistBranchTv))) {
@@ -152,26 +202,62 @@ public class CompleteInfoActivity extends BaseMvpActivity<RegistPresent> impleme
                     ToastUtils.warning(mContext, "请选择职务");
                     return;
                 }
-                FormBody.Builder builder = mPresenter.getBaseFormBodyBuilder();
-                builder.add("provinceCode", departMentBean.getProvinceCode())
-                        .add("cityCode", departMentBean.getCityCode())
-                        .add("areaCode", departMentBean.getAreaCode())
-                        .add("streetCode", departMentBean.getStreetCode())
-                        .add("departmentId", departMentBean.getDepartmentId()+"")
-                        .add("departmentBranchId", childDepartmentBean == null? "" : childDepartmentBean.getId()+"")
-                        .add("postId", policePositionBean.getId()+"")
-                        .add("grid", policeGriddingBean == null? "" : policePositionBean.getId()+"");
-                mPresenter.addUserInfo(RegistContract.ADD_USER_INFO, builder.build());
+                if (UserInfoManager.getAccountStatus() != 1) {
+                    //未绑定手机号
+                    if (!mPresenter.checkMobile(getTextViewValue(mPhoneEt))) {
+                        return;
+                    }
+                    if (!StringTools.isStringValueOk(getTextViewValue(mCheckCodeEt))) {
+                        checkFormatError("验证码不能为空");
+                        return;
+                    }
+                    if (!verify) {
+                        SMSSDK.submitVerificationCode("+86", getTextViewValue(mPhoneEt),
+                                getTextViewValue(mCheckCodeEt));
+                    }
+                } else {
+                    FormBody.Builder builder = mPresenter.getBaseFormBodyBuilder();
+                    builder.add("provinceCode", departMentBean.getProvinceCode())
+                            .add("cityCode", departMentBean.getCityCode())
+                            .add("areaCode", departMentBean.getAreaCode())
+                            .add("streetCode", departMentBean.getStreetCode())
+                            .add("departmentId", departMentBean.getDepartmentId() + "")
+                            .add("departmentBranchId", childDepartmentBean == null ? "" :
+                                    childDepartmentBean.getId() + "")
+                            .add("postId", policePositionBean.getId() + "")
+                            .add("grid", policeGriddingBean == null ? "" : policePositionBean.getId() + "");
+                    mPresenter.addUserInfo(RegistContract.ADD_USER_INFO, builder.build());
+                }
+                break;
+            case R.id.send_check_code_tv:
+                mPresenter.sendCheckCode(getTextViewValue(mPhoneEt), SMS_TEMP_CODE);
                 break;
         }
     }
 
     @Override
+    public void onError(String tag, Object o) {
+        verify = false;
+        ToastUtils.error(mContext, (String) o);
+    }
+
+    @Override
     public void updateSendCheckCodeViewStatus(long second) {
+        if (second > 0) {
+            mSendCheckCodeTv.setText("重新发送 " + second + "s");
+            mSendCheckCodeTv.setClickable(false);
+            mSendCheckCodeTv.setTextColor(ContextCompat.getColor(mContext, R.color.gray));
+        } else {
+            mSendCheckCodeTv.setText("发送验证码");
+            mSendCheckCodeTv.setClickable(true);
+            mSendCheckCodeTv.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+
+        }
     }
 
     @Override
     public void checkFormatError(String error) {
+        ToastUtils.warning(mContext, error);
     }
 
     @Override
@@ -182,13 +268,14 @@ public class CompleteInfoActivity extends BaseMvpActivity<RegistPresent> impleme
                 if (positionBean != null) {
                     List<PolicePositionBean.DataBean> arrays = positionBean.getData();
                     if (arrays != null) {
-                        optionsPickerViewPosition = PickerManager.getInstance().getOptionPicker(this, "选择职务", arrays, new PickerManager.OnOptionPickerSelectedListener() {
-                            @Override
-                            public void onOptionsSelect(int options1, int option2, int options3, View v) {
-                                mRegistWorkTv.setText(arrays.get(options1).getName());
-                                policePositionBean = arrays.get(options1);
-                            }
-                        });
+                        optionsPickerViewPosition = PickerManager.getInstance().getOptionPicker(this, "选择职务", arrays,
+                                new PickerManager.OnOptionPickerSelectedListener() {
+                                    @Override
+                                    public void onOptionsSelect(int options1, int option2, int options3, View v) {
+                                        mRegistWorkTv.setText(arrays.get(options1).getName());
+                                        policePositionBean = arrays.get(options1);
+                                    }
+                                });
                         if (optionsPickerViewPosition != null && !optionsPickerViewPosition.isShowing()) {
                             optionsPickerViewPosition.show();
                         }
@@ -202,8 +289,8 @@ public class CompleteInfoActivity extends BaseMvpActivity<RegistPresent> impleme
                     if (arrays != null && arrays.size() > 0) {
                         departMents.clear();
                         departMents.addAll(arrays);
-//                        dataValueAdapter.setAllDatas(departMents);
-                    }else {
+                        //                        dataValueAdapter.setAllDatas(departMents);
+                    } else {
                         ToastUtils.warning(mContext, "未获取部门数据");
                     }
                 }
@@ -213,13 +300,14 @@ public class CompleteInfoActivity extends BaseMvpActivity<RegistPresent> impleme
                 if (griddingBean != null) {
                     List<PoliceGriddingBean.DataBean> arrays = griddingBean.getData();
                     if (arrays != null && arrays.size() > 0) {
-                        pickerViewGridding = PickerManager.getInstance().getOptionPicker(this, "选择责任网格", arrays, new PickerManager.OnOptionPickerSelectedListener() {
-                            @Override
-                            public void onOptionsSelect(int options1, int option2, int options3, View v) {
-                                mRegistGriddingTv.setText(arrays.get(options1).getName());
-                                policeGriddingBean = arrays.get(options1);
-                            }
-                        });
+                        pickerViewGridding = PickerManager.getInstance().getOptionPicker(this, "选择责任网格", arrays,
+                                new PickerManager.OnOptionPickerSelectedListener() {
+                                    @Override
+                                    public void onOptionsSelect(int options1, int option2, int options3, View v) {
+                                        mRegistGriddingTv.setText(arrays.get(options1).getName());
+                                        policeGriddingBean = arrays.get(options1);
+                                    }
+                                });
                     } else {
                         ToastUtils.warning(mContext, "该部门暂无网格信息");
                     }
@@ -239,17 +327,19 @@ public class CompleteInfoActivity extends BaseMvpActivity<RegistPresent> impleme
 
     /**
      * 二级部门
+     *
      * @param arrays
      */
-    private void initPickerViewChildDepart(List<PoliceBranchBean.DataBean.ChildDepartmentBean> arrays){
+    private void initPickerViewChildDepart(List<PoliceBranchBean.DataBean.ChildDepartmentBean> arrays) {
         if (arrays != null && arrays.size() > 0) {
-            pickerViewChildDepart = PickerManager.getInstance().getOptionPicker(this, "选择二级部门", arrays, new PickerManager.OnOptionPickerSelectedListener() {
-                @Override
-                public void onOptionsSelect(int options1, int option2, int options3, View v) {
-                    mRegistChildBranchTv.setText(arrays.get(options1).getName());
-                    childDepartmentBean = arrays.get(options1);
-                }
-            });
+            pickerViewChildDepart = PickerManager.getInstance().getOptionPicker(this, "选择二级部门", arrays,
+                    new PickerManager.OnOptionPickerSelectedListener() {
+                        @Override
+                        public void onOptionsSelect(int options1, int option2, int options3, View v) {
+                            mRegistChildBranchTv.setText(arrays.get(options1).getName());
+                            childDepartmentBean = arrays.get(options1);
+                        }
+                    });
         }
     }
 
@@ -259,6 +349,35 @@ public class CompleteInfoActivity extends BaseMvpActivity<RegistPresent> impleme
         releasePickerView(optionsPickerViewPosition);
         releasePickerView(pickerViewChildDepart);
         releasePickerView(pickerViewGridding);
+    }
+
+    @Override
+    protected void initGetTestCodeButtonStatusStart() {
+        mPresenter.initGetTestCodeButtonStatus();
+    }
+
+    @Override
+    protected void initGetTestCodeButtonStatusStop() {
+        mPresenter.receivedCheckCodeAndDispose();
+        mSendCheckCodeTv.setText("发送验证码");
+        mSendCheckCodeTv.setClickable(true);
+        mSendCheckCodeTv.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+    }
+
+    @Override
+    protected void checkCodeSuccessed() {
+        FormBody.Builder builder = mPresenter.getBaseFormBodyBuilder();
+        builder.add("provinceCode", departMentBean.getProvinceCode())
+                .add("cityCode", departMentBean.getCityCode())
+                .add("areaCode", departMentBean.getAreaCode())
+                .add("phoneNumber", getTextViewValue(mPhoneEt))
+                .add("streetCode", departMentBean.getStreetCode())
+                .add("departmentId", departMentBean.getDepartmentId() + "")
+                .add("departmentBranchId", childDepartmentBean == null ? "" : childDepartmentBean.getId() + "")
+                .add("postId", policePositionBean.getId() + "")
+                .add("grid", policeGriddingBean == null ? "" : policePositionBean.getId() + "");
+        mPresenter.addUserInfo(RegistContract.ADD_USER_INFO, builder.build());
+
     }
 
     /**
@@ -278,6 +397,13 @@ public class CompleteInfoActivity extends BaseMvpActivity<RegistPresent> impleme
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         departMentBean = dataValueAdapter.getDatas().get(position);
+        clearData();
+    }
+
+    /**
+     * 重置数据
+     */
+    private void clearData(){
         mRegistGriddingTv.setText("");
         policeGriddingBean = null;
         mRegistChildBranchTv.setText("");
@@ -286,4 +412,5 @@ public class CompleteInfoActivity extends BaseMvpActivity<RegistPresent> impleme
         pickerViewChildDepart = null;
         initPickerViewChildDepart(departMentBean.getDepartmentBranch());
     }
+
 }

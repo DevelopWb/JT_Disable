@@ -1,28 +1,32 @@
 package com.juntai.disabled.federation.home_page.call_to_police;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.constraint.Group;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.baidu.location.BDLocation;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.utils.PubUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
-import com.juntai.disabled.federation.base.BaseAppActivity;
-import com.juntai.disabled.federation.base.BaseSelectPicsActivity;
 import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
 import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.bean.VerifiedInfoBean;
-import com.juntai.disabled.federation.home_page.HomePageContract;
-import com.juntai.disabled.federation.home_page.HomePagePresent;
+import com.juntai.disabled.federation.entrance.regist.RegistContract;
+import com.juntai.disabled.federation.entrance.regist.RegistPresent;
+import com.juntai.disabled.federation.entrance.sendcode.SmsCheckCodeActivity;
 import com.juntai.disabled.federation.utils.AppUtils;
 import com.juntai.disabled.federation.utils.StringTools;
+import com.juntai.disabled.federation.utils.UserInfoManager;
 import com.juntai.disabled.video.img.ImageZoomActivity;
 import com.orhanobut.hawk.Hawk;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -31,6 +35,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.smssdk.SMSSDK;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -40,7 +45,7 @@ import okhttp3.RequestBody;
  * @description 描述  实名认证
  * @date 2020/3/11 15:52
  */
-public class VerifiedActivity extends BaseAppActivity<HomePagePresent> implements HomePageContract.IHomePageView,
+public class VerifiedActivity extends SmsCheckCodeActivity<RegistPresent> implements RegistContract.IRegistView,
         View.OnClickListener, SelectPhotosFragment.OnPhotoItemClick {
 
     /**
@@ -74,9 +79,23 @@ public class VerifiedActivity extends BaseAppActivity<HomePagePresent> implement
     File positiveIvsfile = null;
     File obverseIvsfile = null;
     File handIvsfile = null;
+    /**
+     * 请输入手机号码
+     */
+    private EditText mPhoneEt;
+    /**
+     * 请输入短信验证码
+     */
+    private EditText mCheckCodeEt;
+    /**
+     * 发送验证码
+     */
+    private TextView mSendCheckCodeTv;
+    private LinearLayout mCompleteInfoPhoneLl;
+
     @Override
-    protected HomePagePresent createPresenter() {
-        return new HomePagePresent();
+    protected RegistPresent createPresenter() {
+        return new RegistPresent();
     }
 
     @Override
@@ -103,6 +122,12 @@ public class VerifiedActivity extends BaseAppActivity<HomePagePresent> implement
         adapter = new VerifiedAdapter(R.layout.business_need_info_item);
         initRecyclerview(mRecyclerview, adapter, LinearLayoutManager.VERTICAL);
         adapter.setHeaderView(getHeadLayout());
+        adapter.setFooterView(getFootLayout());
+        if (UserInfoManager.getAccountStatus() == 1) {
+            mCompleteInfoPhoneLl.setVisibility(View.GONE);
+        } else {
+            mCompleteInfoPhoneLl.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -128,6 +153,21 @@ public class VerifiedActivity extends BaseAppActivity<HomePagePresent> implement
         View view = LayoutInflater.from(mContext).inflate(R.layout.verified_layout_head, null);
         mNameEt = (EditText) view.findViewById(R.id.name_et);
         mIdCardTv = (EditText) view.findViewById(R.id.id_card_tv);
+        return view;
+    }
+
+    /**
+     * 获取尾布局
+     *
+     * @return
+     */
+    private View getFootLayout() {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.verified_layout_foot, null);
+        mPhoneEt = (EditText) view.findViewById(R.id.phone_et);
+        mCheckCodeEt = (EditText) view.findViewById(R.id.check_code_et);
+        mSendCheckCodeTv = (TextView) view.findViewById(R.id.send_check_code_tv);
+        mSendCheckCodeTv.setOnClickListener(this);
+        mCompleteInfoPhoneLl = (LinearLayout) view.findViewById(R.id.complete_info_phone_ll);
         return view;
     }
 
@@ -172,12 +212,12 @@ public class VerifiedActivity extends BaseAppActivity<HomePagePresent> implement
 
     @Override
     public void onSuccess(String tag, Object o) {
-                ToastUtils.success(mContext, (String) o);
-                mVerifiedInfoFillingG.setVisibility(View.GONE);
-                mVerifiedInfoFilledG.setVisibility(View.VISIBLE);
-                UserBean userBean = Hawk.get(AppUtils.SP_KEY_USER);
-                userBean.getData().setRealNameStatus(1);
-                Hawk.put(AppUtils.SP_KEY_USER, userBean);
+        ToastUtils.success(mContext, (String) o);
+        mVerifiedInfoFillingG.setVisibility(View.GONE);
+        mVerifiedInfoFilledG.setVisibility(View.VISIBLE);
+        UserBean userBean = Hawk.get(AppUtils.SP_KEY_USER);
+        userBean.getData().setRealNameStatus(1);
+        Hawk.put(AppUtils.SP_KEY_USER, userBean);
     }
 
 
@@ -206,54 +246,74 @@ public class VerifiedActivity extends BaseAppActivity<HomePagePresent> implement
                 if (!checkSelectedPics()) {
                     return;
                 }
-                MultipartBody.Builder builder = new MultipartBody.Builder()
-                        .setType(MultipartBody.FORM)
-                        .addFormDataPart("account", MyApp.getAccount())
-                        .addFormDataPart("token", MyApp.getUserToken())
-                        .addFormDataPart("userId", MyApp.getUid()+"")
-                        .addFormDataPart("realName", getTextViewValue(mNameEt))
-                        .addFormDataPart("idNumber", getTextViewValue(mIdCardTv))
-                        .addFormDataPart("IDCardHead", "IDCardHead",
-                                RequestBody.create(MediaType.parse("file"),
-                                        positiveIvsfile))
-                        .addFormDataPart("IDCardNationalEmblem", "IDCardNationalEmblem",
-                                RequestBody.create(MediaType.parse("file"), obverseIvsfile))
-                        .addFormDataPart("IDCardinHand", "IDCardinHand",
-                                RequestBody.create(MediaType.parse("file"),
-                                        handIvsfile));
-                requestBody = builder.build();
-                mPresenter.userAuth("", requestBody);
+
+                if (UserInfoManager.getAccountStatus() != 1) {
+                    if (!mPresenter.checkMobile(getTextViewValue(mPhoneEt))) {
+                        return;
+                    }
+                    if (!StringTools.isStringValueOk(getTextViewValue(mCheckCodeEt))) {
+                        checkFormatError("验证码不能为空");
+                        return;
+                    }
+                    if (!verify) {
+                        SMSSDK.submitVerificationCode("+86", getTextViewValue(mPhoneEt),
+                                getTextViewValue(mCheckCodeEt));
+                    }
+                }else {
+                    MultipartBody.Builder builder = new MultipartBody.Builder()
+                            .setType(MultipartBody.FORM)
+                            .addFormDataPart("account", MyApp.getAccount())
+                            .addFormDataPart("token", MyApp.getUserToken())
+                            .addFormDataPart("userId", MyApp.getUid() + "")
+                            .addFormDataPart("realName", getTextViewValue(mNameEt))
+                            .addFormDataPart("idNumber", getTextViewValue(mIdCardTv))
+                            .addFormDataPart("IDCardHead", "IDCardHead",
+                                    RequestBody.create(MediaType.parse("file"),
+                                            positiveIvsfile))
+                            .addFormDataPart("IDCardNationalEmblem", "IDCardNationalEmblem",
+                                    RequestBody.create(MediaType.parse("file"), obverseIvsfile))
+                            .addFormDataPart("IDCardinHand", "IDCardinHand",
+                                    RequestBody.create(MediaType.parse("file"),
+                                            handIvsfile));
+                    requestBody = builder.build();
+                    mPresenter.userAuth("", requestBody);
+                }
+
+                break;
+            case R.id.send_check_code_tv:
+                mPresenter.sendCheckCode(getTextViewValue(mPhoneEt), SMS_TEMP_CODE);
                 break;
         }
     }
 
     /**
      * 检测照片选择情况
+     *
      * @return
      */
     private boolean checkSelectedPics() {
-        boolean  isSelected = false;
+        boolean isSelected = false;
         List<VerifiedInfoBean> arrays = adapter.getData();
         for (int i = 0; i < arrays.size(); i++) {
             VerifiedInfoBean bean = arrays.get(i);
-           String realPath =  bean.getRealPicPath();
-            if (realPath==null||"".equals(realPath)) {
-                isSelected =false;
-                if (0==i) {
-                    ToastUtils.toast(mContext,"请选择身份证正面照片");
-                }else if(1==i){
-                    ToastUtils.toast(mContext,"请选择身份证反面照片");
-                }else {
-                    ToastUtils.toast(mContext,"请选择手持身份证照片");
+            String realPath = bean.getRealPicPath();
+            if (realPath == null || "".equals(realPath)) {
+                isSelected = false;
+                if (0 == i) {
+                    ToastUtils.toast(mContext, "请选择身份证正面照片");
+                } else if (1 == i) {
+                    ToastUtils.toast(mContext, "请选择身份证反面照片");
+                } else {
+                    ToastUtils.toast(mContext, "请选择手持身份证照片");
                 }
                 break;
-            }else {
-                isSelected =true;
-                if (0==i) {
+            } else {
+                isSelected = true;
+                if (0 == i) {
                     positiveIvsfile = new File(bean.getRealPicPath());
-                }else if(1==i){
+                } else if (1 == i) {
                     obverseIvsfile = new File(bean.getRealPicPath());
-                }else {
+                } else {
                     handIvsfile = new File(bean.getRealPicPath());
                 }
             }
@@ -286,5 +346,72 @@ public class VerifiedActivity extends BaseAppActivity<HomePagePresent> implement
                 }
             }
         }
+    }
+
+    @Override
+    protected void initGetTestCodeButtonStatusStart() {
+        mPresenter.initGetTestCodeButtonStatus();
+    }
+
+    @Override
+    protected void initGetTestCodeButtonStatusStop() {
+        mPresenter.receivedCheckCodeAndDispose();
+        mSendCheckCodeTv.setText("发送验证码");
+        mSendCheckCodeTv.setClickable(true);
+        mSendCheckCodeTv.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+    }
+
+    @Override
+    protected void checkCodeSuccessed() {
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("account", MyApp.getAccount())
+                .addFormDataPart("token", MyApp.getUserToken())
+                .addFormDataPart("phoneNumber", getTextViewValue(mPhoneEt))
+                .addFormDataPart("userId", MyApp.getUid() + "")
+                .addFormDataPart("realName", getTextViewValue(mNameEt))
+                .addFormDataPart("idNumber", getTextViewValue(mIdCardTv))
+                .addFormDataPart("IDCardHead", "IDCardHead",
+                        RequestBody.create(MediaType.parse("file"),
+                                positiveIvsfile))
+                .addFormDataPart("IDCardNationalEmblem", "IDCardNationalEmblem",
+                        RequestBody.create(MediaType.parse("file"), obverseIvsfile))
+                .addFormDataPart("IDCardinHand", "IDCardinHand",
+                        RequestBody.create(MediaType.parse("file"),
+                                handIvsfile));
+        requestBody = builder.build();
+        mPresenter.userAuth("", requestBody);
+    }
+
+    @Override
+    public void updateSendCheckCodeViewStatus(long second) {
+        if (second > 0) {
+            mSendCheckCodeTv.setText("重新发送 " + second + "s");
+            mSendCheckCodeTv.setClickable(false);
+            mSendCheckCodeTv.setTextColor(ContextCompat.getColor(mContext, R.color.gray));
+        } else {
+            mSendCheckCodeTv.setText("发送验证码");
+            mSendCheckCodeTv.setClickable(true);
+            mSendCheckCodeTv.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+
+        }
+    }
+
+    @Override
+    public void checkFormatError(String error) {
+        ToastUtils.warning(mContext, error);
+    }
+    @Override
+    public void onError(String tag, Object o) {
+        verify = false;
+        ToastUtils.error(mContext, (String) o);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        adapter.removeAllHeaderView();
+        adapter.removeAllFooterView();
+        super.onDestroy();
     }
 }

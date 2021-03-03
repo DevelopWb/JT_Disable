@@ -26,7 +26,8 @@ public class UrlFormatUtil {
      * @return
      */
     public static String formatPicUrl(String path) {
-        return AppHttpPath.BASE_IMAGE + path;
+//        return AppHttpPath.BASE_IMAGE + path;
+        return  path;
     }
 
     /**

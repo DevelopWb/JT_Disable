@@ -7,6 +7,7 @@ import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.federation.AppNetModule;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.bean.CityBean;
+import com.juntai.disabled.federation.bean.HealthOrganizeDetailBean;
 import com.juntai.disabled.federation.bean.PolicePickerBean;
 import com.juntai.disabled.federation.bean.SearchBean;
 import com.juntai.disabled.federation.bean.SearchResultBean;
@@ -50,6 +51,28 @@ public class HomePagePresent extends BasePresenter<IModel, HomePageContract.IHom
                     }
                 });
     }
+    @Override
+    public void getHealthOrganizeDetail(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .getHealthOrganizeDetail(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<HealthOrganizeDetailBean>(getView()) {
+                    @Override
+                    public void onSuccess(HealthOrganizeDetailBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+
+}
 
     @Override
     public void getWeatherRealTime(String tag, String lng, String lat) {

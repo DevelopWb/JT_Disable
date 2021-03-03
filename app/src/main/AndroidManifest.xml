@@ -22,11 +22,11 @@
     <application
         android:name=".MyApp"
         android:allowBackup="true"
-        android:icon="@mipmap/app_jing_icon"
+        android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
         android:maxAspectRatio="2.4"
         android:resizeableActivity="true"
-        android:roundIcon="@mipmap/app_jing_icon"
+        android:roundIcon="@mipmap/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
@@ -67,6 +67,8 @@
         <activity android:name=".home_page.business.handlerBusiness.normalbusiness.CardLevelChangeActivity" />
         <activity android:name=".home_page.business.handlerBusiness.normalbusiness.RenewalActivity" />
         <activity android:name=".home_page.business.handlerBusiness.handlercard.HandlerCardActivity" />
+        <activity android:name=".home_page.camera.ijkplayer.CarLiveActivity"></activity>
+        <activity android:name=".home_page.healthOrgnize.HealthOrganizeActivity"></activity>
         <activity
             android:name=".home_page.news.news_publish.UpdateVideoNewsActivity"
             android:launchMode="singleTop" />

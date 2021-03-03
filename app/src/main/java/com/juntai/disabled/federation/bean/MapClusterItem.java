@@ -19,21 +19,19 @@ public class MapClusterItem implements ClusterItem, Comparable<MapClusterItem> {
     private String type;
     public StreamCameraBean.DataBean streamCamera;
     public CaseDesBean.DataBean mcase;
-    public ResponsePeople.DataBean people;
+    public ServerPeopleBean.DataBean server;
     public PoliceCarBean.DataBean car;
     public ResponseSiteBean.DataBean site;//一标三实
     public ResponseInspection.DataBean inspection;
     public ResponseNews.News news;
-    public ResponseKeyPersonnel.DataBean keyPersonnel;
 
     public static final String STREAM_CAMERA = "stream_camera";
     public static final String CASE= "case";
-    public static final String PEOPLE = "people";
     public static final String CAR = "car";
-    public static final String SITE= "site";//一标三实
+    public static final String HEALTH_OG = "site";//康复机构
     public static final String INSPECTION = "inspection";
     public static final String NEWS = "news";
-    public static final String KEY_PERSONNEL = "key_personnel";
+    public static final String SERVERS = "key_personnel";//服务人员
 
     public MapClusterItem(LatLng latLng, StreamCameraBean.DataBean camera) {
         if (0==camera.getFlag()) {
@@ -49,13 +47,13 @@ public class MapClusterItem implements ClusterItem, Comparable<MapClusterItem> {
 //        this.isClicked = false;
     }
 
-    public MapClusterItem(LatLng latLng, ResponsePeople.DataBean people) {
+    public MapClusterItem(LatLng latLng, ServerPeopleBean.DataBean people) {
         Bd = BitmapDescriptorFactory.fromResource(R.mipmap.people_tip);
 //        Bd = BitmapDescriptorFactory.fromResource(R.mipmap.ic_map_shop);
-        this.people = people;
+        this.server = people;
 //        this.isClicked = false;
         this.latLng = latLng;
-        this.type = PEOPLE;
+        this.type = SERVERS;
     }
 
     public MapClusterItem(LatLng latLng, CaseDesBean.DataBean mcase) {
@@ -90,13 +88,13 @@ public class MapClusterItem implements ClusterItem, Comparable<MapClusterItem> {
         this.news = news;
     }
 
-    public MapClusterItem(LatLng latLng, ResponseKeyPersonnel.DataBean keyPersonnel) {
-        Bd = BitmapDescriptorFactory.fromResource(R.mipmap.key_personnel_tip);
-//        this.isClicked = false;
-        this.latLng = latLng;
-        this.type = KEY_PERSONNEL;
-        this.keyPersonnel = keyPersonnel;
-    }
+//    public MapClusterItem(LatLng latLng, ServerPeopleBean.DataBean keyPersonnel) {
+//        Bd = BitmapDescriptorFactory.fromResource(R.mipmap.key_personnel_tip);
+////        this.isClicked = false;
+//        this.latLng = latLng;
+//        this.type = KEY_PERSONNEL;
+//        this.keyPersonnel = keyPersonnel;
+//    }
 
     /**
      * 单位管理
@@ -108,7 +106,7 @@ public class MapClusterItem implements ClusterItem, Comparable<MapClusterItem> {
         Bd = BitmapDescriptorFactory.fromResource(res);
 //        this.isClicked = false;
         this.latLng = latLng;
-        this.type = SITE;
+        this.type = HEALTH_OG;
         this.site = dataBean;
     }
 

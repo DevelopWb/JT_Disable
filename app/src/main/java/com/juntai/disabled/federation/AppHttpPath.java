@@ -111,13 +111,27 @@ public class AppHttpPath {
      */
     public static final String MAP_CAR_LIST = BASE + "/selectCarLocation.shtml";
     /**
-     * 地图聚合点 场所
+     * 地图聚合点 康复机构
      */
-    public static final String MAP_SITE_LIST = BASE + "/selectPlaceLocation.shtml";
+    public static final String MAP_SITE_LIST = BASE + "/selectRILocation.shtml";
+
     /**
-     * 地图聚合点 重点人员
+     * 康复机构详情
      */
-    public static final String MAP_KEY_PERSONNAL_LIST = BASE + "/selectKeyPersonnelLocation.shtml";
+    public static final String HEATH_ORGANIZE_DETAIL = BASE + "/selectRIInfo.shtml";
+    /**
+     * 地图聚合点 服务人员
+     */
+    public static final String MAP_SERVER_PEOPLE_LIST = BASE + "/selectStaffLocation.shtml";
+
+
+
+
+
+
+
+
+
     /**
      * 地图聚合点 巡检
      */
@@ -135,7 +149,7 @@ public class AppHttpPath {
 
 
     //获取人员轨迹
-    public static final String PEOPLE_HISTORY = BASE + "/selectPoliceHistory.shtml";
+    public static final String PEOPLE_HISTORY = BASE + "/selectStaffHistory.shtml";
 
     //车辆轨迹
     public static final String CAR_HISTORY = BASE + "/selectCarHistory.shtml";
@@ -166,7 +180,7 @@ public class AppHttpPath {
     //搜索子条目 获取更多
     public static final String SEARCH_GET_MORE = BASE + "/searchList.shtml";
     //警员详情
-    public static final String POLICE_DETAIL = BASE + "/selectPoliceInfo.shtml";
+    public static final String POLICE_DETAIL = BASE + "/selectStaffInfo.shtml";
     //上传摄像头封面
     public static final String UPLOAD_CAMERA_COVER = BASE + "/updateCameraCoverImg.shtml";
 
@@ -496,11 +510,11 @@ public class AppHttpPath {
     /**
      * 点赞(摄像头)
      */
-    public static final String ADD_OR_CANCLE_LIKE_CAMERA = BASE + "/userCameraLike.shtml";
+    public static final String ADD_OR_CANCLE_LIKE_CAMERA = BASE + "/addUserCameraLike.shtml";
     /**
      * 添加（删除）用户收藏（摄像头）
      */
-    public static final String ADD_OR_DELETE_COLLECT_CAMERA = BASE + "/userCameraCollect.shtml";
+    public static final String ADD_OR_DELETE_COLLECT_CAMERA = BASE + "/addUserCameraCollect.shtml";
     /**
      * 添加摄像头分享记录
      */

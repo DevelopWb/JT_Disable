@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @description 场所管理列表
+ * @description 康复机构
  * @aouther ZhangZhenlong
  * @date 2020-10-20
  */
@@ -39,7 +39,24 @@ public class ResponseSiteBean extends BaseResult implements Serializable {
         private double latitude;//维度
         private double longitude;//经度
         private String address;//所在地址
-        private String logoUrl;//场所logo图
+        private String telephone;//
+        private String photo;//
+
+        public String getTelephone() {
+            return telephone == null ? "" : telephone;
+        }
+
+        public void setTelephone(String telephone) {
+            this.telephone = telephone == null ? "" : telephone;
+        }
+
+        public String getPhoto() {
+            return photo == null ? "" : photo;
+        }
+
+        public void setPhoto(String photo) {
+            this.photo = photo == null ? "" : photo;
+        }
 
         public int getId() {
             return id;
@@ -82,12 +99,5 @@ public class ResponseSiteBean extends BaseResult implements Serializable {
             this.address = address;
         }
 
-        public String getLogoUrl() {
-            return logoUrl == null? "" : logoUrl;
-        }
-
-        public void setLogoUrl(String logoUrl) {
-            this.logoUrl = logoUrl;
-        }
     }
 }

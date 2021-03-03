@@ -78,7 +78,7 @@ public class ApiRetrofit {
     public <T> T getApiService(Class<T> service) {
         client = new OkHttpClient.Builder()
                 //添加log拦截器
-                .addInterceptor(interceptor)
+                .addInterceptor(getLogger())
                 .connectTimeout(30, TimeUnit.SECONDS)//连接超时
                 .writeTimeout(60, TimeUnit.SECONDS)//写入超时
                 .readTimeout(60, TimeUnit.SECONDS)//读取超时

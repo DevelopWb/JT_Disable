@@ -72,6 +72,7 @@ public class EntrancePresent extends BasePresenter<IModel, EntranceContract.IEnt
                 });
     }
 
+    @Override
     @SuppressLint("CheckResult")
     public void bindQQOrWeChat(String account, String token,String weChatId, String weChatName, String qqId,
                                String qqName,
@@ -88,7 +89,7 @@ public class EntrancePresent extends BasePresenter<IModel, EntranceContract.IEnt
         }
         IView finalViewCallBack = viewCallBack;
         AppNetModule.createrRetrofit()
-                .bindQQAndWeChat(account, token,1, weChatId, weChatName, qqId, qqName)
+                .bindQQAndWeChat(account, token,7, weChatId, weChatName, qqId, qqName)
                 .compose(RxScheduler.ObsIoMain(viewCallBack))
                 .subscribe(new BaseObserver<BaseResult>(viewCallBack) {
                     @Override

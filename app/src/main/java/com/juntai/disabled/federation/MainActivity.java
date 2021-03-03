@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -258,7 +257,7 @@ public class MainActivity extends UpdateActivity<MainPagePresent> implements Vie
                     //后台发通知
                     Notification notification =
                             NotificationTool.sendNotifMessage(BaseApplication.app, new Random().nextInt(10000),
-                                    setNotificationTile(type), content, R.mipmap.app_jing_icon,
+                                    setNotificationTile(type), content, R.mipmap.app_icon,
                                     false, setNotificationIntent(type));
 
                 }
