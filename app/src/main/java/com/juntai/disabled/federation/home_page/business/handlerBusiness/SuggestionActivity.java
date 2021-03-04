@@ -1,35 +1,32 @@
 package com.juntai.disabled.federation.home_page.business.handlerBusiness;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.view.LayoutInflater;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
+import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.juntai.disabled.basecomponent.utils.ActionConfig;
-import com.juntai.disabled.basecomponent.utils.DisplayUtil;
-import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
+import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
-import com.juntai.disabled.federation.base.BaseSelectPicsAndVedioActivity;
 import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
-import com.juntai.disabled.federation.bean.MultipleItem;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
+import com.juntai.disabled.federation.bean.UserBean;
+import com.juntai.disabled.federation.entrance.regist.RegistContract;
+import com.juntai.disabled.federation.entrance.regist.RegistPresent;
+import com.juntai.disabled.federation.entrance.sendcode.SmsCheckCodeActivity;
+import com.juntai.disabled.federation.home_page.PublishContract;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessPresent;
 import com.juntai.disabled.federation.utils.StringTools;
+import com.juntai.disabled.federation.utils.UserInfoManager;
 
 import java.io.File;
 import java.util.List;
 
+import cn.smssdk.SMSSDK;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 /**
@@ -37,17 +34,37 @@ import okhttp3.RequestBody;
  * @description 描述  意见建议
  * @date 2021/3/2 8:33
  */
-public class SuggestionActivity extends BaseBusinessActivity implements SelectPhotosFragment.OnPhotoItemClick,
-        SelectPhotosFragment.OnPicCalculateed, View.OnClickListener {
+public class SuggestionActivity extends SmsCheckCodeActivity<RegistPresent> implements RegistContract.IRegistView,
+        View.OnClickListener {
 
-    protected SelectPhotosFragment selectPhotosFragment;
-    //视频回调广播
-    IntentFilter intentFilter = new IntentFilter();
-    private VideoBroadcastReceiver videoBroadcastReceiver = null;
-    //视频
-    private String videoScreen;
-    protected String videoPath = null;
-    private ImageView mItemVideoPic, mDeleteVedio, mItemVideoTag;
+
+    private EditText mEditNameValueEt;
+    private EditText mIdcardValueEt;
+    private EditText mPhoneValueEt;
+    private EditText mCodeValueEt;
+    /**
+     * 获取验证码
+     */
+    private TextView mSendCheckCodeTv;
+    private RadioGroup mItemRadioG;
+    /**
+     *
+     */
+    private TextView mImportantTagTv;
+    /**
+     * 详细内容
+     */
+    private TextView mItemBusinessSmallTitleTv;
+    private EditText mContentValueEt;
+    /**
+     * 提交
+     */
+    private TextView mCommitTv;
+
+    @Override
+    public int getLayoutView() {
+        return R.layout.suggestion_activity;
+    }
 
     @Override
     public void initData() {
@@ -55,142 +72,162 @@ public class SuggestionActivity extends BaseBusinessActivity implements SelectPh
     }
 
     @Override
+    public void initView() {
+        super.initView();
+        setTitleName("意见建议");
+        mEditNameValueEt = (EditText) findViewById(R.id.edit_name_value_et);
+        mIdcardValueEt = (EditText) findViewById(R.id.idcard_value_et);
+        mPhoneValueEt = (EditText) findViewById(R.id.phone_value_et);
+        mCodeValueEt = (EditText) findViewById(R.id.code_value_et);
+        mSendCheckCodeTv = (TextView) findViewById(R.id.send_check_code_tv);
+        mSendCheckCodeTv.setOnClickListener(this);
+        mItemRadioG = (RadioGroup) findViewById(R.id.item_radio_g);
+        mImportantTagTv = (TextView) findViewById(R.id.important_tag_tv);
+        mItemBusinessSmallTitleTv = (TextView) findViewById(R.id.item_business_small_title_tv);
+        mContentValueEt = (EditText) findViewById(R.id.content_value_et);
+        mCommitTv = (TextView) findViewById(R.id.commit_tv);
+        mCommitTv.setOnClickListener(this);
+        UserBean userBean = UserInfoManager.getUser();
+        mEditNameValueEt.setText(userBean.getData().getRealName());
+        mIdcardValueEt.setText(userBean.getData().getIdNumber());
+        mPhoneValueEt.setText(userBean.getData().getPhoneNumber());
+    }
+
+    @Override
+    protected RegistPresent createPresenter() {
+        return new RegistPresent();
+    }
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-    }
-
-    /**
-     * 动态获取到fragment中图片的宽高后 改变mItemVideoPic的宽高
-     *
-     * @param width
-     */
-    @Override
-    public void picCalculateed(int width) {
-        ViewGroup.LayoutParams params = mItemVideoPic.getLayoutParams();
-        params.width = DisplayUtil.dp2px(mContext, width);
-        params.height = DisplayUtil.dp2px(mContext, width);
-        mItemVideoPic.setLayoutParams(params);
     }
 
     @Override
-    public void onVedioPicClick(BaseQuickAdapter adapter, int position) {
-
+    protected void recordVedio() {
+        mPresenter.recordVideo(this);
     }
 
     @Override
-    public void onPicClick(BaseQuickAdapter adapter, int position) {
-
+    protected SelectPhotosFragment getFragment() {
+        return SelectPhotosFragment.newInstance().setPhotoTitle("")
+                .setPhotoSpace(60)
+                .setMaxCount(3);
     }
 
-    /**
-     * 视频录制成功回调广播play_button
-     */
-    public class VideoBroadcastReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            videoPath = intent.getStringExtra("videoUri");
-            videoScreen = intent.getStringExtra("videoScreenshotUri");
-            ImageLoadUtil.loadImageCache(mContext.getApplicationContext(), videoScreen, mItemVideoPic);
-            mDeleteVedio.setVisibility(View.VISIBLE);
-            mItemVideoTag.setVisibility(View.VISIBLE);
-        }
-    }
 
     @Override
-    protected String getTitleName() {
-        return "意见建议";
+    public void onSuccess(String tag, Object o) {
+        ToastUtils.toast(mContext, ((BaseResult)o).message);
+        finish();
     }
 
-    @Override
-    protected View getFootView() {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.footview_suggestion, null);
-        TextView mCommitBusinessTv = view.findViewById(R.id.commit_business_form_tv);
-        mCommitBusinessTv.setOnClickListener(this);
-        mItemVideoPic = (ImageView)  view.findViewById(R.id.item_video_pic);
-        mItemVideoTag = (ImageView)  view.findViewById(R.id.item_video_tag);
-        mDeleteVedio = (ImageView)  view.findViewById(R.id.push_case_delete_vedio_iv);
-        mDeleteVedio.setOnClickListener(this);
-        mItemVideoPic.setOnClickListener(this);
-        //注册广播
-        videoBroadcastReceiver = new VideoBroadcastReceiver();
-        intentFilter.addAction(ActionConfig.BROAD_VIDEO);
-        registerReceiver(videoBroadcastReceiver, intentFilter);
-//        FrameLayout frameLayout = view.findViewById(R.id.picture_fragment);
-//        selectPhotosFragment = SelectPhotosFragment.newInstance().setPhotoTitle("")
-//                .setPhotoSpace(60)
-//                .setMaxCount(3).setPicCalculateCallBack(this);
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        //开启事务
-//        FragmentTransaction beginTransaction = fragmentManager.beginTransaction();
-//        beginTransaction.replace(frameLayout.getId(), selectPhotosFragment);
-//        //最后一步 记得commit
-//        beginTransaction.commit();
-        return view;
-    }
-
-    @Override
-    protected View getHeadView() {
-        return null;
-    }
-
-    @Override
-    protected void commit() {
-        List<String> pics = selectPhotosFragment.getPhotosPath();
-        if (pics.size() < 3) {
-            ToastUtils.warning(mContext, "请选择3张图片");
-            return;
-        }
-        if (!StringTools.isStringValueOk(videoPath)) {
-            ToastUtils.warning(mContext, "请选择视频");
-            return;
-        }
-
-        if (pics.size() > 0) {
-            for (int i = 0; i < pics.size(); i++) {
-                String path = pics.get(i);
-                String key = String.format("%s%d", "photo", i + 1);
-                //                builder.addFormDataPart(key, key, RequestBody.create(MediaType.parse("file"), new
-                //                File(path)));
-            }
-        }
-        if (StringTools.isStringValueOk(videoPath)) {
-            //            builder.addFormDataPart("caseVideo", "caseVideo", RequestBody.create(MediaType.parse("file"),
-            //                    new File(videoPath)));
-        }
-    }
 
     @Override
     public void onClick(View v) {
+        super.onClick(v);
         switch (v.getId()) {
-            case R.id.item_video_pic:
-                //选择视频
-                mPresenter.recordVideo(this);
-                break;
-            case R.id.push_case_delete_vedio_iv:
-                //删除录制得视频
-                videoPath = null;
-                mItemVideoTag.setVisibility(View.GONE);
-                mDeleteVedio.setVisibility(View.GONE);
-                ImageLoadUtil.loadImage(mContext.getApplicationContext(), R.mipmap.add_icons, mItemVideoPic);
-                break;
             default:
                 break;
+            case R.id.send_check_code_tv:
+                mPresenter.sendCheckCode(getTextViewValue(mPhoneValueEt), SMS_TEMP_CODE);
+                break;
+            case R.id.commit_tv:
+                if (!StringTools.isStringValueOk(getTextViewValue(mCodeValueEt))) {
+                    ToastUtils.warning(mContext, "请输入验证码");
+                    return;
+                }
+                if (!StringTools.isStringValueOk(getTextViewValue(mContentValueEt))) {
+                    ToastUtils.warning(mContext, "请输入详细内容");
+                    return;
+                }
+                List<String> pics = selectPhotosFragment.getPhotosPath();
+                if (pics.size() < 1) {
+                    ToastUtils.warning(mContext, "请选择图片");
+                    return;
+                }
+                if (!StringTools.isStringValueOk(videoPath)) {
+                    ToastUtils.warning(mContext, "请选择视频");
+                    return;
+                }
+                if (!verify) {
+                    SMSSDK.submitVerificationCode("+86", getTextViewValue(mPhoneValueEt),
+                            getTextViewValue(mCodeValueEt));
+                }
+
+
+                break;
         }
+    }
+
+    @Override
+    public void onError(String tag, Object o) {
+        verify = false;
+        ToastUtils.error(mContext, (String) o);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (videoBroadcastReceiver != null) {
-            unregisterReceiver(videoBroadcastReceiver);
+    }
+
+    @Override
+    protected void initGetTestCodeButtonStatusStart() {
+        mPresenter.initGetTestCodeButtonStatus();
+    }
+
+    @Override
+    protected void initGetTestCodeButtonStatusStop() {
+        mPresenter.receivedCheckCodeAndDispose();
+        mSendCheckCodeTv.setText("发送验证码");
+        mSendCheckCodeTv.setClickable(true);
+        mSendCheckCodeTv.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+    }
+
+    @Override
+    protected void checkCodeSuccessed() {
+        List<String> pics = selectPhotosFragment.getPhotosPath();
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("account", MyApp.getAccount())
+                .addFormDataPart("userId", String.valueOf(MyApp.getUid()))
+                .addFormDataPart("token", MyApp.getUserToken());
+        //（0意见；1建议）
+        builder.addFormDataPart("typeId", R.id.radio_zero_rb == mItemRadioG.getCheckedRadioButtonId() ? "0" : "1");
+        builder.addFormDataPart("content", getTextViewValue(mContentValueEt));
+
+        if (pics.size() > 0) {
+            for (int i = 0; i < pics.size(); i++) {
+                String path = pics.get(i);
+                builder.addFormDataPart("pictureFile", "pictureFile", RequestBody.create(MediaType.parse("file"), new
+                        File(path)));
+            }
+        }
+        if (StringTools.isStringValueOk(videoPath)) {
+            builder.addFormDataPart("videoFile", "videoFile", RequestBody.create(MediaType.parse("file"),
+                    new File(videoPath)));
+        }
+        mPresenter.addOpinionsAndSuggestions(builder.build(), "");
+    }
+
+    @Override
+    public void updateSendCheckCodeViewStatus(long second) {
+        if (second > 0) {
+            mSendCheckCodeTv.setText("重新发送 " + second + "s");
+            mSendCheckCodeTv.setClickable(false);
+            mSendCheckCodeTv.setTextColor(ContextCompat.getColor(mContext, R.color.gray));
+        } else {
+            mSendCheckCodeTv.setText("发送验证码");
+            mSendCheckCodeTv.setClickable(true);
+            mSendCheckCodeTv.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+
         }
     }
 
     @Override
-    protected List<MultipleItem> getAdapterData() {
-        return mPresenter.getSuggestionAdapterData();
+    public void checkFormatError(String error) {
+        ToastUtils.warning(mContext, error);
     }
 
 }

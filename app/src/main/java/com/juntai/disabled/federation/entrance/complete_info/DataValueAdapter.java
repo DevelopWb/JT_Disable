@@ -8,6 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
+
+
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.PoliceBranchBean;
 
@@ -122,6 +125,9 @@ public class DataValueAdapter extends BaseAdapter implements Filterable {
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             datas = (ArrayList)results.values;
+            if (datas == null || datas.size() ==0){
+                ToastUtils.warning(mContext, "暂无相关部门！");
+            }
             notifyDataSetChanged();
         }
 

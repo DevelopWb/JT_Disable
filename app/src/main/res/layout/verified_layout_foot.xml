@@ -23,7 +23,7 @@
 
             <EditText
                 android:id="@+id/phone_et"
-                style="@style/login_edit_tv_style"
+                style="@style/edit_tv_style"
                 android:hint="请输入手机号码"
                 android:inputType="phone"
                 android:maxLength="11" />
@@ -42,7 +42,7 @@
 
             <EditText
                 android:id="@+id/check_code_et"
-                style="@style/login_edit_tv_style"
+                style="@style/edit_tv_style"
                 android:layout_weight="1"
                 android:hint="请输入短信验证码"
                 android:inputType="number"

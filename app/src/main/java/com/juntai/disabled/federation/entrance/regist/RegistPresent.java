@@ -1,6 +1,10 @@
 package com.juntai.disabled.federation.entrance.regist;
 
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.support.v4.app.FragmentActivity;
+
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.mvp.IView;
@@ -14,8 +18,14 @@ import com.juntai.disabled.federation.bean.PolicePositionBean;
 import com.juntai.disabled.federation.bean.weather.PoliceGriddingBean;
 import com.juntai.disabled.federation.entrance.sendcode.ISendCode;
 import com.juntai.disabled.federation.entrance.sendcode.SendCodeModel;
+import com.juntai.disabled.video.record.VideoPreviewActivity;
+import com.mabeijianxi.smallvideorecord2.MediaRecorderActivity;
+import com.mabeijianxi.smallvideorecord2.model.MediaRecorderConfig;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import cn.smssdk.SMSSDK;
+import es.dmoral.toasty.Toasty;
+import io.reactivex.functions.Consumer;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
 
@@ -86,7 +96,39 @@ public class RegistPresent extends BasePresenter<IModel, RegistContract.IRegistV
                     }
                 });
     }
-
+    /**
+     * 录制视频
+     *
+     * @param activity
+     */
+    @SuppressLint("CheckResult")
+    public void recordVideo(FragmentActivity activity) {
+        new RxPermissions(activity)
+                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.CAMERA)
+                .compose(com.juntai.disabled.federation.utils.RxScheduler.ObsIoMain(getView()))
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) throws Exception {
+                        if (aBoolean) {
+                            // 录制
+                            MediaRecorderConfig config = new MediaRecorderConfig.Buidler()
+                                    .fullScreen(false)
+                                    .smallVideoWidth(500)
+                                    .smallVideoHeight(480)
+                                    .recordTimeMax(10000)
+                                    .recordTimeMin(2000)
+                                    .videoBitrate(960 * 640)
+                                    .captureThumbnailsTime(1)
+                                    .build();
+                            MediaRecorderActivity.goSmallVideoRecorder(activity, VideoPreviewActivity.class.getName()
+                                    , config);
+                        } else {
+                            Toasty.info(activity, "请给与相应权限").show();
+                        }
+                    }
+                });
+    }
     @Override
     public void getPoliceBranch( String tag) {
         AppNetModule.createrRetrofit()
@@ -306,6 +348,29 @@ public class RegistPresent extends BasePresenter<IModel, RegistContract.IRegistV
                         if (getView() != null) {
                             getView().onSuccess(tag, o.message);
                         }
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void addOpinionsAndSuggestions(RequestBody requestBody, String tag) {
+        AppNetModule.createrRetrofit()
+                .addOpinionsAndSuggestions(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
                     }
 
                     @Override

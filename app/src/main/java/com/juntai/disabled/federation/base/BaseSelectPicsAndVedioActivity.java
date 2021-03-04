@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.baidu.location.BDLocation;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
@@ -19,6 +20,8 @@ import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
 
+import java.util.List;
+
 /**
  * @Author: tobato
  * @Description: 作用描述
@@ -26,7 +29,7 @@ import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
  * @UpdateUser: 更新者
  * @UpdateDate: 2020/7/3 14:36
  */
-public abstract class BaseSelectPicsAndVedioActivity<P extends BasePresenter> extends BaseMvpActivity<P> implements SelectPhotosFragment.OnPhotoItemClick, SelectPhotosFragment.OnPicCalculateed, View.OnClickListener {
+public abstract class BaseSelectPicsAndVedioActivity<P extends BasePresenter> extends BaseSelectPicsActivity<P> implements SelectPhotosFragment.OnPhotoItemClick, SelectPhotosFragment.OnPicCalculateed, View.OnClickListener {
 
     protected SelectPhotosFragment selectPhotosFragment;
     //视频回调广播
@@ -40,7 +43,19 @@ public abstract class BaseSelectPicsAndVedioActivity<P extends BasePresenter> ex
 
     protected abstract void recordVedio();
     protected abstract SelectPhotosFragment getFragment();
+    @Override
+    public void onLocationReceived(BDLocation bdLocation) {
 
+    }
+
+    @Override
+    public boolean requestLocation() {
+        return false;
+    }
+    @Override
+    protected void selectedPicsAndEmpressed(List<String> icons) {
+
+    }
     @Override
     public void initView() {
         mItemVideoPic = (ImageView) findViewById(R.id.item_video_pic);

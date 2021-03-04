@@ -26,6 +26,9 @@ import com.juntai.disabled.federation.home_page.business.handlerBusiness.normalb
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.trainRequest.TrainingRequestActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.disabilityChildRecovery.DisabilityChildRecoveryActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.studentBursary.StudentBursaryActivity;
+import com.juntai.disabled.federation.home_page.call_to_police.CallToPoliceActivity;
+import com.juntai.disabled.federation.home_page.call_to_police.VerifiedActivity;
+import com.juntai.disabled.federation.utils.UserInfoManager;
 
 import java.util.List;
 
@@ -126,7 +129,14 @@ public class BusinessItemAdapter extends BaseMultiItemQuickAdapter<MultipleItem,
                                 break;
                             case 15:
                                 //意见建议
-                                mContext.startActivity(new Intent(mContext, SuggestionActivity.class));
+                                //未实名将无法使用
+                                //实名认证状态（0：未提交）（1：提交审核中）（2：审核通过）（3：审核失败）
+                                int status = UserInfoManager.getRealNameStatus();
+                                if (2 != status) {
+                                    mContext. startActivity(new Intent(mContext, VerifiedActivity.class).putExtra(VerifiedActivity.VERIFIED_STATUS, status));
+                                } else {
+                                    mContext.startActivity(new Intent(mContext, SuggestionActivity.class));
+                                }
                                 break;
                             default:
                                 break;

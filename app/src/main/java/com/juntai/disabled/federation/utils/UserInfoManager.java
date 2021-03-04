@@ -90,6 +90,15 @@ public class UserInfoManager {
     public static int getUserId() {
         return getUser() != null && getUser().getData() != null ? getUser().getData().getUserId() : -1;
     }
+
+    /**
+     * 获取getUserId
+     *
+     * @return
+     */
+    public static int getRealNameStatus() {
+        return getUser() != null && getUser().getData() != null ? getUser().getData().getRealNameStatus() : 0;
+    }
     /**
      * 获取用户信息
      *

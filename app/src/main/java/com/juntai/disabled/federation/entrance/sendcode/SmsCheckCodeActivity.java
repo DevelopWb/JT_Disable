@@ -12,6 +12,8 @@ import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.base.BaseSelectPicsActivity;
+import com.juntai.disabled.federation.base.BaseSelectPicsAndVedioActivity;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
 
 import java.util.List;
 
@@ -23,7 +25,7 @@ import cn.smssdk.SMSSDK;
  * @description 描述
  * @date 2020/3/25 8:46
  */
-public abstract class SmsCheckCodeActivity<P extends BasePresenter> extends BaseSelectPicsActivity<P> {
+public abstract class SmsCheckCodeActivity<P extends BasePresenter> extends BaseSelectPicsAndVedioActivity<P> {
     @Override
     protected void selectedPicsAndEmpressed(List<String> icons) {
 
@@ -37,7 +39,15 @@ public abstract class SmsCheckCodeActivity<P extends BasePresenter> extends Base
     public boolean requestLocation() {
         return false;
     }
+    @Override
+    protected void recordVedio() {
 
+    }
+
+    @Override
+    protected SelectPhotosFragment getFragment() {
+        return null;
+    }
     protected boolean verify = false;//验证是否成功
     protected  String SMS_TEMP_CODE = "16132134";//模板编号
     EventHandler eventHandler = new EventHandler() {

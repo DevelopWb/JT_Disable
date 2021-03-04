@@ -203,7 +203,7 @@ public class CompleteInfoActivity extends SmsCheckCodeActivity<RegistPresent> im
                     return;
                 }
                 if (UserInfoManager.getAccountStatus() != 1) {
-                    //未绑定手机号
+                    //未绑定手机号  这时候需要绑定手机
                     if (!mPresenter.checkMobile(getTextViewValue(mPhoneEt))) {
                         return;
                     }

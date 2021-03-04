@@ -113,39 +113,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                     }
                 });
     }
-    /**
-     * 录制视频
-     *
-     * @param activity
-     */
-    @SuppressLint("CheckResult")
-    public void recordVideo(FragmentActivity activity) {
-        new RxPermissions(activity)
-                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.CAMERA)
-                .compose(com.juntai.disabled.federation.utils.RxScheduler.ObsIoMain(getView()))
-                .subscribe(new Consumer<Boolean>() {
-                    @Override
-                    public void accept(Boolean aBoolean) throws Exception {
-                        if (aBoolean) {
-                            // 录制
-                            MediaRecorderConfig config = new MediaRecorderConfig.Buidler()
-                                    .fullScreen(false)
-                                    .smallVideoWidth(500)
-                                    .smallVideoHeight(480)
-                                    .recordTimeMax(10000)
-                                    .recordTimeMin(2000)
-                                    .videoBitrate(960 * 640)
-                                    .captureThumbnailsTime(1)
-                                    .build();
-                            MediaRecorderActivity.goSmallVideoRecorder(activity, VideoPreviewActivity.class.getName()
-                                    , config);
-                        } else {
-                            Toasty.info(activity, "请给与相应权限").show();
-                        }
-                    }
-                });
-    }
+
     @Override
     public void creatBusiness(RequestBody requestBody, String tag) {
         AppNetModule.createrRetrofit()
@@ -813,28 +781,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                 });
     }
 
-    @Override
-    public void addOpinionsAndSuggestions(RequestBody requestBody, String tag) {
-        AppNetModule.createrRetrofit()
-                .addOpinionsAndSuggestions(requestBody)
-                .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<BaseResult>(getView()) {
-                    @Override
-                    public void onSuccess(BaseResult o) {
-                        if (getView() != null) {
-                            getView().onSuccess(tag, o);
-                        }
 
-                    }
-
-                    @Override
-                    public void onError(String msg) {
-                        if (getView() != null) {
-                            getView().onError(tag, msg);
-                        }
-                    }
-                });
-    }
 
     @Override
     public void getDisabilityCertificateInfo(int businessId, String tag) {

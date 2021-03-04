@@ -294,10 +294,6 @@ public interface BusinessContract {
          */
         void addHomCare(RequestBody requestBody, String tag);
 
-        /**
-         * @param tag
-         */
-        void addOpinionsAndSuggestions(RequestBody requestBody, String tag);
 
 
 

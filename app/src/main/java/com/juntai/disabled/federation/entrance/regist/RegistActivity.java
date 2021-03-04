@@ -19,6 +19,7 @@ import com.juntai.disabled.basecomponent.utils.PubUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.bdmap.utils.BaiDuLocationUtils;
 import com.juntai.disabled.federation.R;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
 import com.juntai.disabled.federation.entrance.LoginActivity;
 import com.juntai.disabled.federation.entrance.sendcode.SmsCheckCodeActivity;
 import com.juntai.disabled.federation.mine.UserAgreementActivity;
@@ -125,6 +126,8 @@ public class RegistActivity extends SmsCheckCodeActivity<RegistPresent> implemen
             baiDuLocationUtils = null;
         }
     }
+
+
 
     @Override
     public void initView() {

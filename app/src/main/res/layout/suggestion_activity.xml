@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingBottom="30dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/red"></TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:gravity="center_vertical"
+                    android:text="姓名"
+                    android:textColor="@color/text_title"
+                    android:textSize="16dp"></TextView>
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/edit_name_value_et"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginLeft="15dp"
+                android:hint="请输入姓名"
+                android:clickable="false"
+                android:textColor="@color/gray"
+                android:focusable="false"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/stroke_gray_square_bg"
+                android:imeOptions="actionDone"
+                android:padding="5dp"
+                android:textSize="14dp"></EditText>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/red"></TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:gravity="center_vertical"
+                    android:text="身份证号"
+                    android:textColor="@color/text_title"
+                    android:textSize="16dp"></TextView>
+
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/idcard_value_et"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginLeft="15dp"
+                android:hint="请输入身份证号码"
+                android:clickable="false"
+                android:textColor="@color/gray"
+                android:focusable="false"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/stroke_gray_square_bg"
+                android:imeOptions="actionDone"
+                android:padding="5dp"
+                android:textSize="14dp"></EditText>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/red"></TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:gravity="center_vertical"
+                    android:text="手机号码"
+                    android:textColor="@color/text_title"
+                    android:textSize="16dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></TextView>
+
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/phone_value_et"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginLeft="15dp"
+                android:inputType="phone"
+                android:hint="请输入手机号"
+                android:clickable="false"
+                android:textColor="@color/gray"
+                android:focusable="false"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/stroke_gray_square_bg"
+                android:imeOptions="actionDone"
+                android:padding="5dp"
+                android:textSize="14dp"></EditText>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/red"></TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:gravity="center_vertical"
+                    android:text="验证码"
+                    android:textColor="@color/text_title"
+                    android:textSize="16dp"></TextView>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingTop="3dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="3dp">
+
+                <EditText
+                    android:id="@+id/code_value_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_weight="1"
+                    android:hint="请输入验证码"
+                    android:background="@drawable/stroke_gray_square_bg"
+                    android:imeOptions="actionDone"
+                    android:padding="5dp"
+                    android:textSize="14dp"></EditText>
+
+                <TextView
+                    android:id="@+id/send_check_code_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/stroke_blue_square_bg"
+                    android:paddingLeft="7dp"
+                    android:paddingTop="2dp"
+                    android:paddingRight="7dp"
+                    android:paddingBottom="2dp"
+                    android:text="获取验证码"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/red"></TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:gravity="center_vertical"
+                    android:text="内容分布"
+                    android:textColor="@color/text_title"
+                    android:textSize="16dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></TextView>
+
+
+            </LinearLayout>
+
+
+            <RadioGroup
+                android:id="@+id/item_radio_g"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <RadioButton
+                    android:id="@+id/radio_zero_rb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="意见"></RadioButton>
+
+                <RadioButton
+                    android:id="@+id/radio_first_rb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:baselineAligned="false"
+                    android:checked="false"
+                    android:text="建议"></RadioButton>
+
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <TextView
+                    android:id="@+id/important_tag_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/red"></TextView>
+
+                <TextView
+                    android:id="@+id/item_business_small_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:gravity="center_vertical"
+                    android:text="详细内容"
+                    android:textColor="@color/text_title"
+                    android:textSize="16dp"></TextView>
+
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/content_value_et"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginLeft="15dp"
+                android:gravity="left"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:hint="请输入详细内容"
+                android:background="@drawable/stroke_gray_square_bg"
+                android:imeOptions="actionDone"
+                android:padding="8dp"
+                android:textSize="14dp"></EditText>
+
+
+            <include
+                layout="@layout/select_photo_vedio_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"></include>
+
+            <TextView
+                android:id="@+id/commit_tv"
+                style="@style/bt_style"
+                android:text="提交"></TextView>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>
+
+
+
+
+
+

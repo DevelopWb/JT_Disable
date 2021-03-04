@@ -99,5 +99,12 @@ public interface RegistContract {
          * @param body
          */
         void addUserInfo(String tag, RequestBody body);
+
+
+        /**
+         * @param tag
+         */
+        void addOpinionsAndSuggestions(RequestBody requestBody, String tag);
+
     }
 }
