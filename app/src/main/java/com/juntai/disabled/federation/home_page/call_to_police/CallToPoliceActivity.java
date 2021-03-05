@@ -21,7 +21,8 @@ import java.util.List;
  * @description 描述  一键报警
  * @date 2020/3/11 15:41
  */
-public class CallToPoliceActivity extends BaseMvpActivity<HomePagePresent> implements HomePageContract.IHomePageView, View.OnClickListener {
+public class CallToPoliceActivity extends BaseMvpActivity<HomePagePresent> implements HomePageContract.IHomePageView,
+        View.OnClickListener {
 
     /**
      * 谎报警情,依法追责！
@@ -69,9 +70,9 @@ public class CallToPoliceActivity extends BaseMvpActivity<HomePagePresent> imple
     @Override
     public void onSuccess(String tag, Object o) {
         PolicePickerBean policePickerBean = (PolicePickerBean) o;
-        if (policePickerBean != null ) {
+        if (policePickerBean != null) {
             List<PolicePickerBean.DataBean> list = policePickerBean.getData();
-            if (list != null&&list.size()>0) {
+            if (list != null && list.size() > 0) {
                 int index = (int) (Math.random() * list.size());
                 dataBean = policePickerBean.getData().get(index);
                 if (dataBean != null) {
@@ -79,17 +80,17 @@ public class CallToPoliceActivity extends BaseMvpActivity<HomePagePresent> imple
                         ModuleIm_Init.callVideo(mContext, dataBean.getAccount());
                     }
                 }
-            }else {
-                ToastUtils.toast(mContext,"接警平台忙，请稍后再试");
+            } else {
+                ToastUtils.toast(mContext, "接警平台忙，请稍后再试");
             }
-        }else {
-            ToastUtils.toast(mContext,"接警平台忙，请稍后再试");
+        } else {
+            ToastUtils.toast(mContext, "接警平台忙，请稍后再试");
         }
     }
 
     @Override
     public void onError(String tag, Object o) {
-
+        super.onError(tag, o);
     }
 
     @Override

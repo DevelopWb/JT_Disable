@@ -61,7 +61,6 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name="com.juntai.tyb.mine.myMsg.MyMsgActivity"></activity>
-        <activity android:name="com.juntai.tyb.mine.ModifyPwdActivity" />
         <activity android:name="com.juntai.tyb.mine.MyBaseInfoActivity" />
         <activity android:name="com.juntai.tyb.homePage.healthOrganize.HealthOrganizeActivity" />
         <activity android:name="com.juntai.tyb.mine.about.UserProtocalActivity" />

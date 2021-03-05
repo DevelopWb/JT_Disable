@@ -51,23 +51,20 @@ public class LoginBean extends BaseResult {
          * token : B2AGYCW992-JEDHP8FB3821U7N57O7Q3-VUGDPCCK-0
          */
 
-        private int id;
-        private String account;
-        private String nickname;
-        private String password;
-        private String sex;
-        @SerializedName("status")
-        private int statusX;
-        private String address;
-        private int street;
-        private String streetName;
-        private String createTime;
-        private String lastLoginTime;
-        private String token;
+        private Integer userId;//用户id
+        private String account;//账号
+        private String password;//密码
+        private String nickname;//昵称
+        private String headPortrait;//头像
+        private String phoneNumber;//手机号
+        private Integer realNameStatus;//实名认证状态（0未提交；1提交审核中；2审核通过；3审核失败）
+        private Integer settleStatus;//申请入驻状态（0未提交；1提交审核中；2审核通过；3审核失败）
+        private String rOngYunToken;//融云token
+        private Integer blacklist;//黑名单状态
+        private Integer frozenStatus;//冻结状态
+        private String gmtCreate;//注册时间
+        private String token;//验证token
         private boolean test;//测试权限（false：关闭；true：开通）
-        public int getId() {
-            return id;
-        }
 
         public boolean isTest() {
             return test;
@@ -77,8 +74,13 @@ public class LoginBean extends BaseResult {
             this.test = test;
         }
 
-        public void setId(int id) {
-            this.id = id;
+
+        public Integer getUserId() {
+            return userId;
+        }
+
+        public void setUserId(Integer userId) {
+            this.userId = userId;
         }
 
         public String getAccount() {
@@ -89,14 +91,6 @@ public class LoginBean extends BaseResult {
             this.account = account == null ? "" : account;
         }
 
-        public String getNickname() {
-            return nickname == null ? "" : nickname;
-        }
-
-        public void setNickname(String nickname) {
-            this.nickname = nickname == null ? "" : nickname;
-        }
-
         public String getPassword() {
             return password == null ? "" : password;
         }
@@ -105,60 +99,76 @@ public class LoginBean extends BaseResult {
             this.password = password == null ? "" : password;
         }
 
-        public String getSex() {
-            return sex == null ? "" : sex;
+        public String getNickname() {
+            return nickname == null ? "" : nickname;
         }
 
-        public void setSex(String sex) {
-            this.sex = sex == null ? "" : sex;
+        public void setNickname(String nickname) {
+            this.nickname = nickname == null ? "" : nickname;
         }
 
-        public int getStatusX() {
-            return statusX;
+        public String getHeadPortrait() {
+            return headPortrait == null ? "" : headPortrait;
         }
 
-        public void setStatusX(int statusX) {
-            this.statusX = statusX;
+        public void setHeadPortrait(String headPortrait) {
+            this.headPortrait = headPortrait == null ? "" : headPortrait;
         }
 
-        public String getAddress() {
-            return address == null ? "" : address;
+        public String getPhoneNumber() {
+            return phoneNumber == null ? "" : phoneNumber;
         }
 
-        public void setAddress(String address) {
-            this.address = address == null ? "" : address;
+        public void setPhoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber == null ? "" : phoneNumber;
         }
 
-        public int getStreet() {
-            return street;
+        public Integer getRealNameStatus() {
+            return realNameStatus;
         }
 
-        public void setStreet(int street) {
-            this.street = street;
+        public void setRealNameStatus(Integer realNameStatus) {
+            this.realNameStatus = realNameStatus;
         }
 
-        public String getStreetName() {
-            return streetName == null ? "" : streetName;
+        public Integer getSettleStatus() {
+            return settleStatus;
         }
 
-        public void setStreetName(String streetName) {
-            this.streetName = streetName == null ? "" : streetName;
+        public void setSettleStatus(Integer settleStatus) {
+            this.settleStatus = settleStatus;
         }
 
-        public String getCreateTime() {
-            return createTime == null ? "" : createTime;
+        public String getrOngYunToken() {
+            return rOngYunToken == null ? "" : rOngYunToken;
         }
 
-        public void setCreateTime(String createTime) {
-            this.createTime = createTime == null ? "" : createTime;
+        public void setrOngYunToken(String rOngYunToken) {
+            this.rOngYunToken = rOngYunToken == null ? "" : rOngYunToken;
         }
 
-        public String getLastLoginTime() {
-            return lastLoginTime == null ? "" : lastLoginTime;
+        public Integer getBlacklist() {
+            return blacklist;
         }
 
-        public void setLastLoginTime(String lastLoginTime) {
-            this.lastLoginTime = lastLoginTime == null ? "" : lastLoginTime;
+        public void setBlacklist(Integer blacklist) {
+            this.blacklist = blacklist;
+        }
+
+        public Integer getFrozenStatus() {
+            return frozenStatus;
+        }
+
+        public void setFrozenStatus(Integer frozenStatus) {
+            this.frozenStatus = frozenStatus;
+        }
+
+        public String getGmtCreate() {
+            return gmtCreate == null ? "" : gmtCreate;
+        }
+
+        public void setGmtCreate(String gmtCreate) {
+            this.gmtCreate = gmtCreate == null ? "" : gmtCreate;
         }
 
         public String getToken() {

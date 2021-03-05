@@ -3,22 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-<LinearLayout
+<TextView
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:layout_marginTop="40dp"
-    android:layout_height="match_parent">
-
-<!--    <include layout="@layout/item_layout_type_title_big"></include>-->
-<!--    <include layout="@layout/item_layout_type_head_pic"></include>-->
-<!--    <include layout="@layout/item_layout_type_title_small"></include>-->
-<!--    <include layout="@layout/item_layout_type_edit"></include>-->
-<!--    <include layout="@layout/item_layout_type_select"></include>-->
-<!--    <include layout="@layout/item_layout_type_radio"></include>-->
-<!--    <include layout="@layout/item_layout_type_pic"></include>-->
-
-</LinearLayout>
+    android:text="@string/not_open_notice"
+    android:gravity="center"
+    android:textSize="16dp"
+    android:layout_height="match_parent"></TextView>
 
 </LinearLayout>

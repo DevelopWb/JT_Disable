@@ -705,10 +705,10 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
             }
         };
 
-
-        if (!closeMarquee) {
-            mPresenter.getBannerNews(MapContract.BANNER_NEWS);
-        }
+        // TODO: 2021/3/4   涉及到资讯 暂不开放 
+//        if (!closeMarquee) {
+//            mPresenter.getBannerNews(MapContract.BANNER_NEWS);
+//        }
     }
 
     /**

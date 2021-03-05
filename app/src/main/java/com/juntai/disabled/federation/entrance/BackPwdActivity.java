@@ -99,11 +99,20 @@ public class BackPwdActivity extends SmsCheckCodeActivity<RegistPresent> impleme
         //0找回密码，1修改手机号,2 修改密码,
         mRegistTv.setText("下一步");
         topTagLayout.setVisibility(View.VISIBLE);
+        mRegistPhoneEt.setText(UserInfoManager.getPhoneNumber());
+
         switch (pageType) {
             case 0:
                 setTitleName("找回密码");
+                mRegistPhoneEt.setFocusable(false);
+                mRegistPhoneEt.setClickable(false);
+                mRegistPhoneEt.setTextColor(ContextCompat.getColor(mContext,R.color.gray));
                 break;
             case 1:
+                mRegistPhoneEt.setText("");
+                mRegistPhoneEt.setFocusable(true);
+                mRegistPhoneEt.setClickable(true);
+                mRegistPhoneEt.setTextColor(ContextCompat.getColor(mContext,R.color.black));
                 mRegistTv.setText("确认");
                 setTitleName("修改手机号");
                 topTagLayout.setVisibility(View.GONE);
@@ -114,6 +123,9 @@ public class BackPwdActivity extends SmsCheckCodeActivity<RegistPresent> impleme
                 break;
             case 2:
                 setTitleName("修改密码");
+                mRegistPhoneEt.setFocusable(false);
+                mRegistPhoneEt.setClickable(false);
+                mRegistPhoneEt.setTextColor(ContextCompat.getColor(mContext,R.color.gray));
                 break;
             default:
                 break;

@@ -93,7 +93,7 @@ public class MyInformationActivity extends BaseMvpActivity<MyInfoPresent> implem
             if (userBean != null && userBean.getUserId() != 0){
                 beanList.add(new TextListBean("账号", userBean.getAccount()));
                 beanList.add(new TextListBean("昵称", userBean.getNickname()));
-                beanList.add(new TextListBean("手机号码", userBean.getAccount()));
+                beanList.add(new TextListBean("手机号码", userBean.getPhoneNumber()));
                 beanList.add(new TextListBean("真实姓名", userBean.getRealName() == ""? "未实名" : userBean.getRealName()));
 //                beanList.add(new TextListBean("身份证号", userBean.getIdnumber()));
                 beanList.add(new TextListBean("积分", userBean.getScore() +""));

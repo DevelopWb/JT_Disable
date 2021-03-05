@@ -46,7 +46,9 @@ import com.juntai.disabled.federation.home_page.camera.CameraCommentFragment;
 import com.juntai.disabled.federation.home_page.camera.CameraVideoRecordFragment;
 import com.juntai.disabled.federation.home_page.camera.PlayContract;
 import com.juntai.disabled.federation.home_page.camera.PlayPresent;
+import com.juntai.disabled.federation.home_page.camera.ijkplayer.KeepAliveService;
 import com.juntai.disabled.federation.home_page.camera.yunkong.CameraYunControlFragment;
+import com.juntai.disabled.federation.home_page.news.NewsContract;
 import com.juntai.disabled.federation.utils.GlideImageLoader;
 import com.youth.banner.Banner;
 
@@ -56,6 +58,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
+
+import io.rong.callkit.util.GlideUtils;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -460,6 +464,10 @@ public class PlayerLiveActivity extends BaseDownLoadActivity<PlayPresent> implem
             mPresenter.getStreamCameraDetail(mPresenter.getPublishMultipartBody().addFormDataPart("id",
                     String.valueOf(mCameraId)).build(),
                     PlayContract.GET_STREAM_CAMERA_DETAIL);
+        }else if (requestCode == NewsContract.REQUEST_CODE_CHOOSE){
+            if (cameraCommentFragment!= null) {
+                cameraCommentFragment.onActivityResult(requestCode,resultCode,data);
+            }
         }
     }
 
@@ -956,88 +964,6 @@ public class PlayerLiveActivity extends BaseDownLoadActivity<PlayPresent> implem
                 mOperateRightIvsG.setVisibility(View.VISIBLE);
             }
         }
-        //        if (isMyDev) {
-        //            if (isVerScreen) {
-        //                if (hideAllScreen) {
-        //                    mCameraFloatSet.setVisibility(View.GONE);
-        //                }else {
-        //                    mCameraFloatSet.setVisibility(View.VISIBLE);
-        //                }
-        //
-        //            } else {
-        //                mCameraFloatSet.setVisibility(View.GONE);
-        //            }
-        //            if (hideAllScreen) {
-        //                mFullScreenSetTv.setVisibility(View.GONE);
-        //            }else {
-        //                mFullScreenSetTv.setVisibility(View.VISIBLE);
-        //
-        //            }
-        //            //自己的设备 可以查看录像回放
-        //            mCalendarIv.setVisibility(View.VISIBLE);
-        //            if (devHasYunTai) {
-        //                mYuntaiIv.setVisibility(View.VISIBLE);
-        //                if (isVerScreen) {
-        //                    mYuntaiFloatIv.setVisibility(View.INVISIBLE);
-        //                } else {
-        //                    if (hideAllScreen) {
-        //                        mYuntaiFloatIv.setVisibility(View.INVISIBLE);
-        //                    }else {
-        //                        mYuntaiFloatIv.setVisibility(View.VISIBLE);
-        //                    }
-        //
-        //                }
-        //            } else {
-        //                mYuntaiIv.setVisibility(View.INVISIBLE);
-        //                mYuntaiFloatIv.setVisibility(View.INVISIBLE);
-        //            }
-
-        //        } else {
-        //            String permission = mStreamCameraBean.getSharePowerName();
-        //            mCameraFloatSet.setVisibility(View.GONE);
-        //            mFullScreenSetTv.setVisibility(View.GONE);
-        //            mFullScreenSetIv.setVisibility(View.GONE);
-        //            if (devHasYunTai) {
-        //                // 看分享权限 如果有云台控制权限 就显示
-        //                if (StringTools.isStringValueOk(permission)) {
-        //                    if (permission.contains(PlayContract.PERMISSION_CONTROL)) {
-        //                        if (hideAllScreen) {
-        //                            mYuntaiIv.setVisibility(View.GONE);
-        //                        }else {
-        //                            mYuntaiIv.setVisibility(View.VISIBLE);
-        //                        }
-        //
-        //                        if (isVerScreen) {
-        //                            mYuntaiFloatIv.setVisibility(View.INVISIBLE);
-        //                        } else {
-        //                            if (hideAllScreen) {
-        //                                mYuntaiFloatIv.setVisibility(View.GONE);
-        //                            }else {
-        //                                mYuntaiFloatIv.setVisibility(View.VISIBLE);
-        //                            }
-        //                        }
-        //                    } else {
-        //                        mYuntaiIv.setVisibility(View.INVISIBLE);
-        //                        mYuntaiFloatIv.setVisibility(View.INVISIBLE);
-        //                    }
-        //                }
-        //            } else {
-        //                mYuntaiIv.setVisibility(View.INVISIBLE);
-        //                mYuntaiFloatIv.setVisibility(View.INVISIBLE);
-        //            }
-        // 看分享权限 如果有录像回放权限 就显示日历按钮
-        //            if (StringTools.isStringValueOk(permission)) {
-        //                if (permission.contains(PlayContract.PERMISSION_RECORD)) {
-        //                    if (hideAllScreen) {
-        //                        mCalendarIv.setVisibility(View.GONE);
-        //                    }else {
-        ////                        mCalendarIv.setVisibility(View.VISIBLE);
-        //                    }
-        //                } else {
-        //                    mCalendarIv.setVisibility(View.GONE);
-        //                }
-        //            }
-        //        }
     }
 
 

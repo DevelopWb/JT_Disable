@@ -106,6 +106,12 @@ public class MyCenterFragment extends BaseMvpFragment<MyCenterPresent> implement
                         case MyCenterContract.CENTER_DEVICE_TAG:
                             ToastUtils.toast(mContext,"暂未开放");
                             break;
+                        case MyCenterContract.CENTER_MESSAGE_TAG:
+                            ToastUtils.toast(mContext,"暂未开放");
+                            break;
+                        case MyCenterContract.CENTER_FABU_TAG:
+                            ToastUtils.toast(mContext,"暂未开放");
+                            break;
                         default:
                             startActivity(new Intent(mContext, myMenuAdapter.getData().get(position).getCls()));
                             break;
@@ -215,7 +221,7 @@ public class MyCenterFragment extends BaseMvpFragment<MyCenterPresent> implement
                     mLoginOut.setVisibility(View.VISIBLE);
                     mNickname.setText(dataBean.getNickname());
                     mNickname.setAlpha(0.8f);
-                    mTelNumber.setText(MyApp.getAccount());
+                    mTelNumber.setText(userBean.getData().getPhoneNumber());
                     mTelNumber.setVisibility(View.VISIBLE);
                     if (!headUrl.equals(userBean.getData().getHeadPortrait())) {
                         headUrl = userBean.getData().getHeadPortrait();

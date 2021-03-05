@@ -9,9 +9,11 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.bean.business.AllBusinessBean;
+import com.juntai.disabled.federation.entrance.LoginActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.SuggestionActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.assistTool.AssistToolsRequestActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.normalbusiness.CardLevelChangeActivity;
@@ -71,6 +73,12 @@ public class BusinessItemAdapter extends BaseMultiItemQuickAdapter<MultipleItem,
                 adapter.setOnItemClickListener(new OnItemClickListener() {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+                        if (!MyApp.isLogin()){
+                            MyApp.goLogin();
+                            return;
+                        }
+
                         AllBusinessBean.DataBean.WorkMatterListBean bean =
                                 (AllBusinessBean.DataBean.WorkMatterListBean) adapter.getData().get(position);
                         switch (bean.getId()) {

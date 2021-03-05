@@ -28,12 +28,14 @@ import com.juntai.disabled.federation.bean.business.DeafBean;
 import com.juntai.disabled.federation.bean.business.ItemCheckBoxBean;
 import com.juntai.disabled.federation.bean.business.ItemSignBean;
 import com.juntai.disabled.federation.bean.business.RecycleBean;
+import com.juntai.disabled.federation.utils.DateUtil;
 import com.juntai.disabled.federation.utils.StringTools;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -228,6 +230,19 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                                 selectBean.setValue(brainBadTypes.get(options1));
                                             }
                                         });
+                                break;
+                            case BusinessContract.TABLE_TITLE_BIRTH:
+                                //出生年月
+                                PickerManager.getInstance().showTimePickerView(mContext, null, "出生年月", new PickerManager.OnTimePickerTimeSelectedListener() {
+                                    @Override
+                                    public void onTimeSelect(Date date, View v) {
+                                        String birth = DateUtil.getDateString(date,"yyyy年MM月dd日");
+                                        mSelectTv.setText(birth);
+                                        selectBean.setValue(birth);
+                                    }
+                                });
+
+
                                 break;
                             default:
                                 break;
@@ -480,10 +495,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             //姓名
                             formKey = "name";
                             break;
-                        case BusinessContract.TABLE_TITLE_BIRTH:
-                            //出生年月
-                            formKey = "birth";
-                            break;
+
                         case BusinessContract.TABLE_TITLE_AGE_FAMILY:
                             //年龄
                             formKey = "guardianAge";
@@ -793,6 +805,10 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         case BusinessContract.TABLE_TITLE_BRAIN_PALSY_STYLE:
                             //脑瘫类型
                             builder.addFormDataPart("type", String.valueOf(selectedBrainId));
+                            break;
+                        case BusinessContract.TABLE_TITLE_BIRTH:
+                            //出生年月
+                            builder.addFormDataPart("birth", String.valueOf(selectedBrainId));
                             break;
                         case BusinessContract.TABLE_TITLE_DISABILITY_KINDS:
                             builder.addFormDataPart("category", String.valueOf(categoryId));

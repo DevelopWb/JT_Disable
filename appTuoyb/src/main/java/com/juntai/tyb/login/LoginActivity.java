@@ -13,6 +13,7 @@ import com.juntai.tyb.bean.LoginBean;
 import com.juntai.tyb.hcb.R;
 import com.juntai.tyb.uitils.HawkProperty;
 import com.juntai.tyb.uitils.StringTools;
+import com.juntai.tyb.uitils.UserInfoManager;
 import com.orhanobut.hawk.Hawk;
 
 /**
@@ -40,6 +41,7 @@ public class LoginActivity extends BaseAppActivity<LoginPresent> implements View
         getToolbar().setVisibility(View.GONE);
         mLonginAccountEt = (EditText) findViewById(R.id.longin_account_et);
         mLonginPwdEt = (EditText) findViewById(R.id.longin_pwd_et);
+        mLonginPwdEt.setText(UserInfoManager.getUserPhone());
         mLoginBt = (Button) findViewById(R.id.login_bt);
         mLoginBt.setOnClickListener(this);
     }

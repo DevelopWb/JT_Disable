@@ -50,19 +50,22 @@
                         android:id="@+id/branch_complete_tv"
                         style="@style/edit_tv_style"
                         android:cacheColorHint="#00000000"
+                        android:completionThreshold="1"
                         android:dropDownHorizontalOffset="0dp"
                         android:ems="10"
-                        android:hint="请选择部门"
                         android:gravity="center_vertical"
-                        android:completionThreshold="1"/>
+                        android:hint="请输入部门" />
                 </LinearLayout>
 
-                <View style="@style/divider_style" />
+                <View
+                    style="@style/divider_style"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:visibility="gone">
 
                     <ImageView
                         style="@style/regist_tag_style"
@@ -97,12 +100,15 @@
                         android:paddingRight="5dp" />
                 </LinearLayout>
 
-                <View style="@style/divider_style" />
+                <View
+                    style="@style/divider_style"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:visibility="gone">
 
                     <ImageView
                         style="@style/regist_tag_style"
@@ -122,6 +128,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <View style="@style/divider_style" />
 
                     <LinearLayout

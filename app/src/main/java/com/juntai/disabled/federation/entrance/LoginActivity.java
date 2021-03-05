@@ -2,7 +2,6 @@ package com.juntai.disabled.federation.entrance;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -27,6 +26,7 @@ import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.entrance.regist.RegistActivity;
 import com.juntai.disabled.federation.entrance.sendcode.SendCodeModel;
 import com.juntai.disabled.federation.utils.AppUtils;
+import com.juntai.disabled.federation.utils.StringTools;
 import com.juntai.disabled.federation.utils.UserInfoManager;
 import com.orhanobut.hawk.Hawk;
 
@@ -56,7 +56,7 @@ public class LoginActivity extends BaseMvpActivity<EntrancePresent> implements E
     /**
      * 账号
      */
-    private EditText mAccount;
+    private EditText mPhoneEt;
     /**
      * 密码
      */
@@ -103,7 +103,12 @@ public class LoginActivity extends BaseMvpActivity<EntrancePresent> implements E
     @Override
     protected void onNewIntent(Intent intent) {
         //注册成功后，填写手机号
-        mAccount.setText(UserInfoManager.getPhoneNumber());
+        if (intent != null) {
+            String phone = intent.getStringExtra(RegistActivity.REGIST_PHONE);
+            if (StringTools.isStringValueOk(phone)) {
+                mPhoneEt.setText(phone);
+            }
+        }
         super.onNewIntent(intent);
     }
 
@@ -111,7 +116,7 @@ public class LoginActivity extends BaseMvpActivity<EntrancePresent> implements E
     public void initData() {
         mLoginTv = (TextView) findViewById(R.id.login_tv);
         mLoginTv.setOnClickListener(this);
-        mAccount = (EditText) findViewById(R.id.regist_phone_et);
+        mPhoneEt = (EditText) findViewById(R.id.regist_phone_et);
         mPassword = (EditText) findViewById(R.id.password);
         getToolbar().setVisibility(View.GONE);
     }
@@ -180,7 +185,7 @@ public class LoginActivity extends BaseMvpActivity<EntrancePresent> implements E
             default:
                 break;
             case R.id.login_tv:
-                account = mAccount.getText().toString();
+                account = mPhoneEt.getText().toString();
                 password = mPassword.getText().toString();
                 if (account.isEmpty()) {
                     ToastUtils.error(mContext, "账号不可为空");

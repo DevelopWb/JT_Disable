@@ -2,12 +2,10 @@ package com.juntai.disabled.federation;
 
 public class AppHttpPath {
     /**
-     * base
      */
-    //        public static final String BASE = "http://192.168.124.115:8080/disabledPersonsFederation/u/app";
+//            public static final String BASE = "http://192.168.124.115:8080/disabledPersonsFederation/u/app";
     public static final String BASE = "http://juntaikeji.com:19120/disabledPersonsFederation/u/app";
 
-    //    public static final String BASE = "http://192.168.124.118:8080/dongGuanPolice/";
 
     /**
      * 车辆流直播
@@ -221,7 +219,7 @@ public class AppHttpPath {
     /**
      * 修改头像
      */
-    public static final String HEAD_UPDATE = BASE + "/updateAppHeadImg.shtml";
+    public static final String HEAD_UPDATE = BASE + "/updateUserHeadImg.shtml";
 
     /**
      * 获取我的监控收藏列表

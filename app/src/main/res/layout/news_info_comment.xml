@@ -67,7 +67,6 @@
         android:id="@+id/info_share_iv"
         android:layout_width="0dp"
         android:padding="5dp"
-        android:visibility="gone"
         app:layout_constraintHorizontal_weight="1"
         android:layout_height="wrap_content"
         android:src="@mipmap/info_share"

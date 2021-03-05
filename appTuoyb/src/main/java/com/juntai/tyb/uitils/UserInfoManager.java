@@ -25,14 +25,7 @@ public class UserInfoManager {
      * @return
      */
     public static int  getUserId(){
-        return getUserBean().getId();
-    }
-    /**
-     * 获取用户状态  （0有效；1无效）
-     * @return
-     */
-    public static int  getUserStatus(){
-        return getUserBean().getStatusX();
+        return getUserBean().getUserId();
     }
     /**
      * 获取账号的性质 是否是测试号
@@ -63,6 +56,13 @@ public class UserInfoManager {
      */
     public static String  getUserAccount(){
         return getUserBean().getAccount();
+    }
+    /**
+     * 获取用户信息 Phone
+     * @return
+     */
+    public static String  getUserPhone(){
+        return getUserBean()==null?"":getUserBean().getPhoneNumber();
     }
 
 

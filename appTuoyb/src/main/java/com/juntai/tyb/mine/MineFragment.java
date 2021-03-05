@@ -98,9 +98,6 @@ public class MineFragment extends BaseAppFragment<MinePresent> implements MineCo
                     case MineContract.MINE_MSG:
                         startActivityForResult(new Intent(mContext, MyMsgActivity.class), MyMsgActivity.IS_READ_RESULT);
                         break;
-                    case MineContract.MINE_MODIFY_PWD:
-                        startActivity(new Intent(mContext, ModifyPwdActivity.class));
-                        break;
                     case MineContract.MINE_CLEAR:
                         DialogUtil.getMessageDialog(mContext, "将清理掉应用本地的图片和视频缓存文件",
                                 new DialogInterface.OnClickListener() {

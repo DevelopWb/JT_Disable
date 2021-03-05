@@ -87,6 +87,8 @@ public class RegistActivity extends SmsCheckCodeActivity<RegistPresent> implemen
      */
     private TextView mLoginTv;
 
+    public static  String REGIST_PHONE = "regist_phone";
+
     @Override
     protected RegistPresent createPresenter() {
         return new RegistPresent();
@@ -213,9 +215,8 @@ public class RegistActivity extends SmsCheckCodeActivity<RegistPresent> implemen
         switch (tag) {
             case RegistContract.REGIST:
                 ToastUtils.success(mContext, "注册成功");
-                startActivity(new Intent(this, LoginActivity.class).putExtra("reload_tag",
+                startActivity(new Intent(this, LoginActivity.class).putExtra(REGIST_PHONE,
                         getTextViewValue(mRegistPhoneEt)));
-                onBackPressed();
                 break;
             default:
                 break;
@@ -264,10 +265,10 @@ public class RegistActivity extends SmsCheckCodeActivity<RegistPresent> implemen
                 }
 
                 FormBody.Builder builder = new FormBody.Builder();
-                builder.add("account", account);
+                builder.add("phoneNumber", account);
                 builder.add("password", MD5.md5(String.format("%s#%s", account, getTextViewValue(mRegistCheckPwdEt))));
                 builder.add("nickname", getTextViewValue(mRegistNameEt));
-                builder.add("source", "1");//（1警小宝；2巡小管；3邻小帮）
+                builder.add("userSource", "10");//（1警小宝；2巡小管；3邻小帮   注册来源（10河东残联APP））
                 requestBody = builder.build();
                 if (!isAgreeProtocal) {
                     ToastUtils.toast(mContext, "请阅读并同意《隐私协议》和《用户协议》");

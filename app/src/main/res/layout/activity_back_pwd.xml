@@ -64,6 +64,7 @@
                 <EditText
                     android:id="@+id/regist_phone_et"
                     style="@style/edit_tv_style"
+
                     android:hint="请输入注册手机号码"
                     android:inputType="phone"
                     android:maxLength="11" />

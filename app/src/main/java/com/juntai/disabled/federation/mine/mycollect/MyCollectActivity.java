@@ -10,6 +10,7 @@ import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.MainPagerAdapter;
 import com.juntai.disabled.federation.base.customview.CustomViewPager;
+
 /**
  * 我的收藏、分享
  * @aouther ZhangZhenlong
@@ -42,14 +43,12 @@ public class MyCollectActivity extends BaseActivity implements ViewPager.OnPageC
         }
         if (function == 1){
             setTitleName("我的收藏");
-            title = new String[]{"资讯", "监控"};
-            mFragments.append(0,MyCollectFragment.newInstance(8,function));
-            mFragments.append(1,MyCollectFragment.newInstance(0,function));
         }else {
             setTitleName("我的分享");
-            title = new String[]{"资讯"};
-            mFragments.append(0,MyCollectFragment.newInstance(8,function));
         }
+        title = new String[]{"资讯", "监控"};
+        mFragments.append(0,MyCollectFragment.newInstance(8,function));
+        mFragments.append(1,MyCollectFragment.newInstance(0,function));
         if (title.length>1){
             mCollectTablayout.setVisibility(View.VISIBLE);
         }else {
@@ -72,9 +71,9 @@ public class MyCollectActivity extends BaseActivity implements ViewPager.OnPageC
         /*viewpager切换监听，包含滑动点击两种*/
         mCollectViewpager.addOnPageChangeListener(this);
         //TabLayout
-//        tabLayout.addTab(tabLayout.newTab().setText("index").setIcon(R.mipmap.point_focus));
+        //        tabLayout.addTab(tabLayout.newTab().setText("index").setIcon(R.mipmap.point_focus));
         mCollectTablayout.setupWithViewPager(mCollectViewpager);
-//        tabLayout.setOnTabSelectedListener();
+        //        tabLayout.setOnTabSelectedListener();
         /**
          * 添加自定义tab布局
          * */
