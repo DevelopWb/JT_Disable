@@ -74,8 +74,6 @@ public class HandlerCardDetailActivity extends BaseBusinessActivity {
 
     @Override
     public void onSuccess(String tag, Object o) {
-        super.onSuccess(tag, o);
-
         HandlerCardDetailBean handlerCardDetailBean = (HandlerCardDetailBean) o;
         if (handlerCardDetailBean != null) {
             HandlerCardDetailBean.DataBean dataBean =   handlerCardDetailBean.getData();

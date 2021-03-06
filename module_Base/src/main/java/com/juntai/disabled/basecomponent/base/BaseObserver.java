@@ -65,7 +65,7 @@ public abstract class BaseObserver<T> extends DisposableObserver<T> {
                     onError(model.message == null? "服务器开小差了" : model.message);
                 }
             } else {
-                //单点登录
+                //单点登录   被顶后 服务端的success值为false status没有赋值
                 if (BaseApplication.isReLoadWarn){
                     BaseApplication.isReLoadWarn = false;
                     LogUtil.e("resule == false");

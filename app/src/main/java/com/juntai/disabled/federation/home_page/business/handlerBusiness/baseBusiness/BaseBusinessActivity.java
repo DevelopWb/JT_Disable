@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.PickerManager;
+import com.juntai.disabled.basecomponent.utils.RuleTools;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.R;
@@ -58,8 +59,10 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     private int currentPosition;
     private GestureSignatureView gsv_signature;
     private BottomSheetDialog bottomSheetDialog;
-    private String signPath;
+    private String signPath=null;
+    private String birthDay=null;
     private ImageView mSignIv = null;
+    private ImageView mHandlerSignIv = null;//办理残疾证的时候的签名
     private TextView mSelectTv;
     private int selectedCardType = 1;//1新申请；2换领申请；3补办申请
     private int selectedIQId = 1;//（1<=25；2<=26-39；3<=40-54；4<=55-75）
@@ -86,6 +89,15 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     protected abstract void commit();
 
     protected abstract List<MultipleItem> getAdapterData();
+
+    /**
+     * 签名控件
+     */
+    protected  void setSignIv(ImageView mHandlerSignIv){
+        this.mHandlerSignIv = mHandlerSignIv;
+    }
+
+
 
     @Override
     protected BusinessPresent createPresenter() {
@@ -236,9 +248,9 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                 PickerManager.getInstance().showTimePickerView(mContext, null, "出生年月", new PickerManager.OnTimePickerTimeSelectedListener() {
                                     @Override
                                     public void onTimeSelect(Date date, View v) {
-                                        String birth = DateUtil.getDateString(date,"yyyy年MM月dd日");
-                                        mSelectTv.setText(birth);
-                                        selectBean.setValue(birth);
+                                        birthDay = DateUtil.getDateString(date,"yyyy年MM月dd日");
+                                        mSelectTv.setText(birthDay);
+                                        selectBean.setValue(birthDay);
                                     }
                                 });
 
@@ -345,7 +357,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
             bottomSheetDialog = null;
         }
         //清除签名文件
-        FileCacheUtils.clearImage(FileCacheUtils.getAppImagePath() + FileCacheUtils.SIGN_PIC_NAME);
+        FileCacheUtils.clearImage(getSignPath());
     }
 
     @Override
@@ -407,6 +419,9 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                 FileCacheUtils.getLoacalBitmap(signPath); //从本地取图片(在cdcard中获取)  //
                         if (mSignIv != null) {
                             mSignIv.setImageBitmap(bitmap1); //设置Bitmap
+                        }
+                        if (mHandlerSignIv != null) {
+                            mHandlerSignIv.setImageBitmap(bitmap1); //设置Bitmap
                         }
                         if (itemSignBean != null) {
                             itemSignBean.setSignPicPath(signPath);
@@ -510,6 +525,10 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             break;
                         case BusinessContract.TABLE_TITLE_IDCARD:
                             //身份证号
+                            if (!RuleTools.isIdNO(mContext,textValueEditBean.getValue())) {
+                                ToastUtils.toast(mContext, "身份证号格式不正确");
+                                return null;
+                            }
                             formKey = "idNumber";
                             break;
                         case BusinessContract.TABLE_TITLE_CHILD_IDCARD:
@@ -550,6 +569,11 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             break;
                         case BusinessContract.TABLE_TITLE_PHONE:
                             //联系电话
+                            if (!RuleTools.isMobileNO(textValueEditBean.getValue())) {
+                                ToastUtils.toast(mContext, "联系电话格式不正确");
+                                return null;
+                            }
+
                             formKey = "telephone";
                             break;
                         case BusinessContract.TABLE_TITLE_CONTACTER:
@@ -558,6 +582,10 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             break;
                         case BusinessContract.TABLE_TITLE_CONTACT_MODE:
                             //联系方式
+                            if (!RuleTools.isMobileNO(textValueEditBean.getValue())) {
+                                ToastUtils.toast(mContext, "联系方式格式不正确");
+                                return null;
+                            }
                             formKey = "telephone";
                             break;
                         case BusinessContract.TABLE_TITLE_CURRENT_LIVE_ADDR:
@@ -808,7 +836,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             break;
                         case BusinessContract.TABLE_TITLE_BIRTH:
                             //出生年月
-                            builder.addFormDataPart("birth", String.valueOf(selectedBrainId));
+                            builder.addFormDataPart("birth", String.valueOf(birthDay));
                             break;
                         case BusinessContract.TABLE_TITLE_DISABILITY_KINDS:
                             builder.addFormDataPart("category", String.valueOf(categoryId));

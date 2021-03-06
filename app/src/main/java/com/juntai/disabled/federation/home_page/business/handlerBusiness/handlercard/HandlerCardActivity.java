@@ -27,6 +27,7 @@ import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessContract;
+import com.juntai.disabled.federation.utils.StringTools;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -65,6 +66,7 @@ public class HandlerCardActivity extends BaseBusinessActivity {
         mCommitBusinessTv = view.findViewById(R.id.commit_business_form_tv);
         mCommitBusinessTv.setOnClickListener(this);
         mGuardianNameSignIv.setOnClickListener(this);
+        setSignIv(mGuardianNameSignIv);
         return view;
     }
 
@@ -92,6 +94,13 @@ public class HandlerCardActivity extends BaseBusinessActivity {
             ToastUtils.toast(mContext, "请选择残疾种类");
             return;
         }
+        if (!StringTools.isStringValueOk(getSignPath())) {
+            ToastUtils.toast(mContext, "请签名");
+            return ;
+        }
+        builder.addFormDataPart("applicantSignFile", "applicantSignFile",
+                RequestBody.create(MediaType.parse(
+                        "file"), new File(getSignPath())));
         StringBuilder commitmentSb = new StringBuilder();
         commitmentSb.append("我是残疾人");
         commitmentSb.append(getTextViewValue(mDisableNameEt));
@@ -124,7 +133,7 @@ public class HandlerCardActivity extends BaseBusinessActivity {
     @Override
     public void initData() {
         //清除签名文件
-        FileCacheUtils.clearImage(FileCacheUtils.getAppImagePath() + FileCacheUtils.SIGN_PIC_NAME);
+        FileCacheUtils.clearImage(getSignPath());
         String content = getString(R.string.commitment);
         initCommitmentText(content);
     }
@@ -141,6 +150,7 @@ public class HandlerCardActivity extends BaseBusinessActivity {
                 List<CharSequence> types = new ArrayList<>();
                 new AlertDialog.Builder(mContext)
                         .setTitle("请选择残疾种类")
+                        .setCancelable(false)
                         .setMultiChoiceItems(disabledTypes, new boolean[]{false, false, false, false, false, false},
                                 new DialogInterface.OnMultiChoiceClickListener() {
                                     @Override

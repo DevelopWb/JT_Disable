@@ -4,6 +4,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -90,9 +91,9 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
             case MultipleItem.ITEM_BUSINESS_EDIT:
                 BusinessTextValueBean textValueEditBean = (BusinessTextValueBean) item.getObject();
                 if (BusinessContract.TABLE_TITLE_CHECK_CODE.equals(textValueEditBean.getKey())) {
-                    helper.setGone(R.id.send_check_code_tv,true);
-                }else {
-                    helper.setGone(R.id.send_check_code_tv,false);
+                    helper.setGone(R.id.send_check_code_tv, true);
+                } else {
+                    helper.setGone(R.id.send_check_code_tv, false);
                 }
                 EditText editText = helper.getView(R.id.edit_value_et);
                 if (isDetail) {
@@ -136,9 +137,37 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 editText.setHint(textValueEditBean.getHint());
                 editText.setText(textValueEditBean.getValue());
                 String editKey = textValueEditBean.getKey();
-                if (BusinessContract.TABLE_TITLE_CONTACT_MODE.equals(editKey) || BusinessContract.TABLE_TITLE_PHONE.equals(editKey)) {
-                    editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                //正则
+                switch (editKey) {
+                    case BusinessContract.TABLE_TITLE_CONTACT_MODE:
+                        //联系方式
+                        setMaxLength(editText, 11);
+                        editText.setInputType(InputType.TYPE_CLASS_PHONE);
+                        break;
+                    case BusinessContract.TABLE_TITLE_PHONE:
+                        //联系电话
+                        setMaxLength(editText, 11);
+                        editText.setInputType(InputType.TYPE_CLASS_PHONE);
+                        break;
+                    case BusinessContract.TABLE_TITLE_IDCARD:
+                        //身份证号
+                        setMaxLength(editText, 18);
+                        break;
+                    case BusinessContract.TABLE_TITLE_ZIP_CODE:
+                        //邮政编码
+                        editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        setMaxLength(editText, 6);
+                        break;
+                    case BusinessContract.TABLE_TITLE_DISABLE_CARD_ID:
+                        //残疾证号
+                        //                        setMaxLength(editText, 20);
+                        break;
+                    default:
+                        //输入类型为普通文本
+                        editText.setInputType(InputType.TYPE_CLASS_TEXT);
+                        break;
                 }
+
                 break;
             case MultipleItem.ITEM_BUSINESS_EDIT2:
                 BusinessTextValueBean textValueEditBean2 = (BusinessTextValueBean) item.getObject();
@@ -411,6 +440,18 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
             default:
                 break;
         }
+    }
+
+    /**
+     * 配置最大长度
+     *
+     * @param editText
+     * @param i2
+     */
+    private void setMaxLength(EditText editText, int i2) {
+        //手动设置maxLength为18
+        InputFilter[] filters = {new InputFilter.LengthFilter(i2)};
+        editText.setFilters(filters);
     }
 
     private void addRadioCheckedListener(RadioGroup whichEarWearRg) {

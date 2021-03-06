@@ -104,9 +104,7 @@ public class BackPwdActivity extends SmsCheckCodeActivity<RegistPresent> impleme
         switch (pageType) {
             case 0:
                 setTitleName("找回密码");
-                mRegistPhoneEt.setFocusable(false);
-                mRegistPhoneEt.setClickable(false);
-                mRegistPhoneEt.setTextColor(ContextCompat.getColor(mContext,R.color.gray));
+                mRegistPhoneEt.setTextColor(ContextCompat.getColor(mContext,R.color.black));
                 break;
             case 1:
                 mRegistPhoneEt.setText("");

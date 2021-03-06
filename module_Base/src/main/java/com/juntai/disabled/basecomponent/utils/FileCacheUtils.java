@@ -152,6 +152,9 @@ public class FileCacheUtils {
      * 清除图片缓存
      */
     public static void clearImage(String path){
+        if (TextUtils.isEmpty(path)) {
+            return;
+        }
         File file = new File(path);
         if (!file.exists()) {
             return;

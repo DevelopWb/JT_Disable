@@ -34,7 +34,7 @@ public class ToolShare {
     }
 
     /**
-     * 第三方分享
+     * 第三方分享  规则
      * @param context
      */
     public static void shareForMob(Context context,String title,String url,String content,String imagepath){

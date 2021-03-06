@@ -1,6 +1,7 @@
 package com.juntai.disabled.federation.home_page;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -88,6 +90,7 @@ import com.juntai.disabled.federation.utils.AppUtils;
 import com.juntai.disabled.federation.utils.DateUtil;
 import com.juntai.disabled.federation.utils.ImageUtil;
 import com.juntai.disabled.federation.utils.StringTools;
+import com.juntai.disabled.federation.utils.UserInfoManager;
 import com.juntai.disabled.im.ModuleIm_Init;
 import com.orhanobut.hawk.Hawk;
 import com.sunfusheng.marqueeview.MarqueeView;
@@ -992,19 +995,38 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
                 break;
             //一键报警
             case R.id.call_police_iv:
+                if (!MyApp.isLogin()) {
+                    MyApp.goLogin();
+                    return;
+                }
+                //未实名将无法使用
+                //实名认证状态（0：未提交）（1：提交审核中）（2：审核通过）（3：审核失败）
+
                 UserBean userBean = Hawk.get(AppUtils.SP_KEY_USER);
                 if (userBean != null) {
                     if (1 == userBean.getData().getBlacklist()) {
                         ToastUtils.toast(mContext, "您已被加入黑名单！");
                         return;
                     }
-                    //实名认证状态（0：未提交）（1：提交审核中）（2：审核通过）（3：审核失败）
-                    int status = userBean.getData().getRealNameStatus();
+
+                    int status = UserInfoManager.getRealNameStatus();
                     if (2 != status) {
-                        startActivity(new Intent(mContext, VerifiedActivity.class).putExtra(VerifiedActivity.VERIFIED_STATUS, status));
-                    } else {
-                        startActivity(new Intent(mContext, CallToPoliceActivity.class));
+                        new AlertDialog.Builder(mContext)
+                                .setMessage(R.string.auth_msg)
+                                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                }).setPositiveButton(R.string.to_auth, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mContext.startActivity(new Intent(mContext, VerifiedActivity.class).putExtra(VerifiedActivity.VERIFIED_STATUS, status));
+                            }
+                        }).show();
+                        return;
                     }
+                    startActivity(new Intent(mContext, CallToPoliceActivity.class));
                 }
                 break;
             case R.id.delete_icon:

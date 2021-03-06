@@ -4,9 +4,11 @@ package com.juntai.disabled.federation;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 
 import com.baidu.location.BDLocation;
@@ -23,6 +25,7 @@ import com.juntai.disabled.federation.entrance.LoginActivity;
 import com.juntai.disabled.federation.entrance.complete_info.CompleteInfoActivity;
 import com.juntai.disabled.federation.greenDao.DaoMaster;
 import com.juntai.disabled.federation.greenDao.DaoSession;
+import com.juntai.disabled.federation.home_page.call_to_police.VerifiedActivity;
 import com.juntai.disabled.federation.home_page.news.news_info.NewsNormalInfoActivity;
 import com.juntai.disabled.federation.home_page.news.news_info.NewsVideoInfoActivity;
 import com.juntai.disabled.federation.utils.AppUtils;
@@ -375,7 +378,20 @@ public class MyApp extends BaseApplication {
         Intent intent = new Intent(app, CompleteInfoActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if (getUser().getData().getSettleStatus() == 0) {
-            app.startActivity(intent);
+            new AlertDialog.Builder(app)
+                    .setMessage("去完善")
+                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).setPositiveButton(R.string.to_auth, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    app.startActivity(intent);
+                }
+            }).show();
+
             return false;
         } else if (getUser().getData().getSettleStatus() == 3) {
             ToastUtils.warning(app, "信息审核不通过，请重新提交！");

@@ -1,6 +1,8 @@
 package com.juntai.disabled.federation.home_page.business;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +11,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
@@ -74,11 +77,29 @@ public class BusinessItemAdapter extends BaseMultiItemQuickAdapter<MultipleItem,
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
-                        if (!MyApp.isLogin()){
+                        if (!MyApp.isLogin()) {
                             MyApp.goLogin();
                             return;
                         }
-
+                        //未实名将无法使用
+                        //实名认证状态（0：未提交）（1：提交审核中）（2：审核通过）（3：审核失败）
+                        int status = UserInfoManager.getRealNameStatus();
+                        if (2 != status) {
+                            new AlertDialog.Builder(mContext)
+                                    .setMessage(R.string.auth_msg)
+                                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    }).setPositiveButton(R.string.to_auth, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    mContext.startActivity(new Intent(mContext, VerifiedActivity.class).putExtra(VerifiedActivity.VERIFIED_STATUS, status));
+                                }
+                            }).show();
+                            return;
+                        }
                         AllBusinessBean.DataBean.WorkMatterListBean bean =
                                 (AllBusinessBean.DataBean.WorkMatterListBean) adapter.getData().get(position);
                         switch (bean.getId()) {
@@ -137,14 +158,7 @@ public class BusinessItemAdapter extends BaseMultiItemQuickAdapter<MultipleItem,
                                 break;
                             case 15:
                                 //意见建议
-                                //未实名将无法使用
-                                //实名认证状态（0：未提交）（1：提交审核中）（2：审核通过）（3：审核失败）
-                                int status = UserInfoManager.getRealNameStatus();
-                                if (2 != status) {
-                                    mContext. startActivity(new Intent(mContext, VerifiedActivity.class).putExtra(VerifiedActivity.VERIFIED_STATUS, status));
-                                } else {
-                                    mContext.startActivity(new Intent(mContext, SuggestionActivity.class));
-                                }
+                                mContext.startActivity(new Intent(mContext, SuggestionActivity.class));
                                 break;
                             default:
                                 break;
