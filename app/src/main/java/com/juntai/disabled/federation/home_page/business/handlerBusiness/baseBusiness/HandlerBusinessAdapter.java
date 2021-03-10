@@ -96,13 +96,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                     helper.setGone(R.id.send_check_code_tv, false);
                 }
                 EditText editText = helper.getView(R.id.edit_value_et);
-                if (isDetail) {
-                    editText.setClickable(false);
-                    editText.setFocusable(false);
-                } else {
-                    editText.setClickable(true);
-                    editText.setFocusable(true);
-                }
+                initEdittextFocuseStatus(editText);
                 int editType = textValueEditBean.getType();
                 LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) editText.getLayoutParams();
                 if (0 == editType) {
@@ -141,22 +135,32 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 switch (editKey) {
                     case BusinessContract.TABLE_TITLE_CONTACT_MODE:
                         //联系方式
-                        setMaxLength(editText, 11);
                         editText.setInputType(InputType.TYPE_CLASS_PHONE);
                         break;
                     case BusinessContract.TABLE_TITLE_PHONE:
                         //联系电话
-                        setMaxLength(editText, 11);
                         editText.setInputType(InputType.TYPE_CLASS_PHONE);
                         break;
-                    case BusinessContract.TABLE_TITLE_IDCARD:
-                        //身份证号
-                        setMaxLength(editText, 18);
-                        break;
+//                    case BusinessContract.TABLE_TITLE_IDCARD:
+//                        //身份证号
+//                        setMaxLength(editText, 18);
+//                        break;
                     case BusinessContract.TABLE_TITLE_ZIP_CODE:
                         //邮政编码
                         editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-                        setMaxLength(editText, 6);
+//                        setMaxLength(editText, 6);
+                        break;
+                    case BusinessContract.TABLE_TITLE_AGE_FAMILY:
+                        //F年龄
+                        editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        break;
+                    case BusinessContract.TABLE_TITLE_AGE_PERSIONAL:
+                        //P年龄
+                        editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        break;
+                    case BusinessContract.TABLE_TITLE_EMAIL:
+                        //E-mail
+                        editText.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
                         break;
                     case BusinessContract.TABLE_TITLE_DISABLE_CARD_ID:
                         //残疾证号
@@ -165,6 +169,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                     default:
                         //输入类型为普通文本
                         editText.setInputType(InputType.TYPE_CLASS_TEXT);
+//                        setMaxLength(editText, 1000);
                         break;
                 }
 
@@ -172,13 +177,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
             case MultipleItem.ITEM_BUSINESS_EDIT2:
                 BusinessTextValueBean textValueEditBean2 = (BusinessTextValueBean) item.getObject();
                 EditText editText2 = helper.getView(R.id.value_et);
-                if (isDetail) {
-                    editText2.setClickable(false);
-                    editText2.setFocusable(false);
-                } else {
-                    editText2.setClickable(true);
-                    editText2.setFocusable(true);
-                }
+                initEdittextFocuseStatus(editText2);
                 TextView textView2 = helper.getView(R.id.key_tv);
                 editText2.setTag(textValueEditBean2);
                 addTextChange(editText2);
@@ -223,15 +222,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
             case MultipleItem.ITEM_BUSINESS_RADIO:
                 BusinessRadioBean radioBean = (BusinessRadioBean) item.getObject();
                 RadioGroup radioGroup = helper.getView(R.id.item_radio_g);
-                if (isDetail) {
-                    for (int i = 0; i < radioGroup.getChildCount(); i++) {
-                        radioGroup.getChildAt(i).setEnabled(false);
-                    }
-                } else {
-                    for (int i = 0; i < radioGroup.getChildCount(); i++) {
-                        radioGroup.getChildAt(i).setEnabled(true);
-                    }
-                }
+                initRadioGroupStatus(radioGroup);
                 radioGroup.setTag(radioBean);
                 RadioButton radioButton0 = helper.getView(R.id.radio_zero_rb);
                 RadioButton radioButton1 = helper.getView(R.id.radio_first_rb);
@@ -397,17 +388,24 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 break;
 
             case MultipleItem.ITEM_BUSINESS_DEAF_TABLE:
+
                 DeafBean deafBean = (DeafBean) item.getObject();
                 EditText leftEarLoseEt = helper.getView(R.id.left_ear_et);
+                initEdittextFocuseStatus(leftEarLoseEt);
                 leftEarLoseEt.setTag(deafBean);
                 leftEarLoseEt.setText(deafBean.getLeftEar());
                 EditText rightEarLoseEt = helper.getView(R.id.right_ear_et);
+                initEdittextFocuseStatus(rightEarLoseEt);
                 rightEarLoseEt.setTag(deafBean);
                 rightEarLoseEt.setText(deafBean.getRightEar());
                 EditText wearYearEt = helper.getView(R.id.wear_time_year_et);
+                initEdittextFocuseStatus(wearYearEt);
+
                 wearYearEt.setTag(deafBean);
                 wearYearEt.setText(deafBean.getWearTimeYear());
                 EditText wearMonthEt = helper.getView(R.id.wear_time_month_et);
+                initEdittextFocuseStatus(wearMonthEt);
+
                 wearMonthEt.setTag(deafBean);
                 wearMonthEt.setText(deafBean.getWearTimeMonth());
                 addTextChange(leftEarLoseEt);
@@ -436,9 +434,34 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 whichEarWearRg.setTag(deafBean);
                 addRadioCheckedListener(wearAidRg);
                 addRadioCheckedListener(whichEarWearRg);
+                initRadioGroupStatus(wearAidRg);
+                initRadioGroupStatus(whichEarWearRg);
+
                 break;
             default:
                 break;
+        }
+    }
+
+    private void initEdittextFocuseStatus(EditText editText) {
+        if (isDetail) {
+            editText.setClickable(false);
+            editText.setFocusable(false);
+        } else {
+            editText.setClickable(true);
+            editText.setFocusable(true);
+        }
+    }
+
+    private void initRadioGroupStatus(RadioGroup wearAidRg) {
+        if (isDetail) {
+            for (int i = 0; i < wearAidRg.getChildCount(); i++) {
+                wearAidRg.getChildAt(i).setEnabled(false);
+            }
+        } else {
+            for (int i = 0; i < wearAidRg.getChildCount(); i++) {
+                wearAidRg.getChildAt(i).setEnabled(true);
+            }
         }
     }
 

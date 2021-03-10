@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
@@ -7,26 +8,41 @@
 
     <TextView
         android:id="@+id/form_pic_title_tv"
-        android:layout_width="match_parent"
         style="@style/item_title_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:gravity="center"
-        android:text="1.申请人残疾证照片"
-        android:layout_height="wrap_content"></TextView>
+        android:text="1.申请人残疾证照片"></TextView>
 
-    <ImageView
-        android:id="@+id/form_pic_src_iv"
-        android:layout_width="245dp"
-        android:scaleType="fitXY"
-        android:layout_height="150dp"
-        android:src="@mipmap/item_add_pic"></ImageView>
-    <TextView
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="2dp">
+
+        <ImageView
+            android:id="@+id/form_pic_src_iv"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            android:src="@mipmap/item_add_pic"></ImageView>
+
+    </android.support.v7.widget.CardView>
+
+
+
+    <TextView
         style="@style/item_title_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:text="附件格式:.png/.jpg/.jpeg"
-        android:layout_height="wrap_content"></TextView>
+        android:text="附件格式:.png/.jpg/.jpeg"></TextView>
 </LinearLayout>

@@ -72,6 +72,18 @@ public class AssistToolDetailBean extends BaseResult {
         private String applicantSign;
         private String photo;
         private String disabilityCertificatePicture;
+        /**
+         * 生活照片
+         */
+        private String lifePicture;
+
+        public String getLifePicture() {
+            return lifePicture == null ? "" : lifePicture;
+        }
+
+        public void setLifePicture(String lifePicture) {
+            this.lifePicture = lifePicture == null ? "" : lifePicture;
+        }
 
         public int getId() {
             return id;

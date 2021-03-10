@@ -99,7 +99,7 @@ public class RecoveryDetailBean extends BaseResult {
         private String familyEconomyName;
         private int poorFamily;
         private String poorFamilyName;
-        private Object poorFamilyExplain;
+        private String poorFamilyExplain;
         private int alleviation;
         private String alleviationName;
         private int accountType;
@@ -391,12 +391,12 @@ public class RecoveryDetailBean extends BaseResult {
             this.poorFamilyName = poorFamilyName == null ? "" : poorFamilyName;
         }
 
-        public Object getPoorFamilyExplain() {
-            return poorFamilyExplain;
+        public String getPoorFamilyExplain() {
+            return poorFamilyExplain == null ? "" : poorFamilyExplain;
         }
 
-        public void setPoorFamilyExplain(Object poorFamilyExplain) {
-            this.poorFamilyExplain = poorFamilyExplain;
+        public void setPoorFamilyExplain(String poorFamilyExplain) {
+            this.poorFamilyExplain = poorFamilyExplain == null ? "" : poorFamilyExplain;
         }
 
         public int getAlleviation() {

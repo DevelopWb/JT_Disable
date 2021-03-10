@@ -16,6 +16,7 @@ import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.PickerManager;
+import com.juntai.disabled.basecomponent.utils.RuleTools;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.R;
@@ -62,6 +63,7 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
     private BottomSheetDialog bottomSheetDialog;
     private String signPath;
     private int currentPosition;
+    private String birthDay=null;
 
     private ImageView mSignIv = null;
     private TextView mSelectTv;
@@ -231,9 +233,9 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
                                 PickerManager.getInstance().showTimePickerView(mContext, null, "出生年月", new PickerManager.OnTimePickerTimeSelectedListener() {
                                     @Override
                                     public void onTimeSelect(Date date, View v) {
-                                        String birth = DateUtil.getDateString(date,"yyyy年MM月dd日");
-                                        mSelectTv.setText(birth);
-                                        selectBean.setValue(birth);
+                                        birthDay = DateUtil.getDateString(date,"yyyy年MM月dd日");
+                                        mSelectTv.setText(birthDay);
+                                        selectBean.setValue(birthDay);
                                     }
                                 });
 
@@ -373,6 +375,10 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
                             break;
                         case BusinessContract.TABLE_TITLE_IDCARD:
                             //身份证号
+                            if (!RuleTools.isIdNO(mContext,textValueEditBean.getValue())) {
+                                ToastUtils.toast(mContext, "身份证号格式不正确");
+                                return null;
+                            }
                             formKey = "idNumber";
                             break;
                         case BusinessContract.TABLE_TITLE_CHILD_IDCARD:
@@ -413,6 +419,10 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
                             break;
                         case BusinessContract.TABLE_TITLE_PHONE:
                             //联系电话
+                            if (!RuleTools.isMobileNO(textValueEditBean.getValue())) {
+                                ToastUtils.toast(mContext, "联系电话格式不正确");
+                                return null;
+                            }
                             formKey = "telephone";
                             break;
                         case BusinessContract.TABLE_TITLE_CONTACTER:
@@ -421,6 +431,10 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
                             break;
                         case BusinessContract.TABLE_TITLE_CONTACT_MODE:
                             //联系方式
+                            if (!RuleTools.isMobileNO(textValueEditBean.getValue())) {
+                                ToastUtils.toast(mContext, "联系电话格式不正确");
+                                return null;
+                            }
                             formKey = "telephone";
                             break;
                         case BusinessContract.TABLE_TITLE_CURRENT_LIVE_ADDR:
@@ -539,6 +553,10 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
                             break;
                         case BusinessContract.TABLE_TITLE_EMAIL:
                             //email
+                            if (!RuleTools.isEmail(textValueEditBean.getValue())) {
+                                ToastUtils.toast(mContext, "请输入正确的E-mail地址");
+                                return null;
+                            }
                             formKey = "email";
                             break;
                         case BusinessContract.TABLE_TITLE_FATHER_NAME:
@@ -657,7 +675,7 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
                             break;
                         case BusinessContract.TABLE_TITLE_BIRTH:
                             //出生年月
-                            builder.addFormDataPart("birth", String.valueOf(selectedBrainId));
+                            builder.addFormDataPart("birth", String.valueOf(birthDay));
                             break;
                         case BusinessContract.TABLE_TITLE_DISABILITY_KINDS:
                             builder.addFormDataPart("category", String.valueOf(categoryId));

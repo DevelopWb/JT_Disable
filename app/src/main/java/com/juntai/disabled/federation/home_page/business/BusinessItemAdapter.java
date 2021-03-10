@@ -161,6 +161,7 @@ public class BusinessItemAdapter extends BaseMultiItemQuickAdapter<MultipleItem,
                                 mContext.startActivity(new Intent(mContext, SuggestionActivity.class));
                                 break;
                             default:
+                                ToastUtils.toast(mContext,R.string.not_open_notice);
                                 break;
                         }
                     }

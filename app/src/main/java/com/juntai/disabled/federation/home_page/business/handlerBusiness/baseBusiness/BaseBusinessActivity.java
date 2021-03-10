@@ -700,10 +700,18 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             break;
                         case BusinessContract.TABLE_TITLE_HOUSE_PHONE:
                             //住宅电话
+                            if (!RuleTools.isMobileNO(textValueEditBean.getValue())) {
+                                ToastUtils.toast(mContext, "住宅电话格式不正确");
+                                return null;
+                            }
                             formKey = "telephone";
                             break;
                         case BusinessContract.TABLE_TITLE_MOBILE_NUM:
                             //手机号码
+                            if (!RuleTools.isMobileNO(textValueEditBean.getValue())) {
+                                ToastUtils.toast(mContext, "手机号码格式不正确");
+                                return null;
+                            }
                             formKey = "phone";
                             break;
                         case BusinessContract.TABLE_TITLE_GUARDIAN_ID_CARD:
@@ -963,24 +971,24 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             break;
                         case BusinessContract.TABLE_TITLE_POOR_FAMILY:
                             //贫困家庭
-                            builder.addFormDataPart("poorFamily", String.valueOf(selectedItem.getIndex()));
-                            if (5 == selectedItem.getIndex()) {
+                            builder.addFormDataPart("poorFamily", String.valueOf(selectedItem.getIndex()+1));
+                            if (4 == selectedItem.getIndex()) {
                                 //其他困难  需要上传描述字段
                                 builder.addFormDataPart("poorFamilyExplain", selectedItem.getDes());
                             }
                             break;
                         case BusinessContract.TABLE_TITLE_MEDICALSAFE:
                             //享受医疗保险情况
-                            builder.addFormDataPart("medicalInsurance", String.valueOf(selectedItem.getIndex()));
+                            builder.addFormDataPart("medicalInsurance", String.valueOf(selectedItem.getIndex()+1));
                             break;
                         case BusinessContract.TABLE_TITLE_CURRENT_RECOVERY:
                             //目前康复状态
-                            builder.addFormDataPart("recovery", String.valueOf(selectedItem.getIndex()));
+                            builder.addFormDataPart("recovery", String.valueOf(selectedItem.getIndex()+1));
                             break;
 
                         case BusinessContract.TABLE_TITLE_REQUEST_RECOVERY:
                             //康复需求项目
-                            builder.addFormDataPart("recoveryProject", String.valueOf(selectedItem.getIndex()));
+                            builder.addFormDataPart("recoveryProject", String.valueOf(selectedItem.getIndex()+1));
                             break;
                         default:
                             break;

@@ -24,6 +24,7 @@
             android:id="@+id/left_ear_et"
             android:layout_width="100dp"
             android:gravity="center"
+            android:inputType="number"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_white_only_bottom_gray_shape_1px"
             android:textColor="@color/text_title"
@@ -54,6 +55,7 @@
             android:id="@+id/right_ear_et"
             android:layout_width="100dp"
             android:gravity="center"
+            android:inputType="number"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_white_only_bottom_gray_shape_1px"
             android:textColor="@color/text_title"
@@ -122,6 +124,8 @@
             android:id="@+id/wear_time_year_et"
             android:layout_width="80dp"
             android:gravity="center"
+            android:inputType="number"
+
             android:layout_height="wrap_content"
             android:background="@drawable/bg_white_only_bottom_gray_shape_1px"
             android:imeOptions="actionDone"
@@ -144,6 +148,7 @@
             android:background="@drawable/bg_white_only_bottom_gray_shape_1px"
             android:imeOptions="actionDone"
             android:padding="5dp"
+            android:inputType="number"
             android:textColor="@color/text_title"
             android:textSize="16dp"></EditText>
 

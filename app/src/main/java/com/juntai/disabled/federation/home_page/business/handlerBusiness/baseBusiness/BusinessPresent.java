@@ -1554,7 +1554,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                         dataBean.getDisabilityCertificatePicture())));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_LIFE_PIC, 2, dataBean == null ? "" :
-                        dataBean.getPhoto())));
+                        dataBean.getLifePicture())));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_NOTICE,
                 "备注：严格按照样表填写，器具类别数量填写一栏，数量用汉字写（壹）并且器具前后画杠，一张表只填一种器具，填写不规范一概不发放"));
 
@@ -2251,7 +2251,8 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         arrays.add(new ItemCheckBoxBean(2, "一户多残", dataBean == null ? false : 2 == dataBean.getPoorFamily()));
         arrays.add(new ItemCheckBoxBean(3, "单亲家庭", dataBean == null ? false : 3 == dataBean.getPoorFamily()));
         arrays.add(new ItemCheckBoxBean(4, "无业职工家庭", dataBean == null ? false : 4 == dataBean.getPoorFamily()));
-        arrays.add(new ItemCheckBoxBean(5, "其他困难", dataBean == null ? false : 5 == dataBean.getPoorFamily()));
+        arrays.add(new ItemCheckBoxBean(5, "其他困难", dataBean.getPoorFamilyExplain(),dataBean == null ? false :
+                5 == dataBean.getPoorFamily()));
         return arrays;
     }
 

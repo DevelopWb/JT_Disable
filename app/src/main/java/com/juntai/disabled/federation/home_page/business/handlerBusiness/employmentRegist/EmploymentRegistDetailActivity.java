@@ -56,7 +56,6 @@ public class EmploymentRegistDetailActivity extends BaseBusinessActivity {
 
     @Override
     public void onSuccess(String tag, Object o) {
-        super.onSuccess(tag, o);
         EmploymentRegDetailBean regDetailBean = (EmploymentRegDetailBean) o;
         if (regDetailBean != null) {
             EmploymentRegDetailBean.DataBean dataBean = regDetailBean.getData();

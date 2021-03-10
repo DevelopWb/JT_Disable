@@ -4,7 +4,7 @@ public class AppHttpPath {
     /**
      */
 //            public static final String BASE = "http://192.168.124.115:8080/disabledPersonsFederation/u/app";
-    public static final String BASE = "http://juntaikeji.com:19120/disabledPersonsFederation/u/app";
+    public static final String BASE = "https://wx.juntaikeji.com:19153/disabledPersonsFederation/u/app";
 
 
     /**

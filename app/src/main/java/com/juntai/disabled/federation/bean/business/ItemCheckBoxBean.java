@@ -19,6 +19,12 @@ public class ItemCheckBoxBean {
         this.key = key;
         this.selecte = selecte;
     }
+    public ItemCheckBoxBean(int index, String key, String des, boolean selecte) {
+        this.index = index;
+        this.key = key;
+        this.des = des;
+        this.selecte = selecte;
+    }
 
     public int getIndex() {
         return index;

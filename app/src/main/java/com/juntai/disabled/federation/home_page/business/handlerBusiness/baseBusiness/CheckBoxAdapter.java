@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.googlecode.mp4parser.authoring.Edit;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.business.BusinessTextValueBean;
@@ -76,7 +77,7 @@ public class CheckBoxAdapter extends BaseQuickAdapter<ItemCheckBoxBean, BaseView
                 } else {
                     item.setSelecte(true);
                 }
-
+                item.setIndex(helper.getAdapterPosition());
                 new Handler().post(new Runnable() {
                     @Override
                     public void run() {
@@ -88,11 +89,20 @@ public class CheckBoxAdapter extends BaseQuickAdapter<ItemCheckBoxBean, BaseView
         });
 
         EditText desEt =helper.getView(R.id.item_description_et);
+        initEdittextFocuseStatus(desEt);
         desEt.setText(item.getDes());
         desEt.setTag(item);
         addTextChange(desEt);
     }
-
+    private void initEdittextFocuseStatus(EditText editText) {
+        if (isDetail) {
+            editText.setClickable(false);
+            editText.setFocusable(false);
+        } else {
+            editText.setClickable(true);
+            editText.setFocusable(true);
+        }
+    }
     private void addTextChange(EditText editText) {
         editText.addTextChangedListener(new TextWatcher() {
             @Override
