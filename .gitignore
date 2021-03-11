@@ -11,3 +11,7 @@
 /build
 /captures
 .externalNativeBuild
+/CallLib/build/
+/CallKit/build/
+/IMKit/build/
+/IMLib/build/
