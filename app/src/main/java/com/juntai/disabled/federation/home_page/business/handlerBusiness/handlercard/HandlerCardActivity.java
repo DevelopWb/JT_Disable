@@ -96,7 +96,7 @@ public class HandlerCardActivity extends BaseBusinessActivity {
         }
         if (!StringTools.isStringValueOk(getSignPath())) {
             ToastUtils.toast(mContext, "请签名");
-            return ;
+            return;
         }
         builder.addFormDataPart("applicantSignFile", "applicantSignFile",
                 RequestBody.create(MediaType.parse(
@@ -167,15 +167,18 @@ public class HandlerCardActivity extends BaseBusinessActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String selectedStr = types.toString();
-                        if (selectedStr != null) {
+                        if (types.size()>0) {
                             if (selectedStr.contains("[")) {
                                 selectedStr = selectedStr.substring(1, selectedStr.length() - 1);
                             }
+                            String str = content.replace(content.substring(content.indexOf("(") + 1,
+                                    content.indexOf(")")),
+                                    selectedStr);
+                            initCommitmentText(str);
+                        } else {
+                            initCommitmentText(getString(R.string.commitment));
                         }
-                        String str = content.replace(content.substring(content.indexOf("(") + 1,
-                                content.indexOf(")")),
-                                selectedStr);
-                        initCommitmentText(str);
+
                     }
                 }).show();
             }
@@ -209,7 +212,7 @@ public class HandlerCardActivity extends BaseBusinessActivity {
         super.onSuccess(tag, o);
         switch (tag) {
             case AppHttpPath.HANDLER_DISABLED_CARD:
-                ToastUtils.toast(mContext,"办理成功");
+                ToastUtils.toast(mContext, "办理成功");
                 finish();
                 break;
             default:
