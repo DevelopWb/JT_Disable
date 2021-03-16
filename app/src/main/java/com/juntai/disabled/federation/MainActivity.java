@@ -126,6 +126,7 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
         /**分享隐私授权 true*/
         MobSDK.submitPolicyGrantResult(true, null);
     }
+
     /**
      * 登录后初始化，获取融云用户列表及开启轨迹上传任务
      */
@@ -160,13 +161,15 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
 
         mainTablayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) { if (tab.getPosition() == 1) {
-                //条件弹窗
-                initPopType(mainTablayout);
-            }else {
+            public void onTabSelected(TabLayout.Tab tab) {
                 mainViewpager.setCurrentItem(tab.getPosition(), false);
-
-            }
+//                if (tab.getPosition() == 1) {
+//                    //条件弹窗
+//                    initPopType(mainTablayout);
+//                } else {
+//                    mainViewpager.setCurrentItem(tab.getPosition(), false);
+//
+//                }
 
             }
 
@@ -177,10 +180,10 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                if (tab.getPosition() == 1) {
-                    //条件弹窗
-                    initPopType(mainTablayout);
-                }
+//                if (tab.getPosition() == 1) {
+//                    //条件弹窗
+//                    initPopType(mainTablayout);
+//                }
             }
         });
 
@@ -521,12 +524,12 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
         }
     }
 
-//    @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
-//    public void receiveMsg(NewsDraftsBean newsDraftsBean) {
-//        if (newsDraftsBean != null && newsDraftsBean.getDraftsId() != null) {
-//            mPresenter.deleteNewsDrafts(newsDraftsBean.getDraftsId(), MainPageContract.DELETE_NEWS_DRAFTS);
-//        }
-//    }
+    //    @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
+    //    public void receiveMsg(NewsDraftsBean newsDraftsBean) {
+    //        if (newsDraftsBean != null && newsDraftsBean.getDraftsId() != null) {
+    //            mPresenter.deleteNewsDrafts(newsDraftsBean.getDraftsId(), MainPageContract.DELETE_NEWS_DRAFTS);
+    //        }
+    //    }
 
     @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
     public void receiveMsg(String test) {
@@ -541,6 +544,7 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
             mHandler.removeCallbacksAndMessages(null);
         }
     }
+
     /**
      * 查询本地数据并上传
      */
