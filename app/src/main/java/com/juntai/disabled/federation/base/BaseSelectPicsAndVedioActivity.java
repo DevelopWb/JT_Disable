@@ -29,7 +29,7 @@ import java.util.List;
  * @UpdateUser: 更新者
  * @UpdateDate: 2020/7/3 14:36
  */
-public abstract class BaseSelectPicsAndVedioActivity<P extends BasePresenter> extends BaseSelectPicsActivity<P> implements SelectPhotosFragment.OnPhotoItemClick, SelectPhotosFragment.OnPicCalculateed, View.OnClickListener {
+public abstract class BaseSelectPicsAndVedioActivity<P extends BasePresenter> extends BaseAppActivity<P> implements SelectPhotosFragment.OnPhotoItemClick, SelectPhotosFragment.OnPicCalculateed, View.OnClickListener {
 
     protected SelectPhotosFragment selectPhotosFragment;
     //视频回调广播

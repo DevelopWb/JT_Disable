@@ -42,6 +42,8 @@ import java.io.IOException;
 
 import cn.rongcloud.rtc.initRoom.IMRoom_Init;
 
+import static com.juntai.disabled.basecomponent.app.BaseApplication.app;
+
 /**
  * @aouther Ma
  * @date 2019/3/12
@@ -144,20 +146,7 @@ public class MyApp extends BaseApplication {
         return Hawk.get(AppUtils.SP_RONGYUN_TOKEN);
     }
 
-    public static boolean isLogin() {
-        if (getUser() == null) {
-            return false;
-        } else {
-            return true;
-        }
-    }
 
-    /**
-     * 跳转登录
-     */
-    public static void goLogin() {
-        app.getNowActivity().startActivity(new Intent(app, LoginActivity.class));
-    }
 
     /**
      * 获取账号
@@ -361,47 +350,18 @@ public class MyApp extends BaseApplication {
         context.startActivity(newsIntent);
     }
 
-
     /**
-     * 是否已完善用户信息
-     * settleStatus;//信息审核状态（0未提交；1提交审核中；2审核通过；3审核失败）
-     *
-     * @return
+     * 跳转登录
      */
-    public static boolean isCompleteUserInfo() {
-        if (!MyApp.isLogin()){
-            MyApp.goLogin();
+    public static void goLogin() {
+        app.getNowActivity().startActivity(new Intent(app, LoginActivity.class));
+    }
+    public static boolean isLogin() {
+        if (getUser() == null) {
             return false;
-        }
-        Intent intent = new Intent(app, CompleteInfoActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        if (getUser().getData().getSettleStatus() == 0) {
-            new AlertDialog.Builder(app)
-                    .setMessage("去完善")
-                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    }).setPositiveButton(R.string.to_auth, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    app.startActivity(intent);
-                }
-            }).show();
-
-            return false;
-        } else if (getUser().getData().getSettleStatus() == 3) {
-            ToastUtils.warning(app, "信息审核不通过，请重新提交！");
-            app.startActivity(intent);
-            return false;
-        } else if (getUser().getData().getSettleStatus() == 1) {
-            ToastUtils.warning(app, "信息审核中！");
-            return false;
-        } else if (getUser().getData().getSettleStatus() == 2) {
+        } else {
             return true;
         }
-        return false;
     }
 
 }

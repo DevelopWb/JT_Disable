@@ -512,7 +512,7 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
 //                        }
                         break;
                     case 5://服务人员
-                        if (MyApp.isCompleteUserInfo()) {
+                        if (getBaseAppActivity().isCompleteUserInfo()) {
                             clearTheMap(mMap);
                             mPresenter.requestServer(MapContract.GET_SERVERS);
                         } else {
@@ -520,7 +520,7 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
                         }
                         break;
                     case 6://车辆分布
-                        if (MyApp.isCompleteUserInfo()) {
+                        if (getBaseAppActivity().isCompleteUserInfo()) {
                             clearTheMap(mMap);
                             try {
                                 mPresenter.getPoliceCars(MapContract.GET_CARS);
@@ -532,7 +532,7 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
                         }
                         break;
                     case 7://康复机构
-                        if (MyApp.isCompleteUserInfo()) {
+                        if (getBaseAppActivity().isCompleteUserInfo()) {
                             clearTheMap(mMap);
                             mPresenter.getSiteManagers(MapContract.GET_SITES);
                         } else {
@@ -979,7 +979,7 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
                 startActivity(new Intent(mContext, DistanceUtilActivity.class));
                 break;
             case R.id.search_ll:
-                if (MyApp.isCompleteUserInfo()) {
+                if (getBaseAppActivity().isCompleteUserInfo()) {
                     startActivity(new Intent(mContext, SearchActivity.class));
                 }
                 break;
@@ -987,7 +987,7 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
                 if ((System.currentTimeMillis() - currentTime) < 800) {
                     return;
                 }
-                if (!MyApp.isCompleteUserInfo()) {
+                if (!getBaseAppActivity().isCompleteUserInfo()) {
                     return;
                 }
                 currentTime = System.currentTimeMillis();
@@ -996,8 +996,8 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
                 break;
             //一键报警
             case R.id.call_police_iv:
-                if (!MyApp.isLogin()) {
-                    MyApp.goLogin();
+                if (!getBaseAppActivity().isLogin()) {
+                    getBaseAppActivity().goLogin();
                     return;
                 }
                 //未实名将无法使用

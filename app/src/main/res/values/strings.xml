@@ -84,4 +84,5 @@
     <string name="not_open_notice">暂未开放，敬请期待</string>
     <string name="auth_msg">此功能需要实名审核成功后才可操作</string>
     <string name="to_auth">去实名</string>
+    <string name="to_complete">去完善</string>
 </resources>

@@ -14,6 +14,7 @@ import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
+import com.juntai.disabled.federation.base.BaseAppFragment;
 import com.juntai.disabled.federation.bean.site.EmployeeListBean;
 import com.juntai.disabled.federation.home_page.site_manager.SiteManagerContract;
 import com.juntai.disabled.federation.home_page.site_manager.SiteManagerPresent;
@@ -30,7 +31,8 @@ import java.util.List;
  * @aouther ZhangZhenlong
  * @date 2020-7-4
  */
-public class UnitListDataFragment extends BaseMvpFragment<SiteManagerPresent> implements SiteManagerContract.ISiteManagerView,View.OnClickListener {
+public class UnitListDataFragment extends BaseAppFragment<SiteManagerPresent> implements SiteManagerContract.ISiteManagerView,
+        View.OnClickListener {
     int type = 1;//1从业人员，2检查记录
     private int unitId;
     private String unitName;
@@ -169,7 +171,7 @@ public class UnitListDataFragment extends BaseMvpFragment<SiteManagerPresent> im
                             .putExtra(AppUtils.ID_KEY,unitId).putExtra("unitName",unitName));
                 }else if (type == 2){
                     //检查记录添加
-                    if (MyApp.isCompleteUserInfo()){
+                    if (getBaseAppActivity().isCompleteUserInfo()){
                         startActivity(new Intent(mContext, AddUnitInspectionActivity.class).putExtra(AppUtils.ID_KEY, unitId));
                     }
                 }

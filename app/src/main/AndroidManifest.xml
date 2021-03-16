@@ -80,6 +80,7 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".entrance.complete_info.CompleteInfoActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:launchMode="singleTop" />
         <activity
             android:name=".home_page.site_manager.site_add.UpdateSiteActivity"

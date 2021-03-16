@@ -17,8 +17,12 @@ import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.bdmap.BaseRequestLocationActivity;
 import com.juntai.disabled.bdmap.utils.NagivationUtils;
 import com.juntai.disabled.federation.MyApp;
+import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.update.UpdateActivity;
+import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.entrance.LoginActivity;
+import com.juntai.disabled.federation.entrance.complete_info.CompleteInfoActivity;
+import com.juntai.disabled.federation.utils.AppUtils;
 import com.juntai.disabled.federation.utils.StringTools;
 import com.juntai.disabled.federation.utils.UserInfoManager;
 import com.orhanobut.hawk.Hawk;
@@ -201,6 +205,65 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
     protected void selectedPicsAndEmpressed(List<String> icons) {
 
     }
+    /**
+     * 是否已完善用户信息
+     * settleStatus;//信息审核状态（0未提交；1提交审核中；2审核通过；3审核失败）
+     *
+     * @return
+     */
+    public  boolean isCompleteUserInfo() {
+        if (!isLogin()){
+            goLogin();
+            return false;
+        }
+        Intent intent = new Intent(this, CompleteInfoActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (getUser().getData().getSettleStatus() == 0) {
+            new AlertDialog.Builder(this)
+                    .setMessage("此功能需要完善资料后才可使用")
+                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).setPositiveButton(R.string.to_complete, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    startActivity(intent);
+                }
+            }).show();
 
+            return false;
+        } else if (getUser().getData().getSettleStatus() == 3) {
+            ToastUtils.warning(this, "信息审核不通过，请重新提交！");
+            this.startActivity(intent);
+            return false;
+        } else if (getUser().getData().getSettleStatus() == 1) {
+            ToastUtils.warning(this, "信息审核中！");
+            return false;
+        } else if (getUser().getData().getSettleStatus() == 2) {
+            return true;
+        }
+        return false;
+    }
+
+
+    public  UserBean getUser() {
+        return Hawk.get(AppUtils.SP_KEY_USER);
+    }
+    /**
+     * 跳转登录
+     */
+    public  void goLogin() {
+       startActivity(new Intent(this, LoginActivity.class));
+    }
+
+    public  boolean isLogin() {
+        if (getUser() == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
 }

@@ -32,6 +32,8 @@ import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.NotificationTool;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.bdmap.service.LocateAndUpload;
+import com.juntai.disabled.federation.base.BaseAppActivity;
+import com.juntai.disabled.federation.base.BaseAppFragment;
 import com.juntai.disabled.federation.base.MainPageContract;
 import com.juntai.disabled.federation.base.MainPagePresent;
 import com.juntai.disabled.federation.base.MainPagerAdapter;
@@ -69,7 +71,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import me.leolin.shortcutbadger.ShortcutBadger;
 
-public class MainActivity extends UpdateActivity<MainPagePresent> implements ViewPager.OnPageChangeListener,
+public class MainActivity extends BaseAppActivity<MainPagePresent> implements ViewPager.OnPageChangeListener,
         View.OnClickListener, MainPageContract.IMainPageView {
     private MainPagerAdapter adapter;
     private LinearLayout mainLayout;
@@ -486,7 +488,7 @@ public class MainActivity extends UpdateActivity<MainPagePresent> implements Vie
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == AppUtils.QR_SCAN_NOMAL && resultCode == RESULT_OK) {
             if (data != null) {
                 String result = data.getStringExtra("result");
