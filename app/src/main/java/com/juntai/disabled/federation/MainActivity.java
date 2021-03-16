@@ -160,7 +160,7 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
 
         mainTablayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) { if (tab.getPosition() == 1) {
+            public void onTabSelected(TabLayout.Tab tab) { if (tab.getPosition() == 2) {
                 //条件弹窗
                 initPopType(mainTablayout);
             }else {
@@ -177,7 +177,7 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                if (tab.getPosition() == 1) {
+                if (tab.getPosition() == 2) {
                     //条件弹窗
                     initPopType(mainTablayout);
                 }
