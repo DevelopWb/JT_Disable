@@ -39,7 +39,6 @@ import com.juntai.disabled.federation.base.customview.CustomViewPager;
 import com.juntai.disabled.federation.base.update.UpdateActivity;
 import com.juntai.disabled.federation.bean.IMUsersBean;
 import com.juntai.disabled.federation.bean.history_track.LocationBean;
-import com.juntai.disabled.federation.bean.news.NewsDraftsBean;
 import com.juntai.disabled.federation.entrance.BindingPhoneActivity;
 import com.juntai.disabled.federation.entrance.LoginActivity;
 import com.juntai.disabled.federation.home_page.MyMapFragment;
@@ -159,8 +158,14 @@ public class MainActivity extends UpdateActivity<MainPagePresent> implements Vie
 
         mainTablayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
+            public void onTabSelected(TabLayout.Tab tab) { if (tab.getPosition() == 1) {
+                //条件弹窗
+                initPopType(mainTablayout);
+            }else {
                 mainViewpager.setCurrentItem(tab.getPosition(), false);
+
+            }
+
             }
 
             @Override
@@ -170,6 +175,10 @@ public class MainActivity extends UpdateActivity<MainPagePresent> implements Vie
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 1) {
+                    //条件弹窗
+                    initPopType(mainTablayout);
+                }
             }
         });
 
@@ -336,11 +345,11 @@ public class MainActivity extends UpdateActivity<MainPagePresent> implements Vie
     }
 
     /**
-     * 发布的popupwindow
+     * popupwindow
      *
      * @param view
      */
-    public void initPopTypePublish(View view) {
+    public void initPopType(View view) {
         if (!MyApp.isLogin()) {
             MyApp.goLogin();
             return;

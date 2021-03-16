@@ -35,8 +35,6 @@ import com.juntai.disabled.im.UserIM;
 import com.juntai.disabled.video.ModuleVideo_Init;
 import com.mob.MobSDK;
 import com.orhanobut.hawk.Hawk;
-import com.tencent.bugly.Bugly;
-import com.tencent.bugly.crashreport.CrashReport;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -82,29 +80,29 @@ public class MyApp extends BaseApplication {
 
         //创建压缩图片存放目录
         FileCacheUtils.creatFile(FileCacheUtils.getAppImagePath());
-        initBugly();
+//        initBugly();
         initGreenDao();
     }
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-    /**
-     * 初始化bugly
-     */
-    private void initBugly() {
-        //        // 这里实现SDK初始化，appId替换成你的在Bugly平台申请的appId
-        //        Bugly.init(this, BUGLY_APPID, false);
-        //
-        //bug上传
-        // 获取当前包名
-        String packageName = getPackageName();
-        // 获取当前进程名
-        String processName = getProcessName(android.os.Process.myPid());
-        // 设置是否为上报进程
-        CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(this);
-        strategy.setUploadProcess(processName == null || processName.equals(packageName));
-        CrashReport.initCrashReport(this, BUGLY_APPID, false);
-
-    }
+//    /**
+//     * 初始化bugly
+//     */
+//    private void initBugly() {
+//        //        // 这里实现SDK初始化，appId替换成你的在Bugly平台申请的appId
+//        //        Bugly.init(this, BUGLY_APPID, false);
+//        //
+//        //bug上传
+//        // 获取当前包名
+//        String packageName = getPackageName();
+//        // 获取当前进程名
+//        String processName = getProcessName(android.os.Process.myPid());
+//        // 设置是否为上报进程
+//        CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(this);
+//        strategy.setUploadProcess(processName == null || processName.equals(packageName));
+//        CrashReport.initCrashReport(this, BUGLY_APPID, false);
+//
+//    }
 
     /**
      * 初始化GreenDao,直接在Application中进行初始化操作
