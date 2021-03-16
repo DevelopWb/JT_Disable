@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
+import com.google.gson.Gson;
 import com.juntai.disabled.basecomponent.app.BaseApplication;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.utils.ActionConfig;
@@ -36,6 +38,7 @@ import com.juntai.disabled.federation.base.MainPagerAdapter;
 import com.juntai.disabled.federation.base.customview.CustomViewPager;
 import com.juntai.disabled.federation.base.update.UpdateActivity;
 import com.juntai.disabled.federation.bean.IMUsersBean;
+import com.juntai.disabled.federation.bean.history_track.LocationBean;
 import com.juntai.disabled.federation.bean.news.NewsDraftsBean;
 import com.juntai.disabled.federation.entrance.BindingPhoneActivity;
 import com.juntai.disabled.federation.entrance.LoginActivity;
@@ -60,6 +63,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -71,6 +75,9 @@ public class MainActivity extends UpdateActivity<MainPagePresent> implements Vie
     private MainPagerAdapter adapter;
     private LinearLayout mainLayout;
     private CustomViewPager mainViewpager;
+    final static Handler mHandler = new Handler();
+    List<LocationBean> cacheDatas = new ArrayList<>();//
+
     private TabLayout mainTablayout;
     private String[] title = new String[]{"首页", "业务办理", "信息采集", "我的"};
     private int[] tabDrawables = new int[]{R.drawable.home_index, R.drawable.handler_business,
@@ -111,14 +118,24 @@ public class MainActivity extends UpdateActivity<MainPagePresent> implements Vie
 
     @Override
     public void initData() {
-        //        if (MyApp.isLogin()){
-        //            getIMUsers();
-        //            /**登录IM*/
-        //            ModuleIm_Init.connectIM(MyApp.getUserRongYunToken());
-        //        }
         update(false);
+        if (MyApp.isLogin()) {
+            initForLogin();
+        }
         /**分享隐私授权 true*/
         MobSDK.submitPolicyGrantResult(true, null);
+    }
+    /**
+     * 登录后初始化，获取融云用户列表及开启轨迹上传任务
+     */
+    private void initForLogin() {
+        getIMUsers();
+        /**登录IM*/
+        ModuleIm_Init.connectIM(MyApp.getUserRongYunToken());
+        if (MyApp.getUser().getData().getSettleStatus() == 2) {
+            //主线程中调用：
+            mHandler.postDelayed(runnable, 1000 * 1);//延时1秒
+        }
     }
 
     public void initTab() {
@@ -194,8 +211,18 @@ public class MainActivity extends UpdateActivity<MainPagePresent> implements Vie
 
     @Override
     public void onSuccess(String tag, Object o) {
+        switch (tag) {
+            case MainPageContract.UPLOAD_HISTORY:
+                if (cacheDatas != null) {
+                    for (LocationBean locationBean : cacheDatas) {
+                        MyApp.getDaoSession().getLocationBeanDao().delete(locationBean);
+                    }
+                }
+                break;
+            default:
+                break;
+        }
     }
-
 
     AlertDialog alertDialog;
     int id22;
@@ -217,6 +244,8 @@ public class MainActivity extends UpdateActivity<MainPagePresent> implements Vie
                 ToastUtils.info(MyApp.app, error);
                 //                SPTools.saveString(mContext, "login", "");
                 MyApp.app.clearUserData();//清理数据
+                mHandler.removeCallbacks(runnable);
+                mHandler.removeCallbacksAndMessages(null);
                 ShortcutBadger.applyCount(mContext.getApplicationContext(), 0);
                 startActivity(new Intent(mContext, LoginActivity.class));
                 //重置界面
@@ -411,6 +440,8 @@ public class MainActivity extends UpdateActivity<MainPagePresent> implements Vie
         if (broadcastReceiver != null) {
             unregisterReceiver(broadcastReceiver);
         }
+        mHandler.removeCallbacks(runnable);
+        mHandler.removeCallbacksAndMessages(null);
         super.onDestroy();
     }
 
@@ -479,12 +510,12 @@ public class MainActivity extends UpdateActivity<MainPagePresent> implements Vie
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
-    public void receiveMsg(NewsDraftsBean newsDraftsBean) {
-        if (newsDraftsBean != null && newsDraftsBean.getDraftsId() != null) {
-            mPresenter.deleteNewsDrafts(newsDraftsBean.getDraftsId(), MainPageContract.DELETE_NEWS_DRAFTS);
-        }
-    }
+//    @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
+//    public void receiveMsg(NewsDraftsBean newsDraftsBean) {
+//        if (newsDraftsBean != null && newsDraftsBean.getDraftsId() != null) {
+//            mPresenter.deleteNewsDrafts(newsDraftsBean.getDraftsId(), MainPageContract.DELETE_NEWS_DRAFTS);
+//        }
+//    }
 
     @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
     public void receiveMsg(String test) {
@@ -492,9 +523,36 @@ public class MainActivity extends UpdateActivity<MainPagePresent> implements Vie
             //刷新未读标记
             adapter.setUnReadMsg(MyApp.getUnReadCountBean().getMessageCount() + MyApp.getUnReadCountBean().getImCount());
         } else if (ActionConfig.BROAD_LOGIN_AFTER.equals(test)) {
-//            getIMUsers();
-//            /**登录IM*/
-//            ModuleIm_Init.connectIM(MyApp.getUserRongYunToken());
+            initForLogin();
+        } else if (ActionConfig.BROAD_LOGIN_OUT.equals(test)) {
+            //退出登录
+            mHandler.removeCallbacks(runnable);
+            mHandler.removeCallbacksAndMessages(null);
         }
     }
+    /**
+     * 查询本地数据并上传
+     */
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            //do something
+            List<LocationBean> datas = null;
+            try {
+                datas = MyApp.getDaoSession().getLocationBeanDao().loadAll();
+            } catch (Exception e) {
+                e.printStackTrace();
+                datas = new ArrayList<>();
+            }
+            if (datas.size() > 0 && datas.size() < 30) {
+                cacheDatas.clear();
+                cacheDatas.addAll(datas);
+                mPresenter.uploadHistory(new Gson().toJson(datas), MainPageContract.UPLOAD_HISTORY);
+            } else {
+                MyApp.getDaoSession().getLocationBeanDao().deleteAll();
+            }
+            //每隔62s循环执行run方法
+            mHandler.postDelayed(runnable, 1000 * 62);
+        }
+    };
 }

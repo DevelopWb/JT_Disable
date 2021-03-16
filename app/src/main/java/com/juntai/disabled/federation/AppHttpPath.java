@@ -143,7 +143,7 @@ public class AppHttpPath {
     /**
      * 修改人员定位位置（历史轨迹）上传人员得位置信息
      */
-    public static final String USER_HISTORY_UPLOAD = BASE + "/policeHistoryLocation.shtml";
+    public static final String USER_HISTORY_UPLOAD = BASE + "/addStaffHistoryLocation.shtml";
 
 
     //获取人员轨迹
@@ -167,7 +167,7 @@ public class AppHttpPath {
     /**
      * 融云用户列表接口
      */
-    public static final String IM_USERS = BASE + "/selectPoliceUserAll.shtml";
+    public static final String IM_USERS = BASE + "/selectAllUser.shtml";
 
 
     /*====================================================    搜索和详情

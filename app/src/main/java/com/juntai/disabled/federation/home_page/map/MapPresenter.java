@@ -297,9 +297,11 @@ public class MapPresenter extends BaseAppPresent<IModel, MapContract.View> imple
                     @Override
                     public void onSuccess(PoliceDetailBean o) {
                         if (getView() != null) {
+                            PoliceDetailBean.DataBean dataBean = o.getData();
+                            dataBean.setBd(item.getBd());
 //                            item.people.setState(o.getData().getState());
 //                            item.people.setAccount(o.getData().getAccount());
-                            getView().onSuccess(tag, item);
+                            getView().onSuccess(tag, o);
                         }
                     }
 

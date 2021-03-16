@@ -1,5 +1,6 @@
 package com.juntai.disabled.federation.bean;
 
+import com.baidu.mapapi.map.BitmapDescriptor;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 
 /**
@@ -46,6 +47,7 @@ public class PoliceDetailBean extends BaseResult {
          *         "departmentName": "东关街派出所",
          *         "state": 0
          */
+        private BitmapDescriptor Bd;
         private int id;
         private String account;
         private String nickname;
@@ -55,6 +57,13 @@ public class PoliceDetailBean extends BaseResult {
         private double latitude;
         private double longitude;
 
+        public BitmapDescriptor getBd() {
+            return Bd;
+        }
+
+        public void setBd(BitmapDescriptor bd) {
+            Bd = bd;
+        }
 
         public double getLatitude() {
             return latitude;

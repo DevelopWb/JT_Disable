@@ -58,6 +58,7 @@ import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.MainActivity;
 import com.juntai.disabled.federation.base.BaseAppFragment;
 import com.juntai.disabled.federation.bean.BannerNewsBean;
+import com.juntai.disabled.federation.bean.PoliceDetailBean;
 import com.juntai.disabled.federation.bean.ServerPeopleBean;
 import com.juntai.disabled.federation.bean.case_bean.CaseDesBean;
 import com.juntai.disabled.federation.bean.MapClusterItem;
@@ -829,8 +830,8 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
     /**
      * 服务人员详情
      */
-    private void clickPeopleItem(MapClusterItem item, BaiduMap map) {
-        ServerPeopleBean.DataBean people = item.server;
+    private void clickPeopleItem(PoliceDetailBean server , BaiduMap map) {
+        PoliceDetailBean.DataBean people = server.getData();
         LatLng peopleLocation = new LatLng(people.getLatitude(), people.getLongitude());
         MapUtil.mapMoveTo(map, peopleLocation);
         infowindowPeople = View.inflate(mContext, R.layout.infowindow_people, null);//将一个布局文件转换成一个view对象
@@ -881,7 +882,7 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
                 .position(peopleLocation)
                 .width(MapViewLayoutParams.WRAP_CONTENT)
                 .height(MapViewLayoutParams.WRAP_CONTENT)
-                .yOffset(-item.getBd().getBitmap().getHeight() * clickType)
+                .yOffset(-people.getBd().getBitmap().getHeight() * clickType)
                 .build();
         mMapView.addView(infowindowPeople, params2);
     }
@@ -1393,8 +1394,8 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
                 break;
             case MapContract.GET_PEOPLE_DETAIL:
                 //服务人员详情
-                MapClusterItem server = (MapClusterItem) o;
-                if (server.server != null) {
+                PoliceDetailBean server = (PoliceDetailBean) o;
+                if (server != null) {
                     clickPeopleItem(server, mMap);
                 }
                 break;
