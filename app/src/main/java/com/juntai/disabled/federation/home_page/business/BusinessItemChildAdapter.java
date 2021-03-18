@@ -27,7 +27,24 @@ public class BusinessItemChildAdapter extends BaseQuickAdapter<AllBusinessBean.D
 
     @Override
     protected void convert(BaseViewHolder helper, AllBusinessBean.DataBean.WorkMatterListBean item) {
-        helper.setText(R.id.business_tv, item.getName());
+        String title = item.getName();
+        switch (title) {
+            case "残疾证等级变更":
+                title = "残疾证\n等级变更";
+                break;
+            case "残疾人就业登记":
+                title = "残疾人\n就业登记";
+                break;
+            case "残疾学生助学金":
+                title = "残疾学生\n助学金";
+                break;
+            case "残疾儿童抢救性康复项目":
+                title = "残疾儿童抢救\n性康复项目";
+                break;
+            default:
+                break;
+        }
+        helper.setText(R.id.business_tv, title);
         ImageLoadUtil.loadImage(mContext,item.getIcon(),helper.getView(R.id.business_iv));
     }
 }
