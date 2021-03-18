@@ -77,7 +77,7 @@ import com.juntai.disabled.federation.bean.site.SiteTypeBean;
 import com.juntai.disabled.federation.bean.site.UnitDetailBean;
 import com.juntai.disabled.federation.bean.stream.CameraOnlineBean;
 import com.juntai.disabled.federation.bean.stream.CaptureBean;
-import com.juntai.disabled.federation.bean.stream.OpenLiveBean;
+import com.juntai.disabled.basecomponent.bean.OpenLiveBean;
 import com.juntai.disabled.federation.bean.stream.PlayUrlBean;
 import com.juntai.disabled.federation.bean.stream.RecordInfoBean;
 import com.juntai.disabled.federation.bean.stream.StreamCameraBean;

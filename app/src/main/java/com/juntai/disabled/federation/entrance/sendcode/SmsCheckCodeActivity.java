@@ -7,11 +7,9 @@ import android.support.annotation.Nullable;
 import android.os.Bundle;
 
 import com.baidu.location.BDLocation;
-import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.disabled.federation.base.BaseSelectPicsActivity;
 import com.juntai.disabled.federation.base.BaseSelectPicsAndVedioActivity;
 import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
 

@@ -30,7 +30,19 @@ public class CalendarUtil {
         re_StrTime = sdf.format(new Date(lcc_time * 1000L));
         return re_StrTime;
     }
-
+    /**
+     * 是否可以托养
+     * 可以托养当年和去年的
+     *
+     * @param careYear 托养的年份
+     * @return
+     */
+    public static boolean isCareble(int careYear) {
+        if (getCurrentYear()==careYear||getCurrentYear()-1==careYear) {
+            return true;
+        }
+        return false;
+    }
     /**
      * 获取下次提醒的时间,day天后
      */
@@ -329,7 +341,29 @@ public class CalendarUtil {
         }
         return false;
     }
+    /**
+     * 比较两个时间串的大小
+     *
+     * @param startTime 开始时间
+     * @param endTime   结束时间
+     * @return
+     */
+    public static boolean compareTimes(String sdfStr, String startTime, String endTime) {
+        SimpleDateFormat sdf = new SimpleDateFormat(sdfStr, Locale.CHINA);
+        try {
+            Long a = sdf.parse(startTime).getTime();
+            Long b = sdf.parse(endTime).getTime();
+            if (a > b) {//开始时间大于结束时间
+                return true;
+            } else {//开始时间小于结束时间
+                return false;
+            }
 
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     /**
      * 转换时间格式
      * @param olderStr

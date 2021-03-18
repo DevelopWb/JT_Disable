@@ -145,18 +145,6 @@
             android:name=".home_page.business.my_business.MyBusinessActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".home_page.business.transact_business.SubmitSuccessActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".home_page.business.transact_business.TransactBusinessActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".home_page.business.more_business.MoreBusinessActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".home_page.business.business_common.BusinessActivity"
-            android:launchMode="singleTop" />
-        <activity
             android:name=".home_page.conciliation.conciliation_common.ConciliatonInfoActivity"
             android:launchMode="singleTop" />
         <activity
@@ -272,10 +260,6 @@
                 tools:replace="android:name,android:resource" />
         </provider>
 
-        <activity
-            android:name="com.tencent.bugly.beta.ui.BetaActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize|locale"
-            android:theme="@android:style/Theme.Translucent" /> <!-- 全面屏 -->
         <meta-data
             android:name="android.max_aspect"
             android:value="2.4" /> <!-- 适配华为（huawei）刘海屏 -->

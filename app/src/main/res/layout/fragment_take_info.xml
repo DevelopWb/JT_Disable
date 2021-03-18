@@ -3,11 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-<TextView
-    android:layout_width="match_parent"
-    android:text="@string/not_open_notice"
-    android:gravity="center"
-    android:textSize="16dp"
-    android:layout_height="match_parent"></TextView>
+
+    <FrameLayout
+        android:layout_marginTop="30dp"
+        android:id="@+id/navigation_third_menu_fl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
 
 </LinearLayout>

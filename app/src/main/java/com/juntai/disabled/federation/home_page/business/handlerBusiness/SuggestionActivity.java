@@ -16,8 +16,6 @@ import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.entrance.regist.RegistContract;
 import com.juntai.disabled.federation.entrance.regist.RegistPresent;
 import com.juntai.disabled.federation.entrance.sendcode.SmsCheckCodeActivity;
-import com.juntai.disabled.federation.home_page.PublishContract;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessPresent;
 import com.juntai.disabled.federation.utils.StringTools;
 import com.juntai.disabled.federation.utils.UserInfoManager;
 

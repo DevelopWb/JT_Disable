@@ -12,7 +12,6 @@ import android.widget.ImageView;
 
 import com.baidu.location.BDLocation;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.ActionConfig;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;

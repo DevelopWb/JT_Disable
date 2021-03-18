@@ -29,6 +29,11 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
         this.titles = title;
     }
 
+    public void updateFragment( SparseArray<Fragment> mFragments) {
+        this.mFragments = mFragments;
+
+    }
+
     public MainPagerAdapter(FragmentManager fm, Context contexts, String[] title, SparseArray<Fragment> fragments) {
         super(fm);
         mContext = contexts;

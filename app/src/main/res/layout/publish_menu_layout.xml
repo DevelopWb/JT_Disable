@@ -33,7 +33,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="托养上报"
+            android:text="托养服务"
             android:textColor="@color/colorAccent"
             android:textSize="14dp"
             app:layout_constraintLeft_toLeftOf="@+id/anjian_btn"
@@ -47,7 +47,7 @@
             android:layout_height="60dp"
             android:paddingTop="20dp"
             android:scaleType="fitCenter"
-            android:src="@mipmap/publish_site"
+            android:src="@mipmap/navigation_care"
             app:layout_constraintEnd_toStartOf="@id/zixun_btn"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/anjian_btn"
@@ -70,7 +70,7 @@
             android:layout_height="60dp"
             android:paddingTop="20dp"
             android:scaleType="fitCenter"
-            android:src="@mipmap/zixun_publish"
+            android:src="@mipmap/navigation_take"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/site_iv"
@@ -79,36 +79,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="资讯发布"
+            android:text="残疾人信息采集"
             android:textColor="@color/colorAccent"
             android:textSize="14dp"
             app:layout_constraintLeft_toLeftOf="@+id/zixun_btn"
             app:layout_constraintRight_toRightOf="@+id/zixun_btn"
             app:layout_constraintTop_toBottomOf="@+id/zixun_btn" />
 
-<!--        <ImageView-->
-<!--            android:id="@+id/publish_yjss_iv"-->
-<!--            android:layout_width="60dp"-->
-<!--            android:layout_height="60dp"-->
-<!--            android:paddingTop="20dp"-->
-<!--            android:visibility="gone"-->
-<!--            android:scaleType="fitCenter"-->
-<!--            android:src="@mipmap/zixun_publish"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/zixun_btn"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.5"-->
-<!--            app:layout_constraintStart_toEndOf="@+id/zixun_btn"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/zixun_btn" />-->
-
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="资讯"-->
-<!--            android:visibility="gone"-->
-<!--            android:textColor="@color/colorAccent"-->
-<!--            android:textSize="14dp"-->
-<!--            app:layout_constraintLeft_toLeftOf="@+id/publish_yjss_iv"-->
-<!--            app:layout_constraintRight_toRightOf="@+id/publish_yjss_iv"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/publish_yjss_iv" />-->
     </android.support.constraint.ConstraintLayout>
 </LinearLayout>

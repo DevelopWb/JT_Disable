@@ -1,7 +1,6 @@
 package com.juntai.disabled.federation.home_page.call_to_police;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.constraint.Group;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +11,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.baidu.location.BDLocation;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.utils.PubUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;

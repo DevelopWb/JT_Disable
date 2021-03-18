@@ -27,7 +27,6 @@ import com.juntai.disabled.bdmap.act.LocationSeltionActivity;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseAppActivity;
-import com.juntai.disabled.federation.base.BaseSelectPicsActivity;
 import com.juntai.disabled.federation.bean.CityBean;
 import com.juntai.disabled.federation.bean.TextListBean;
 import com.juntai.disabled.federation.bean.site.CustomerSourceBean;
