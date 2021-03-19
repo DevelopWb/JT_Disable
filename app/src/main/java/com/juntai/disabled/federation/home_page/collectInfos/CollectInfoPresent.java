@@ -1,4 +1,4 @@
-package com.juntai.disabled.federation.home_page.takeInfos;
+package com.juntai.disabled.federation.home_page.collectInfos;
 
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
@@ -10,7 +10,7 @@ import com.juntai.disabled.basecomponent.mvp.IModel;
  * @UpdateUser: 更新者
  * @UpdateDate: 2021/3/17 16:47
  */
-public class TakeInfoPresent extends BasePresenter<IModel,TakeInfoContract.TakeInfoView> {
+public class CollectInfoPresent extends BasePresenter<IModel, CollectInfoContract.TakeInfoView> {
     @Override
     protected IModel createModel() {
         return null;

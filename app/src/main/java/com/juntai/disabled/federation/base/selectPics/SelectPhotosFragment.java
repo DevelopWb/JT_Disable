@@ -89,6 +89,10 @@ public class SelectPhotosFragment extends BaseMvpFragment implements View.OnClic
     private OnPicCalculateed onPicCalculateed;
     private int type;//0拍照照片，1拍照
 
+    public void setOnPhotoItemClick(OnPhotoItemClick onPhotoItemClick) {
+        this.onPhotoItemClick = onPhotoItemClick;
+    }
+
     public String cameraPath;
 
     /**
@@ -320,8 +324,6 @@ public class SelectPhotosFragment extends BaseMvpFragment implements View.OnClic
         mContext = context;
         if (context instanceof SelectPhotosFragment.OnPhotoItemClick) {
             onPhotoItemClick = (SelectPhotosFragment.OnPhotoItemClick) context;
-        } else {
-            throw new RuntimeException(context.toString() + " must implement SelectPhotosFragment.OnPhotoItemClick");
         }
     }
 

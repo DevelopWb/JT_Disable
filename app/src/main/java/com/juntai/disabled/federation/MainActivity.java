@@ -33,12 +33,10 @@ import com.juntai.disabled.basecomponent.utils.NotificationTool;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.bdmap.service.LocateAndUpload;
 import com.juntai.disabled.federation.base.BaseAppActivity;
-import com.juntai.disabled.federation.base.BaseAppFragment;
 import com.juntai.disabled.federation.base.MainPageContract;
 import com.juntai.disabled.federation.base.MainPagePresent;
 import com.juntai.disabled.federation.base.MainPagerAdapter;
 import com.juntai.disabled.federation.base.customview.CustomViewPager;
-import com.juntai.disabled.federation.base.update.UpdateActivity;
 import com.juntai.disabled.federation.bean.IMUsersBean;
 import com.juntai.disabled.federation.bean.history_track.LocationBean;
 import com.juntai.disabled.federation.entrance.BindingPhoneActivity;
@@ -47,9 +45,7 @@ import com.juntai.disabled.federation.home_page.MyMapFragment;
 import com.juntai.disabled.federation.home_page.business.HandlerBusinessFragment;
 import com.juntai.disabled.federation.home_page.inspection.InspectionDetailActivity;
 import com.juntai.disabled.federation.home_page.inspection.PublishInspectionActivity;
-import com.juntai.disabled.federation.home_page.law_case.PublishCaseActivity;
-import com.juntai.disabled.federation.home_page.news.news_publish.PublishNewsActivity;
-import com.juntai.disabled.federation.home_page.takeInfos.TakeInfosFragment;
+import com.juntai.disabled.federation.home_page.collectInfos.CollectInfosFragment;
 import com.juntai.disabled.federation.mine.MyCenterFragment;
 import com.juntai.disabled.federation.utils.AppUtils;
 import com.juntai.disabled.federation.utils.StringTools;
@@ -103,7 +99,7 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
         mainViewpager.setScanScroll(false);
         mFragments.append(0, new MyMapFragment());//地图
         mFragments.append(1, new HandlerBusinessFragment());//
-        mFragments.append(2, new TakeInfosFragment());//
+        mFragments.append(2, new CollectInfosFragment());//
         mFragments.append(3, new MyCenterFragment());//资讯
         //
         getToolbar().setVisibility(View.GONE);

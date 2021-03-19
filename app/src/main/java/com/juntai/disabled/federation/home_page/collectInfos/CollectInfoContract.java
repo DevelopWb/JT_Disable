@@ -1,4 +1,4 @@
-package com.juntai.disabled.federation.home_page.takeInfos;
+package com.juntai.disabled.federation.home_page.collectInfos;
 
 import com.juntai.disabled.basecomponent.mvp.IView;
 
@@ -9,7 +9,7 @@ import com.juntai.disabled.basecomponent.mvp.IView;
  * @UpdateUser: 更新者
  * @UpdateDate: 2021/3/17 16:47
  */
-public interface TakeInfoContract {
+public interface CollectInfoContract {
 
     interface TakeInfoView extends IView{
 

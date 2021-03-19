@@ -1,14 +1,7 @@
-package com.juntai.disabled.federation.home_page.takeInfos;
-
-import android.view.View;
+package com.juntai.disabled.federation.home_page.collectInfos;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.juntai.disabled.federation.R;
-import com.juntai.disabled.federation.bean.SearchBean;
-import com.juntai.disabled.federation.bean.takeinfo.SearchedDisabledBean;
-
-import java.util.List;
 
 /**
  * @aouther tobato

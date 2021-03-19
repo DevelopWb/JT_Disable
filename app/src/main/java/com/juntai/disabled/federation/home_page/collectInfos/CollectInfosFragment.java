@@ -1,9 +1,8 @@
-package com.juntai.disabled.federation.home_page.takeInfos;
+package com.juntai.disabled.federation.home_page.collectInfos;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.basecomponent.mvp.IPresenter;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseAppFragment;
@@ -13,7 +12,7 @@ import com.juntai.disabled.federation.base.BaseAppFragment;
  * @description 描述  信息采集
  * @date 2021/1/8 17:18
  */
-public class TakeInfosFragment extends BaseAppFragment {
+public class CollectInfosFragment extends BaseAppFragment {
 
 
     @Override
