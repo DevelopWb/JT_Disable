@@ -170,19 +170,6 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                             }
                                         });
                                 break;
-                            case BusinessContract.TABLE_TITLE_REG_MODE:
-                                List<String> regModes = getRegistMode();
-                                PickerManager.getInstance().showOptionPicker(mContext, regModes,
-                                        new PickerManager.OnOptionPickerSelectedListener() {
-                                            @Override
-                                            public void onOptionsSelect(int options1, int option2, int options3,
-                                                                        View v) {
-                                                selectedRegMode = options1 + 1;
-                                                mSelectTv.setText(regModes.get(options1));
-                                                selectBean.setValue(regModes.get(options1));
-                                            }
-                                        });
-                                break;
                             case BusinessContract.TABLE_TITLE_EDUCATION_LEVEL:
                                 mPresenter.getDisabledEducation(BusinessContract.TABLE_TITLE_EDUCATION_LEVEL);
                                 break;
@@ -201,19 +188,6 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                     return;
                                 }
                                 mPresenter.getDisabledAIDS(categoryId, AppHttpPath.GET_DISABLED_AIDS);
-                                break;
-                            case BusinessContract.TABLE_TITLE_CARD_TYPE:
-                                List<String> cards = getCardTypes();
-                                PickerManager.getInstance().showOptionPicker(mContext, cards,
-                                        new PickerManager.OnOptionPickerSelectedListener() {
-                                            @Override
-                                            public void onOptionsSelect(int options1, int option2, int options3,
-                                                                        View v) {
-                                                selectedCardType = options1 + 1;
-                                                mSelectTv.setText(cards.get(options1));
-                                                selectBean.setValue(cards.get(options1));
-                                            }
-                                        });
                                 break;
                             case BusinessContract.TABLE_TITLE_CHILD_IQ:
                                 //儿童发育商
@@ -304,18 +278,6 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         return arrays;
     }
 
-    /**
-     * 获取证件类型
-     *
-     * @return
-     */
-    protected List<String> getCardTypes() {
-        List<String> arrays = new ArrayList<>();
-        arrays.add("新申请");
-        arrays.add("换领申请");
-        arrays.add("补办申请");
-        return arrays;
-    }
 
     /**
      * 婚姻状况 0未婚；1已婚(有配偶)；2丧偶；3离婚
@@ -331,17 +293,6 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         return arrays;
     }
 
-    /**
-     * 登记方式  1 现场 2 来电
-     *
-     * @return
-     */
-    protected List<String> getRegistMode() {
-        List<String> arrays = new ArrayList<>();
-        arrays.add("现场");
-        arrays.add("来电");
-        return arrays;
-    }
 
     @Override
     protected void onDestroy() {
@@ -546,10 +497,6 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         case BusinessContract.TABLE_TITLE_HOME_ADDR2:
                             //家庭住址
                             formKey = "address";
-                            break;
-                        case BusinessContract.TABLE_TITLE_ZIP_CODE:
-                            //邮政编码
-                            formKey = "postCode";
                             break;
                         case BusinessContract.TABLE_TITLE_PRESENT_NAME:
                             //家长姓名
@@ -822,17 +769,9 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             //婚姻状况
                             builder.addFormDataPart("marriage", String.valueOf(selectedMarrayStatus));
                             break;
-                        case BusinessContract.TABLE_TITLE_REG_MODE:
-                            //登记方式
-                            builder.addFormDataPart("way", String.valueOf(selectedRegMode));
-                            break;
                         case BusinessContract.TABLE_TITLE_EDUCATION_LEVEL:
                             //文化程度
                             builder.addFormDataPart("education", String.valueOf(selectedEducationLevel));
-                            break;
-                        case BusinessContract.TABLE_TITLE_CARD_TYPE:
-                            //证件申请类型
-                            builder.addFormDataPart("type", String.valueOf(selectedCardType));
                             break;
                         case BusinessContract.TABLE_TITLE_CHILD_IQ:
                             //儿童发育商

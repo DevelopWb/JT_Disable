@@ -51,7 +51,6 @@ public interface BusinessContract {
     String TABLE_TITLE_CHILD_IDCARD = "儿童身份证号";//
     String TABLE_TITLE_ADDR = "现住址";//
     String TABLE_TITLE_ADDR_LIVE_NOW = "现居住地";//
-    String TABLE_TITLE_ZIP_CODE = "邮政编码";//
     String TABLE_TITLE_HUKOU = "户口类别";//
     String TABLE_TITLE_GUARDIAN = "监护人";//
     String TABLE_TITLE_GUARDIAN_RELATION = "与监护人关系";//
@@ -64,7 +63,6 @@ public interface BusinessContract {
     String TABLE_TITLE_JOB = "职业";//
     String TABLE_TITLE_UNIT_NATURE = "单位性质";//
     String TABLE_TITLE_IS_WEEL_COMPANY = "是否福利企业";//
-    String TABLE_TITLE_CARD_TYPE = "证件申请类型";//
     String TABLE_TITLE_DISABLE_PIC = "申请人残疾证照片";//
     String TABLE_TITLE_DISABLE_PHOTO = "残疾证照片";//
     String TABLE_TITLE_GUARDIAN_ID_PIC = "监护人身份证拍照";//
@@ -76,7 +74,6 @@ public interface BusinessContract {
     String TABLE_TITLE_LIFE_PIC = "申请人生活照片";//
     String TABLE_TITLE_LIFE_PIC_MYSELF = "本人生活照片";//
     String TABLE_TITLE_SPECIAL = "特长";//
-    String TABLE_TITLE_REG_MODE = "登记方式";//
     String TABLE_TITLE_DISABILITY_KINDS = "残疾类别";//
     String TABLE_TITLE_DISABILITY_LEVEL = "残疾等级";//
     String TABLE_TITLE_ADMISSION_COLLEGE = "录取院校";//

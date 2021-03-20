@@ -27,6 +27,7 @@ import com.juntai.disabled.federation.bean.business.BusinessPicBean;
 import com.juntai.disabled.federation.bean.business.BusinessRadioBean;
 import com.juntai.disabled.federation.bean.business.BusinessTextValueBean;
 import com.juntai.disabled.federation.bean.business.DeafBean;
+import com.juntai.disabled.federation.bean.business.ImportantTagBean;
 import com.juntai.disabled.federation.bean.business.ItemSignBean;
 import com.juntai.disabled.federation.bean.business.RecycleBean;
 import com.juntai.disabled.federation.utils.StringTools;
@@ -86,7 +87,9 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 helper.setText(R.id.item_business_big_title_tv, (String) item.getObject());
                 break;
             case MultipleItem.ITEM_BUSINESS_TITILE_SMALL:
-                helper.setText(R.id.item_business_small_title_tv, (String) item.getObject());
+                ImportantTagBean importantTagBean = (ImportantTagBean) item.getObject();
+                helper.setGone(R.id.important_tag_tv,importantTagBean.isImportant());
+                helper.setText(R.id.item_business_small_title_tv,importantTagBean.getTitleName());
                 break;
             case MultipleItem.ITEM_BUSINESS_EDIT:
                 BusinessTextValueBean textValueEditBean = (BusinessTextValueBean) item.getObject();
@@ -145,11 +148,6 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
 //                        //身份证号
 //                        setMaxLength(editText, 18);
 //                        break;
-                    case BusinessContract.TABLE_TITLE_ZIP_CODE:
-                        //邮政编码
-                        editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-//                        setMaxLength(editText, 6);
-                        break;
                     case BusinessContract.TABLE_TITLE_AGE_FAMILY:
                         //F年龄
                         editText.setInputType(InputType.TYPE_CLASS_NUMBER);

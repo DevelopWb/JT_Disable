@@ -160,19 +160,6 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
                                             }
                                         });
                                 break;
-                            case BusinessContract.TABLE_TITLE_REG_MODE:
-                                List<String> regModes = getBaseFragmentActivity().getRegistMode();
-                                PickerManager.getInstance().showOptionPicker(mContext, regModes,
-                                        new PickerManager.OnOptionPickerSelectedListener() {
-                                            @Override
-                                            public void onOptionsSelect(int options1, int option2, int options3,
-                                                                        View v) {
-                                                selectedRegMode = options1 + 1;
-                                                mSelectTv.setText(regModes.get(options1));
-                                                selectBean.setValue(regModes.get(options1));
-                                            }
-                                        });
-                                break;
                             case BusinessContract.TABLE_TITLE_EDUCATION_LEVEL:
                                 mPresenter.getDisabledEducation(BusinessContract.TABLE_TITLE_EDUCATION_LEVEL);
                                 break;
@@ -186,19 +173,6 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
                             case BusinessContract.TABLE_TITLE_DISABILITY_LEVEL:
                                 //残疾等级
                                 mPresenter.getDisabledLevel(AppHttpPath.GET_DISABLED_LEVEL);
-                                break;
-                            case BusinessContract.TABLE_TITLE_CARD_TYPE:
-                                List<String> cards = getBaseFragmentActivity().getCardTypes();
-                                PickerManager.getInstance().showOptionPicker(mContext, cards,
-                                        new PickerManager.OnOptionPickerSelectedListener() {
-                                            @Override
-                                            public void onOptionsSelect(int options1, int option2, int options3,
-                                                                        View v) {
-                                                selectedCardType = options1 + 1;
-                                                mSelectTv.setText(cards.get(options1));
-                                                selectBean.setValue(cards.get(options1));
-                                            }
-                                        });
                                 break;
                             case BusinessContract.TABLE_TITLE_CHILD_IQ:
                                 //儿童发育商
@@ -396,10 +370,6 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
                         case BusinessContract.TABLE_TITLE_HOME_ADDR2:
                             //家庭住址
                             formKey = "address";
-                            break;
-                        case BusinessContract.TABLE_TITLE_ZIP_CODE:
-                            //邮政编码
-                            formKey = "postCode";
                             break;
                         case BusinessContract.TABLE_TITLE_PRESENT_NAME:
                             //家长姓名
@@ -649,10 +619,6 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
                             //婚姻状况
                             builder.addFormDataPart("marriage", String.valueOf(selectedMarrayStatus));
                             break;
-                        case BusinessContract.TABLE_TITLE_REG_MODE:
-                            //登记方式
-                            builder.addFormDataPart("way", String.valueOf(selectedRegMode));
-                            break;
                         case BusinessContract.TABLE_TITLE_EDUCATION_LEVEL:
                             //文化程度
                             builder.addFormDataPart("education", String.valueOf(selectedEducationLevel));
@@ -660,10 +626,6 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
                         case BusinessContract.TABLE_TITLE_EDUCATION:
                             //学历
                             builder.addFormDataPart("education", String.valueOf(selectedEducationLevel));
-                            break;
-                        case BusinessContract.TABLE_TITLE_CARD_TYPE:
-                            //证件申请类型
-                            builder.addFormDataPart("type", String.valueOf(selectedCardType));
                             break;
                         case BusinessContract.TABLE_TITLE_CHILD_IQ:
                             //儿童发育商
