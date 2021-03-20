@@ -94,6 +94,7 @@ dependencies {
     implementation project(':module_Video')
     implementation project(':pushpermission')
     implementation 'com.sunfusheng:MarqueeView:1.4.1'//跑马灯
+    implementation 'com.oginotihiro:cropview:1.0.0'
     implementation 'com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat'
     implementation project(':RTCLib')
     implementation project(':jjdxm-ijkplayer')
