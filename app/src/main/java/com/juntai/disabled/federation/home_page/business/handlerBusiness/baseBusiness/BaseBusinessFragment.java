@@ -481,10 +481,10 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
                             //器具数量
                             formKey = "quantity";
                             break;
-                        case BusinessContract.TABLE_TITLE_JOB_STATUS:
-                            //就业状况
-                            formKey = "jobSituation";
-                            break;
+//                        case BusinessContract.TABLE_TITLE_JOB_STATUS:
+//                            //就业状况
+//                            formKey = "jobSituation";
+//                            break;
                         case BusinessContract.TABLE_TITLE_JOB:
                             //职业
                             formKey = "profession";
@@ -512,14 +512,6 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
                         case BusinessContract.TABLE_TITLE_ADMISSION_PERSIONAL:
                             //录取专业
                             formKey = "major";
-                            break;
-                        case BusinessContract.TABLE_TITLE_EMAIL:
-                            //email
-                            if (!RuleTools.isEmail(textValueEditBean.getValue())) {
-                                ToastUtils.toast(mContext, "请输入正确的E-mail地址");
-                                return null;
-                            }
-                            formKey = "email";
                             break;
                         case BusinessContract.TABLE_TITLE_FATHER_NAME:
                             //email

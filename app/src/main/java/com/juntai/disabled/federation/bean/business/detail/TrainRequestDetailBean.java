@@ -91,6 +91,24 @@ public class TrainRequestDetailBean extends BaseResult {
         private String workingResume;
         private String trainingResume;
         private String disabilityCertificatePicture;
+        private String jobSituationName;
+        private String trainsName;
+
+        public String getJobSituationName() {
+            return jobSituationName == null ? "" : jobSituationName;
+        }
+
+        public void setJobSituationName(String jobSituationName) {
+            this.jobSituationName = jobSituationName == null ? "" : jobSituationName;
+        }
+
+        public String getTrainsName() {
+            return trainsName == null ? "" : trainsName;
+        }
+
+        public void setTrainsName(String trainsName) {
+            this.trainsName = trainsName == null ? "" : trainsName;
+        }
 
         public int getId() {
             return id;

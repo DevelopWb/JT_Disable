@@ -844,6 +844,10 @@ public class AppHttpPath {
      * 用户提交残疾人培训申请业务接口
      */
     public static final String REQUEST_TRAIN = BASE + "/addTrain.shtml";
+    /**
+     * 培训意向种类接口
+     */
+    public static final String GET_TRAIN_INTENT_TYPES = BASE + "/getTrainingIntention.shtml";
 
 
     /**

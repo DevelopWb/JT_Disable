@@ -1863,6 +1863,12 @@ public interface AppServer {
      */
     @POST(AppHttpPath.REQUEST_TRAIN)
     Observable<BaseResult> addTrain(@Body RequestBody requestBody);
+    /**
+     *  培训意向
+     * @return
+     */
+    @GET(AppHttpPath.GET_TRAIN_INTENT_TYPES)
+    Observable<BusinessPropertyBean> getTrainingIntention();
 
     /**
      *

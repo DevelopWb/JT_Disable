@@ -80,7 +80,6 @@ public interface BusinessContract {
     String TABLE_TITLE_ADMISSION_PERSIONAL = "录取专业";//
     String TABLE_TITLE_EDUCATION = "学历";//
     String TABLE_TITLE_SCHOOL_SYSTEM = "学制";//
-    String TABLE_TITLE_EMAIL = "E-mail";//
     String TABLE_TITLE_FATHER_NAME = "父亲姓名";//
     String TABLE_TITLE_MATHER_NAME = "母亲姓名";//
     String TABLE_TITLE_HOME_ADDRESS = "家庭通讯地址";//
@@ -133,6 +132,7 @@ public interface BusinessContract {
     String TABLE_TITLE_REMARK = "备注";//
     String TABLE_TITLE_CONTENT = "详细内容";//
     String TABLE_TITLE_CONTENT_TYPE = "内容分布";//
+    String TABLE_TITLE_HOPE_TRAIN_TYPE = "希望参加何种培训";//
 
 
     interface IBusinessView extends IView {
@@ -205,6 +205,11 @@ public interface BusinessContract {
          * @param tag
          */
         void getDisabledBarrier(String tag);
+        /**
+         * 培训意向
+         * @param tag
+         */
+        void getTrainingIntention(String tag);
 
         /**
          * @param tag

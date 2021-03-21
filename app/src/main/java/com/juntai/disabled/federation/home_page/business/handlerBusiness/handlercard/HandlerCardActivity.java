@@ -23,7 +23,9 @@ import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
+import com.juntai.disabled.federation.bean.business.BusinessTextValueBean;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
+import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessContract;
 import com.juntai.disabled.federation.utils.StringTools;
 
 import java.io.File;
@@ -108,6 +110,8 @@ public class HandlerCardActivity extends BaseBusinessActivity {
         mPresenter.addDisabilityCertificate(builder.build(), AppHttpPath.HANDLER_DISABLED_CARD);
     }
 
+
+
     @Override
     protected List<MultipleItem> getAdapterData() {
         return mPresenter.getHandlerIdCardAdapterData(null);
@@ -165,7 +169,7 @@ public class HandlerCardActivity extends BaseBusinessActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String selectedStr = types.toString();
-                        if (types.size()>0) {
+                        if (types.size() > 0) {
                             if (selectedStr.contains("[")) {
                                 selectedStr = selectedStr.substring(1, selectedStr.length() - 1);
                             }

@@ -156,10 +156,6 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                         //P年龄
                         editText.setInputType(InputType.TYPE_CLASS_NUMBER);
                         break;
-                    case BusinessContract.TABLE_TITLE_EMAIL:
-                        //E-mail
-                        editText.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-                        break;
                     case BusinessContract.TABLE_TITLE_DISABLE_CARD_ID:
                         //残疾证号
                         //                        setMaxLength(editText, 20);

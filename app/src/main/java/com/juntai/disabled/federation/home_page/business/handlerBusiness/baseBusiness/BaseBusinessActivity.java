@@ -74,6 +74,8 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     private int selectedNation = 0;//民族
     private int selectedEducationLevel = 0;//学历登记
     private int categoryId = 0;//残疾类别
+    private int jobStatusId = 0;//就业状态
+    private int trainIntentId = 0;//何种培训类型
     private int levelId = 0;//残疾等级
     private int toolId = 0;//辅具id
     private BusinessTextValueBean selectBean;
@@ -183,6 +185,24 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                 //残疾等级
                                 mPresenter.getDisabledLevel(AppHttpPath.GET_DISABLED_LEVEL);
                                 break;
+                            case BusinessContract.TABLE_TITLE_HOPE_TRAIN_TYPE:
+                                //种类
+                                mPresenter.getTrainingIntention(AppHttpPath.GET_TRAIN_INTENT_TYPES);
+                                break;
+                            case BusinessContract.TABLE_TITLE_JOB_STATUS:
+                                //就业状况
+                                List<String> jobStatus = getWorkStatus();
+                                PickerManager.getInstance().showOptionPicker(mContext, jobStatus,
+                                        new PickerManager.OnOptionPickerSelectedListener() {
+                                            @Override
+                                            public void onOptionsSelect(int options1, int option2, int options3,
+                                                                        View v) {
+                                                jobStatusId = options1;
+                                                mSelectTv.setText(jobStatus.get(options1));
+                                                selectBean.setValue(jobStatus.get(options1));
+                                            }
+                                        });
+                                break;
                             case BusinessContract.TABLE_TITLE_SELECT_ASSIST_TOOL:
                                 //辅具
                                 if (0 == categoryId) {
@@ -282,6 +302,17 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     }
 
 
+    /**
+     * 就业状况
+     * 0未就业；1已就业
+     * @return
+     */
+    protected List<String> getWorkStatus() {
+        List<String> arrays = new ArrayList<>();
+        arrays.add("未就业");
+        arrays.add("已就业");
+        return arrays;
+    }
     /**
      * 婚姻状况 0未婚；1已婚(有配偶)；2丧偶；3离婚
      *
@@ -605,6 +636,10 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             //意向岗位
                             formKey = "postIntention";
                             break;
+                        case BusinessContract.TABLE_TITLE_TRAIN_INTENT:
+                            //培训意向
+                            formKey = "trainingIntention";
+                            break;
                         case BusinessContract.TABLE_TITLE_WORK_AREA:
                             //择业地区
                             formKey = "areaIntention";
@@ -613,10 +648,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             //月薪要求
                             formKey = "monthlySalaryIntention";
                             break;
-                        case BusinessContract.TABLE_TITLE_TRAIN_INTENT:
-                            //培训意向
-                            formKey = "trainingIntention";
-                            break;
+
                         case BusinessContract.TABLE_TITLE_REMARK:
                             //备注
                             formKey = "remark";
@@ -645,10 +677,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             //器具数量
                             formKey = "quantity";
                             break;
-                        case BusinessContract.TABLE_TITLE_JOB_STATUS:
-                            //就业状况
-                            formKey = "jobSituation";
-                            break;
+
                         case BusinessContract.TABLE_TITLE_JOB:
                             //职业
                             formKey = "profession";
@@ -844,6 +873,18 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         case BusinessContract.TABLE_TITLE_SELECT_ASSIST_TOOL:
                             if (StringTools.isStringValueOk(textValueSelectBean.getValue())) {
                                 builder.addFormDataPart("aidsId", String.valueOf(toolId));
+                            }
+                            break;
+                        case BusinessContract.TABLE_TITLE_JOB_STATUS:
+                            //就业状况
+                            if (StringTools.isStringValueOk(textValueSelectBean.getValue())) {
+                                builder.addFormDataPart("jobSituation",  String.valueOf(jobStatusId));
+                            }
+                            break;
+                        case BusinessContract.TABLE_TITLE_HOPE_TRAIN_TYPE:
+                            //培训意向
+                            if (StringTools.isStringValueOk(textValueSelectBean.getValue())) {
+                                builder.addFormDataPart("trains",  String.valueOf(trainIntentId));
                             }
                             break;
                         default:
@@ -1173,7 +1214,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         List<BusinessPropertyBean.DataBean> data = null;
         if (BusinessContract.TABLE_TITLE_NATION.equals(tag) || BusinessContract.TABLE_TITLE_EDUCATION_LEVEL.equals(tag)
                 || AppHttpPath.GET_DISABLED_TYPE.equals(tag) || AppHttpPath.GET_DISABLED_LEVEL.equals(tag)
-                || AppHttpPath.GET_DISABLED_AIDS.equals(tag)) {
+                || AppHttpPath.GET_DISABLED_AIDS.equals(tag)||AppHttpPath.GET_TRAIN_INTENT_TYPES.equals(tag)) {
             propertyNationBean = (BusinessPropertyBean) o;
             data = propertyNationBean.getData();
             if (propertyNationBean != null && data.size() > 0) {
@@ -1201,6 +1242,9 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                     case AppHttpPath.GET_DISABLED_AIDS:
                                         toolId = dataBean.getId();
                                         break;
+                                    case AppHttpPath.GET_TRAIN_INTENT_TYPES:
+                                        trainIntentId = dataBean.getId();
+                                        break;
                                     default:
                                         break;
                                 }
@@ -1226,5 +1270,35 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
 
     public void setOnPicSelectedCallBack(OnPicSelectedCallBack picSelectedCallBack) {
         this.picSelectedCallBack = picSelectedCallBack;
+    }
+
+
+    /**
+     * 获取生日
+     *
+     * @return
+     */
+    private String getBirthDay() {
+        String value = null;
+        List<MultipleItem> arrays = adapter.getData();
+        for (MultipleItem array : arrays) {
+            switch (array.getItemType()) {
+                case MultipleItem.ITEM_BUSINESS_EDIT:
+                    BusinessTextValueBean textValueEditBean = (BusinessTextValueBean) array
+                            .getObject();
+                    switch (textValueEditBean.getKey()) {
+                        case BusinessContract.TABLE_TITLE_IDCARD:
+                            //身份证号
+                            value = textValueEditBean.getValue();
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        return value;
     }
 }

@@ -30,46 +30,126 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".home_page.business.handlerBusiness.HeadCropActivity"></activity>
-        <activity android:name=".home_page.business.handlerBusiness.SuggestionActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.studentBursary.detail.DisabledFamilyStudentBursaryDetailActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.studentBursary.detail.DisabledStudentBursaryDetailActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.homecare.HomeCareDetailActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.trainRequest.TrainRequestDetailActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.assistTool.AssistToolDetailActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.disabilityChildRecovery.detail.BrainPalsyRecoveryDetailActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.disabilityChildRecovery.detail.DeafDumbChildRecoveryDetailActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.disabilityChildRecovery.detail.LonelyChildRecoveryDetailActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.disabilityChildRecovery.detail.MoronRecoveryDetailActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.employmentRegist.EmploymentRegistDetailActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.normalbusiness.DisabledCardLogoutDetailActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.normalbusiness.DisabledCardMoveOutDetailActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.normalbusiness.DisabledCardMoveInDetailActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.normalbusiness.DisabledCardReissueDetailActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.normalbusiness.DisabledCardLevelChangeDetailActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.normalbusiness.RenewalDetailActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.handlercard.HandlerCardDetailActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.homecare.HomeCareActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.trainRequest.TrainingRequestActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.assistTool.AssistToolsRequestActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.disabilityChildRecovery.BrainPalsyRecoveryActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.disabilityChildRecovery.DeafDumbChildRecoveryActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.disabilityChildRecovery.LonelyChildRecoveryActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.disabilityChildRecovery.MoronRecoveryActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.studentBursary.disabilityFamilyStudent.DisabilityFamilyStudentActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.studentBursary.disabilitystudentbursary.DisabilityStudentBursaryActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.studentBursary.StudentBursaryActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.disabilityChildRecovery.DisabilityChildRecoveryActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.employmentRegist.EmploymentRegistActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.normalbusiness.CardLogoutActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.normalbusiness.CardMoveOutActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.normalbusiness.CardMoveInActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.normalbusiness.CardReissueActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.normalbusiness.CardLevelChangeActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.normalbusiness.RenewalActivity" />
-        <activity android:name=".home_page.business.handlerBusiness.handlercard.HandlerCardActivity" />
-        <activity android:name=".home_page.camera.ijkplayer.CarLiveActivity" />
-        <activity android:name=".home_page.healthOrgnize.HealthOrganizeActivity" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.HeadCropActivity"
+            android:launchMode="singleTop"></activity>
+        <activity
+            android:name=".home_page.business.handlerBusiness.SuggestionActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.studentBursary.detail.DisabledFamilyStudentBursaryDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.studentBursary.detail.DisabledStudentBursaryDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.homecare.HomeCareDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.trainRequest.TrainRequestDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.assistTool.AssistToolDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.disabilityChildRecovery.detail.BrainPalsyRecoveryDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.disabilityChildRecovery.detail.DeafDumbChildRecoveryDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.disabilityChildRecovery.detail.LonelyChildRecoveryDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.disabilityChildRecovery.detail.MoronRecoveryDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.employmentRegist.EmploymentRegistDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.normalbusiness.DisabledCardLogoutDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.normalbusiness.DisabledCardMoveOutDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.normalbusiness.DisabledCardMoveInDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.normalbusiness.DisabledCardReissueDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.normalbusiness.DisabledCardLevelChangeDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.normalbusiness.RenewalDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.handlercard.HandlerCardDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.homecare.HomeCareActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.trainRequest.TrainingRequestActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.assistTool.AssistToolsRequestActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.disabilityChildRecovery.BrainPalsyRecoveryActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.disabilityChildRecovery.DeafDumbChildRecoveryActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.disabilityChildRecovery.LonelyChildRecoveryActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.disabilityChildRecovery.MoronRecoveryActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.studentBursary.disabilityFamilyStudent.DisabilityFamilyStudentActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.studentBursary.disabilitystudentbursary.DisabilityStudentBursaryActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.studentBursary.StudentBursaryActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.disabilityChildRecovery.DisabilityChildRecoveryActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.employmentRegist.EmploymentRegistActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.normalbusiness.CardLogoutActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.normalbusiness.CardMoveOutActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.normalbusiness.CardMoveInActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.normalbusiness.CardReissueActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.normalbusiness.CardLevelChangeActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.normalbusiness.RenewalActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.business.handlerBusiness.handlercard.HandlerCardActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.camera.ijkplayer.CarLiveActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.healthOrgnize.HealthOrganizeActivity"
+            android:launchMode="singleTop" />
         <activity
             android:name=".home_page.news.news_publish.UpdateVideoNewsActivity"
             android:launchMode="singleTop" />
@@ -144,18 +224,6 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".home_page.business.my_business.MyBusinessActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".home_page.business.transact_business.SubmitSuccessActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".home_page.business.transact_business.TransactBusinessActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".home_page.business.more_business.MoreBusinessActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".home_page.business.business_common.BusinessActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".home_page.conciliation.conciliation_common.ConciliatonInfoActivity"
@@ -273,10 +341,6 @@
                 tools:replace="android:name,android:resource" />
         </provider>
 
-        <activity
-            android:name="com.tencent.bugly.beta.ui.BetaActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize|locale"
-            android:theme="@android:style/Theme.Translucent" /> <!-- 全面屏 -->
         <meta-data
             android:name="android.max_aspect"
             android:value="2.4" /> <!-- 适配华为（huawei）刘海屏 -->
