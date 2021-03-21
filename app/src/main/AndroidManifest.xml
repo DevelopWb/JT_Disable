@@ -30,7 +30,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".home_page.business.handlerBusiness.SuggestionActivity"></activity>
+        <activity android:name=".home_page.business.handlerBusiness.HeadCropActivity"></activity>
+        <activity android:name=".home_page.business.handlerBusiness.SuggestionActivity" />
         <activity android:name=".home_page.business.handlerBusiness.studentBursary.detail.DisabledFamilyStudentBursaryDetailActivity" />
         <activity android:name=".home_page.business.handlerBusiness.studentBursary.detail.DisabledStudentBursaryDetailActivity" />
         <activity android:name=".home_page.business.handlerBusiness.homecare.HomeCareDetailActivity" />
@@ -67,8 +68,8 @@
         <activity android:name=".home_page.business.handlerBusiness.normalbusiness.CardLevelChangeActivity" />
         <activity android:name=".home_page.business.handlerBusiness.normalbusiness.RenewalActivity" />
         <activity android:name=".home_page.business.handlerBusiness.handlercard.HandlerCardActivity" />
-        <activity android:name=".home_page.camera.ijkplayer.CarLiveActivity"></activity>
-        <activity android:name=".home_page.healthOrgnize.HealthOrganizeActivity"></activity>
+        <activity android:name=".home_page.camera.ijkplayer.CarLiveActivity" />
+        <activity android:name=".home_page.healthOrgnize.HealthOrganizeActivity" />
         <activity
             android:name=".home_page.news.news_publish.UpdateVideoNewsActivity"
             android:launchMode="singleTop" />
@@ -80,8 +81,8 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".entrance.complete_info.CompleteInfoActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".home_page.site_manager.site_add.UpdateSiteActivity"
             android:launchMode="singleTop" />

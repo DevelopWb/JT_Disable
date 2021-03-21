@@ -1,18 +1,14 @@
 package com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness;
 
-import android.app.Activity;
-import android.graphics.Bitmap;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.PickerManager;
@@ -20,7 +16,6 @@ import com.juntai.disabled.basecomponent.utils.RuleTools;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.R;
-import com.juntai.disabled.federation.base.BaseAppActivity;
 import com.juntai.disabled.federation.base.customview.GestureSignatureView;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.bean.business.BusinessPicBean;
@@ -31,15 +26,11 @@ import com.juntai.disabled.federation.bean.business.DeafBean;
 import com.juntai.disabled.federation.bean.business.ItemCheckBoxBean;
 import com.juntai.disabled.federation.bean.business.ItemSignBean;
 import com.juntai.disabled.federation.bean.business.RecycleBean;
-import com.juntai.disabled.federation.home_page.business.handlerBusiness.studentBursary.BaseStudentBursaryActivity;
 import com.juntai.disabled.federation.utils.DateUtil;
-import com.juntai.disabled.federation.utils.HawkProperty;
 import com.juntai.disabled.federation.utils.StringTools;
-import com.orhanobut.hawk.Hawk;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -261,6 +252,7 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
         }
         //清除签名文件
         FileCacheUtils.clearImage(FileCacheUtils.getAppImagePath() + FileCacheUtils.SIGN_PIC_NAME);
+        FileCacheUtils.clearImage(FileCacheUtils.getAppImagePath() + FileCacheUtils.HEAD_PIC);
     }
 
 
@@ -307,7 +299,7 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
                 case MultipleItem.ITEM_BUSINESS_EDIT:
                     BusinessTextValueBean textValueEditBean = (BusinessTextValueBean) array
                             .getObject();
-                    if (TextUtils.isEmpty(textValueEditBean.getValue())) {
+                    if (textValueEditBean.isImportant() && TextUtils.isEmpty(textValueEditBean.getValue())) {
                         String key = textValueEditBean.getKey();
                         if (key.contains(mPresenter.FAMILY_TAG)) {
                             key = "监护人" + key.substring(1, key.length());
@@ -557,10 +549,9 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
                         default:
                             break;
                     }
-                    if (formKey != null) {
+                    if (StringTools.isStringValueOk(textValueEditBean.getValue()) && formKey != null) {
                         builder.addFormDataPart(formKey, textValueEditBean.getValue());
                     }
-
                     break;
                 case MultipleItem.ITEM_BUSINESS_RADIO:
                     BusinessRadioBean radioBean = (BusinessRadioBean) array.getObject();
@@ -606,44 +597,53 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
                     break;
                 case MultipleItem.ITEM_BUSINESS_SELECT:
                     BusinessTextValueBean textValueSelectBean = (BusinessTextValueBean) array.getObject();
-                    if (!StringTools.isStringValueOk(textValueSelectBean.getValue())) {
+                    if (textValueSelectBean.isImportant() && !StringTools.isStringValueOk(textValueSelectBean.getValue())) {
                         ToastUtils.toast(mContext, "请选择" + textValueSelectBean.getKey());
                         return null;
                     }
                     switch (textValueSelectBean.getKey()) {
                         case BusinessContract.TABLE_TITLE_NATION:
                             //民族
-                            builder.addFormDataPart("nation", String.valueOf(selectedNation));
+                            if (StringTools.isStringValueOk(textValueSelectBean.getValue())) {
+                            builder.addFormDataPart("nation", String.valueOf(selectedNation));}
                             break;
                         case BusinessContract.TABLE_TITLE_MARRIAGE:
                             //婚姻状况
-                            builder.addFormDataPart("marriage", String.valueOf(selectedMarrayStatus));
+                            if (StringTools.isStringValueOk(textValueSelectBean.getValue())) {
+                            builder.addFormDataPart("marriage", String.valueOf(selectedMarrayStatus));}
                             break;
                         case BusinessContract.TABLE_TITLE_EDUCATION_LEVEL:
                             //文化程度
-                            builder.addFormDataPart("education", String.valueOf(selectedEducationLevel));
+                            if (StringTools.isStringValueOk(textValueSelectBean.getValue())) {
+                            builder.addFormDataPart("education", String.valueOf(selectedEducationLevel));}
                             break;
                         case BusinessContract.TABLE_TITLE_EDUCATION:
                             //学历
-                            builder.addFormDataPart("education", String.valueOf(selectedEducationLevel));
+                            if (StringTools.isStringValueOk(textValueSelectBean.getValue())) {
+                            builder.addFormDataPart("education", String.valueOf(selectedEducationLevel));}
                             break;
                         case BusinessContract.TABLE_TITLE_CHILD_IQ:
                             //儿童发育商
-                            builder.addFormDataPart("iq", String.valueOf(selectedIQId));
+                            if (StringTools.isStringValueOk(textValueSelectBean.getValue())) {
+                            builder.addFormDataPart("iq", String.valueOf(selectedIQId));}
                             break;
                         case BusinessContract.TABLE_TITLE_BRAIN_PALSY_STYLE:
                             //脑瘫类型
-                            builder.addFormDataPart("type", String.valueOf(selectedBrainId));
+                            if (StringTools.isStringValueOk(textValueSelectBean.getValue())) {
+                            builder.addFormDataPart("type", String.valueOf(selectedBrainId));}
                             break;
                         case BusinessContract.TABLE_TITLE_BIRTH:
                             //出生年月
-                            builder.addFormDataPart("birth", String.valueOf(birthDay));
+                            if (StringTools.isStringValueOk(textValueSelectBean.getValue())) {
+                            builder.addFormDataPart("birth", String.valueOf(birthDay));}
                             break;
                         case BusinessContract.TABLE_TITLE_DISABILITY_KINDS:
-                            builder.addFormDataPart("category", String.valueOf(categoryId));
+                            if (StringTools.isStringValueOk(textValueSelectBean.getValue())) {
+                            builder.addFormDataPart("category", String.valueOf(categoryId));}
                             break;
                         case BusinessContract.TABLE_TITLE_DISABILITY_LEVEL:
-                            builder.addFormDataPart("level", String.valueOf(levelId));
+                            if (StringTools.isStringValueOk(textValueSelectBean.getValue())) {
+                            builder.addFormDataPart("level", String.valueOf(levelId));}
                             break;
                         default:
                             break;
@@ -809,37 +809,41 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
                     }
                     builder.addFormDataPart("applicantSignFile", "applicantSignFile",
                             RequestBody.create(MediaType.parse(
-                                    "file"), new File(getBaseFragmentActivity().getSignPath())));
+                                    "file"), new File(getBaseFragmentActivity().getSignPath(FileCacheUtils.SIGN_PIC_NAME))));
                     break;
                 case MultipleItem.ITEM_BUSINESS_NORMAL_RECYCLEVIEW:
                     RecycleBean recycleBean = (RecycleBean) array.getObject();
                     List<ItemCheckBoxBean> data = recycleBean.getData();
                     String selectedData = getBaseFragmentActivity().getSelectedItems(data);
                     ItemCheckBoxBean selectedItem = getBaseFragmentActivity().getSelectedItem(data);
-                    if (!StringTools.isStringValueOk(selectedData)) {
+                    if (recycleBean.isImportant()&&!StringTools.isStringValueOk(selectedData)) {
                         ToastUtils.toast(mContext, "请选择" + recycleBean.getTitleKey());
                         return null;
                     }
                     switch (recycleBean.getTitleKey()) {
                         case BusinessContract.TABLE_TITLE_WITH_OTHER_DISABILITY:
                             //是否伴有其他残疾
-                            builder.addFormDataPart("otherDisabled", selectedData);
+                            if (StringTools.isStringValueOk(selectedData)) {
+                            builder.addFormDataPart("otherDisabled", selectedData);}
                             break;
                         case BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS:
                             //家庭经济状况
-                            builder.addFormDataPart("familyEconomy", String.valueOf(selectedItem.getIndex() + 1));
+                            if (StringTools.isStringValueOk(selectedData)) {
+                            builder.addFormDataPart("familyEconomy", String.valueOf(selectedItem.getIndex() + 1));}
                             break;
                         case BusinessContract.TABLE_TITLE_POOR_FAMILY:
                             //贫困家庭
+                            if (StringTools.isStringValueOk(selectedData)) {
                             builder.addFormDataPart("poorFamily", String.valueOf(selectedItem.getIndex()));
                             if (5 == selectedItem.getIndex()) {
                                 //其他困难  需要上传描述字段
-                                builder.addFormDataPart("poorFamilyExplain", selectedItem.getDes());
+                                builder.addFormDataPart("poorFamilyExplain", selectedItem.getDes());}
                             }
                             break;
                         case BusinessContract.TABLE_TITLE_MEDICALSAFE:
                             //享受医疗保险情况
-                            builder.addFormDataPart("medicalInsurance", String.valueOf(selectedItem.getIndex()));
+                            if (StringTools.isStringValueOk(selectedData)) {
+                            builder.addFormDataPart("medicalInsurance", String.valueOf(selectedItem.getIndex()));}
                             break;
                         default:
                             break;

@@ -79,7 +79,7 @@ public class ImageLoadUtil {
      * @param view
      */
     public static void loadImageNoCache(Context context, String url, ImageView view) {
-        Glide.with(context).load(url).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).error(R.drawable.nopicture).into(view);
+        Glide.with(context).load(url).apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true)).into(view);
     }
 
 
@@ -90,6 +90,7 @@ public class ImageLoadUtil {
      */
     public static void loadImageNoCrash(Context context, String url, ImageView view) {
         Glide.with(context).load(url).apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true)).into(view);
+
     }
 
     /**

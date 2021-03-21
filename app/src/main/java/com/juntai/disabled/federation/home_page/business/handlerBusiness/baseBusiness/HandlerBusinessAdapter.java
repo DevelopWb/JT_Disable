@@ -78,7 +78,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 ImageView headIv = helper.getView(R.id.form_head_pic_iv);
                 String headPicPath = headPicBean.getPicPath();
                 if (!TextUtils.isEmpty(headPicPath)) {
-                    ImageLoadUtil.loadImage(mContext, headPicPath, headIv);
+                    ImageLoadUtil.loadImageNoCache(mContext, headPicPath, headIv);
                 } else {
                     ImageLoadUtil.loadImage(mContext, R.mipmap.item_head_pic, headIv);
                 }

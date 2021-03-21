@@ -12,6 +12,7 @@ import com.baidu.location.BDLocation;
 import com.baidu.mapapi.model.LatLng;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
+import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.bdmap.BaseRequestLocationActivity;
@@ -29,6 +30,8 @@ import com.orhanobut.hawk.Hawk;
 
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import okhttp3.FormBody;
@@ -265,5 +268,31 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
             return true;
         }
     }
-
+    /**
+     * 获取签名图片的路径
+     *  必须返回null 要不不能判定有没有签名
+     * @return
+     */
+    protected String getSignPath(String picName) {
+        String picPath = FileCacheUtils.getAppImagePath() + picName;
+        File file = new File(picPath);
+        return file.exists()?picPath:null;
+    }
+    /**
+     * 获取图片的路径
+     *
+     * @return
+     */
+    protected String getHeadPath(String picName) {
+        String picPath = FileCacheUtils.getAppImagePath() + picName;
+        File file = new File(picPath);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return picPath;
+    }
 }
