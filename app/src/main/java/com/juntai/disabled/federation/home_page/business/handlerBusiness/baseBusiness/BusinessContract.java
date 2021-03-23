@@ -64,6 +64,7 @@ public interface BusinessContract {
     String TABLE_TITLE_UNIT_NATURE = "单位性质";//
     String TABLE_TITLE_IS_WEEL_COMPANY = "是否福利企业";//
     String TABLE_TITLE_DISABLE_PIC = "申请人残疾证照片";//
+    String TABLE_TITLE_DISABLED_PIC_IN_HEALTH_POSITION = "孩子在康复机构照片";//
     String TABLE_TITLE_DISABLE_PHOTO = "残疾证照片";//
     String TABLE_TITLE_GUARDIAN_ID_PIC = "监护人身份证拍照";//
     String TABLE_TITLE_HUKOU_RELATION_PIC = "户口本能证明监护关系页拍照";//

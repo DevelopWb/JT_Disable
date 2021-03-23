@@ -767,6 +767,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
 
                     break;
                 case MultipleItem.ITEM_BUSINESS_RADIO:
+                    //户口类别 家庭经济状况 项目级别 这几个上传的字段对应的是从1开始的 所以需要从默认的索引+1  相反的 获取到详情展示的时候 就需要-1了
                     BusinessRadioBean radioBean = (BusinessRadioBean) array.getObject();
                     switch (radioBean.getKey()) {
                         case BusinessContract.TABLE_TITLE_SEX:
@@ -780,7 +781,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             break;
                         case BusinessContract.TABLE_TITLE_HUKOU:
                             //户口类别
-                            builder.addFormDataPart("accountType", String.valueOf(radioBean.getDefaultSelectedIndex()));
+                            builder.addFormDataPart("accountType", String.valueOf(radioBean.getDefaultSelectedIndex()+ 1));
                             break;
                         case BusinessContract.TABLE_TITLE_IS_WEEL_COMPANY:
                             builder.addFormDataPart("unitWelfare", String.valueOf(radioBean.getDefaultSelectedIndex()));
@@ -799,6 +800,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                     String.valueOf(radioBean.getDefaultSelectedIndex()));
                             break;
                         case BusinessContract.TABLE_TITLE_PROJECT_LEVEL:
+                            //项目级别
                             builder.addFormDataPart("grand", String.valueOf(radioBean.getDefaultSelectedIndex() + 1));
                             break;
                         case BusinessContract.TABLE_TITLE_IS_POOR_FAMILY:
@@ -903,6 +905,16 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                 }
                                 //残疾证照片
                                 builder.addFormDataPart("pictureFile", "pictureFile",
+                                        RequestBody.create(MediaType.parse("file"),
+                                                new File(picBean.getPicPath())));
+                                break;
+                            case BusinessContract.TABLE_TITLE_DISABLED_PIC_IN_HEALTH_POSITION:
+                                if (!StringTools.isStringValueOk(picBean.getPicPath())) {
+                                    ToastUtils.toast(mContext, "请选择孩子在康复机构照片");
+                                    return null;
+                                }
+                                //孩子在康复机构照片
+                                builder.addFormDataPart("riPictureFile", "riPictureFile",
                                         RequestBody.create(MediaType.parse("file"),
                                                 new File(picBean.getPicPath())));
                                 break;

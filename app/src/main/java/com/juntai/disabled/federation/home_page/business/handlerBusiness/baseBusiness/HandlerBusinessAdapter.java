@@ -80,7 +80,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 if (!TextUtils.isEmpty(headPicPath)) {
                     ImageLoadUtil.loadImageNoCache(mContext, headPicPath, headIv);
                 } else {
-                    ImageLoadUtil.loadImage(mContext, R.mipmap.item_head_pic, headIv);
+                    ImageLoadUtil.loadImage(mContext, R.mipmap.two_inch_pic, headIv);
                 }
                 break;
             case MultipleItem.ITEM_BUSINESS_TITILE_BIG:
@@ -268,16 +268,19 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                     }
                 });
                 int defaultIndex = radioBean.getDefaultSelectedIndex();
-                switch (radioBean.getKey()) {
-                    case BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS:
-                        defaultIndex -= 1;
-                        break;
-                    case BusinessContract.TABLE_TITLE_PROJECT_LEVEL:
-                        defaultIndex -= 1;
-                        break;
-                    default:
-                        break;
-                }
+//                switch (radioBean.getKey()) {
+//                    case BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS:
+//                        defaultIndex -= 1;
+//                        break;
+//                    case BusinessContract.TABLE_TITLE_PROJECT_LEVEL:
+//                        defaultIndex -= 1;
+//                        break;
+//                    case BusinessContract.TABLE_TITLE_HUKOU:
+//                        defaultIndex -= 1;
+//                        break;
+//                    default:
+//                        break;
+//                }
                 switch (defaultIndex) {
                     case 0:
                         radioButton0.setChecked(true);
