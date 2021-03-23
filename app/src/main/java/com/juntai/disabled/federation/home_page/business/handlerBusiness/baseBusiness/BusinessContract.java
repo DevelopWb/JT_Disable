@@ -25,7 +25,6 @@ public interface BusinessContract {
     String TABLE_TITLE_DISABILITY_HEAR = "听力残疾";//表单的标题
     String TABLE_TITLE_DISABILITY_LIMB = "肢体残疾";//表单的标题
     String TABLE_TITLE_BIRTH = "出生年月";//表单的标题
-    String TABLE_TITLE_AGE = "年龄";//表单的标题
     String TABLE_TITLE_AGE_FAMILY = "F年龄";//表单的标题
     String TABLE_TITLE_AGE_PERSIONAL = "P年龄";//表单的标题
     String TABLE_TITLE_RESUME = "本人简历";//表单的标题
@@ -70,11 +69,13 @@ public interface BusinessContract {
     String TABLE_TITLE_HUKOU_RELATION_PIC = "户口本能证明监护关系页拍照";//
     String TABLE_TITLE_STUDENT_CARD_PIC = "学生证照片";//
     String TABLE_TITLE_ADMISSION_NOTICE_PIC = "入学通知书照片";//
-    String TABLE_TITLE_TUITION_PIC = "缴费凭证或缴费凭证照片";//学费
+    String TABLE_TITLE_TUITION_PIC = "缴费凭证照片";//学费
     String TABLE_TITLE_MATERIAL_PIC = "病例材料照片";//
     String TABLE_TITLE_LIFE_PIC = "申请人生活照片";//
-    String TABLE_TITLE_LIFE_PIC_MYSELF = "本人生活照片";//
+    String TABLE_TITLE_LIFE_PIC_MYSELF = "本人生活照照片";//
+    String TABLE_TITLE_LIFE_PIC_HOUSE = "房屋外观照片";//
     String TABLE_TITLE_SPECIAL = "特长";//
+    String TABLE_TITLE_ADMISSION_TIME = "入学时间";//
     String TABLE_TITLE_DISABILITY_KINDS = "残疾类别";//
     String TABLE_TITLE_DISABILITY_LEVEL = "残疾等级";//
     String TABLE_TITLE_ADMISSION_COLLEGE = "录取院校";//
@@ -84,6 +85,8 @@ public interface BusinessContract {
     String TABLE_TITLE_FATHER_NAME = "父亲姓名";//
     String TABLE_TITLE_MATHER_NAME = "母亲姓名";//
     String TABLE_TITLE_HOME_ADDRESS = "家庭通讯地址";//
+    String TABLE_TITLE_WCHAT_PHONE = "微信手机号";//
+    String TABLE_TITLE_TOWN_STREET = "镇街";//
     String TABLE_TITLE_ACCOUNT_NAME = "户名";//
     String TABLE_TITLE_ACCOUNT_BANK = "开户行";//
     String TABLE_TITLE_CARD_NUM = "卡号";//
@@ -91,6 +94,7 @@ public interface BusinessContract {
     String TABLE_TITLE_DISABILITY_STUDENT_RELATION = "与该生关系";//
     String TABLE_TITLE_DISABILITY_PEOPLE_RELATION = "与残疾人关系";//
     String TABLE_TITLE_STUDENT_IDCARD = "学生身份证照片";//
+    String TABLE_TITLE_PIC_IDCARD = "身份证照片";//
     String TABLE_TITLE_PRESENT_DISBILITY_IDCARD = "家长重度残疾证照片";//
     String TABLE_TITLE_GROUP_PHOTO = "学生与家长生活合影照片";//
     String TABLE_TITLE_ACCOUNT_BOOK = "户口本拍照能说明家庭关系的照片";//

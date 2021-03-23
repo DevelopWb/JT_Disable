@@ -979,6 +979,16 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                         RequestBody.create(MediaType.parse("file"),
                                                 new File(picBean.getPicPath())));
                                 break;
+                            case BusinessContract.TABLE_TITLE_LIFE_PIC_HOUSE:
+                                if (!StringTools.isStringValueOk(picBean.getPicPath())) {
+                                    ToastUtils.toast(mContext, "请选择房屋外观照片");
+                                    return null;
+                                }
+                                //房屋外观照片
+                                builder.addFormDataPart("housePictureFile", "housePictureFile",
+                                        RequestBody.create(MediaType.parse("file"),
+                                                new File(picBean.getPicPath())));
+                                break;
                             default:
                                 break;
                         }
