@@ -63,8 +63,7 @@ public class RxScheduler {
         Observable.create(new ObservableOnSubscribe<T>() {
             @Override
             public void subscribe(ObservableEmitter<T> e) throws Exception {
-                task.doOnIoThread();
-                e.onNext(task.getT());
+                e.onNext(task.doOnIoThread());
                 e.onComplete();
             }
         }).subscribeOn(Schedulers.io())
@@ -72,7 +71,7 @@ public class RxScheduler {
                 .subscribe(new Consumer<T>() {
                     @Override
                     public void accept(T t) throws Exception {
-                        task.doOnUIThread(t);
+                       task.doOnUIThread(t);
                         if (iView != null) {
                             iView.hideLoading();
                         }

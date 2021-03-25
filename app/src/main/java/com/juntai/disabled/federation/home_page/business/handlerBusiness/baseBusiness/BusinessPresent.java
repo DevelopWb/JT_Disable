@@ -26,6 +26,8 @@ import com.juntai.disabled.federation.bean.business.BusinessRadioBean;
 import com.juntai.disabled.federation.bean.business.BusinessTextValueBean;
 import com.juntai.disabled.federation.bean.business.ChildBusinessesBean;
 import com.juntai.disabled.federation.bean.business.DeafBean;
+import com.juntai.disabled.federation.bean.business.ImportantTagBean;
+import com.juntai.disabled.federation.bean.business.ToolInfoBean;
 import com.juntai.disabled.federation.bean.business.detail.AssistToolDetailBean;
 import com.juntai.disabled.federation.bean.business.detail.BusinessChildDetailBean;
 import com.juntai.disabled.federation.bean.business.detail.StudentBursaryDetailBean;
@@ -391,6 +393,29 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
     }
 
     @Override
+    public void getTrainingIntention(String tag) {
+        AppNetModule.createrRetrofit()
+                .getTrainingIntention()
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BusinessPropertyBean>(getView()) {
+                    @Override
+                    public void onSuccess(BusinessPropertyBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    @Override
     public void addDisabilityCertificate(RequestBody requestBody, String tag) {
         AppNetModule.createrRetrofit()
                 .addDisabilityCertificate(requestBody)
@@ -734,6 +759,28 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                     }
                 });
     }
+    @Override
+    public void getDisabledAIDSInfo(int  aidsId , String tag) {
+        AppNetModule.createrRetrofit()
+                .getDisabledAIDSInfo(aidsId )
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<ToolInfoBean>(getView()) {
+                    @Override
+                    public void onSuccess(ToolInfoBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
 
     @Override
     public void addTrain(RequestBody requestBody, String tag) {
@@ -780,7 +827,6 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                     }
                 });
     }
-
 
 
     @Override
@@ -1230,56 +1276,51 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
     public List<MultipleItem> getHandlerIdCardAdapterData(HandlerCardDetailBean.DataBean dataBean) {
         List<MultipleItem> arrays = new ArrayList<>();
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "申请人基本信息"));
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, BusinessContract.TABLE_TITLE_PIC));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL,
+                new ImportantTagBean(BusinessContract.TABLE_TITLE_PIC, true)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_HEAD_PIC,
-                new BusinessPicBean("", -1, dataBean == null ? "" : dataBean.getPhoto())));
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_PIC, -1,
+                        dataBean == null ? "" : dataBean.getPhoto())));
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME, dataBean == null ?
-                "" : dataBean.getName());
+                "" : dataBean.getName(), true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, dataBean == null ? 0 : dataBean.getSex(),
-                new String[]{"男", "女"});
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_BIRTH, dataBean == null ?
-                "" : dataBean.getBirth());
+                new String[]{"男", "女"}, false);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_NATION,
                 dataBean == null ? ""
-                        : dataBean.getNationName());
+                        : dataBean.getNationName(), false);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_MARRIAGE,
                 dataBean == null ?
-                        "" : dataBean.getMarriageName());
+                        "" : dataBean.getMarriageName(), false);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_EDUCATION_LEVEL,
-                dataBean == null ? "" : dataBean.getEducationName());
+                dataBean == null ? "" : dataBean.getEducationName(), false);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOMETOWN,
                 dataBean == null ? ""
-                        : dataBean.getNativePlace());
+                        : dataBean.getNativePlace(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_IDCARD, dataBean == null ?
                 "" :
-                dataBean.getIdNumber());
+                dataBean.getIdNumber(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ADDR, dataBean == null ? "" :
-                dataBean.getAddress());
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ZIP_CODE,
-                dataBean == null ? ""
-                        : dataBean.getPostCode());
-        initRadioType(arrays, BusinessContract.TABLE_TITLE_HUKOU, dataBean == null ? 0 : dataBean.getAccountType(),
+                dataBean.getAddress(), true);
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_HUKOU, dataBean == null ? 0 : dataBean.getAccountType() - 1,
                 new String[]{
-                        "农业户口", "非农业户口"});
+                        "农业户口", "非农业户口"}, false);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_GUARDIAN,
                 dataBean == null ? ""
-                        : dataBean.getGuardian());
+                        : dataBean.getGuardian(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_GUARDIAN_RELATION,
-                dataBean == null ? "" : dataBean.getRelationship());
+                dataBean == null ? "" : dataBean.getRelationship(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_PHONE, dataBean == null ?
                 "" :
-                dataBean.getTelephone());
+                dataBean.getTelephone(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_WORKER, dataBean == null ?
                 "" :
-                dataBean.getWorkingUnit());
+                dataBean.getWorkingUnit(), false);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_WORKER_TYPE, dataBean == null
-                ? "" : dataBean.getProfession());
+                ? "" : dataBean.getProfession(), false);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_UNIT_NATURE, dataBean == null
-                ? "" : dataBean.getUnitNature());
+                ? "" : dataBean.getUnitNature(), false);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_IS_WEEL_COMPANY, dataBean == null ? 1 :
-                dataBean.getUnitWelfare(), null);
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_CARD_TYPE, dataBean == null
-                ? "" : dataBean.getTypeName());
+                dataBean.getUnitWelfare(), null, false);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "申办残疾人证承诺书"));
         return arrays;
     }
@@ -1292,20 +1333,22 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
     public List<MultipleItem> getBaseChildAdapterData(BusinessChildDetailBean.DataBean dataBean) {
         List<MultipleItem> arrays = new ArrayList<>();
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "申请人基本信息"));
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, BusinessContract.TABLE_TITLE_PIC));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL,
+                new ImportantTagBean(BusinessContract.TABLE_TITLE_PIC, true)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_HEAD_PIC,
-                new BusinessPicBean("", -1, dataBean == null ? "" : dataBean.getPhoto())));
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_PIC, -1,
+                        dataBean == null ? "" : dataBean.getPhoto())));
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME, dataBean == null ? "" :
-                dataBean.getName());
+                dataBean.getName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_IDCARD, dataBean == null ?
                 "" :
-                dataBean.getIdNumber());
+                dataBean.getIdNumber(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DISABLE_CARD_ID,
-                dataBean == null ? "" : dataBean.getDisabilityCertificate());
+                dataBean == null ? "" : dataBean.getDisabilityCertificate(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ADDR, dataBean == null ? "" :
-                dataBean.getAddress());
+                dataBean.getAddress(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CONTACT_MODE,
-                dataBean == null ? "" : dataBean.getTelephone());
+                dataBean == null ? "" : dataBean.getTelephone(), true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC, 1, dataBean == null ? "" :
@@ -1332,20 +1375,21 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         String village = null;
         List<MultipleItem> arrays = new ArrayList<>();
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "申请人基本信息"));
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, BusinessContract.TABLE_TITLE_PIC));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL,
+                new ImportantTagBean(BusinessContract.TABLE_TITLE_PIC, true)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_HEAD_PIC,
-                new BusinessPicBean("", -1, dataBean == null ? "" : dataBean.getPhoto())));
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_PIC, -1,
+                        dataBean == null ? "" : dataBean.getPhoto())));
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME, dataBean == null ? "" :
-                dataBean.getName());
+                dataBean.getName(), true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, dataBean == null ? 0 : dataBean.getSex(), new String[]{
-                "男", "女"});
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_BIRTH, dataBean == null ?
-                "" :
-                dataBean.getBirth());
+                "男", "女"}, true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_NATION,
                 dataBean == null ? ""
-                        : dataBean.getNationName());
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, BusinessContract.TABLE_TITLE_HUKOU_ADDR));
+                        : dataBean.getNationName(), true);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL,
+                new ImportantTagBean(BusinessContract.TABLE_TITLE_HUKOU_ADDR,
+                        true)));
         if (dataBean != null) {
             String hukouAddr = dataBean.getResidenceAddress();
             if (StringTools.isStringValueOk(hukouAddr)) {
@@ -1358,46 +1402,44 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         }
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
                 new BusinessTextValueBean(BusinessContract.TABLE_TITLE_STREET, dataBean == null ? "" : street,
-                        String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_STREET), 0)));
+                        String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_STREET), 0, true)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
                 new BusinessTextValueBean(BusinessContract.TABLE_TITLE_VILLAGE, dataBean == null ? "" : village,
-                        String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_VILLAGE), 0)));
+                        String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_VILLAGE), 0, true)));
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_EDUCATION_LEVEL,
-                dataBean == null ? "" : dataBean.getLevelName());
+                dataBean == null ? "" : dataBean.getLevelName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_MARRIAGE,
                 dataBean == null ?
-                        "" : dataBean.getMarriageName());
+                        "" : dataBean.getMarriageName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_IDCARD, dataBean == null ?
-                "" : dataBean.getIdNumber());
+                "" : dataBean.getIdNumber(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_PHONE, dataBean == null ?
-                "" : dataBean.getTelephone());
+                "" : dataBean.getTelephone(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CONTACTER, dataBean == null ?
-                "" : dataBean.getContacts());
+                "" : dataBean.getContacts(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CURRENT_LIVE_ADDR,
                 dataBean == null ?
-                        "" : dataBean.getResidentialAddress());
+                        "" : dataBean.getResidentialAddress(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_KINDS,
                 dataBean == null ?
-                        "" : dataBean.getCategoryName());
+                        "" : dataBean.getCategoryName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_LEVEL,
                 dataBean == null ?
-                        "" : dataBean.getLevelName());
+                        "" : dataBean.getLevelName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_SPECIALTY, dataBean == null ?
-                "" : dataBean.getSpecialty());
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_JOB_STATUS,
+                "" : dataBean.getSpecialty(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_JOB_STATUS,
                 dataBean == null ?
-                        "" : dataBean.getJobSituation());
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, "希望参加何种培训"));
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
-                new BusinessTextValueBean(BusinessContract.TABLE_TITLE_TRAIN_TYPE, dataBean == null ?
-                        "" : dataBean.getTrains(),
-                        String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_TRAIN_TYPE), 0)));
+                        "" : dataBean.getJobSituationName(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_HOPE_TRAIN_TYPE,
+                dataBean == null ?
+                        "" : dataBean.getTrainsName(), true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, BusinessContract.TABLE_TITLE_RESUME_WORK));
         initEditHighType(arrays, BusinessContract.TABLE_TITLE_RESUME_WORK, dataBean == null ?
-                "" : dataBean.getWorkingResume());
+                "" : dataBean.getWorkingResume(), true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, BusinessContract.TABLE_TITLE_RESUME_TRAIN));
         initEditHighType(arrays, BusinessContract.TABLE_TITLE_RESUME_TRAIN, dataBean == null ?
-                "" : dataBean.getTrainingResume());
+                "" : dataBean.getTrainingResume(), true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC, 1, dataBean == null ?
@@ -1421,22 +1463,23 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         List<MultipleItem> arrays = new ArrayList<>();
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "监护人家庭情况"));
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME_FAMILY, dataBean == null
-                ? "" : dataBean.getGuardianName());
+                ? "" : dataBean.getGuardianName(), true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX_FAMILY, dataBean == null
-                ? 0 : dataBean.getGuardianSex(), new String[]{"男", "女"});
+                ? 0 : dataBean.getGuardianSex(), new String[]{"男", "女"}, true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_AGE_FAMILY, dataBean == null
-                ? "" : String.valueOf(dataBean.getGuardianAge()));
+                ? "" : String.valueOf(dataBean.getGuardianAge()), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_JOB, dataBean == null
-                ? "" : dataBean.getProfession());
+                ? "" : dataBean.getProfession(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DISABILITY_PEOPLE_RELATION
                 , dataBean == null
-                        ? "" : dataBean.getRelationship());
+                        ? "" : dataBean.getRelationship(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_PHONE, dataBean == null
-                ? "" : dataBean.getTelephone());
+                ? "" : dataBean.getTelephone(), true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS, dataBean == null
-                ? 1 : dataBean.getFamilyEconomy(), new String[]{"低保家庭", "建档立卡贫困家庭",
-                "其他困难"});
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, "家庭地址:河东区"));
+                ? 1 : dataBean.getFamilyEconomy() - 1, new String[]{"低保家庭", "建档立卡贫困家庭",
+                "其他困难"}, true);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, new ImportantTagBean("家庭地址:河东区",
+                true)));
         if (dataBean != null) {
             String fAddr = dataBean.getAddress();
             if (StringTools.isStringValueOk(fAddr)) {
@@ -1448,34 +1491,35 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         }
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
                 new BusinessTextValueBean(BusinessContract.TABLE_TITLE_STREET_FAMILY, fStreet,
-                        String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_STREET), 0)));
+                        String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_STREET), 0, true)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
                 new BusinessTextValueBean(BusinessContract.TABLE_TITLE_VILLAGE_FAMILY, fVillage,
-                        String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_VILLAGE), 0)));
+                        String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_VILLAGE), 0, true)));
 
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "残疾人概况"));
 
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME_PERSIONAL,
                 dataBean == null
-                        ? "" : dataBean.getName());
+                        ? "" : dataBean.getName(), true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX_PERSIONAL, dataBean == null
-                ? 0 : dataBean.getSex(), new String[]{"男", "女"});
+                ? 0 : dataBean.getSex(), new String[]{"男", "女"}, true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_AGE_PERSIONAL,
                 dataBean == null
-                        ? "" : String.valueOf(dataBean.getAge()));
+                        ? "" : String.valueOf(dataBean.getAge()), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_EDUCATION_LEVEL,
                 dataBean == null
-                        ? "" : dataBean.getEducationName());
+                        ? "" : dataBean.getEducationName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_KINDS,
                 dataBean == null
-                        ? "" : dataBean.getCategoryName());
+                        ? "" : dataBean.getCategoryName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_LEVEL,
                 dataBean == null
-                        ? "" : dataBean.getLevelName());
+                        ? "" : dataBean.getLevelName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DISABLE_CARD_ID,
                 dataBean == null
-                        ? "" : dataBean.getDisabilityCertificate());
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, "家庭地址:河东区"));
+                        ? "" : dataBean.getDisabilityCertificate(), true);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, new ImportantTagBean("家庭地址:河东区",
+                true)));
         if (dataBean != null) {
             String pAddr = dataBean.getResidentialAddress();
             if (StringTools.isStringValueOk(pAddr)) {
@@ -1487,10 +1531,10 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         }
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
                 new BusinessTextValueBean(BusinessContract.TABLE_TITLE_STREET_PERSIONAL, pStreet,
-                        String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_STREET), 0)));
+                        String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_STREET), 0, true)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
                 new BusinessTextValueBean(BusinessContract.TABLE_TITLE_VILLAGE_PERSIONAL, pVillage,
-                        String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_VILLAGE), 0)));
+                        String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_VILLAGE), 0, true)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PHOTO, 1, dataBean == null
@@ -1504,6 +1548,9 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_LIFE_PIC_MYSELF, 4, dataBean == null
                         ? "" : dataBean.getLifePicture())));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_LIFE_PIC_HOUSE, 5, dataBean == null
+                        ? "" : dataBean.getHousePicture())));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_SIGN, new ItemSignBean("申请人签字", dataBean == null
                 ? "" : dataBean.getApplicantSign(), 0)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_NOTICE, "注：此表一式两份，区残联、居家托养服务机构各执一份"));
@@ -1519,33 +1566,38 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         List<MultipleItem> arrays = new ArrayList<>();
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "申请人基本信息"));
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME, dataBean == null ? "" :
-                dataBean.getName());
+                dataBean.getName(), true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, dataBean == null ? 0 :
-                dataBean.getSex(), new String[]{"男", "女"});
+                dataBean.getSex(), new String[]{"男", "女"}, true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_BIRTH, dataBean == null ?
                 "" :
-                dataBean.getBirth());
+                dataBean.getBirth(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_PHONE, dataBean == null ?
                 "" :
-                dataBean.getTelephone());
+                dataBean.getTelephone(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_KINDS,
                 dataBean == null ? "" :
-                        dataBean.getCategoryName());
+                        dataBean.getCategoryName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_LEVEL,
                 dataBean == null ? "" :
-                        dataBean.getLevelName());
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_SELECT_ASSIST_TOOL,
-                dataBean == null ? "" :
-                        dataBean.getAidsName());
+                        dataBean.getLevelName(), true);
+
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOME_ADDR2,
                 dataBean == null ? "" :
-                        dataBean.getAddress());
+                        dataBean.getAddress(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DISABLE_CARD_ID,
                 dataBean == null ? "" :
-                        dataBean.getDisabilityCertificate());
+                        dataBean.getDisabilityCertificate(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ASSIST_TOOL_AMOUNT,
                 dataBean == null ? "" :
-                        String.valueOf(dataBean.getQuantity()));
+                        String.valueOf(dataBean.getQuantity()), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DELIVERY_METHOD,
+                dataBean == null ? "" :
+                        dataBean.getDeliveryWayName(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_SELECT_ASSIST_TOOL,
+                dataBean == null ? "" :
+                        dataBean.getAidsName(), true);
+
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_SIGN, new ItemSignBean("领取人签字", dataBean == null ? "" :
                 dataBean.getApplicantSign(), 0)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
@@ -1569,61 +1621,63 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
     public List<MultipleItem> getEmploymentRegistAdapterData(EmploymentRegDetailBean.DataBean dataBean) {
         List<MultipleItem> arrays = new ArrayList<>();
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "申请人基本信息"));
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, BusinessContract.TABLE_TITLE_PIC));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL,
+                new ImportantTagBean(BusinessContract.TABLE_TITLE_PIC, true)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_HEAD_PIC,
-                new BusinessPicBean("", -1, dataBean == null ? "" : dataBean.getPhoto())));
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_PIC, -1,
+                        dataBean == null ? "" : dataBean.getPhoto())));
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME, dataBean == null ? "" :
-                dataBean.getName());
+                dataBean.getName(), true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, dataBean == null ? 0 : dataBean.getSex(), new String[]{
-                "男", "女"});
+                "男", "女"}, true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_BIRTH, dataBean == null ?
                 "" :
-                dataBean.getBirth());
+                dataBean.getBirth(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_NATION, dataBean == null ?
-                "" : dataBean.getNationName());
+                "" : dataBean.getNationName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_EDUCATION_LEVEL,
-                dataBean == null ? "" : dataBean.getEducationName());
+                dataBean == null ? "" : dataBean.getEducationName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_SPECIAL, dataBean == null
                 ? ""
-                : dataBean.getSpecialty());
+                : dataBean.getSpecialty(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_MARRIAGE, dataBean == null
-                ? "" : dataBean.getMarriageName());
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_REG_MODE, dataBean == null
-                ? "" : dataBean.getWayName());
+                ? "" : dataBean.getMarriageName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOME_ADDR, dataBean == null ?
-                "" : dataBean.getResidenceAddress());
+                "" : dataBean.getResidenceAddress(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ADDR_LIVE_NOW,
-                dataBean == null ? "" : dataBean.getResidentialAddress());
+                dataBean == null ? "" : dataBean.getResidentialAddress(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_KINDS,
-                dataBean == null ? "" : dataBean.getCategoryName());
+                dataBean == null ? "" : dataBean.getCategoryName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_LEVEL,
-                dataBean == null ? "" : dataBean.getLevelName());
+                dataBean == null ? "" : dataBean.getLevelName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_PHONE, dataBean == null ?
                 "" :
-                dataBean.getTelephone());
+                dataBean.getTelephone(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DISABLE_CARD_ID,
-                dataBean == null ? "" : dataBean.getDisabilityCertificate());
+                dataBean == null ? "" : dataBean.getDisabilityCertificate(), true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_DISABILITY_HEAR, dataBean == null ? 1 :
                         dataBean.getHearingDisability(),
-                null);
+                null, true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_DISABILITY_LIMB, dataBean == null ? 2 :
                         dataBean.getPhysicalDisability(),
-                new String[]{"上肢残疾", "下肢残疾"});
+                new String[]{"上肢残疾", "下肢残疾"}, true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, BusinessContract.TABLE_TITLE_RESUME));
-        initEditHighType(arrays, BusinessContract.TABLE_TITLE_RESUME, dataBean == null ? "" : dataBean.getMineResume());
+        initEditHighType(arrays, BusinessContract.TABLE_TITLE_RESUME, dataBean == null ? "" :
+                dataBean.getMineResume(), true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "求职意向"));
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_WANTED_POST,
-                dataBean == null ? "" : dataBean.getPostIntention());
+                dataBean == null ? "" : dataBean.getPostIntention(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_WORK_AREA, dataBean == null ?
-                "" : dataBean.getAreaIntention());
+                "" : dataBean.getAreaIntention(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_SALARY, dataBean == null ?
                 "" :
-                dataBean.getMonthlySalaryIntention());
+                dataBean.getMonthlySalaryIntention(), true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, BusinessContract.TABLE_TITLE_TRAIN_INTENT));
         initEditHighType(arrays, BusinessContract.TABLE_TITLE_TRAIN_INTENT, dataBean == null ? "" :
-                dataBean.getTrainingIntention());
+                dataBean.getTrainingIntention(), true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, BusinessContract.TABLE_TITLE_REMARK));
-        initEditHighType(arrays, BusinessContract.TABLE_TITLE_REMARK, dataBean == null ? "" : dataBean.getRemark());
+        initEditHighType(arrays, BusinessContract.TABLE_TITLE_REMARK, dataBean == null ? "" : dataBean.getRemark(),
+                true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC, -1, dataBean == null ? "" :
@@ -1642,14 +1696,20 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         List<MultipleItem> arrays = new ArrayList<>();
         getBaseDisabilityStudentBursaryAdapterData(dataBean, arrays);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
-                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC, 1, dataBean == null ? "" :
-                        dataBean.getDisabilityCertificatePicture())));
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PHOTO, 1, dataBean == null
+                        ? "" : dataBean.getDisabilityCertificatePicture())));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
-                new BusinessPicBean(BusinessContract.TABLE_TITLE_ADMISSION_NOTICE_PIC, 2, dataBean == null ? "" :
-                        dataBean.getNoticePicture())));
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_PIC_IDCARD, 2, dataBean == null
+                        ? "" : dataBean.getIdPicture())));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_TUITION_PIC, 3, dataBean == null ? "" :
                         dataBean.getPayPicture())));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_STUDENT_CARD_PIC, 4,
+                        dataBean == null ? "" : dataBean.getStudentCertificatePicture())));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_LIFE_PIC_MYSELF, 5, dataBean == null
+                        ? "" : dataBean.getLifePicture())));
         return arrays;
     }
 
@@ -1710,57 +1770,53 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
     private void getBaseDisabilityStudentBursaryAdapterData(StudentBursaryDetailBean.DataBean dataBean,
                                                             List<MultipleItem> arrays) {
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "申请人基本信息"));
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, BusinessContract.TABLE_TITLE_PIC));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL,
+                new ImportantTagBean(BusinessContract.TABLE_TITLE_PIC, true)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_HEAD_PIC,
-                new BusinessPicBean("", -1, dataBean == null ? "" : dataBean.getPhoto())));
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_PIC, -1,
+                        dataBean == null ? "" : dataBean.getPhoto())));
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME, dataBean == null ? "" :
-                dataBean.getName());
+                dataBean.getName(), true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, dataBean == null ? 0 : dataBean.getSex(),
                 new String[]{"男"
-                        , "女"});
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_BIRTH, dataBean == null ?
-                "" :
-                dataBean.getBirth());
+                        , "女"}, true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_NATION,
                 dataBean == null ? ""
-                        : dataBean.getNationName());
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOMETOWN,
-                dataBean == null ? ""
-                        : dataBean.getNativePlace());
+                        : dataBean.getNationName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_IDCARD, dataBean == null ?
                 "" :
-                dataBean.getIdNumber());
+                dataBean.getIdNumber(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_KINDS,
-                dataBean == null ? "" : dataBean.getCategoryName());
+                dataBean == null ? "" : dataBean.getCategoryName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_LEVEL,
-                dataBean == null ? "" : dataBean.getLevelName());
+                dataBean == null ? "" : dataBean.getLevelName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ADMISSION_COLLEGE,
-                dataBean == null ? "" : dataBean.getCollege());
+                dataBean == null ? "" : dataBean.getCollege(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ADMISSION_PERSIONAL,
-                dataBean == null ? "" : dataBean.getMajor());
+                dataBean == null ? "" : dataBean.getMajor(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_EDUCATION, dataBean == null
-                ? "" : dataBean.getEducationName());
+                ? "" : dataBean.getEducationName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_SCHOOL_SYSTEM,
-                dataBean == null ? "" : dataBean.getSystem());
+                dataBean == null ? "" : dataBean.getSystem(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_PHONE, dataBean == null ?
                 "" :
-                dataBean.getTelephone());
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_EMAIL, dataBean == null ?
-                "" :
-                dataBean.getEmail());
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_FATHER_NAME, dataBean == null
-                ? "" : dataBean.getFatherName());
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_MATHER_NAME, dataBean == null
-                ? "" : dataBean.getMotherName());
+                dataBean.getTelephone(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOME_ADDRESS,
-                dataBean == null ? "" : dataBean.getAddress());
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ZIP_CODE,
-                dataBean == null ? ""
-                        : dataBean.getPostCode());
-        //        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "受助学生银行卡资料（工商银行）"));
-        //        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ACCOUNT_NAME);
-        //        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ACCOUNT_BANK);
-        //        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CARD_NUM);
+                dataBean == null ? "" : dataBean.getAddress(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_WCHAT_PHONE,
+                dataBean == null ? "" : dataBean.getWechatPhone(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_ADMISSION_TIME,
+                dataBean == null ? "" : dataBean.getStartSchoolTimeName(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_TOWN_STREET,
+                dataBean == null ? "" : dataBean.getTownStreet(), true);
+
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "受助学生银行卡信息"));
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ACCOUNT_NAME,
+                dataBean == null ? "" : dataBean.getAccountName(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ACCOUNT_BANK,
+                dataBean == null ? "" : dataBean.getBankName(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CARD_NUM,
+                dataBean == null ? "" : dataBean.getCardNumber(), true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
     }
 
@@ -1772,60 +1828,69 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
     private void getBaseDisabilityFamilyStudentBursaryAdapterData(StudentBursaryDetailBean.DataBean dataBean,
                                                                   List<MultipleItem> arrays) {
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "申请人基本信息"));
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, BusinessContract.TABLE_TITLE_PIC));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL,
+                new ImportantTagBean(BusinessContract.TABLE_TITLE_PIC, true)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_HEAD_PIC,
-                new BusinessPicBean("", -1, dataBean == null ? "" : dataBean.getPhoto())));
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_PIC, -1,
+                        dataBean == null ? "" : dataBean.getPhoto())));
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME, dataBean == null ? "" :
-                dataBean.getName());
+                dataBean.getName(), true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, dataBean == null ? 0 : dataBean.getSex(), new String[]{
-                "男", "女"});
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_BIRTH, dataBean == null ?
-                "" :
-                dataBean.getBirth());
+                "男", "女"}, true);
+        //        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_BIRTH,
+        //        dataBean == null ?
+        //                "" :
+        //                dataBean.getBirth(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_NATION, dataBean == null ?
-                "" : dataBean.getNationName());
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOMETOWN, dataBean == null ?
-                "" : dataBean.getNativePlace());
+                "" : dataBean.getNationName(), true);
+        //        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOMETOWN,
+        //        dataBean == null ?
+        //                "" : dataBean.getNativePlace(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_IDCARD, dataBean == null ?
                 "" :
-                dataBean.getIdNumber());
+                dataBean.getIdNumber(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DISABILITY_PEOPLE_NAME,
-                dataBean == null ? "" : dataBean.getSeverelyDisabledName());
+                dataBean == null ? "" : dataBean.getSeverelyDisabledName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT,
                 BusinessContract.TABLE_TITLE_DISABILITY_STUDENT_RELATION, dataBean == null ? "" :
-                        dataBean.getRelationship());
+                        dataBean.getRelationship(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DISABLE_CARD_ID,
-                dataBean == null ? "" : dataBean.getDisabilityCertificate());
+                dataBean == null ? "" : dataBean.getDisabilityCertificate(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_KINDS,
-                dataBean == null ? "" : dataBean.getCategoryName());
+                dataBean == null ? "" : dataBean.getCategoryName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_LEVEL,
-                dataBean == null ? "" : dataBean.getLevelName());
+                dataBean == null ? "" : dataBean.getLevelName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ADMISSION_COLLEGE,
-                dataBean == null ? "" : dataBean.getCollege());
+                dataBean == null ? "" : dataBean.getCollege(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ADMISSION_PERSIONAL,
-                dataBean == null ? "" : dataBean.getMajor());
+                dataBean == null ? "" : dataBean.getMajor(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_EDUCATION,
-                dataBean == null ? "" : dataBean.getEducationName());
+                dataBean == null ? "" : dataBean.getEducationName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_SCHOOL_SYSTEM,
-                dataBean == null ? "" : dataBean.getSystem());
+                dataBean == null ? "" : dataBean.getSystem(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_PHONE, dataBean == null ?
                 "" :
-                dataBean.getTelephone());
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_EMAIL, dataBean == null ?
-                "" :
-                dataBean.getEmail());
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_FATHER_NAME,
-                dataBean == null ? "" : dataBean.getFatherName());
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_MATHER_NAME,
-                dataBean == null ? "" : dataBean.getMotherName());
+                dataBean.getTelephone(), true);
+        //        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_FATHER_NAME,
+        //                dataBean == null ? "" : dataBean.getFatherName(), true);
+        //        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_MATHER_NAME,
+        //                dataBean == null ? "" : dataBean.getMotherName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOME_ADDRESS,
-                dataBean == null ? "" : dataBean.getAddress());
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ZIP_CODE, dataBean == null ?
-                "" : dataBean.getPostCode());
-        //        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "受助学生银行卡资料（工商银行）"));
-        //        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ACCOUNT_NAME);
-        //        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ACCOUNT_BANK);
-        //        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CARD_NUM);
+                dataBean == null ? "" : dataBean.getAddress(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_WCHAT_PHONE,
+                dataBean == null ? "" : dataBean.getWechatPhone(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_ADMISSION_TIME,
+                dataBean == null ? "" : dataBean.getStartSchoolTimeName(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_TOWN_STREET,
+                dataBean == null ? "" : dataBean.getTownStreet(), true);
+
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "受助学生银行卡信息"));
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ACCOUNT_NAME,
+                dataBean == null ? "" : dataBean.getAccountName(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ACCOUNT_BANK,
+                dataBean == null ? "" : dataBean.getBankName(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CARD_NUM,
+                dataBean == null ? "" : dataBean.getCardNumber(), true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
     }
 
@@ -1838,11 +1903,17 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         List<MultipleItem> arrays = new ArrayList<>();
         getBaseDisabilityStudentBursaryAdapterData(dataBean, arrays);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
-                new BusinessPicBean(BusinessContract.TABLE_TITLE_STUDENT_CARD_PIC, 1,
-                        dataBean == null ? "" : dataBean.getStudentCertificatePicture())));
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PHOTO, 1, dataBean == null
+                        ? "" : dataBean.getDisabilityCertificatePicture())));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
-                new BusinessPicBean(BusinessContract.TABLE_TITLE_TUITION_PIC, 2, dataBean == null ? "" :
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_PIC_IDCARD, 2, dataBean == null
+                        ? "" : dataBean.getIdPicture())));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_TUITION_PIC, 3, dataBean == null ? "" :
                         dataBean.getPayPicture())));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_LIFE_PIC_MYSELF, 4, dataBean == null
+                        ? "" : dataBean.getLifePicture())));
         return arrays;
     }
 
@@ -1855,63 +1926,71 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         List<MultipleItem> arrays = new ArrayList<>();
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_YEAR,
                 new BusinessTextValueBean(BusinessContract.TABLE_TITLE_YEAR, dataBean == null ? "" : dataBean.getYear(),
-                        null, 0)));
-        initRadioType(arrays, BusinessContract.TABLE_TITLE_PROJECT_LEVEL, dataBean == null ? 1 : dataBean.getGrand(),
-                new String[]{"国家", "省级", "市级", "县级"});
+                        null, 0, true)));
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_PROJECT_LEVEL, dataBean == null ? 1 :
+                        dataBean.getGrand() - 1,
+                new String[]{"国家", "省级", "市级", "县级"}, true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "申请人基本信息"));
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, BusinessContract.TABLE_TITLE_PIC));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL,
+                new ImportantTagBean(BusinessContract.TABLE_TITLE_PIC, true)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_HEAD_PIC,
-                new BusinessPicBean("", -1, dataBean == null ? "" : dataBean.getPhoto())));
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_PIC, -1,
+                        dataBean == null ? "" : dataBean.getPhoto())));
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CHILD_NAME, dataBean == null
-                ? "" : dataBean.getName());
+                ? "" : dataBean.getName(), true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, dataBean == null ? 0 : dataBean.getSex(),
                 new String[]{"男"
-                        , "女"});
+                        , "女"}, true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_NATION, dataBean == null ?
-                "" : dataBean.getNationName());
+                "" : dataBean.getNationName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CHILD_IDCARD,
-                dataBean == null ? "" : dataBean.getIdNumber());
+                dataBean == null ? "" : dataBean.getIdNumber(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DISABLE_CARD_ID,
-                dataBean == null ? "" : dataBean.getDisabilityCertificate());
+                dataBean == null ? "" : dataBean.getDisabilityCertificate(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DIAGNOSIS_AGENCY,
-                dataBean == null ? "" : dataBean.getDiagnoseAgency());
+                dataBean == null ? "" : dataBean.getDiagnoseAgency(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DIAGNOSIS_RESULT,
-                dataBean == null ? "" : dataBean.getDiagnoseResult());
+                dataBean == null ? "" : dataBean.getDiagnoseResult(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_GUARDIAN_NAME,
-                dataBean == null ? "" : dataBean.getGuardian());
+                dataBean == null ? "" : dataBean.getGuardian(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_RELATION_TO_CHILD,
-                dataBean == null ? "" : dataBean.getRelationship());
+                dataBean == null ? "" : dataBean.getRelationship(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOME_ADDR2, dataBean == null
-                ? "" : dataBean.getAddress());
+                ? "" : dataBean.getAddress(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_PHONE, dataBean == null ?
                 "" :
-                dataBean.getTelephone());
+                dataBean.getTelephone(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_CHILD_IQ, dataBean == null
-                ? "" : dataBean.getIqName());
+                ? "" : dataBean.getIqName(), true);
 
 
         initRecycleviewType(arrays, getOtherDisabilities(dataBean),
                 BusinessContract.TABLE_TITLE_WITH_OTHER_DISABILITY, 0, 0,
-                false);
+                false, true);
         initRecycleviewType(arrays, getFamilyEcomanicStatus(dataBean),
                 BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS, 1,
-                0, true);
+                0, true, true);
         initRecycleviewType(arrays, getPoorFamilyResion(dataBean), BusinessContract.TABLE_TITLE_POOR_FAMILY, 1,
-                2, true);
+                2, true, true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_IS_POOR_FAMILY, dataBean == null ? 1 :
                         dataBean.getAlleviation()
-                , new String[]{"是", "否"});
+                , new String[]{"是", "否"}, true);
         initRecycleviewType(arrays, getMedicalSafes(dataBean), BusinessContract.TABLE_TITLE_MEDICALSAFE, 2,
-                2, true);
-        initRadioType(arrays, BusinessContract.TABLE_TITLE_HUKOU, dataBean == null ? 1 : dataBean.getAccountType(),
+                2, true, true);
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_HUKOU, dataBean == null ? 1 : dataBean.getAccountType() - 1,
                 new String[]{
-                        "农业户口", "非农业户口"});
+                        "农业户口", "非农业户口"}, true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HEALTH_AGENCY,
-                dataBean == null ? "" : dataBean.getRecoveryInstitution());
+                dataBean == null ? "" : dataBean.getRecoveryInstitution(), true);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLED_PIC_IN_HEALTH_POSITION, -1,
+                        dataBean == null ? "" :
+                                dataBean.getRiPicture())));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG,
                 BusinessContract.TABLE_TITLE_GUAIDIAN_REQUEST));
         initEditHighType(arrays, BusinessContract.TABLE_TITLE_GUAIDIAN_REQUEST, dataBean == null ? "" :
-                dataBean.getGuardianApply());
+                dataBean.getGuardianApply(), true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_SIGN, new ItemSignBean("申请人", dataBean == null ? "" :
                 dataBean.getApplicantSign(), 1)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_NOTICE,
@@ -1930,53 +2009,60 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         List<MultipleItem> arrays = new ArrayList<>();
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_YEAR,
                 new BusinessTextValueBean(BusinessContract.TABLE_TITLE_YEAR, dataBean == null ? "" : dataBean.getYear(),
-                        null, 0)));
-        initRadioType(arrays, BusinessContract.TABLE_TITLE_PROJECT_LEVEL, dataBean == null ? 1 : dataBean.getGrand(),
-                new String[]{"国家", "省级", "市级", "县级"});
+                        null, 0, true)));
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_PROJECT_LEVEL, dataBean == null ? 1 :
+                        dataBean.getGrand() - 1,
+                new String[]{"国家", "省级", "市级", "县级"}, true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "申请人基本信息"));
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, BusinessContract.TABLE_TITLE_PIC));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL,
+                new ImportantTagBean(BusinessContract.TABLE_TITLE_PIC, true)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_HEAD_PIC,
-                new BusinessPicBean("", -1, dataBean == null ? "" : dataBean.getPhoto())));
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_PIC, -1,
+                        dataBean == null ? "" : dataBean.getPhoto())));
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CHILD_NAME, dataBean == null
-                ? "" : dataBean.getName());
+                ? "" : dataBean.getName(), true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, dataBean == null ? 0 : dataBean.getSex(),
-                new String[]{"男", "女"});
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_BIRTH, dataBean == null ?
-                "" : dataBean.getBirth());
+                new String[]{"男", "女"}, true);
+        //        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_BIRTH,
+        //        dataBean == null ?
+        //                "" : dataBean.getBirth(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_NATION, dataBean == null ?
-                "" : dataBean.getNationName());
+                "" : dataBean.getNationName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CHILD_IDCARD,
-                dataBean == null ? "" : dataBean.getIdNumber());
+                dataBean == null ? "" : dataBean.getIdNumber(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DISABLE_CARD_ID,
-                dataBean == null ? "" : dataBean.getDisabilityCertificate());
+                dataBean == null ? "" : dataBean.getDisabilityCertificate(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DIAGNOSIS_AGENCY,
-                dataBean == null ? "" : dataBean.getDiagnoseAgency());
+                dataBean == null ? "" : dataBean.getDiagnoseAgency(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DIAGNOSIS_RESULT,
-                dataBean == null ? "" : dataBean.getDiagnoseResult());
+                dataBean == null ? "" : dataBean.getDiagnoseResult(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_PRESENT_NAME,
-                dataBean == null ? "" : dataBean.getGuardian());
+                dataBean == null ? "" : dataBean.getGuardian(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_RELATION_TO_CHILD,
-                dataBean == null ? "" : dataBean.getRelationship());
+                dataBean == null ? "" : dataBean.getRelationship(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOME_ADDR2,
-                dataBean == null ? "" : dataBean.getAddress());
+                dataBean == null ? "" : dataBean.getAddress(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CONTACT_MODE,
-                dataBean == null ? "" : dataBean.getTelephone());
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ZIP_CODE,
-                dataBean == null ? "" : dataBean.getPostCode());
+                dataBean == null ? "" : dataBean.getTelephone(), true);
         initRecycleviewType(arrays, getFamilyEcomanicStatus(dataBean),
                 BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS, 1,
-                0, true);
+                0, true, true);
         initRecycleviewType(arrays, getPoorFamilyResion(dataBean), BusinessContract.TABLE_TITLE_POOR_FAMILY, 1,
-                2, true);
-        initRadioType(arrays, BusinessContract.TABLE_TITLE_IS_POOR_FAMILY, 1, new String[]{"是", "否"});
+                2, true, true);
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_IS_POOR_FAMILY, 1, new String[]{"是", "否"}, true);
         initRecycleviewType(arrays, getMedicalSafes(dataBean), BusinessContract.TABLE_TITLE_MEDICALSAFE, 2,
-                2, true);
+                2, true, true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HEALTH_AGENCY,
-                dataBean == null ? "" : dataBean.getRecoveryInstitution());
+                dataBean == null ? "" : dataBean.getRecoveryInstitution(), true);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLED_PIC_IN_HEALTH_POSITION, -1,
+                        dataBean == null ? "" :
+                                dataBean.getRiPicture())));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG,
                 BusinessContract.TABLE_TITLE_GUAIDIAN_REQUEST));
         initEditHighType(arrays, BusinessContract.TABLE_TITLE_GUAIDIAN_REQUEST, dataBean == null ? "" :
-                dataBean.getGuardianApply());
+                dataBean.getGuardianApply(), true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_SIGN, new ItemSignBean("申请人", dataBean == null ? "" :
                 dataBean.getApplicantSign(), 1)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_NOTICE,
@@ -1994,50 +2080,54 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         List<MultipleItem> arrays = new ArrayList<>();
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_YEAR,
                 new BusinessTextValueBean(BusinessContract.TABLE_TITLE_YEAR, dataBean == null ? "" : dataBean.getYear(),
-                        null, 0)));
-        initRadioType(arrays, BusinessContract.TABLE_TITLE_PROJECT_LEVEL, dataBean == null ? 1 : dataBean.getGrand(),
-                new String[]{"国家", "省级", "市级", "县级"});
+                        null, 0, true)));
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_PROJECT_LEVEL, dataBean == null ? 1 :
+                        dataBean.getGrand() - 1,
+                new String[]{"国家", "省级", "市级", "县级"}, true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "申请人基本信息"));
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, BusinessContract.TABLE_TITLE_PIC));
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_HEAD_PIC,
-                new BusinessPicBean("", -1, dataBean == null ? "" : dataBean.getPhoto())));
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CHILD_NAME, dataBean == null
-                ? "" : dataBean.getName());
-        initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, dataBean == null ? 0 : dataBean.getSex(),
-                new String[]{"男", "女"});
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_BIRTH, dataBean == null ?
-                "" : dataBean.getBirth());
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_NATION, dataBean == null ?
-                "" : dataBean.getNationName());
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CHILD_IDCARD,
-                dataBean == null ? "" : dataBean.getIdNumber());
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_GUARDIAN_NAME,
-                dataBean == null ? "" : dataBean.getGuardian());
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_WORKER,
-                dataBean == null ? "" : dataBean.getWorkingUnit());
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_RELATION_TO_CHILD,
-                dataBean == null ? "" : dataBean.getRelationship());
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_GUARDIAN_ID_CARD,
-                dataBean == null ? "" : dataBean.getGuardianId());
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOUSE_PHONE,
-                dataBean == null ? "" : dataBean.getTelephone());
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOME_ADDR2,
-                dataBean == null ? "" : dataBean.getAddress());
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_MOBILE_NUM,
-                dataBean == null ? "" : dataBean.getPhone());
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_COMMUNICATION_ADDR,
-                dataBean == null ? "" : dataBean.getPostalAddress());
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ZIP_CODE,
-                dataBean == null ? "" : dataBean.getPostCode());
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL,
-                BusinessContract.TABLE_TITLE_HEARING_LOSE_RECOVERY));
+                new ImportantTagBean(BusinessContract.TABLE_TITLE_PIC, true)));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_HEAD_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_PIC, -1,
+                        dataBean == null ? "" : dataBean.getPhoto())));
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CHILD_NAME, dataBean == null
+                ? "" : dataBean.getName(), true);
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, dataBean == null ? 0 : dataBean.getSex(),
+                new String[]{"男", "女"}, true);
+        //        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_BIRTH,
+        //        dataBean == null ?
+        //                "" : dataBean.getBirth(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_NATION, dataBean == null ?
+                "" : dataBean.getNationName(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CHILD_IDCARD,
+                dataBean == null ? "" : dataBean.getIdNumber(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_GUARDIAN_NAME,
+                dataBean == null ? "" : dataBean.getGuardian(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_WORKER,
+                dataBean == null ? "" : dataBean.getWorkingUnit(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_RELATION_TO_CHILD,
+                dataBean == null ? "" : dataBean.getRelationship(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_GUARDIAN_ID_CARD,
+                dataBean == null ? "" : dataBean.getGuardianId(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOUSE_PHONE,
+                dataBean == null ? "" : dataBean.getTelephone(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOME_ADDR2,
+                dataBean == null ? "" : dataBean.getAddress(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_MOBILE_NUM,
+                dataBean == null ? "" : dataBean.getPhone(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_COMMUNICATION_ADDR,
+                dataBean == null ? "" : dataBean.getPostalAddress(), true);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL,
+                new ImportantTagBean(BusinessContract.TABLE_TITLE_HEARING_LOSE_RECOVERY,
+                        true)
+        ));
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT2, BusinessContract.TABLE_TITLE_DISCOVER_DISABILITY_YEAR,
-                dataBean == null ? "" : dataBean.getFindTime());
+                dataBean == null ? "" : dataBean.getFindTime(), true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_FAMILY_HAS_DISABILITY, dataBean == null ? 0 :
-                dataBean.getGeneticHistory(), new String[]{"无", "有"});
+                dataBean.getGeneticHistory(), new String[]{"无", "有"}, true);
         //有无家族遗传史
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT2, BusinessContract.TABLE_TITLE_RELATION_TO_CHILD_F,
-                dataBean == null ? "" : dataBean.getGeneticHistoryRelationship());
+                dataBean == null ? "" : dataBean.getGeneticHistoryRelationship(), true);
         DeafBean deafBean = new DeafBean();
         deafBean.setLeftEar(dataBean == null ? "" : dataBean.getLeftEar());
         deafBean.setRightEar(dataBean == null ? "" : dataBean.getRightEar());
@@ -2060,27 +2150,32 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         deafBean.setWearEar(dataBean == null ? 0 : dataBean.getWearEar());
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_DEAF_TABLE, deafBean));
         initRecycleviewType(arrays, getRecoveryStatus(dataBean), BusinessContract.TABLE_TITLE_CURRENT_RECOVERY, 2,
-                2, true);
+                2, true, true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_HAS_CARE_WORKER, dataBean == null ? 0 :
-                dataBean.getAccompany(), new String[]{"无", "有"});
+                dataBean.getAccompany(), new String[]{"无", "有"}, true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT2, BusinessContract.TABLE_TITLE_RELATION_TO_CHILD_C,
-                dataBean == null ? "" : dataBean.getAccompanyRelationship());
+                dataBean == null ? "" : dataBean.getAccompanyRelationship(), true);
         initRecycleviewType(arrays, getFamilyEcomanicStatus(dataBean),
                 BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS, 1,
-                0, true);
+                0, true, true);
         initRecycleviewType(arrays, getMedicalSafes(dataBean), BusinessContract.TABLE_TITLE_MEDICALSAFE, 2,
-                2, true);
-        initRadioType(arrays, BusinessContract.TABLE_TITLE_HUKOU, dataBean == null ? 0 : dataBean.getAccountType(),
+                2, true, true);
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_HUKOU, dataBean == null ? 0 : dataBean.getAccountType() - 1,
                 new String[]{"农业户口",
-                        "非农业户口"});
+                        "非农业户口"}, true);
         initRecycleviewType(arrays, getRequestsRecovery(dataBean), BusinessContract.TABLE_TITLE_REQUEST_RECOVERY, 1,
-                2, true);
+                2, true, true);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLED_PIC_IN_HEALTH_POSITION, -1,
+                        dataBean == null ? "" :
+                                dataBean.getRiPicture())));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG,
                 BusinessContract.TABLE_TITLE_GUAIDIAN_REQUEST));
 
 
         initEditHighType(arrays, BusinessContract.TABLE_TITLE_GUAIDIAN_REQUEST, dataBean == null ? "" :
-                dataBean.getGuardianApply());
+                dataBean.getGuardianApply(), true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_SIGN, new ItemSignBean("申请人", dataBean == null ? "" :
                 dataBean.getApplicantSign(), 1)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_NOTICE,
@@ -2098,58 +2193,67 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         List<MultipleItem> arrays = new ArrayList<>();
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_YEAR,
                 new BusinessTextValueBean(BusinessContract.TABLE_TITLE_YEAR, dataBean == null ? "" : dataBean.getYear(),
-                        null, 0)));
-        initRadioType(arrays, BusinessContract.TABLE_TITLE_PROJECT_LEVEL, dataBean == null ? 1 : dataBean.getGrand(),
-                new String[]{"国家", "省级", "市级", "县级"});
+                        null, 0, true)));
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_PROJECT_LEVEL, dataBean == null ? 1 :
+                        dataBean.getGrand() - 1,
+                new String[]{"国家", "省级", "市级", "县级"}, true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "申请人基本信息"));
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, BusinessContract.TABLE_TITLE_PIC));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL,
+                new ImportantTagBean(BusinessContract.TABLE_TITLE_PIC, true)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_HEAD_PIC,
-                new BusinessPicBean("", -1, dataBean == null ? "" : dataBean.getPhoto())));
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_PIC, -1,
+                        dataBean == null ? "" : dataBean.getPhoto())));
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CHILD_NAME, dataBean == null
-                ? "" : dataBean.getName());
+                ? "" : dataBean.getName(), true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, dataBean == null ? 0 : dataBean.getSex(),
-                new String[]{"男", "女"});
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_BIRTH, dataBean == null ?
-                "" : dataBean.getBirth());
+                new String[]{"男", "女"}, true);
+        //        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_BIRTH,
+        //        dataBean == null ?
+        //                "" : dataBean.getBirth(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_NATION, dataBean == null ?
-                "" : dataBean.getNationName());
+                "" : dataBean.getNationName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CHILD_IDCARD,
-                dataBean == null ? "" : dataBean.getIdNumber());
+                dataBean == null ? "" : dataBean.getIdNumber(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DISABLE_CARD_ID,
-                dataBean == null ? "" : dataBean.getDisabilityCertificate());
+                dataBean == null ? "" : dataBean.getDisabilityCertificate(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_GUARDIAN_NAME,
-                dataBean == null ? "" : dataBean.getGuardian());
+                dataBean == null ? "" : dataBean.getGuardian(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_WORKER, dataBean == null ?
-                "" : dataBean.getWorkingUnit());
+                "" : dataBean.getWorkingUnit(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOME_ADDR2,
-                dataBean == null ? "" : dataBean.getAddress());
+                dataBean == null ? "" : dataBean.getAddress(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_PHONE, dataBean == null ?
-                "" : dataBean.getTelephone());
+                "" : dataBean.getTelephone(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_BRAIN_PALSY_STYLE,
                 dataBean == null ?
-                        "" : dataBean.getTypeName());
+                        "" : dataBean.getTypeName(), true);
         initRecycleviewType(arrays, getOtherDisabilitiesOfBrainPalsy(dataBean),
                 BusinessContract.TABLE_TITLE_WITH_OTHER_DISABILITY, 0, 0,
-                false);
+                false, true);
         initRecycleviewType(arrays, getFamilyEcomanicStatus(dataBean),
                 BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS, 1,
-                0, true);
+                0, true, true);
         initRecycleviewType(arrays, getPoorFamilyResion(dataBean), BusinessContract.TABLE_TITLE_POOR_FAMILY, 1,
-                2, true);
+                2, true, true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_IS_POOR_FAMILY, dataBean == null ? 0 :
                         dataBean.getAlleviation(),
-                new String[]{"是", "否"});
+                new String[]{"是", "否"}, true);
         initRecycleviewType(arrays, getMedicalSafes(dataBean), BusinessContract.TABLE_TITLE_MEDICALSAFE, 2,
-                2, true);
-        initRadioType(arrays, BusinessContract.TABLE_TITLE_HUKOU, dataBean == null ? 0 : dataBean.getAccountType(),
+                2, true, true);
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_HUKOU, dataBean == null ? 0 : dataBean.getAccountType() - 1,
                 new String[]{"农业户口",
-                        "非农业户口"});
+                        "非农业户口"}, true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HEALTH_AGENCY,
-                dataBean == null ? "" : dataBean.getRecoveryInstitution());
+                dataBean == null ? "" : dataBean.getRecoveryInstitution(), true);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLED_PIC_IN_HEALTH_POSITION, -1,
+                        dataBean == null ? "" :
+                                dataBean.getRiPicture())));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG,
                 BusinessContract.TABLE_TITLE_GUAIDIAN_REQUEST));
         initEditHighType(arrays, BusinessContract.TABLE_TITLE_GUAIDIAN_REQUEST, dataBean == null ? "" :
-                dataBean.getGuardianApply());
+                dataBean.getGuardianApply(), true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_SIGN, new ItemSignBean("申请人", dataBean == null ? "" :
                 dataBean.getApplicantSign(), 1)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_NOTICE,
@@ -2165,14 +2269,14 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
      */
     public List<MultipleItem> getSuggestionAdapterData() {
         List<MultipleItem> arrays = new ArrayList<>();
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME, null);
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_IDCARD, null);
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_MOBILE_NUM, null);
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CHECK_CODE, null);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME, null, true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_IDCARD, null, true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_MOBILE_NUM, null, true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CHECK_CODE, null, true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_CONTENT_TYPE, 0,
-                new String[]{"意见", "建议"});
+                new String[]{"意见", "建议"}, true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, BusinessContract.TABLE_TITLE_CONTENT));
-        initEditHighType(arrays, BusinessContract.TABLE_TITLE_CONTENT,null);
+        initEditHighType(arrays, BusinessContract.TABLE_TITLE_CONTENT, null, true);
 
 
         return arrays;
@@ -2180,11 +2284,12 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
 
 
     private void initRecycleviewType(List<MultipleItem> arrays, List<ItemCheckBoxBean> data, String typeName,
-                                     int layoutType, int spanCount, boolean isSigleSelect) {
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL,
-                typeName));
+                                     int layoutType, int spanCount, boolean isSigleSelect, boolean isImportant) {
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, new ImportantTagBean(typeName,
+                isImportant)
+        ));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_NORMAL_RECYCLEVIEW,
-                new RecycleBean(layoutType, spanCount, data, typeName, isSigleSelect)));
+                new RecycleBean(layoutType, spanCount, data, typeName, isSigleSelect, isImportant)));
     }
 
     /**
@@ -2251,8 +2356,9 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         arrays.add(new ItemCheckBoxBean(2, "一户多残", dataBean == null ? false : 2 == dataBean.getPoorFamily()));
         arrays.add(new ItemCheckBoxBean(3, "单亲家庭", dataBean == null ? false : 3 == dataBean.getPoorFamily()));
         arrays.add(new ItemCheckBoxBean(4, "无业职工家庭", dataBean == null ? false : 4 == dataBean.getPoorFamily()));
-        arrays.add(new ItemCheckBoxBean(5, "其他困难", dataBean.getPoorFamilyExplain(),dataBean == null ? false :
-                5 == dataBean.getPoorFamily()));
+        arrays.add(new ItemCheckBoxBean(5, "其他困难", dataBean == null ? "" : dataBean.getPoorFamilyExplain(),
+                dataBean == null ? false :
+                        5 == dataBean.getPoorFamily()));
         return arrays;
     }
 
@@ -2304,13 +2410,16 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
      * @param arrays
      * @param typeName
      */
-    private void initRadioType(List<MultipleItem> arrays, String typeName, int defaultIndex, String[] values) {
+    private void initRadioType(List<MultipleItem> arrays, String typeName, int defaultIndex, String[] values,
+                               boolean isImportant) {
         String titleName = null;
         if (typeName.contains("F") || typeName.contains("P")) {
             titleName = typeName.substring(1, typeName.length());
-            arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, titleName));
+            arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, new ImportantTagBean(titleName,
+                    isImportant)));
         } else {
-            arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, typeName));
+            arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, new ImportantTagBean(typeName,
+                    isImportant)));
         }
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_RADIO, new BusinessRadioBean(typeName, defaultIndex,
                 values)));
@@ -2323,27 +2432,31 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
      * @param arrays
      * @param typeName
      */
-    private void initTextType(List<MultipleItem> arrays, int layoutType, String typeName, String value) {
+    private void initTextType(List<MultipleItem> arrays, int layoutType, String typeName, String value,
+                              boolean isImportant) {
         switch (layoutType) {
             case MultipleItem.ITEM_BUSINESS_SELECT:
-                arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, typeName));
+                arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, new ImportantTagBean(typeName,
+                        isImportant)));
                 arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_SELECT,
                         new BusinessTextValueBean(typeName, value, String.format("%s%s", "请选择",
-                                typeName), 0)));
+                                typeName), 0, isImportant)));
                 break;
             case MultipleItem.ITEM_BUSINESS_EDIT:
                 String titleName = null;
                 if (typeName.contains("F") || typeName.contains("P")) {
                     titleName = typeName.substring(1, typeName.length());
-                    arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, titleName));
+                    arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, new ImportantTagBean(titleName,
+                            isImportant)));
                     arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
                             new BusinessTextValueBean(typeName, value,
-                                    String.format("%s%s", "请输入", titleName), 0)));
+                                    String.format("%s%s", "请输入", titleName), 0, isImportant)));
                 } else {
-                    arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, typeName));
+                    arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL, new ImportantTagBean(typeName,
+                            isImportant)));
                     arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
                             new BusinessTextValueBean(typeName, value,
-                                    String.format("%s%s", "请输入", typeName), 0)));
+                                    String.format("%s%s", "请输入", typeName), 0, isImportant)));
                 }
 
                 break;
@@ -2352,11 +2465,11 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                     titleName = typeName.substring(1, typeName.length());
                     arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT2,
                             new BusinessTextValueBean(typeName, value,
-                                    String.format("%s%s", "请输入", titleName), 0)));
+                                    String.format("%s%s", "请输入", titleName), 0, isImportant)));
                 } else {
                     arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT2,
                             new BusinessTextValueBean(typeName, value,
-                                    String.format("%s%s", "请输入", typeName), 0)));
+                                    String.format("%s%s", "请输入", typeName), 0, isImportant)));
                 }
 
                 break;
@@ -2372,10 +2485,10 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
      * @param arrays
      * @param typeName
      */
-    private void initEditHighType(List<MultipleItem> arrays, String typeName, String value) {
+    private void initEditHighType(List<MultipleItem> arrays, String typeName, String value, boolean isImportant) {
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
                 new BusinessTextValueBean(typeName, value,
-                        "点击输入内容...", 1)));
+                        "点击输入内容...", 1, isImportant)));
 
     }
 }

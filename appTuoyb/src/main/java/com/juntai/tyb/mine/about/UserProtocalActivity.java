@@ -1,4 +1,4 @@
-package com.juntai.disabled.federation.mine;
+package com.juntai.tyb.mine.about;
 
 import android.os.Bundle;
 import android.webkit.WebSettings;
@@ -6,19 +6,25 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 
-import com.juntai.disabled.basecomponent.base.BaseActivity;
-import com.juntai.disabled.federation.R;
-
-
+import com.juntai.disabled.basecomponent.mvp.BasePresenter;
+import com.juntai.tyb.base.BaseAppActivity;
+import com.juntai.tyb.hcb.R;
 
 /**
- * 用户协议
+ * @aouther tobato
+ * @description 描述  用户协议
+ * @date 2020/7/18 17:07
  */
+public class UserProtocalActivity extends BaseAppActivity {
 
-public class UserAgreementActivity extends BaseActivity {
     String urlString;
     private WebView mAgreementWeb;
     private LinearLayout mAgreementLayout;
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +33,7 @@ public class UserAgreementActivity extends BaseActivity {
 
     @Override
     public int getLayoutView() {
-        return R.layout.activity_user_agreement;
+        return R.layout.activity_user_protocal;
     }
 
     @Override
@@ -36,6 +42,15 @@ public class UserAgreementActivity extends BaseActivity {
         mAgreementLayout = (LinearLayout) findViewById(R.id.agreement_layout);
 
         urlString = getIntent().getStringExtra("url");
+        initWebView(mAgreementWeb,urlString);
+    }
+
+    /**
+     *
+     * @param mAgreementWeb
+     * @param urlString
+     */
+    private void initWebView(WebView mAgreementWeb,String urlString) {
         //覆盖WebView默认使用第三方或系统默认浏览器打开网页的行为，使网页用WebView打开
         WebSettings webSettings = mAgreementWeb.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -48,7 +63,7 @@ public class UserAgreementActivity extends BaseActivity {
         webSettings.setDomStorageEnabled(true);
         webSettings.setDatabaseEnabled(true);
         webSettings.setDisplayZoomControls(false);//隐藏webview缩放按钮
-        mAgreementWeb.loadData(urlString, "text/html", "UTF-8");
+        mAgreementWeb.loadData("", "text/html", "UTF-8");
         mAgreementWeb.clearCache(true);
         mAgreementWeb.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         mAgreementWeb.setWebViewClient(new WebViewClientDemo());
@@ -57,6 +72,11 @@ public class UserAgreementActivity extends BaseActivity {
 
     @Override
     public void initData() {
+
+    }
+
+    @Override
+    public void onSuccess(String tag, Object o) {
 
     }
 

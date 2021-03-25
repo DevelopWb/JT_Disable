@@ -47,13 +47,54 @@ public class RuleTools {
                         || Integer.parseInt(month) > 12 // 月份>12月
                         || Integer.parseInt(date) > 31 // 日期是>31号
                 ) {
-                    ToastUtils.toast(context, "身份证号码不正确, 请检查");
+//                    ToastUtils.toast(context, "身份证号码不正确, 请检查");
                     return false;
                 }
             }
             return true;
         } else {
-            ToastUtils.toast(context, "请输入正确的身份证号码");
+//            ToastUtils.toast(context, "请输入正确的身份证号码");
+            return false;
+        }
+    }
+
+    /**
+     * 残疾号码验证
+     */
+    public static boolean isDisabledIdNO(Context context, String num) {
+        // 去掉所有空格
+        num = num.replace(" ", "");
+
+        Pattern idNumPattern = compile("(\\d{17}[0-9xX][0-9xX][0-9xX])");
+
+        //通过Pattern获得Matcher
+        Matcher idNumMatcher = idNumPattern.matcher(num);
+
+        //判断用户输入是否为身份证号
+        if (idNumMatcher.matches()) {
+            System.out.println("您的出生年月日是：");
+            //如果是，定义正则表达式提取出身份证中的出生日期
+            Pattern birthDatePattern = compile("\\d{6}(\\d{4})(\\d{2})(\\d{2}).*");//身份证上的前6位以及出生年月日
+
+            //通过Pattern获得Matcher
+            Matcher birthDateMather = birthDatePattern.matcher(num);
+
+            //通过Matcher获得用户的出生年月日
+            if (birthDateMather.find()) {
+                String year = birthDateMather.group(1);
+                String month = birthDateMather.group(2);
+                String date = birthDateMather.group(3);
+                if (Integer.parseInt(year) < 1900 // 如果年份是1900年之前
+                        || Integer.parseInt(month) > 12 // 月份>12月
+                        || Integer.parseInt(date) > 31 // 日期是>31号
+                ) {
+//                    ToastUtils.toast(context, "残疾证号不正确, 请检查");
+                    return false;
+                }
+            }
+            return true;
+        } else {
+//            ToastUtils.toast(context, "请输入正确的残疾证号码");
             return false;
         }
     }
@@ -74,7 +115,8 @@ public class RuleTools {
 
     //判断email格式是否正确
     public static boolean isEmail(String email) {
-        String str = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
+        String str = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))" +
+                "([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
         Pattern p = Pattern.compile(str);
         Matcher m = p.matcher(email);
 

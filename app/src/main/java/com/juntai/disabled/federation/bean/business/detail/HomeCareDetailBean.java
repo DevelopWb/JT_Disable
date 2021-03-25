@@ -88,7 +88,7 @@ public class HomeCareDetailBean extends BaseResult {
         private String guardianIdPicture;
         private String householdRegisterPicture;
         private String lifePicture;
-        private Object housePicture;
+        private String housePicture;
         private String applicantSign;
         private String guardianName;
         private int guardianSex;
@@ -237,12 +237,12 @@ public class HomeCareDetailBean extends BaseResult {
             this.lifePicture = lifePicture;
         }
 
-        public Object getHousePicture() {
-            return housePicture;
+        public String getHousePicture() {
+            return housePicture == null ? "" : housePicture;
         }
 
-        public void setHousePicture(Object housePicture) {
-            this.housePicture = housePicture;
+        public void setHousePicture(String housePicture) {
+            this.housePicture = housePicture == null ? "" : housePicture;
         }
 
         public String getApplicantSign() {

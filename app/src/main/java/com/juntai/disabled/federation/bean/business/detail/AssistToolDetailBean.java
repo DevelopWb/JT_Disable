@@ -71,7 +71,26 @@ public class AssistToolDetailBean extends BaseResult {
         private int quantity;
         private String applicantSign;
         private String photo;
+        private String deliveryWay;
+        private String deliveryWayName;
         private String disabilityCertificatePicture;
+
+        public String getDeliveryWay() {
+            return deliveryWay == null ? "" : deliveryWay;
+        }
+
+        public void setDeliveryWay(String deliveryWay) {
+            this.deliveryWay = deliveryWay == null ? "" : deliveryWay;
+        }
+
+        public String getDeliveryWayName() {
+            return deliveryWayName == null ? "" : deliveryWayName;
+        }
+
+        public void setDeliveryWayName(String deliveryWayName) {
+            this.deliveryWayName = deliveryWayName == null ? "" : deliveryWayName;
+        }
+
         /**
          * 生活照片
          */

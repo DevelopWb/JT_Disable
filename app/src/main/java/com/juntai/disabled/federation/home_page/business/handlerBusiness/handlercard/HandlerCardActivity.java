@@ -1,14 +1,12 @@
 package com.juntai.disabled.federation.home_page.business.handlerBusiness.handlercard;
 
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
@@ -25,6 +23,7 @@ import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
+import com.juntai.disabled.federation.bean.business.BusinessTextValueBean;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BusinessContract;
 import com.juntai.disabled.federation.utils.StringTools;
@@ -94,13 +93,13 @@ public class HandlerCardActivity extends BaseBusinessActivity {
             ToastUtils.toast(mContext, "请选择残疾种类");
             return;
         }
-        if (!StringTools.isStringValueOk(getSignPath())) {
+        if (!StringTools.isStringValueOk(getSignPath(FileCacheUtils.SIGN_PIC_NAME))) {
             ToastUtils.toast(mContext, "请签名");
             return;
         }
         builder.addFormDataPart("applicantSignFile", "applicantSignFile",
                 RequestBody.create(MediaType.parse(
-                        "file"), new File(getSignPath())));
+                        "file"), new File(getSignPath(FileCacheUtils.SIGN_PIC_NAME))));
         StringBuilder commitmentSb = new StringBuilder();
         commitmentSb.append("我是残疾人");
         commitmentSb.append(getTextViewValue(mDisableNameEt));
@@ -110,6 +109,8 @@ public class HandlerCardActivity extends BaseBusinessActivity {
         builder.addFormDataPart("commitment", commitmentSb.toString());
         mPresenter.addDisabilityCertificate(builder.build(), AppHttpPath.HANDLER_DISABLED_CARD);
     }
+
+
 
     @Override
     protected List<MultipleItem> getAdapterData() {
@@ -133,7 +134,8 @@ public class HandlerCardActivity extends BaseBusinessActivity {
     @Override
     public void initData() {
         //清除签名文件
-        FileCacheUtils.clearImage(getSignPath());
+        FileCacheUtils.clearImage(getSignPath(FileCacheUtils.SIGN_PIC_NAME));
+        FileCacheUtils.clearImage(getSignPath(FileCacheUtils.HEAD_PIC));
         String content = getString(R.string.commitment);
         initCommitmentText(content);
     }
@@ -167,7 +169,7 @@ public class HandlerCardActivity extends BaseBusinessActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String selectedStr = types.toString();
-                        if (types.size()>0) {
+                        if (types.size() > 0) {
                             if (selectedStr.contains("[")) {
                                 selectedStr = selectedStr.substring(1, selectedStr.length() - 1);
                             }

@@ -107,14 +107,6 @@ public class HandlerCardDetailBean extends BaseResult {
         private String commitment;
         private String applicantSign;
 
-        public String getEducationName() {
-            return educationName == null ? "" : educationName;
-        }
-
-        public void setEducationName(String educationName) {
-            this.educationName = educationName == null ? "" : educationName;
-        }
-
         public int getId() {
             return id;
         }
@@ -132,27 +124,27 @@ public class HandlerCardDetailBean extends BaseResult {
         }
 
         public String getTypeName() {
-            return typeName;
+            return typeName == null ? "暂无" : typeName;
         }
 
         public void setTypeName(String typeName) {
-            this.typeName = typeName;
+            this.typeName = typeName == null ? "" : typeName;
         }
 
         public String getPhoto() {
-            return photo;
+            return photo == null ? "暂无" : photo;
         }
 
         public void setPhoto(String photo) {
-            this.photo = photo;
+            this.photo = photo == null ? "" : photo;
         }
 
         public String getName() {
-            return name;
+            return name == null ? "暂无" : name;
         }
 
         public void setName(String name) {
-            this.name = name;
+            this.name = name == null ? "" : name;
         }
 
         public int getSex() {
@@ -164,19 +156,19 @@ public class HandlerCardDetailBean extends BaseResult {
         }
 
         public String getSexName() {
-            return sexName;
+            return sexName == null ? "暂无" : sexName;
         }
 
         public void setSexName(String sexName) {
-            this.sexName = sexName;
+            this.sexName = sexName == null ? "" : sexName;
         }
 
         public String getBirth() {
-            return birth;
+            return birth == null ? "暂无" : birth;
         }
 
         public void setBirth(String birth) {
-            this.birth = birth;
+            this.birth = birth == null ? "" : birth;
         }
 
         public int getNation() {
@@ -188,11 +180,11 @@ public class HandlerCardDetailBean extends BaseResult {
         }
 
         public String getNationName() {
-            return nationName;
+            return nationName == null ? "暂无" : nationName;
         }
 
         public void setNationName(String nationName) {
-            this.nationName = nationName;
+            this.nationName = nationName == null ? "" : nationName;
         }
 
         public int getMarriage() {
@@ -204,11 +196,11 @@ public class HandlerCardDetailBean extends BaseResult {
         }
 
         public String getMarriageName() {
-            return marriageName;
+            return marriageName == null ? "暂无" : marriageName;
         }
 
         public void setMarriageName(String marriageName) {
-            this.marriageName = marriageName;
+            this.marriageName = marriageName == null ? "" : marriageName;
         }
 
         public int getEducation() {
@@ -220,35 +212,43 @@ public class HandlerCardDetailBean extends BaseResult {
         }
 
         public String getNativePlace() {
-            return nativePlace;
+            return nativePlace == null ? "暂无" : nativePlace;
         }
 
         public void setNativePlace(String nativePlace) {
-            this.nativePlace = nativePlace;
+            this.nativePlace = nativePlace == null ? "" : nativePlace;
         }
 
         public String getIdNumber() {
-            return idNumber;
+            return idNumber == null ? "暂无" : idNumber;
         }
 
         public void setIdNumber(String idNumber) {
-            this.idNumber = idNumber;
+            this.idNumber = idNumber == null ? "" : idNumber;
+        }
+
+        public String getEducationName() {
+            return educationName == null ? "暂无" : educationName;
+        }
+
+        public void setEducationName(String educationName) {
+            this.educationName = educationName == null ? "" : educationName;
         }
 
         public String getAddress() {
-            return address;
+            return address == null ? "暂无" : address;
         }
 
         public void setAddress(String address) {
-            this.address = address;
+            this.address = address == null ? "" : address;
         }
 
         public String getPostCode() {
-            return postCode;
+            return postCode == null ? "暂无" : postCode;
         }
 
         public void setPostCode(String postCode) {
-            this.postCode = postCode;
+            this.postCode = postCode == null ? "" : postCode;
         }
 
         public int getAccountType() {
@@ -260,59 +260,59 @@ public class HandlerCardDetailBean extends BaseResult {
         }
 
         public String getAccountTypeName() {
-            return accountTypeName;
+            return accountTypeName == null ? "暂无" : accountTypeName;
         }
 
         public void setAccountTypeName(String accountTypeName) {
-            this.accountTypeName = accountTypeName;
+            this.accountTypeName = accountTypeName == null ? "" : accountTypeName;
         }
 
         public String getGuardian() {
-            return guardian;
+            return guardian == null ? "暂无" : guardian;
         }
 
         public void setGuardian(String guardian) {
-            this.guardian = guardian;
+            this.guardian = guardian == null ? "" : guardian;
         }
 
         public String getRelationship() {
-            return relationship;
+            return relationship == null ? "暂无" : relationship;
         }
 
         public void setRelationship(String relationship) {
-            this.relationship = relationship;
+            this.relationship = relationship == null ? "" : relationship;
         }
 
         public String getTelephone() {
-            return telephone;
+            return telephone == null ? "暂无" : telephone;
         }
 
         public void setTelephone(String telephone) {
-            this.telephone = telephone;
+            this.telephone = telephone == null ? "" : telephone;
         }
 
         public String getWorkingUnit() {
-            return workingUnit;
+            return workingUnit == null ? "暂无" : workingUnit;
         }
 
         public void setWorkingUnit(String workingUnit) {
-            this.workingUnit = workingUnit;
+            this.workingUnit = workingUnit == null ? "" : workingUnit;
         }
 
         public String getProfession() {
-            return profession;
+            return profession == null ? "暂无" : profession;
         }
 
         public void setProfession(String profession) {
-            this.profession = profession;
+            this.profession = profession == null ? "" : profession;
         }
 
         public String getUnitNature() {
-            return unitNature;
+            return unitNature == null ? "暂无" : unitNature;
         }
 
         public void setUnitNature(String unitNature) {
-            this.unitNature = unitNature;
+            this.unitNature = unitNature == null ? "" : unitNature;
         }
 
         public int getUnitWelfare() {
@@ -324,27 +324,27 @@ public class HandlerCardDetailBean extends BaseResult {
         }
 
         public String getUnitWelfareName() {
-            return unitWelfareName;
+            return unitWelfareName == null ? "暂无" : unitWelfareName;
         }
 
         public void setUnitWelfareName(String unitWelfareName) {
-            this.unitWelfareName = unitWelfareName;
+            this.unitWelfareName = unitWelfareName == null ? "" : unitWelfareName;
         }
 
         public String getCommitment() {
-            return commitment;
+            return commitment == null ? "暂无" : commitment;
         }
 
         public void setCommitment(String commitment) {
-            this.commitment = commitment;
+            this.commitment = commitment == null ? "" : commitment;
         }
 
         public String getApplicantSign() {
-            return applicantSign;
+            return applicantSign == null ? "暂无" : applicantSign;
         }
 
         public void setApplicantSign(String applicantSign) {
-            this.applicantSign = applicantSign;
+            this.applicantSign = applicantSign == null ? "" : applicantSign;
         }
     }
 }

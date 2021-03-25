@@ -56,8 +56,7 @@ public class RxTaskManager {
         Observable.create(new ObservableOnSubscribe<T>() {
             @Override
             public void subscribe(ObservableEmitter<T> e) throws Exception {
-                task.doOnIoThread();
-                e.onNext(task.getT());
+                e.onNext(task.doOnIoThread());
                 e.onComplete();
             }
         }).subscribeOn(Schedulers.io())

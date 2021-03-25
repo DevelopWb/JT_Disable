@@ -10,7 +10,7 @@ package com.juntai.disabled.federation.bean.business;
 public class BusinessRadioBean {
 
     private String key;
-    private int  defaultSelectedIndex;
+    private int  defaultSelectedIndex ;
     private String[] values;
 
     public BusinessRadioBean(String key, int defaultSelectedIndex, String[] values) {

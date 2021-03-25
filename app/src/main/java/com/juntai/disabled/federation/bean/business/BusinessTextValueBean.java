@@ -13,12 +13,31 @@ public class BusinessTextValueBean {
     private String value;
     private String hint;
     private int type;//0代表高度固定的edittext  1代表高度不固定的edittext
+    private boolean isImportant;//是否必填
+    private ToolInfoBean.DataBean dataBean;//辅具详情
 
-    public BusinessTextValueBean(String key, String value, String hint, int type) {
+    public BusinessTextValueBean(String key, String value, String hint, int type,boolean isImportant) {
         this.key = key;
         this.value = value;
         this.hint = hint;
         this.type = type;
+        this.isImportant = isImportant;
+    }
+
+    public ToolInfoBean.DataBean getDataBean() {
+        return dataBean;
+    }
+
+    public void setDataBean(ToolInfoBean.DataBean dataBean) {
+        this.dataBean = dataBean;
+    }
+
+    public boolean isImportant() {
+        return isImportant;
+    }
+
+    public void setImportant(boolean important) {
+        isImportant = important;
     }
 
     public int getType() {

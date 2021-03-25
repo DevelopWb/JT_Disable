@@ -25,7 +25,6 @@ public interface BusinessContract {
     String TABLE_TITLE_DISABILITY_HEAR = "听力残疾";//表单的标题
     String TABLE_TITLE_DISABILITY_LIMB = "肢体残疾";//表单的标题
     String TABLE_TITLE_BIRTH = "出生年月";//表单的标题
-    String TABLE_TITLE_AGE = "年龄";//表单的标题
     String TABLE_TITLE_AGE_FAMILY = "F年龄";//表单的标题
     String TABLE_TITLE_AGE_PERSIONAL = "P年龄";//表单的标题
     String TABLE_TITLE_RESUME = "本人简历";//表单的标题
@@ -51,7 +50,6 @@ public interface BusinessContract {
     String TABLE_TITLE_CHILD_IDCARD = "儿童身份证号";//
     String TABLE_TITLE_ADDR = "现住址";//
     String TABLE_TITLE_ADDR_LIVE_NOW = "现居住地";//
-    String TABLE_TITLE_ZIP_CODE = "邮政编码";//
     String TABLE_TITLE_HUKOU = "户口类别";//
     String TABLE_TITLE_GUARDIAN = "监护人";//
     String TABLE_TITLE_GUARDIAN_RELATION = "与监护人关系";//
@@ -64,29 +62,31 @@ public interface BusinessContract {
     String TABLE_TITLE_JOB = "职业";//
     String TABLE_TITLE_UNIT_NATURE = "单位性质";//
     String TABLE_TITLE_IS_WEEL_COMPANY = "是否福利企业";//
-    String TABLE_TITLE_CARD_TYPE = "证件申请类型";//
     String TABLE_TITLE_DISABLE_PIC = "申请人残疾证照片";//
+    String TABLE_TITLE_DISABLED_PIC_IN_HEALTH_POSITION = "孩子在康复机构照片";//
     String TABLE_TITLE_DISABLE_PHOTO = "残疾证照片";//
     String TABLE_TITLE_GUARDIAN_ID_PIC = "监护人身份证拍照";//
     String TABLE_TITLE_HUKOU_RELATION_PIC = "户口本能证明监护关系页拍照";//
     String TABLE_TITLE_STUDENT_CARD_PIC = "学生证照片";//
     String TABLE_TITLE_ADMISSION_NOTICE_PIC = "入学通知书照片";//
-    String TABLE_TITLE_TUITION_PIC = "缴费凭证或缴费凭证照片";//学费
+    String TABLE_TITLE_TUITION_PIC = "缴费凭证照片";//学费
     String TABLE_TITLE_MATERIAL_PIC = "病例材料照片";//
     String TABLE_TITLE_LIFE_PIC = "申请人生活照片";//
-    String TABLE_TITLE_LIFE_PIC_MYSELF = "本人生活照片";//
+    String TABLE_TITLE_LIFE_PIC_MYSELF = "本人生活照照片";//
+    String TABLE_TITLE_LIFE_PIC_HOUSE = "房屋外观照片";//
     String TABLE_TITLE_SPECIAL = "特长";//
-    String TABLE_TITLE_REG_MODE = "登记方式";//
+    String TABLE_TITLE_ADMISSION_TIME = "入学时间";//
     String TABLE_TITLE_DISABILITY_KINDS = "残疾类别";//
     String TABLE_TITLE_DISABILITY_LEVEL = "残疾等级";//
     String TABLE_TITLE_ADMISSION_COLLEGE = "录取院校";//
     String TABLE_TITLE_ADMISSION_PERSIONAL = "录取专业";//
     String TABLE_TITLE_EDUCATION = "学历";//
     String TABLE_TITLE_SCHOOL_SYSTEM = "学制";//
-    String TABLE_TITLE_EMAIL = "E-mail";//
     String TABLE_TITLE_FATHER_NAME = "父亲姓名";//
     String TABLE_TITLE_MATHER_NAME = "母亲姓名";//
     String TABLE_TITLE_HOME_ADDRESS = "家庭通讯地址";//
+    String TABLE_TITLE_WCHAT_PHONE = "微信手机号";//
+    String TABLE_TITLE_TOWN_STREET = "镇街";//
     String TABLE_TITLE_ACCOUNT_NAME = "户名";//
     String TABLE_TITLE_ACCOUNT_BANK = "开户行";//
     String TABLE_TITLE_CARD_NUM = "卡号";//
@@ -94,9 +94,10 @@ public interface BusinessContract {
     String TABLE_TITLE_DISABILITY_STUDENT_RELATION = "与该生关系";//
     String TABLE_TITLE_DISABILITY_PEOPLE_RELATION = "与残疾人关系";//
     String TABLE_TITLE_STUDENT_IDCARD = "学生身份证照片";//
+    String TABLE_TITLE_PIC_IDCARD = "身份证照片";//
     String TABLE_TITLE_PRESENT_DISBILITY_IDCARD = "家长重度残疾证照片";//
     String TABLE_TITLE_GROUP_PHOTO = "学生与家长生活合影照片";//
-    String TABLE_TITLE_ACCOUNT_BOOK = "户口本拍照能说明家庭关系的照片";//
+    String TABLE_TITLE_ACCOUNT_BOOK = "户口本说明家庭关系照片或实际抚养证明";//
     String TABLE_TITLE_YEAR = "年度";//
     String TABLE_TITLE_PROJECT_LEVEL = "项目级别";//
     String TABLE_TITLE_HOME_ADDR2 = "家庭住址";//
@@ -127,7 +128,8 @@ public interface BusinessContract {
     String TABLE_TITLE_CURRENT_RECOVERY = "目前康复状态";//
     String TABLE_TITLE_HAS_CARE_WORKER = "接受救助后家庭中有无专人陪伴康复";//护工
     String TABLE_TITLE_REQUEST_RECOVERY = "康复需求项目";//护工
-    String TABLE_TITLE_SELECT_ASSIST_TOOL = "辅具";//护工
+    String TABLE_TITLE_SELECT_ASSIST_TOOL = "辅具选择";//护工
+    String TABLE_TITLE_DELIVERY_METHOD = "配送方式";//护工
     String TABLE_TITLE_ASSIST_TOOL_AMOUNT = "器具数量";//护工
     String TABLE_TITLE_SPECIALTY = "特长";//
     String TABLE_TITLE_JOB_STATUS = "就业状况";//
@@ -136,6 +138,7 @@ public interface BusinessContract {
     String TABLE_TITLE_REMARK = "备注";//
     String TABLE_TITLE_CONTENT = "详细内容";//
     String TABLE_TITLE_CONTENT_TYPE = "内容分布";//
+    String TABLE_TITLE_HOPE_TRAIN_TYPE = "希望参加何种培训";//
 
 
     interface IBusinessView extends IView {
@@ -208,6 +211,11 @@ public interface BusinessContract {
          * @param tag
          */
         void getDisabledBarrier(String tag);
+        /**
+         * 培训意向
+         * @param tag
+         */
+        void getTrainingIntention(String tag);
 
         /**
          * @param tag
@@ -283,6 +291,10 @@ public interface BusinessContract {
          * @param tag
          */
         void addAIDS(RequestBody requestBody, String tag);
+        /**
+         * @param tag
+         */
+        void getDisabledAIDSInfo(int aidsId , String tag);
 
         /**
          * @param tag

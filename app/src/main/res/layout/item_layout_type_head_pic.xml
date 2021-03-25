@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/form_head_pic_iv"
-        android:layout_width="95dp"
+        android:layout_width="90dp"
         android:scaleType="fitXY"
-        android:layout_height="110dp"
-        android:src="@mipmap/item_head_pic"></ImageView>
+        android:layout_height="120dp"
+        android:src="@mipmap/two_inch_pic"></ImageView>
 </LinearLayout>

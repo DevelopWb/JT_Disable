@@ -119,10 +119,11 @@ public class MySettingActivity extends BaseAppActivity<EntrancePresent> implemen
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        RxScheduler.doTask(MySettingActivity.this, new RxTask<String>("清理成功") {
+                                        RxScheduler.doTask(MySettingActivity.this, new RxTask<String>() {
                                             @Override
-                                            public void doOnIoThread() {
-                                                FileCacheUtils.clearAll(mContext.getApplicationContext());
+                                            public String doOnIoThread() {
+                                              FileCacheUtils.clearAll(mContext.getApplicationContext());
+                                              return "清理成功";
                                             }
 
                                             @Override

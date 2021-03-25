@@ -125,6 +125,97 @@ public class StudentBursaryDetailBean extends BaseResult {
         private String noticePicture;
         private String payPicture;
         private String studentCertificatePicture;
+        private String wechatPhone;
+        private String townStreet;
+        private String idPictureFile;
+        private String lifePictureFile;
+        private String accountName;
+        private String bankName;
+        private String cardNumber;
+        private String startSchoolTimeName;
+        private String idPicture;
+        private int startSchoolTime;
+
+        public String getIdPicture() {
+            return idPicture == null ? "" : idPicture;
+        }
+
+        public void setIdPicture(String idPicture) {
+            this.idPicture = idPicture == null ? "" : idPicture;
+        }
+
+        public String getStartSchoolTimeName() {
+            return startSchoolTimeName == null ? "" : startSchoolTimeName;
+        }
+
+        public void setStartSchoolTimeName(String startSchoolTimeName) {
+            this.startSchoolTimeName = startSchoolTimeName == null ? "" : startSchoolTimeName;
+        }
+
+        public String getWechatPhone() {
+            return wechatPhone == null ? "" : wechatPhone;
+        }
+
+        public void setWechatPhone(String wechatPhone) {
+            this.wechatPhone = wechatPhone == null ? "" : wechatPhone;
+        }
+
+        public String getTownStreet() {
+            return townStreet == null ? "" : townStreet;
+        }
+
+        public void setTownStreet(String townStreet) {
+            this.townStreet = townStreet == null ? "" : townStreet;
+        }
+
+        public String getIdPictureFile() {
+            return idPictureFile == null ? "" : idPictureFile;
+        }
+
+        public void setIdPictureFile(String idPictureFile) {
+            this.idPictureFile = idPictureFile == null ? "" : idPictureFile;
+        }
+
+        public String getLifePictureFile() {
+            return lifePictureFile == null ? "" : lifePictureFile;
+        }
+
+        public void setLifePictureFile(String lifePictureFile) {
+            this.lifePictureFile = lifePictureFile == null ? "" : lifePictureFile;
+        }
+
+        public String getAccountName() {
+            return accountName == null ? "" : accountName;
+        }
+
+        public void setAccountName(String accountName) {
+            this.accountName = accountName == null ? "" : accountName;
+        }
+
+        public String getBankName() {
+            return bankName == null ? "" : bankName;
+        }
+
+        public void setBankName(String bankName) {
+            this.bankName = bankName == null ? "" : bankName;
+        }
+
+        public String getCardNumber() {
+            return cardNumber == null ? "" : cardNumber;
+        }
+
+        public void setCardNumber(String cardNumber) {
+            this.cardNumber = cardNumber == null ? "" : cardNumber;
+        }
+
+        public int getStartSchoolTime() {
+            return startSchoolTime;
+        }
+
+        public void setStartSchoolTime(int startSchoolTime) {
+            this.startSchoolTime = startSchoolTime;
+        }
+
         public int getId() {
             return id;
         }

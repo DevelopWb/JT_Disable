@@ -17,13 +17,23 @@ public class RecycleBean {
     private List<ItemCheckBoxBean> data;//recycleview的数据
     private String titleKey;
     private boolean isSigleSelect;//是否是单选
-
-    public RecycleBean(int layoutManagerType, int spanCount, List<ItemCheckBoxBean> data,String titleKey,boolean isSigleSelect) {
+    private boolean isImportant;//是否必填
+    public RecycleBean(int layoutManagerType, int spanCount, List<ItemCheckBoxBean> data,String titleKey,
+                       boolean isSigleSelect,boolean isImportant) {
         this.layoutManagerType = layoutManagerType;
         this.spanCount = spanCount;
         this.data = data;
         this.titleKey = titleKey;
         this.isSigleSelect = isSigleSelect;
+        this.isImportant = isImportant;
+    }
+
+    public boolean isImportant() {
+        return isImportant;
+    }
+
+    public void setImportant(boolean important) {
+        isImportant = important;
     }
 
     public boolean isSigleSelect() {

@@ -109,6 +109,16 @@ public class RecoveryDetailBean extends BaseResult {
         private String recoveryInstitution;
         private String guardianApply;
         private String applicantSign;
+        private String riPicture;
+
+        public String getRiPicture() {
+            return riPicture == null ? "" : riPicture;
+        }
+
+        public void setRiPicture(String riPicture) {
+            this.riPicture = riPicture == null ? "" : riPicture;
+        }
+
         /**
          * 左耳听力
          */
