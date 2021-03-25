@@ -63,6 +63,7 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
     private ImageView mSignIv = null;
     private TextView mSelectTv;
     private int admissionTimeId = 1;//开学日期
+    private int educationId = 1;//学历
     private int selectedIQId = 1;//（1<=25；2<=26-39；3<=40-54；4<=55-75）
     private int selectedBrainId = 1;//（1<=25；2<=26-39；3<=40-54；4<=55-75）
     private int selectedMarrayStatus = 0;//0未婚；1已婚(有配偶)；2丧偶；3离婚
@@ -156,10 +157,22 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
                                         });
                                 break;
                             case BusinessContract.TABLE_TITLE_EDUCATION_LEVEL:
+                                //文化程度
                                 mPresenter.getDisabledEducation(BusinessContract.TABLE_TITLE_EDUCATION_LEVEL);
                                 break;
                             case BusinessContract.TABLE_TITLE_EDUCATION:
-                                mPresenter.getDisabledEducation(BusinessContract.TABLE_TITLE_EDUCATION_LEVEL);
+                                //学历
+                                List<String> educations = getEducations();
+                                PickerManager.getInstance().showOptionPicker(mContext, educations,
+                                        new PickerManager.OnOptionPickerSelectedListener() {
+                                            @Override
+                                            public void onOptionsSelect(int options1, int option2, int options3,
+                                                                        View v) {
+                                                educationId = options1 + 1;
+                                                mSelectTv.setText(educations.get(options1));
+                                                selectBean.setValue(educations.get(options1));
+                                            }
+                                        });
                                 break;
                             case BusinessContract.TABLE_TITLE_DISABILITY_KINDS:
                                 //残疾类别
@@ -245,6 +258,19 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
         });
     }
 
+    /**
+     * 学历（1博士；2硕士研究生；3本科；4大专）
+     *
+     * @return
+     */
+    protected List<String> getEducations() {
+        List<String> arrays = new ArrayList<>();
+        arrays.add("博士");
+        arrays.add("硕士研究生");
+        arrays.add("本科");
+        arrays.add("大专");
+        return arrays;
+    }
     /**
      * 入学时间
      *
@@ -698,7 +724,7 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
                         case BusinessContract.TABLE_TITLE_EDUCATION:
                             //学历
                             if (StringTools.isStringValueOk(textValueSelectBean.getValue())) {
-                                builder.addFormDataPart("education", String.valueOf(selectedEducationLevel));
+                                builder.addFormDataPart("education", String.valueOf(educationId));
                             }
                             break;
                         case BusinessContract.TABLE_TITLE_CHILD_IQ:
@@ -1001,9 +1027,6 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
                                         selectedNation = dataBean.getId();
                                         break;
                                     case BusinessContract.TABLE_TITLE_EDUCATION_LEVEL:
-                                        selectedEducationLevel = dataBean.getId();
-                                        break;
-                                    case BusinessContract.TABLE_TITLE_EDUCATION:
                                         selectedEducationLevel = dataBean.getId();
                                         break;
                                     case AppHttpPath.GET_DISABLED_TYPE:
