@@ -32,6 +32,7 @@ import com.juntai.disabled.federation.bean.business.BusinessListBean;
 import com.juntai.disabled.federation.bean.business.BusinessNeedInfoBean;
 import com.juntai.disabled.federation.bean.business.BusinessPropertyBean;
 import com.juntai.disabled.federation.bean.business.ChildBusinessesBean;
+import com.juntai.disabled.federation.bean.business.ToolInfoBean;
 import com.juntai.disabled.federation.bean.business.detail.AssistToolDetailBean;
 import com.juntai.disabled.federation.bean.business.detail.BusinessChildDetailBean;
 import com.juntai.disabled.federation.bean.business.detail.StudentBursaryDetailBean;
@@ -614,8 +615,10 @@ public interface AppServer {
      */
     @POST(AppHttpPath.MAP_SITE_LIST)
     Observable<ResponseSiteBean> requestSiteList(@Body RequestBody requestBody);
+
     /**
      * 康复机构详情
+     *
      * @return
      */
     @POST(AppHttpPath.HEATH_ORGANIZE_DETAIL)
@@ -789,7 +792,7 @@ public interface AppServer {
     @POST(AppHttpPath.UPDATE_PHONE)
     Observable<BaseResult> updatePhone(@Query("account") String account, @Query("token") String token,
                                        @Query("phoneNumber") String phoneNumber, @Query("userId") int userId, @Query(
-                                               "newAccount") String newAccount,
+            "newAccount") String newAccount,
                                        @Query("password") String password, @Query("oldPassword") String oldPassword);
 
 
@@ -928,13 +931,13 @@ public interface AppServer {
      */
     @POST(AppHttpPath.BUSINESS_PROGRESS)
     Observable<MyBusinessBean> businessProgress(@Body RequestBody jsonBody);
+
     /**
-     *
      * @return
      */
     @POST(AppHttpPath.DELETE_MY_BUSINESS)
-    Observable<BaseResult> deleteUserBusiness( @Query("account") String account,
-                                               @Query("token") String token,@Query("ids") List<Integer> ids);
+    Observable<BaseResult> deleteUserBusiness(@Query("account") String account,
+                                              @Query("token") String token, @Query("ids") List<Integer> ids);
 
     /**
      * 查询用户提交申请业务详情
@@ -1757,7 +1760,7 @@ public interface AppServer {
      * @return
      */
     @GET(AppHttpPath.GET_DISABLED_AIDS)
-    Observable<BusinessPropertyBean> getDisabledAIDS(@Query("categoryId")int categoryId);
+    Observable<BusinessPropertyBean> getDisabledAIDS(@Query("categoryId") int categoryId);
 
     /**
      * @return
@@ -1766,118 +1769,123 @@ public interface AppServer {
     Observable<BusinessPropertyBean> getDisabledBarrier();
 
     /**
-     *
      * @return
      */
     @POST(AppHttpPath.HANDLER_DISABLED_CARD)
     Observable<BaseResult> addDisabilityCertificate(@Body RequestBody requestBody);
+
     /**
-     *
      * @return
      */
     @POST(AppHttpPath.DISABLED_CARD_RENEWAL)
     Observable<BaseResult> addCertificatesExchange(@Body RequestBody requestBody);
+
     /**
-     *
      * @return
      */
     @POST(AppHttpPath.DISABLED_CARD_CHANGE_LEVEL)
     Observable<BaseResult> addCertificatesChange(@Body RequestBody requestBody);
+
     /**
-     *
      * @return
      */
     @POST(AppHttpPath.DISABLED_CARD_REISSUE)
     Observable<BaseResult> addCertificatesReissue(@Body RequestBody requestBody);
+
     /**
-     *
      * @return
      */
     @POST(AppHttpPath.DISABLED_CARD_MOVE_IN)
     Observable<BaseResult> addCertificatesMovein(@Body RequestBody requestBody);
+
     /**
-     *
      * @return
      */
     @POST(AppHttpPath.DISABLED_CARD_MOVE_OUT)
     Observable<BaseResult> addCertificatesMoveout(@Body RequestBody requestBody);
+
     /**
-     *
      * @return
      */
     @POST(AppHttpPath.DISABLED_CARD_LOGOUT)
     Observable<BaseResult> addCertificatesCancel(@Body RequestBody requestBody);
+
     /**
-     *
      * @return
      */
     @POST(AppHttpPath.DISABLED_EMPLOYMENT_REGIST)
     Observable<BaseResult> addDisabledObtainEmployment(@Body RequestBody requestBody);
+
     /**
-     *
      * @return
      */
     @POST(AppHttpPath.CEREBRAL_PALSY_RECOVERY)
     Observable<BaseResult> addDisabledChildrenCerebralPalsy(@Body RequestBody requestBody);
+
     /**
-     *
      * @return
      */
     @POST(AppHttpPath.DEAF_CHILD_RECOVERY)
     Observable<BaseResult> addDisabledChildrenDeaf(@Body RequestBody requestBody);
+
     /**
-     *
      * @return
      */
     @POST(AppHttpPath.LONELY_CHILD_RECOVERY)
     Observable<BaseResult> addDisabledChildrenAutism(@Body RequestBody requestBody);
+
     /**
-     *
      * @return
      */
     @POST(AppHttpPath.IQ_CHILD_RECOVERY)
     Observable<BaseResult> addDisabledChildrenIntellectual(@Body RequestBody requestBody);
+
     /**
-     *
      * @return
      */
     @POST(AppHttpPath.DISABLED_CHILD_BURSARY)
     Observable<BaseResult> addDisabledStudentGrant(@Body RequestBody requestBody);
+
     /**
-     *
      * @return
      */
     @POST(AppHttpPath.DISABLED_FAMILY_CHILD_BURSARY)
     Observable<BaseResult> addDisabledStudentFamilyGrant(@Body RequestBody requestBody);
+
     /**
-     *
      * @return
      */
     @POST(AppHttpPath.REQUEST_AIDS)
     Observable<BaseResult> addAIDS(@Body RequestBody requestBody);
 
+    /**
+     * @return
+     */
+    @GET(AppHttpPath.REQUEST_TOOL_INFO)
+    Observable<ToolInfoBean> getDisabledAIDSInfo(@Query("aidsId") int aidsId);
+
 
     /**
-     *
      * @return
      */
     @POST(AppHttpPath.REQUEST_TRAIN)
     Observable<BaseResult> addTrain(@Body RequestBody requestBody);
+
     /**
-     *  培训意向
+     * 培训意向
+     *
      * @return
      */
     @GET(AppHttpPath.GET_TRAIN_INTENT_TYPES)
     Observable<BusinessPropertyBean> getTrainingIntention();
 
     /**
-     *
      * @return
      */
     @POST(AppHttpPath.HOME_CARE)
     Observable<BaseResult> addHomCare(@Body RequestBody requestBody);
+
     /**
-     *
      * @return
      */
     @POST(AppHttpPath.REQUEST_SUGGESTION)
@@ -1887,107 +1895,134 @@ public interface AppServer {
 
 
     /*==============================================  业务详情  =============================================*/
+
     /**
-     *
      * @return
      */
     @GET(AppHttpPath.DISABLED_ID_CARD_DETAIL)
-    Observable<HandlerCardDetailBean> getDisabilityCertificateInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<HandlerCardDetailBean> getDisabilityCertificateInfo(@Query("account") String account,
+                                                                   @Query("token") String token,
+                                                                   @Query("businessId") String businessId);
+
     /**
-     *
      * @return
      */
     @GET(AppHttpPath.DISABLED_RENEWAL_DETAIL)
-    Observable<BusinessChildDetailBean> getCertificatesExchangeInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<BusinessChildDetailBean> getCertificatesExchangeInfo(@Query("account") String account,
+                                                                    @Query("token") String token,
+                                                                    @Query("businessId") String businessId);
+
     /**
-     *
      * @return
      */
     @GET(AppHttpPath.DISABLED_LEVEL_CHANGE_DETAIL)
-    Observable<BusinessChildDetailBean> getCertificatesChangeInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<BusinessChildDetailBean> getCertificatesChangeInfo(@Query("account") String account,
+                                                                  @Query("token") String token,
+                                                                  @Query("businessId") String businessId);
+
     /**
-     *
      * @return
      */
     @GET(AppHttpPath.DISABLED_REISSUE_DETAIL)
-    Observable<BusinessChildDetailBean> getCertificatesReissueInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<BusinessChildDetailBean> getCertificatesReissueInfo(@Query("account") String account,
+                                                                   @Query("token") String token,
+                                                                   @Query("businessId") String businessId);
+
     /**
-     *
      * @return
      */
     @GET(AppHttpPath.DISABLED_CARD_MOVE_IN_DETAIL)
-    Observable<BusinessChildDetailBean> getCertificatesMoveinInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<BusinessChildDetailBean> getCertificatesMoveinInfo(@Query("account") String account,
+                                                                  @Query("token") String token,
+                                                                  @Query("businessId") String businessId);
+
     /**
-     *
      * @return
      */
     @GET(AppHttpPath.DISABLED_CARD_MOVE_OUT_DETAIL)
-    Observable<BusinessChildDetailBean> getCertificatesMoveoutInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<BusinessChildDetailBean> getCertificatesMoveoutInfo(@Query("account") String account,
+                                                                   @Query("token") String token,
+                                                                   @Query("businessId") String businessId);
+
     /**
-     *
      * @return
      */
     @GET(AppHttpPath.DISABLED_CARD_LOGOUT_DETAIL)
-    Observable<BusinessChildDetailBean> getCertificatesCancelInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<BusinessChildDetailBean> getCertificatesCancelInfo(@Query("account") String account,
+                                                                  @Query("token") String token,
+                                                                  @Query("businessId") String businessId);
+
     /**
-     *
      * @return
      */
     @GET(AppHttpPath.DISABLED_CARD_EMPLOYMENT_REGIST_DETAIL)
-    Observable<EmploymentRegDetailBean> getDisabledObtainEmploymentInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<EmploymentRegDetailBean> getDisabledObtainEmploymentInfo(@Query("account") String account, @Query(
+            "token") String token, @Query("businessId") String businessId);
+
     /**
-     *
      * @return
      */
     @GET(AppHttpPath.CEREBRAL_PALSY_RECOVERY_DETAIL)
-    Observable<RecoveryDetailBean> getDisabledChildrenCerebralPalsyInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<RecoveryDetailBean> getDisabledChildrenCerebralPalsyInfo(@Query("account") String account, @Query(
+            "token") String token, @Query("businessId") String businessId);
+
     /**
-     *
      * @return
      */
     @GET(AppHttpPath.DEAF_CHILD_RECOVERY_DETAIL)
-    Observable<RecoveryDetailBean> getDisabledChildrenDeafInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<RecoveryDetailBean> getDisabledChildrenDeafInfo(@Query("account") String account,
+                                                               @Query("token") String token,
+                                                               @Query("businessId") String businessId);
+
     /**
-     *
      * @return
      */
     @GET(AppHttpPath.LONELY_CHILD_RECOVERY_DETAIL)
-    Observable<RecoveryDetailBean> getDisabledChildrenAutismInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<RecoveryDetailBean> getDisabledChildrenAutismInfo(@Query("account") String account,
+                                                                 @Query("token") String token,
+                                                                 @Query("businessId") String businessId);
+
     /**
-     *
      * @return
      */
     @GET(AppHttpPath.IQ_CHILD_RECOVERY_DETAIL)
-    Observable<RecoveryDetailBean> getDisabledChildrenIntellectualInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<RecoveryDetailBean> getDisabledChildrenIntellectualInfo(@Query("account") String account, @Query(
+            "token") String token, @Query("businessId") String businessId);
+
     /**
-     *
      * @return
      */
     @GET(AppHttpPath.DISABLED_FAMILY_CHILD_BURSARY_DETAIL)
-    Observable<StudentBursaryDetailBean> getDisabledStudentFamilyGrantInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<StudentBursaryDetailBean> getDisabledStudentFamilyGrantInfo(@Query("account") String account, @Query(
+            "token") String token, @Query("businessId") String businessId);
+
     /**
-     *
      * @return
      */
     @GET(AppHttpPath.DISABLED_CHILD_BURSARY_DETAIL)
-    Observable<StudentBursaryDetailBean> getDisabledStudentGrantInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<StudentBursaryDetailBean> getDisabledStudentGrantInfo(@Query("account") String account,
+                                                                     @Query("token") String token, @Query("businessId"
+    ) String businessId);
+
     /**
-     *
      * @return
      */
     @GET(AppHttpPath.REQUEST_AIDS_DETAIL)
-    Observable<AssistToolDetailBean> getAIDSInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<AssistToolDetailBean> getAIDSInfo(@Query("account") String account, @Query("token") String token,
+                                                 @Query("businessId") String businessId);
+
     /**
-     *
      * @return
      */
     @GET(AppHttpPath.REQUEST_TRAIN_DETAIL)
-    Observable<TrainRequestDetailBean> getTrainInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<TrainRequestDetailBean> getTrainInfo(@Query("account") String account, @Query("token") String token,
+                                                    @Query("businessId") String businessId);
+
     /**
-     *
      * @return
      */
     @GET(AppHttpPath.HOME_CARE_DETAIL)
-    Observable<HomeCareDetailBean> getHomCareInfo(@Query("account") String account, @Query("token") String token, @Query("businessId") String businessId);
+    Observable<HomeCareDetailBean> getHomCareInfo(@Query("account") String account, @Query("token") String token,
+                                                  @Query("businessId") String businessId);
 
 }

@@ -3,17 +3,22 @@ package com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBu
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
+import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.PickerManager;
 import com.juntai.disabled.basecomponent.utils.RuleTools;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
@@ -30,10 +35,14 @@ import com.juntai.disabled.federation.bean.business.DeafBean;
 import com.juntai.disabled.federation.bean.business.ItemCheckBoxBean;
 import com.juntai.disabled.federation.bean.business.ItemSignBean;
 import com.juntai.disabled.federation.bean.business.RecycleBean;
+import com.juntai.disabled.federation.bean.business.ToolInfoBean;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.HeadCropActivity;
 import com.juntai.disabled.federation.utils.DateUtil;
 import com.juntai.disabled.federation.utils.StringTools;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.io.File;
 import java.io.IOException;
@@ -66,7 +75,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     private ImageView mSignIv = null;
     private ImageView mHandlerSignIv = null;//办理残疾证的时候的签名
     private TextView mSelectTv;
-    private int selectedCardType = 1;//1新申请；2换领申请；3补办申请
+    private int methodsId = 1;//配送方式
     private int selectedIQId = 1;//（1<=25；2<=26-39；3<=40-54；4<=55-75）
     private int selectedBrainId = 1;//（1<=25；2<=26-39；3<=40-54；4<=55-75）
     private int selectedMarrayStatus = 0;//0未婚；1已婚(有配偶)；2丧偶；3离婚
@@ -84,6 +93,16 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     private ItemSignBean itemSignBean = null;
     private OnPicSelectedCallBack picSelectedCallBack;
     private BusinessPicBean businessPicBean;
+    /**
+     * 测试数据
+     */
+    private TextView mToolNameTv;
+    private ImageView mToolPicIv;
+    /**
+     * 库存:
+     */
+    private TextView mReserveTv;
+    private WebView mToolInfoDesWb;
 
     protected abstract String getTitleName();
 
@@ -131,6 +150,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
             adapter.setHeaderView(getHeadView());
         }
         setAdapterClick();
+
     }
 
     private void setAdapterClick() {
@@ -141,10 +161,6 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 currentPosition = position;
                 MultipleItem multipleItem = (MultipleItem) adapter.getData().get(position);
-                //                mHeadIv = (ImageView) adapter.getViewByPosition(mRecyclerview, position, R.id
-                //                .form_head_pic_iv);
-                //                mFormPicIv = (ImageView) adapter.getViewByPosition(mRecyclerview, position,
-                //                        R.id.form_pic_src_iv);
 
                 switch (view.getId()) {
                     case R.id.form_pic_src_iv:
@@ -153,6 +169,13 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                     case R.id.form_head_pic_iv:
                         choseImage(0, BaseBusinessActivity.this, 1);
                         break;
+
+                    case R.id.tool_pic_iv:
+                        //辅具详情
+                        selectBean = (BusinessTextValueBean) multipleItem.getObject();
+                        new AlertDialog.Builder(mContext).setView(getToolInfoView(selectBean.getDataBean())).show();
+                        break;
+
                     case R.id.select_value_tv:
                         mSelectTv = (TextView) adapter.getViewByPosition(mRecyclerview, position,
                                 R.id.select_value_tv);
@@ -204,12 +227,26 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                         });
                                 break;
                             case BusinessContract.TABLE_TITLE_SELECT_ASSIST_TOOL:
-                                //辅具
+                                //辅具选择
                                 if (0 == categoryId) {
                                     ToastUtils.toast(mContext, "请先选择残疾类别");
                                     return;
                                 }
                                 mPresenter.getDisabledAIDS(categoryId, AppHttpPath.GET_DISABLED_AIDS);
+                                break;
+                            case BusinessContract.TABLE_TITLE_DELIVERY_METHOD:
+                                //配送方式
+                                List<String> methods = getDeliveryMode();
+                                PickerManager.getInstance().showOptionPicker(mContext, methods,
+                                        new PickerManager.OnOptionPickerSelectedListener() {
+                                            @Override
+                                            public void onOptionsSelect(int options1, int option2, int options3,
+                                                                        View v) {
+                                                methodsId = options1 + 1;
+                                                mSelectTv.setText(methods.get(options1));
+                                                selectBean.setValue(methods.get(options1));
+                                            }
+                                        });
                                 break;
                             case BusinessContract.TABLE_TITLE_CHILD_IQ:
                                 //儿童发育商
@@ -273,6 +310,58 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     }
 
     /**
+     * 辅具详情的view
+     *
+     * @param dataBean
+     * @return
+     */
+    private View getToolInfoView(ToolInfoBean.DataBean dataBean) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.tool_info_view, null);
+        mToolNameTv = (TextView) view.findViewById(R.id.tool_name_tv);
+        mToolPicIv = (ImageView) view.findViewById(R.id.tool_info_pic_iv);
+        ImageLoadUtil.loadImageNoCache(mContext,dataBean.getImg(),mToolPicIv);
+        mReserveTv = (TextView) view.findViewById(R.id.reserve_tv);
+        mToolInfoDesWb = (WebView) view.findViewById(R.id.tool_info_des_wb);
+        mToolNameTv.setText(dataBean.getName());
+        mReserveTv.append(String.valueOf(dataBean.getInventory()));
+        initWebView(mToolInfoDesWb,dataBean.getContent());
+        return view;
+    }
+
+    /**
+     *
+     * @param webView
+     * @param urlString
+     */
+    private void initWebView(WebView webView,String urlString) {
+        //覆盖WebView默认使用第三方或系统默认浏览器打开网页的行为，使网页用WebView打开
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+        webSettings.setAllowFileAccess(true);// 设置允许访问文件数据
+        webSettings.setSupportZoom(true);
+        webSettings.setBuiltInZoomControls(true);
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        webSettings.setDomStorageEnabled(true);
+        webSettings.setDatabaseEnabled(true);
+        webSettings.setDisplayZoomControls(false);//隐藏webview缩放按钮
+        webView.clearCache(true);
+        webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        webView.setWebViewClient(new WebViewClientDemo());
+        webView.loadDataWithBaseURL("", urlString, "text/html",
+                "utf-8", null);
+    }
+
+    private class WebViewClientDemo extends WebViewClient {
+        @Override
+        // 在WebView中不在默认浏览器下显示页面
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
+    }
+    /**
      * 儿童发育商（1<=25；2<=26-39；3<=40-54；4<=55-75）
      *
      * @return
@@ -305,6 +394,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     /**
      * 就业状况
      * 0未就业；1已就业
+     *
      * @return
      */
     protected List<String> getWorkStatus() {
@@ -313,6 +403,19 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         arrays.add("已就业");
         return arrays;
     }
+    /**
+     * 配送方式
+     * 1自提；2送货上门
+     *
+     * @return
+     */
+    protected List<String> getDeliveryMode() {
+        List<String> arrays = new ArrayList<>();
+        arrays.add("自提");
+        arrays.add("送货上门");
+        return arrays;
+    }
+
     /**
      * 婚姻状况 0未婚；1已婚(有配偶)；2丧偶；3离婚
      *
@@ -341,6 +444,9 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
             }
             bottomSheetDialog = null;
         }
+        if (mToolInfoDesWb != null) {
+            mToolInfoDesWb.destroy();
+        }
         //清除签名文件
         FileCacheUtils.clearImage(getSignPath(FileCacheUtils.SIGN_PIC_NAME));
         FileCacheUtils.clearImage(getSignPath(FileCacheUtils.HEAD_PIC));
@@ -359,8 +465,8 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
             if (BusinessContract.TABLE_TITLE_PIC.equals(businessPicBean.getPicName())) {
                 //跳转到裁剪头像的界面
                 startActivityForResult(new Intent(this, HeadCropActivity.class).putExtra(HeadCropActivity.HEAD_PIC,
-                        path),BASE_REQUEST_RESULT);
-            }else {
+                        path), BASE_REQUEST_RESULT);
+            } else {
                 businessPicBean.setPicPath(path);
                 adapter.notifyItemChanged(currentPosition);
             }
@@ -375,7 +481,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
      */
     @Override
     protected String getSignPath(String picName) {
-      return super.getSignPath(picName);
+        return super.getSignPath(picName);
     }
 
     /**
@@ -402,10 +508,10 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode==BASE_REQUEST_RESULT) {
+        if (resultCode == BASE_REQUEST_RESULT) {
             if (data != null) {
-               String path = data.getStringExtra(HeadCropActivity.CROPED_HEAD_PIC);
-                if (businessPicBean != null&&adapter!=null) {
+                String path = data.getStringExtra(HeadCropActivity.CROPED_HEAD_PIC);
+                if (businessPicBean != null && adapter != null) {
                     businessPicBean.setPicPath(path);
                     adapter.notifyItemChanged(currentPosition);
                 }
@@ -543,10 +649,18 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             break;
                         case BusinessContract.TABLE_TITLE_CHILD_IDCARD:
                             //儿童身份证号
+                            if (!RuleTools.isIdNO(mContext, textValueEditBean.getValue())) {
+                                ToastUtils.toast(mContext, "身份证号格式不正确");
+                                return null;
+                            }
                             formKey = "idNumber";
                             break;
                         case BusinessContract.TABLE_TITLE_DISABLE_CARD_ID:
                             //残疾证号
+                            if (!RuleTools.isDisabledIdNO(mContext, textValueEditBean.getValue())) {
+                                ToastUtils.toast(mContext, "残疾证号格式不正确");
+                                return null;
+                            }
                             formKey = "disabilityCertificate";
                             break;
                         case BusinessContract.TABLE_TITLE_ADDR:
@@ -720,6 +834,10 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             break;
                         case BusinessContract.TABLE_TITLE_GUARDIAN_ID_CARD:
                             //监护人身份证号
+                            if (!RuleTools.isIdNO(mContext, textValueEditBean.getValue())) {
+                                ToastUtils.toast(mContext, "身份证号格式不正确");
+                                return null;
+                            }
                             formKey = "guardianId";
                             break;
                         case BusinessContract.TABLE_TITLE_COMMUNICATION_ADDR:
@@ -781,7 +899,8 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             break;
                         case BusinessContract.TABLE_TITLE_HUKOU:
                             //户口类别
-                            builder.addFormDataPart("accountType", String.valueOf(radioBean.getDefaultSelectedIndex()+ 1));
+                            builder.addFormDataPart("accountType",
+                                    String.valueOf(radioBean.getDefaultSelectedIndex() + 1));
                             break;
                         case BusinessContract.TABLE_TITLE_IS_WEEL_COMPANY:
                             builder.addFormDataPart("unitWelfare", String.valueOf(radioBean.getDefaultSelectedIndex()));
@@ -850,6 +969,12 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                 builder.addFormDataPart("iq", String.valueOf(selectedIQId));
                             }
                             break;
+                        case BusinessContract.TABLE_TITLE_DELIVERY_METHOD:
+                            //配送方式
+                            if (StringTools.isStringValueOk(textValueSelectBean.getValue())) {
+                                builder.addFormDataPart("deliveryWay ", String.valueOf(methodsId));
+                            }
+                            break;
                         case BusinessContract.TABLE_TITLE_BRAIN_PALSY_STYLE:
                             //脑瘫类型
                             if (StringTools.isStringValueOk(textValueSelectBean.getValue())) {
@@ -880,13 +1005,13 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         case BusinessContract.TABLE_TITLE_JOB_STATUS:
                             //就业状况
                             if (StringTools.isStringValueOk(textValueSelectBean.getValue())) {
-                                builder.addFormDataPart("jobSituation",  String.valueOf(jobStatusId));
+                                builder.addFormDataPart("jobSituation", String.valueOf(jobStatusId));
                             }
                             break;
                         case BusinessContract.TABLE_TITLE_HOPE_TRAIN_TYPE:
                             //培训意向
                             if (StringTools.isStringValueOk(textValueSelectBean.getValue())) {
-                                builder.addFormDataPart("trains",  String.valueOf(trainIntentId));
+                                builder.addFormDataPart("trains", String.valueOf(trainIntentId));
                             }
                             break;
                         default:
@@ -1011,7 +1136,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                     List<ItemCheckBoxBean> data = recycleBean.getData();
                     String selectedData = getSelectedItems(data);
                     ItemCheckBoxBean selectedItem = getSelectedItem(data);
-                    if (recycleBean.isImportant()&&!StringTools.isStringValueOk(selectedData)) {
+                    if (recycleBean.isImportant() && !StringTools.isStringValueOk(selectedData)) {
                         ToastUtils.toast(mContext, "请选择" + recycleBean.getTitleKey());
                         return null;
                     }
@@ -1236,7 +1361,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         List<BusinessPropertyBean.DataBean> data = null;
         if (BusinessContract.TABLE_TITLE_NATION.equals(tag) || BusinessContract.TABLE_TITLE_EDUCATION_LEVEL.equals(tag)
                 || AppHttpPath.GET_DISABLED_TYPE.equals(tag) || AppHttpPath.GET_DISABLED_LEVEL.equals(tag)
-                || AppHttpPath.GET_DISABLED_AIDS.equals(tag)||AppHttpPath.GET_TRAIN_INTENT_TYPES.equals(tag)) {
+                || AppHttpPath.GET_DISABLED_AIDS.equals(tag) || AppHttpPath.GET_TRAIN_INTENT_TYPES.equals(tag)) {
             propertyNationBean = (BusinessPropertyBean) o;
             data = propertyNationBean.getData();
             if (propertyNationBean != null && data.size() > 0) {
@@ -1263,6 +1388,8 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                         break;
                                     case AppHttpPath.GET_DISABLED_AIDS:
                                         toolId = dataBean.getId();
+                                        //请求这种辅具对应的种类
+                                        mPresenter.getDisabledAIDSInfo(toolId, AppHttpPath.REQUEST_TOOL_INFO);
                                         break;
                                     case AppHttpPath.GET_TRAIN_INTENT_TYPES:
                                         trainIntentId = dataBean.getId();
@@ -1275,12 +1402,21 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         });
             }
 
+        } else if (AppHttpPath.REQUEST_TOOL_INFO.equals(tag)) {
+            //辅具用品详情
+            ToolInfoBean toolInfoBean = (ToolInfoBean) o;
+            if (toolInfoBean != null) {
+                selectBean.setDataBean(toolInfoBean.getData());
+                adapter.notifyItemChanged(currentPosition);
+            }
+
         } else {
             BaseResult baseResult = (BaseResult) o;
             ToastUtils.toast(mContext, baseResult.message);
             finish();
         }
     }
+
 
     /**
      * 图片被选中后的回调

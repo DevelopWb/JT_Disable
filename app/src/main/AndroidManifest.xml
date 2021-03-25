@@ -30,9 +30,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".home_page.business.handlerBusiness.assistTool.ToolInfoActivity"></activity>
         <activity
             android:name=".home_page.business.handlerBusiness.HeadCropActivity"
-            android:launchMode="singleTop"></activity>
+            android:launchMode="singleTop" />
         <activity
             android:name=".home_page.business.handlerBusiness.SuggestionActivity"
             android:launchMode="singleTop" />

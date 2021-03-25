@@ -27,6 +27,7 @@ import com.juntai.disabled.federation.bean.business.BusinessTextValueBean;
 import com.juntai.disabled.federation.bean.business.ChildBusinessesBean;
 import com.juntai.disabled.federation.bean.business.DeafBean;
 import com.juntai.disabled.federation.bean.business.ImportantTagBean;
+import com.juntai.disabled.federation.bean.business.ToolInfoBean;
 import com.juntai.disabled.federation.bean.business.detail.AssistToolDetailBean;
 import com.juntai.disabled.federation.bean.business.detail.BusinessChildDetailBean;
 import com.juntai.disabled.federation.bean.business.detail.StudentBursaryDetailBean;
@@ -744,6 +745,28 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                 .subscribe(new BaseObserver<BaseResult>(getView()) {
                     @Override
                     public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    @Override
+    public void getDisabledAIDSInfo(int  aidsId , String tag) {
+        AppNetModule.createrRetrofit()
+                .getDisabledAIDSInfo(aidsId )
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<ToolInfoBean>(getView()) {
+                    @Override
+                    public void onSuccess(ToolInfoBean o) {
                         if (getView() != null) {
                             getView().onSuccess(tag, o);
                         }
@@ -1558,9 +1581,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_LEVEL,
                 dataBean == null ? "" :
                         dataBean.getLevelName(), true);
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_SELECT_ASSIST_TOOL,
-                dataBean == null ? "" :
-                        dataBean.getAidsName(), true);
+
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOME_ADDR2,
                 dataBean == null ? "" :
                         dataBean.getAddress(), true);
@@ -1570,6 +1591,13 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ASSIST_TOOL_AMOUNT,
                 dataBean == null ? "" :
                         String.valueOf(dataBean.getQuantity()), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DELIVERY_METHOD,
+                dataBean == null ? "" :
+                        dataBean.getDeliveryWayName(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_SELECT_ASSIST_TOOL,
+                dataBean == null ? "" :
+                        dataBean.getAidsName(), true);
+
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_SIGN, new ItemSignBean("领取人签字", dataBean == null ? "" :
                 dataBean.getApplicantSign(), 0)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
@@ -1849,10 +1877,20 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         //                dataBean == null ? "" : dataBean.getMotherName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOME_ADDRESS,
                 dataBean == null ? "" : dataBean.getAddress(), true);
-        //        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "受助学生银行卡资料（工商银行）"));
-        //        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ACCOUNT_NAME);
-        //        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ACCOUNT_BANK);
-        //        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CARD_NUM);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_WCHAT_PHONE,
+                dataBean == null ? "" : dataBean.getWechatPhone(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_ADMISSION_TIME,
+                dataBean == null ? "" : dataBean.getStartSchoolTimeName(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_TOWN_STREET,
+                dataBean == null ? "" : dataBean.getTownStreet(), true);
+
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "受助学生银行卡信息"));
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ACCOUNT_NAME,
+                dataBean == null ? "" : dataBean.getAccountName(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ACCOUNT_BANK,
+                dataBean == null ? "" : dataBean.getBankName(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CARD_NUM,
+                dataBean == null ? "" : dataBean.getCardNumber(), true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
     }
 

@@ -97,7 +97,7 @@ public interface BusinessContract {
     String TABLE_TITLE_PIC_IDCARD = "身份证照片";//
     String TABLE_TITLE_PRESENT_DISBILITY_IDCARD = "家长重度残疾证照片";//
     String TABLE_TITLE_GROUP_PHOTO = "学生与家长生活合影照片";//
-    String TABLE_TITLE_ACCOUNT_BOOK = "户口本拍照能说明家庭关系的照片";//
+    String TABLE_TITLE_ACCOUNT_BOOK = "户口本说明家庭关系照片或实际抚养证明";//
     String TABLE_TITLE_YEAR = "年度";//
     String TABLE_TITLE_PROJECT_LEVEL = "项目级别";//
     String TABLE_TITLE_HOME_ADDR2 = "家庭住址";//
@@ -128,7 +128,8 @@ public interface BusinessContract {
     String TABLE_TITLE_CURRENT_RECOVERY = "目前康复状态";//
     String TABLE_TITLE_HAS_CARE_WORKER = "接受救助后家庭中有无专人陪伴康复";//护工
     String TABLE_TITLE_REQUEST_RECOVERY = "康复需求项目";//护工
-    String TABLE_TITLE_SELECT_ASSIST_TOOL = "辅具";//护工
+    String TABLE_TITLE_SELECT_ASSIST_TOOL = "辅具选择";//护工
+    String TABLE_TITLE_DELIVERY_METHOD = "配送方式";//护工
     String TABLE_TITLE_ASSIST_TOOL_AMOUNT = "器具数量";//护工
     String TABLE_TITLE_SPECIALTY = "特长";//
     String TABLE_TITLE_JOB_STATUS = "就业状况";//
@@ -290,6 +291,10 @@ public interface BusinessContract {
          * @param tag
          */
         void addAIDS(RequestBody requestBody, String tag);
+        /**
+         * @param tag
+         */
+        void getDisabledAIDSInfo(int aidsId , String tag);
 
         /**
          * @param tag

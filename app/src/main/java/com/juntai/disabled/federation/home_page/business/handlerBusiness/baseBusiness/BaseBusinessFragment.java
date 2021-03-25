@@ -406,10 +406,18 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
                             break;
                         case BusinessContract.TABLE_TITLE_CHILD_IDCARD:
                             //儿童身份证号
+                            if (!RuleTools.isIdNO(mContext, textValueEditBean.getValue())) {
+                                ToastUtils.toast(mContext, "身份证号格式不正确");
+                                return null;
+                            }
                             formKey = "idNumber";
                             break;
                         case BusinessContract.TABLE_TITLE_DISABLE_CARD_ID:
                             //残疾证号
+                            if (!RuleTools.isDisabledIdNO(mContext, textValueEditBean.getValue())) {
+                                ToastUtils.toast(mContext, "残疾证号格式不正确");
+                                return null;
+                            }
                             formKey = "disabilityCertificate";
                             break;
                         case BusinessContract.TABLE_TITLE_ADDR:
@@ -607,6 +615,10 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
                             break;
                         case BusinessContract.TABLE_TITLE_WCHAT_PHONE:
                             //微信手机号
+                            if (!RuleTools.isMobileNO(textValueEditBean.getValue())) {
+                                ToastUtils.toast(mContext, "微信手机号格式不正确");
+                                return null;
+                            }
                             formKey = "wechatPhone";
                             break;
                         default:

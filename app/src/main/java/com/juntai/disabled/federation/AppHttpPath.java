@@ -839,6 +839,10 @@ public class AppHttpPath {
      * 辅助用品用具申请
      */
     public static final String REQUEST_AIDS = BASE + "/addAIDS.shtml";
+    /**
+     * 辅助工具详情
+     */
+    public static final String REQUEST_TOOL_INFO = BASE + "/getDisabledAIDSInfo.shtml";
 
     /**
      * 用户提交残疾人培训申请业务接口

@@ -88,8 +88,8 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 break;
             case MultipleItem.ITEM_BUSINESS_TITILE_SMALL:
                 ImportantTagBean importantTagBean = (ImportantTagBean) item.getObject();
-                helper.setGone(R.id.important_tag_tv,importantTagBean.isImportant());
-                helper.setText(R.id.item_business_small_title_tv,importantTagBean.getTitleName());
+                helper.setGone(R.id.important_tag_tv, importantTagBean.isImportant());
+                helper.setText(R.id.item_business_small_title_tv, importantTagBean.getTitleName());
                 break;
             case MultipleItem.ITEM_BUSINESS_EDIT:
                 BusinessTextValueBean textValueEditBean = (BusinessTextValueBean) item.getObject();
@@ -138,16 +138,45 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 switch (editKey) {
                     case BusinessContract.TABLE_TITLE_CONTACT_MODE:
                         //联系方式
+                        setMaxLength(editText, 11);
                         editText.setInputType(InputType.TYPE_CLASS_PHONE);
                         break;
                     case BusinessContract.TABLE_TITLE_PHONE:
                         //联系电话
+                        setMaxLength(editText, 11);
                         editText.setInputType(InputType.TYPE_CLASS_PHONE);
                         break;
-//                    case BusinessContract.TABLE_TITLE_IDCARD:
-//                        //身份证号
-//                        setMaxLength(editText, 18);
-//                        break;
+                    case BusinessContract.TABLE_TITLE_MOBILE_NUM:
+                        //手机号码
+                        setMaxLength(editText, 11);
+                        editText.setInputType(InputType.TYPE_CLASS_PHONE);
+                        break;
+                    case BusinessContract.TABLE_TITLE_HOUSE_PHONE:
+                        //住宅电话
+                        setMaxLength(editText, 11);
+                        editText.setInputType(InputType.TYPE_CLASS_PHONE);
+                        break;
+                    case BusinessContract.TABLE_TITLE_WCHAT_PHONE:
+                        //微信手机号
+                        setMaxLength(editText, 11);
+                        editText.setInputType(InputType.TYPE_CLASS_PHONE);
+                        break;
+                    case BusinessContract.TABLE_TITLE_CARD_NUM:
+                        //卡号
+                        editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        break;
+                    case BusinessContract.TABLE_TITLE_IDCARD:
+                        //身份证号
+                        setMaxLength(editText, 18);
+                        break;
+                    case BusinessContract.TABLE_TITLE_CHILD_IDCARD:
+                        //儿童身份证号
+                        setMaxLength(editText, 18);
+                        break;
+                    case BusinessContract.TABLE_TITLE_GUARDIAN_ID_CARD:
+                        //监护人身份证号
+                        setMaxLength(editText, 18);
+                        break;
                     case BusinessContract.TABLE_TITLE_AGE_FAMILY:
                         //F年龄
                         editText.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -158,12 +187,12 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                         break;
                     case BusinessContract.TABLE_TITLE_DISABLE_CARD_ID:
                         //残疾证号
-                        //                        setMaxLength(editText, 20);
+                        setMaxLength(editText, 20);
                         break;
                     default:
                         //输入类型为普通文本
                         editText.setInputType(InputType.TYPE_CLASS_TEXT);
-//                        setMaxLength(editText, 1000);
+                        setMaxLength(editText, 1000);
                         break;
                 }
 
@@ -207,6 +236,14 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 TextView textViewTv = helper.getView(R.id.select_value_tv);
                 if (!isDetail) {
                     helper.addOnClickListener(R.id.select_value_tv);
+                    helper.addOnClickListener(R.id.tool_pic_iv);
+                }
+                if (textValueSelectBean.getDataBean() != null && !TextUtils.isEmpty(textValueSelectBean.getDataBean().getImg())) {
+                    helper.setGone(R.id.tool_pic_iv, true);
+                    ImageLoadUtil.loadImageNoCache(mContext, textValueSelectBean.getDataBean().getImg(),
+                            helper.getView(R.id.tool_pic_iv));
+                } else {
+                    helper.setGone(R.id.tool_pic_iv, false);
                 }
                 textViewTv.setTag(textValueSelectBean);
                 BusinessTextValueBean selectBean = (BusinessTextValueBean) textViewTv.getTag();
@@ -268,19 +305,19 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                     }
                 });
                 int defaultIndex = radioBean.getDefaultSelectedIndex();
-//                switch (radioBean.getKey()) {
-//                    case BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS:
-//                        defaultIndex -= 1;
-//                        break;
-//                    case BusinessContract.TABLE_TITLE_PROJECT_LEVEL:
-//                        defaultIndex -= 1;
-//                        break;
-//                    case BusinessContract.TABLE_TITLE_HUKOU:
-//                        defaultIndex -= 1;
-//                        break;
-//                    default:
-//                        break;
-//                }
+                //                switch (radioBean.getKey()) {
+                //                    case BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS:
+                //                        defaultIndex -= 1;
+                //                        break;
+                //                    case BusinessContract.TABLE_TITLE_PROJECT_LEVEL:
+                //                        defaultIndex -= 1;
+                //                        break;
+                //                    case BusinessContract.TABLE_TITLE_HUKOU:
+                //                        defaultIndex -= 1;
+                //                        break;
+                //                    default:
+                //                        break;
+                //                }
                 switch (defaultIndex) {
                     case 0:
                         radioButton0.setChecked(true);

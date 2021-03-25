@@ -42,6 +42,15 @@ public class UserProtocalActivity extends BaseAppActivity {
         mAgreementLayout = (LinearLayout) findViewById(R.id.agreement_layout);
 
         urlString = getIntent().getStringExtra("url");
+        initWebView(mAgreementWeb,urlString);
+    }
+
+    /**
+     *
+     * @param mAgreementWeb
+     * @param urlString
+     */
+    private void initWebView(WebView mAgreementWeb,String urlString) {
         //覆盖WebView默认使用第三方或系统默认浏览器打开网页的行为，使网页用WebView打开
         WebSettings webSettings = mAgreementWeb.getSettings();
         webSettings.setJavaScriptEnabled(true);

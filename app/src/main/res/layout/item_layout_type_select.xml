@@ -33,4 +33,13 @@
         android:layout_marginRight="15dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/select_value_tv"></ImageView>
+
+    <ImageView
+        android:id="@+id/tool_pic_iv"
+        android:layout_marginTop="5dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/select_value_tv"
+        app:layout_constraintLeft_toLeftOf="@+id/select_value_tv"
+        android:layout_width="100dp"
+        android:layout_height="100dp"></ImageView>
 </android.support.constraint.ConstraintLayout>

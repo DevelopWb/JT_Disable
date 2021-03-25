@@ -48,7 +48,7 @@ public class UserAgreementActivity extends BaseActivity {
         webSettings.setDomStorageEnabled(true);
         webSettings.setDatabaseEnabled(true);
         webSettings.setDisplayZoomControls(false);//隐藏webview缩放按钮
-        mAgreementWeb.loadData("", "text/html", "UTF-8");
+        mAgreementWeb.loadData(urlString, "text/html", "UTF-8");
         mAgreementWeb.clearCache(true);
         mAgreementWeb.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         mAgreementWeb.setWebViewClient(new WebViewClientDemo());
