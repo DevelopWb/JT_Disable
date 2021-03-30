@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class LocationSeltionActivity extends BaseActivity implements BaiduMap.OnMapClickListener{
+public class SelectLocationActivity extends BaseActivity implements BaiduMap.OnMapClickListener{
     private String address = "";
     private int adCode;
     private RecyclerView addressListRV;

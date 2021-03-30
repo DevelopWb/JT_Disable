@@ -15,7 +15,7 @@ import com.juntai.disabled.basecomponent.utils.EventManager;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.disabled.bdmap.act.LocationSeltionActivity;
+import com.juntai.disabled.bdmap.act.SelectLocationActivity;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.news.NewsDetailBean;
@@ -179,7 +179,7 @@ public class UpdateVideoNewsActivity extends BaseMvpActivity<NewsPresent> implem
                 break;
             case R.id.address_tv:
                 //地址选择
-                Intent intent = new Intent(mContext, LocationSeltionActivity.class);
+                Intent intent = new Intent(mContext, SelectLocationActivity.class);
                 startActivityForResult(intent, PublishContract.REQUEST_CODE_CHOOSE_PLACE);
                 break;
         }

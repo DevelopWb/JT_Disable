@@ -16,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.baidu.location.BDLocation;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
@@ -27,7 +26,7 @@ import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.widght.BaseBottomDialog;
-import com.juntai.disabled.bdmap.act.LocationSeltionActivity;
+import com.juntai.disabled.bdmap.act.SelectLocationActivity;
 import com.juntai.disabled.bdmap.service.LocateAndUpload;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
@@ -35,11 +34,9 @@ import com.juntai.disabled.federation.home_page.PublishContract;
 import com.juntai.disabled.federation.home_page.news.NewsContract;
 import com.juntai.disabled.federation.home_page.news.NewsPresent;
 import com.juntai.disabled.federation.utils.StringTools;
-import com.vincent.videocompressor.VideoCompress;
 import com.zhihu.matisse.Matisse;
 
 import java.io.File;
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -206,7 +203,7 @@ public class PublishVideoNewsFragment extends BaseMvpFragment<NewsPresent> imple
                 break;
             case R.id.address_tv:
                 //地址选择
-                Intent intent = new Intent(mContext, LocationSeltionActivity.class);
+                Intent intent = new Intent(mContext, SelectLocationActivity.class);
                 startActivityForResult(intent, PublishContract.REQUEST_CODE_CHOOSE_PLACE);
                 break;
             case R.id.yulan_btn:

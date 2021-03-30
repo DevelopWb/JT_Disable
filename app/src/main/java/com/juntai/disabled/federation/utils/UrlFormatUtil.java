@@ -29,6 +29,15 @@ public class UrlFormatUtil {
 //        return AppHttpPath.BASE_IMAGE + path;
         return  path;
     }
+    /**
+     * 采集图片
+     *
+     * @param imageId
+     * @return
+     */
+    public static String getCollectImagePath(int imageId) {
+        return AppHttpPath.COLLECT_DISABLED_IMAGE_URL+"?id="+imageId;
+    }
 
     /**
      * 车辆直播流

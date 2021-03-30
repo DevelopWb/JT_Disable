@@ -88,6 +88,7 @@ public class SelectPhotosFragment extends BaseMvpFragment implements View.OnClic
     private OnPhotoItemClick onPhotoItemClick;
     private OnPicCalculateed onPicCalculateed;
     private int type;//0拍照照片，1拍照
+    private boolean isShowTag = false;//是否显示底部标记
 
     public void setOnPhotoItemClick(OnPhotoItemClick onPhotoItemClick) {
         this.onPhotoItemClick = onPhotoItemClick;
@@ -114,7 +115,15 @@ public class SelectPhotosFragment extends BaseMvpFragment implements View.OnClic
         this.mSpanCount = spanCount;
         return this;
     }
-
+    /**
+     * 是否显示底部标识
+     * @param showTag
+     * @return
+     */
+    public SelectPhotosFragment setShowTag(boolean showTag) {
+        this.isShowTag = showTag;
+        return this;
+    }
     /**
      * @param maxCount //最大个数，默认9个
      * @return
@@ -337,6 +346,7 @@ public class SelectPhotosFragment extends BaseMvpFragment implements View.OnClic
         mSelectPhotosRv = (RecyclerView) getView(R.id.select_photos_rv);
         mSelectPhotosTitleTv = (TextView) getView(R.id.select_photos_title_tv);
         selectedPicsAdapter = new ShowSelectedPicsAdapter(R.layout.show_selected_pic_item);
+        selectedPicsAdapter.setShowTag(isShowTag);
         selectedPicsAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
 
 

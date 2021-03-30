@@ -1,9 +1,15 @@
 package com.juntai.disabled.federation.base.search;
 
 
+import com.juntai.disabled.basecomponent.base.BaseObserver;
+import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
+import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.disabled.federation.AppNetModule;
+import com.juntai.disabled.federation.bean.business.detail.HomeCareDetailBean;
+import com.juntai.disabled.federation.bean.collect.CollectSearchResultBean;
+import com.juntai.disabled.federation.utils.UserInfoManager;
 
 import okhttp3.RequestBody;
 
@@ -112,6 +118,29 @@ public class SearchPresent extends BasePresenter<IModel,SearchContract.ISearchVi
 //                });
     }
 
+    @Override
+    public void collectDisabledSearch(RequestBody body, String tag) {
+        AppNetModule.createrRetrofit()
+                .collectDisabledSearch(body)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<CollectSearchResultBean>(getView()) {
+                    @Override
+                    public void onSuccess(CollectSearchResultBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+
+    }
 
     @Override
     protected IModel createModel() {

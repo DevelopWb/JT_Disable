@@ -14,7 +14,7 @@ import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.PickerManager;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.disabled.bdmap.act.LocationSeltionActivity;
+import com.juntai.disabled.bdmap.act.SelectLocationActivity;
 import com.juntai.disabled.bdmap.service.LocateAndUpload;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.MyApp;
@@ -206,7 +206,7 @@ public class PublishCaseActivity extends BaseSelectPicsAndVedioActivity<PublishP
                 break;
             case R.id.address_tv:
                 //选择地点
-                Intent intent = new Intent(mContext, LocationSeltionActivity.class);
+                Intent intent = new Intent(mContext, SelectLocationActivity.class);
                 startActivityForResult(intent, PublishContract.REQUEST_CODE_CHOOSE_PLACE);
                 break;
             case R.id.date_tv:

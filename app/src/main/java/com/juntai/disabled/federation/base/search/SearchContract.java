@@ -41,5 +41,10 @@ public interface SearchContract {
          */
         void searchAllDisabledPeoples(RequestBody body, String tag);
 
+        /**
+         * 采集残疾人信息 搜索
+         */
+        void collectDisabledSearch(RequestBody body, String tag);
+
     }
 }

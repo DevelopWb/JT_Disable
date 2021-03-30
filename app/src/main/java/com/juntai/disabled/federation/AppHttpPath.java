@@ -948,4 +948,34 @@ public class AppHttpPath {
     public static final String HOME_CARE_DETAIL = BASE + "/getHomCareInfo.shtml";
 
 
+
+
+
+    /*==============================================  采集模块  =============================================*/
+
+    /**
+     * 搜索残疾人信息
+     */
+    public static final String COLLECT_DISABLED_SEARCH = BASE + "/getUnion.shtml";
+    /**
+     * 残疾人详情接口
+     */
+    public static final String COLLECT_DISABLED_DETAIL = BASE + "/getPersonsInfo.shtml";
+    /**
+     * 影像采集上传接口
+     */
+    public static final String COLLECT_DISABLED_VIDEO = BASE + "/insertEvent.shtml";
+    /**
+     * 相关图片
+     */
+    public static final String COLLECT_DISABLED_IMAGE_URL = BASE + "/getImg.shtml";
+    /**
+     * 相关视频
+     */
+    public static final String COLLECT_DISABLED_VIDEO_URL= BASE_IMAGE + "/getVideo.shtml";
+    /**
+     * 无障碍采集上传接口
+     */
+    public static final String COLLECT_DISABLED_ACCESSBLE = BASE + "/insertCase2.shtml";
+
 }

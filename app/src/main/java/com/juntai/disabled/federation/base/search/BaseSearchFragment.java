@@ -83,7 +83,7 @@ public abstract class BaseSearchFragment extends BaseAppFragment<SearchPresent> 
 
     private String currentStreet, currentVillage, currentYear;
     protected int currentPage = 1;
-    protected int limit = 10;
+    protected int limit = 6;
     protected SmartRefreshLayout mSmartrefreshlayout;
     protected TextView searchedAmount;
 
@@ -427,22 +427,14 @@ public abstract class BaseSearchFragment extends BaseAppFragment<SearchPresent> 
         FormBody.Builder builder = new FormBody.Builder();
         builder.add("account", UserInfoManager.getUserAccount());
         builder.add("token", UserInfoManager.getUserToken());
-        if (StringTools.isStringValueOk(currentStreet)) {
-            builder.add("streetAddress", currentStreet);
-        }
-        if (StringTools.isStringValueOk(currentVillage) && !"全部".equals(currentVillage)) {
-            builder.add("communityAddress", currentVillage);
-        }
         String content = mSearchContentSv.getQuery().toString();
-        if (StringTools.isStringValueOk(content)) {
-            builder.add("name", content);
-        }
-        if (StringTools.isStringValueOk(currentYear)) {
-            builder.add("year", currentYear);
-        }
+            builder.add("name", content==null?"":content);
+//        if (StringTools.isStringValueOk(currentYear)) {
+//            builder.add("year", currentYear);
+//        }
 
-        builder.add("page", String.valueOf(currentPage));
-        builder.add("limit", String.valueOf(limit));
+        builder.add("currentPage", String.valueOf(currentPage));
+        builder.add("pageSize", String.valueOf(limit));
         return builder.build();
     }
 

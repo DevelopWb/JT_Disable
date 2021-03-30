@@ -22,9 +22,8 @@ import com.baidu.location.BDLocation;
 import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.basecomponent.utils.ActionConfig;
 import com.juntai.disabled.basecomponent.utils.EventManager;
-import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.disabled.bdmap.act.LocationSeltionActivity;
+import com.juntai.disabled.bdmap.act.SelectLocationActivity;
 import com.juntai.disabled.bdmap.service.LocateAndUpload;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
@@ -37,13 +36,11 @@ import com.juntai.disabled.federation.utils.AppUtils;
 import com.juntai.disabled.federation.utils.DateUtil;
 import com.juntai.disabled.federation.utils.StringTools;
 import com.orhanobut.hawk.Hawk;
-import com.zhihu.matisse.Matisse;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -278,7 +275,7 @@ public class PublishImageNewsFragment extends BaseMvpFragment<NewsPresent> imple
                 break;
             case R.id.address_tv:
                 //地址选择
-                Intent intent = new Intent(mContext, LocationSeltionActivity.class);
+                Intent intent = new Intent(mContext, SelectLocationActivity.class);
                 startActivityForResult(intent, PublishContract.REQUEST_CODE_CHOOSE_PLACE);
                 break;
             case R.id.action_img:

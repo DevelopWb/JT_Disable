@@ -12,35 +12,10 @@ import com.juntai.disabled.federation.base.BaseAppActivity;
  * @date 2021/3/18 17:25
  */
 
-public class AccessibleCollectionActivity extends BaseAppActivity<CollectInfoPresent> implements View.OnClickListener {
+public class AccessibleCollectionActivity extends BaseCollectActivity{
 
     @Override
-    public void onClick(View v) {
-
-    }
-
-    @Override
-    protected CollectInfoPresent createPresenter() {
-        return null;
-    }
-
-    @Override
-    public int getLayoutView() {
-        return 0;
-    }
-
-    @Override
-    public void initView() {
-
-    }
-
-    @Override
-    public void initData() {
-
-    }
-
-    @Override
-    public void onSuccess(String tag, Object o) {
-
+    protected String getTitleName() {
+        return "无障碍采集";
     }
 }

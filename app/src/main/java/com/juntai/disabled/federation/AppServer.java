@@ -46,6 +46,8 @@ import com.juntai.disabled.federation.bean.business.detail.TrainRequestDetailBea
 import com.juntai.disabled.federation.bean.case_bean.CaseDesBean;
 import com.juntai.disabled.federation.bean.case_bean.CaseInfoBean;
 import com.juntai.disabled.federation.bean.case_bean.CaseTypeBean;
+import com.juntai.disabled.federation.bean.collect.CollectDisabledDetailBean;
+import com.juntai.disabled.federation.bean.collect.CollectSearchResultBean;
 import com.juntai.disabled.federation.bean.conciliation.ConciliationInfoBean;
 import com.juntai.disabled.federation.bean.conciliation.ConciliationListBean;
 import com.juntai.disabled.federation.bean.conciliation.ConciliationTypesBean;
@@ -2024,5 +2026,36 @@ public interface AppServer {
     @GET(AppHttpPath.HOME_CARE_DETAIL)
     Observable<HomeCareDetailBean> getHomCareInfo(@Query("account") String account, @Query("token") String token,
                                                   @Query("businessId") String businessId);
+
+
+
+
+    /*==============================================  采集模块  =============================================*/
+
+
+    /**
+     * @return
+     */
+    @POST(AppHttpPath.COLLECT_DISABLED_SEARCH)
+    Observable<CollectSearchResultBean> collectDisabledSearch(@Body RequestBody requestBody);
+
+
+    /**
+     * @return
+     */
+    @POST(AppHttpPath.COLLECT_DISABLED_DETAIL)
+    Observable<CollectDisabledDetailBean> getCollectDisabledDetail(@Body RequestBody requestBody);
+    /**
+     * @return
+     */
+    @POST(AppHttpPath.COLLECT_DISABLED_VIDEO)
+    Observable<BaseResult> insertEvent(@Body RequestBody requestBody);
+    /**
+     * @return
+     */
+    @POST(AppHttpPath.COLLECT_DISABLED_ACCESSBLE)
+    Observable<BaseResult> insertCase2(@Body RequestBody requestBody);
+
+
 
 }

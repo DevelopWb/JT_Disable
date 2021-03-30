@@ -25,7 +25,7 @@ import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.disabled.bdmap.act.LocationSeltionActivity;
+import com.juntai.disabled.bdmap.act.SelectLocationActivity;
 import com.juntai.disabled.bdmap.service.LocateAndUpload;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
@@ -198,7 +198,7 @@ public class PublishInterviewActivity extends BaseMvpActivity<PublishPresent> im
         switch (v.getId()) {
             case R.id.address_iv:
             case R.id.address_tv:
-                startActivityForResult(new Intent(mContext, LocationSeltionActivity.class), PublishContract.REQUEST_CODE_CHOOSE_PLACE);
+                startActivityForResult(new Intent(mContext, SelectLocationActivity.class), PublishContract.REQUEST_CODE_CHOOSE_PLACE);
                 break;
             case R.id.item_video_pic:
                 //选择视频

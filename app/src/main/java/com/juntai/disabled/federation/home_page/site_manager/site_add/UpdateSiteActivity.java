@@ -23,7 +23,7 @@ import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.PickerManager;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.disabled.bdmap.act.LocationSeltionActivity;
+import com.juntai.disabled.bdmap.act.SelectLocationActivity;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseAppActivity;
@@ -467,7 +467,7 @@ public class UpdateSiteActivity extends BaseAppActivity<SiteManagerPresent> impl
                 break;
             case R.id.item_address_tv:
                 //地址
-                startActivityForResult(new Intent(mContext, LocationSeltionActivity.class), PublishContract.REQUEST_CODE_CHOOSE_PLACE);
+                startActivityForResult(new Intent(mContext, SelectLocationActivity.class), PublishContract.REQUEST_CODE_CHOOSE_PLACE);
                 break;
             case R.id.item_video_pic:
                 //选择视频

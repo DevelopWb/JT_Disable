@@ -411,8 +411,17 @@
             android:name=".home_page.map.SelectTime"
             android:launchMode="singleTop" />
         <activity
+            android:name=".home_page.collectInfos.AccessibleCollectionActivity"
+            android:launchMode="singleTop" />
+        <activity
             android:name=".mine.UserAgreementActivity"
             android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.collectInfos.VideoCollectActivity"
+            android:launchMode="singleTop" />
+
+        <activity android:name=".home_page.collectInfos.DisabledDetailActivity"
+            android:launchMode="singleTop"></activity>
     </application>
 
 </manifest>
