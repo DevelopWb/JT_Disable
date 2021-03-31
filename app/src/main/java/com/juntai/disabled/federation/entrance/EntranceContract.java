@@ -1,6 +1,6 @@
 package com.juntai.disabled.federation.entrance;
 
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 
 import okhttp3.RequestBody;
 
@@ -17,7 +17,7 @@ public interface EntranceContract {
     String LOGIN_TAG = "login";//登录的标识
     String OTHER_REGIST = "other_regist";//第三方注册
 
-    interface IEntranceView extends IView {
+    interface BaseIEntranceView extends BaseIView {
     }
 
     interface IEntrancePresent {

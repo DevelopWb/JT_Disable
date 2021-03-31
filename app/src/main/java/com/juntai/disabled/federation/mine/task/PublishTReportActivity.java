@@ -47,7 +47,7 @@ import okhttp3.RequestBody;
  * @aouther ZhangZhenlong
  * @date 2020-5-16
  */
-public class PublishTReportActivity extends BaseMvpActivity<PublishPresent> implements PublishContract.IPublishView,
+public class PublishTReportActivity extends BaseMvpActivity<PublishPresent> implements PublishContract.BaseIPublishView,
         View.OnClickListener, SelectPhotosFragment.OnPhotoItemClick, SelectPhotosFragment.OnPicCalculateed {
     /**
      * 请输入标题

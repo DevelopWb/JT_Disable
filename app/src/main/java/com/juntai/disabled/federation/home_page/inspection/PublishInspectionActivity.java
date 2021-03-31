@@ -53,7 +53,7 @@ import okhttp3.RequestBody;
  * @aouther ZhangZhenlong
  * @date 2020-3-16
  */
-public class PublishInspectionActivity extends BaseMvpActivity<PublishPresent> implements PublishContract.IPublishView,
+public class PublishInspectionActivity extends BaseMvpActivity<PublishPresent> implements PublishContract.BaseIPublishView,
         View.OnClickListener,
         SelectPhotosFragment.OnPhotoItemClick, SelectPhotosFragment.OnPicCalculateed {
 

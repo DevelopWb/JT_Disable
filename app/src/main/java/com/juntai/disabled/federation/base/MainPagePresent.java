@@ -15,7 +15,7 @@ import com.juntai.disabled.federation.MyApp;
  * 2020-8-8
  * email:954101549@qq.com
  */
-public class MainPagePresent extends BasePresenter<IModel, MainPageContract.IMainPageView> implements MainPageContract.IMainPagePresent {
+public class MainPagePresent extends BasePresenter<IModel, MainPageContract.BaseIMainPageView> implements MainPageContract.IMainPagePresent {
 
     @Override
     protected IModel createModel() {

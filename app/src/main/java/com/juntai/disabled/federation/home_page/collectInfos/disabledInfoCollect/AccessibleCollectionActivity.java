@@ -1,10 +1,5 @@
-package com.juntai.disabled.federation.home_page.collectInfos;
+package com.juntai.disabled.federation.home_page.collectInfos.disabledInfoCollect;
 
-
-import android.view.View;
-
-import com.juntai.disabled.basecomponent.base.BaseActivity;
-import com.juntai.disabled.federation.base.BaseAppActivity;
 
 /**
  * @aouther tobato

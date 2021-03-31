@@ -2,9 +2,9 @@ package com.juntai.disabled.federation.home_page;
 
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
-import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.federation.AppNetModule;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.bean.inspection.InspectionDetailBean;
@@ -17,15 +17,15 @@ import com.juntai.disabled.federation.utils.RxScheduler;
  * 2020-3-19
  * email:954101549@qq.com
  */
-public class InfoDetailPresent extends BasePresenter<IModel,InfoDetailContract.IInfoDetailView> implements InfoDetailContract.IInfoDetailPresent {
-    private IView iView;
+public class InfoDetailPresent extends BasePresenter<IModel, InfoDetailContract.BaseIInfoDetailView> implements InfoDetailContract.IInfoDetailPresent {
+    private BaseIView iView;
 
     @Override
     protected IModel createModel() {
         return null;
     }
 
-    public void  setCallBack(IView iView) {
+    public void  setCallBack(BaseIView iView) {
         this.iView = iView;
     }
 

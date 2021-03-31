@@ -29,7 +29,7 @@ import java.util.List;
  * @aouther ZhangZhenlong
  * @date 2020-5-16
  */
-public class MyTaskListActivity extends BaseMvpActivity<MyTaskPresent> implements MyCenterContract.ITaskView, View.OnClickListener {
+public class MyTaskListActivity extends BaseMvpActivity<MyTaskPresent> implements MyCenterContract.BaseITaskView, View.OnClickListener {
     int page = 1, pagesize = 20;
     private MyTaskListAdapter myTaskListAdapter;
     private List<TaskListBean.DataBean.TaskBean> taskBeanList = new ArrayList<>();

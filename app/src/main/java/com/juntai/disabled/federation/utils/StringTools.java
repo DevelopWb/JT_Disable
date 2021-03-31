@@ -66,7 +66,7 @@ public class StringTools {
 //
 //            spannableString.setSpan(new ClickableSpan() {
 //                @Override
-//                public void onClick(@NonNull View widget) {
+//                public void onClick(@NonNull ViewBase widget) {
 //                    textView.setText("2寸近照");
 ////                    if (onClickListener != null) {
 ////                        onClickListener.onClick(widget);

@@ -1,4 +1,4 @@
-package com.juntai.disabled.federation.home_page.collectInfos;
+package com.juntai.disabled.federation.home_page.collectInfos.disabledInfoCollect;
 
 import android.view.View;
 

@@ -28,7 +28,7 @@ import java.util.ArrayList;
  * @aouther ZhangZhenlong
  * @date 2020-5-16
  */
-public class TaskInfoActivity extends BaseMvpActivity<MyTaskPresent> implements MyCenterContract.ITaskView {
+public class TaskInfoActivity extends BaseMvpActivity<MyTaskPresent> implements MyCenterContract.BaseITaskView {
     /**
      * 标题
      */

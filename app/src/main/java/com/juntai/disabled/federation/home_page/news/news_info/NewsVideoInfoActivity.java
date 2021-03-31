@@ -204,16 +204,16 @@ public class NewsVideoInfoActivity extends BaseNewsInfoActivity {
 //        //设置旋转
 //        orientationUtils = new OrientationUtils(this, mInfoVideo);
 //        //设置全屏按键功能,这是使用的是选择屏幕，而不是全屏
-//        mInfoVideo.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
+//        mInfoVideo.getFullscreenButton().setOnClickListener(new ViewBase.OnClickListener() {
 //            @Override
-//            public void onClick(View v) {
+//            public void onClick(ViewBase v) {
 //                orientationUtils.resolveByClick();
 //            }
 //        });
         //是否可以滑动调整
 //        mInfoVideo.setIsTouchWiget(false);
         //设置返回按键功能
-//        mInfoVideo.getBackButton().setVisibility(View.GONE);
+//        mInfoVideo.getBackButton().setVisibility(ViewBase.GONE);
         //设置全屏按键功能
         mInfoVideo.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
             @Override

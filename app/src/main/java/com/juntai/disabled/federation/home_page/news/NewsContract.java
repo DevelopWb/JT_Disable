@@ -1,7 +1,7 @@
 package com.juntai.disabled.federation.home_page.news;
 
 import com.juntai.disabled.basecomponent.mvp.IPresenter;
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 
 import okhttp3.RequestBody;
 
@@ -29,11 +29,11 @@ public interface NewsContract {
     String DELETE_FOLLOW = "delete_follow";//取消关注
     String ADD_FOLLOW = "add_follow";//添加关注
 
-    interface INewsView extends IView {
+    interface BaseINewsView extends BaseIView {
 
     }
 
-    interface INewsPresent extends IPresenter<INewsView> {
+    interface INewsPresent extends IPresenter<BaseINewsView> {
         /**
          * 获取资讯列表
          *

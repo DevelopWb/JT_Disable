@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
@@ -18,9 +17,6 @@ import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.CollectListBean;
 import com.juntai.disabled.federation.home_page.camera.ijkplayer.PlayerLiveActivity;
 import com.juntai.disabled.federation.mine.MyCenterContract;
-import com.juntai.disabled.federation.mine.mycollect.MyCollectActivity;
-import com.juntai.disabled.federation.mine.mycollect.MyCollectAdapter;
-import com.juntai.disabled.federation.mine.mycollect.MyCollectPresent;
 import com.juntai.disabled.federation.utils.StringTools;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -33,7 +29,7 @@ import java.util.List;
  * @aouther ZhangZhenlong
  * @date 2020-3-12
  */
-public class MyCollectFragment extends BaseMvpFragment<MyCollectPresent> implements MyCenterContract.ICollectView,
+public class MyCollectFragment extends BaseMvpFragment<MyCollectPresent> implements MyCenterContract.BaseICollectView,
         View.OnClickListener {
     private RecyclerView mRecyclerview;
     private SmartRefreshLayout mSmartrefreshlayout;

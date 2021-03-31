@@ -27,7 +27,7 @@ import java.util.List;
  * @aouther ZhangZhenlong
  * @date 2020-8-16
  */
-public class PersonalNewsListFragment extends BaseMvpFragment<NewsPresent> implements NewsContract.INewsView {
+public class PersonalNewsListFragment extends BaseMvpFragment<NewsPresent> implements NewsContract.BaseINewsView {
     private int authorId;//作者id
     private int type;// 1视频，2图文
     private RecyclerView mRecyclerview;

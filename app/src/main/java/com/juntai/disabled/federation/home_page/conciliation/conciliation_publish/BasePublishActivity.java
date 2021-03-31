@@ -48,7 +48,7 @@ import java.util.List;
  * 2020-7-22
  * email:954101549@qq.com
  */
-public abstract class BasePublishActivity extends BaseMvpActivity<ConciliationPresent> implements ConciliationContract.IConciliationView,
+public abstract class BasePublishActivity extends BaseMvpActivity<ConciliationPresent> implements ConciliationContract.BaseIConciliationView,
         View.OnClickListener,
         SelectPhotosFragment.OnPhotoItemClick, SelectPhotosFragment.OnPicCalculateed {
     /**

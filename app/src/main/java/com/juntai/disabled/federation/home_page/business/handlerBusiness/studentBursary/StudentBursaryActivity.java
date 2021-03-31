@@ -18,14 +18,13 @@ import com.juntai.disabled.federation.home_page.business.handlerBusiness.student
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.studentBursary.disabilitystudentbursary.DisabilityStudentBursaryActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 /**
  * @aouther tobato  残疾大学生助学金业务
  * @description 描述
  * @date 2021/1/23 16:22
  */
-public class StudentBursaryActivity extends BaseAppActivity<BusinessPresent> implements BusinessContract.IBusinessView {
+public class StudentBursaryActivity extends BaseAppActivity<BusinessPresent> implements BusinessContract.BaseIBusinessView {
 
     private RecyclerView mRecyclerview;
     private SmartRefreshLayout mSmartrefreshlayout;

@@ -8,7 +8,7 @@ import android.view.View;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.bean.BaseStreamBean;
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
@@ -40,15 +40,15 @@ import okhttp3.RequestBody;
  * @UpdateUser: 更新者
  * @UpdateDate: 2020/5/30 9:49
  */
-public class PlayPresent extends BasePresenter<IModel, PlayContract.IPlayView> implements PlayContract.IPlayPresent {
-    private IView iView;
+public class PlayPresent extends BasePresenter<IModel, PlayContract.BaseIPlayView> implements PlayContract.IPlayPresent {
+    private BaseIView iView;
 
     @Override
     protected IModel createModel() {
         return null;
     }
 
-    public void  setCallBack(IView iView) {
+    public void  setCallBack(BaseIView iView) {
         this.iView = iView;
     }
 
@@ -364,7 +364,7 @@ public class PlayPresent extends BasePresenter<IModel, PlayContract.IPlayView> i
 
     @Override
     public void getCommentList(int commentedId, int pageSize, int currentPage, String tag) {
-        IView viewCallBack = null;
+        BaseIView viewCallBack = null;
         if (getView()==null) {
             if (iView != null) {
                 viewCallBack = iView;
@@ -372,7 +372,7 @@ public class PlayPresent extends BasePresenter<IModel, PlayContract.IPlayView> i
         }else{
             viewCallBack = getView();
         }
-        IView finalViewCallBack = viewCallBack;
+        BaseIView finalViewCallBack = viewCallBack;
 
         AppNetModule.createrRetrofit()
                 .getAllCommentCamera(MyApp.getAccount(), MyApp.getUserToken(), MyApp.getUid(), commentedId, pageSize, currentPage)
@@ -395,7 +395,7 @@ public class PlayPresent extends BasePresenter<IModel, PlayContract.IPlayView> i
 
     @Override
     public void getCommentChildList(int commentedId, int unreadId, int pageSize, int currentPage, String tag) {
-        IView viewCallBack = null;
+        BaseIView viewCallBack = null;
         if (getView()==null) {
             if (iView != null) {
                 viewCallBack = iView;
@@ -403,7 +403,7 @@ public class PlayPresent extends BasePresenter<IModel, PlayContract.IPlayView> i
         }else{
             viewCallBack = getView();
         }
-        IView finalViewCallBack = viewCallBack;
+        BaseIView finalViewCallBack = viewCallBack;
         AppNetModule.createrRetrofit()
                 .getChildCommentCamera(MyApp.getAccount(), MyApp.getUserToken(), commentedId, unreadId, pageSize, currentPage)
                 .compose(RxScheduler.ObsIoMain(viewCallBack))
@@ -425,7 +425,7 @@ public class PlayPresent extends BasePresenter<IModel, PlayContract.IPlayView> i
 
     @Override
     public void like(int id, int userId, int isType, int typeId, int likeId, String tag) {
-        IView viewCallBack = null;
+        BaseIView viewCallBack = null;
         if (getView()==null) {
             if (iView != null) {
                 viewCallBack = iView;
@@ -433,7 +433,7 @@ public class PlayPresent extends BasePresenter<IModel, PlayContract.IPlayView> i
         }else{
             viewCallBack = getView();
         }
-        IView finalViewCallBack = viewCallBack;
+        BaseIView finalViewCallBack = viewCallBack;
         AppNetModule.createrRetrofit()
                 .addOrCancleLikeCamera(id, MyApp.getAccount(), MyApp.getUserToken(),userId,isType,typeId,likeId)
                 .compose(RxScheduler.ObsIoMain(viewCallBack))

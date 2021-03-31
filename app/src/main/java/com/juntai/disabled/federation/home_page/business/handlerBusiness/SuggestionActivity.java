@@ -32,7 +32,7 @@ import okhttp3.RequestBody;
  * @description 描述  意见建议
  * @date 2021/3/2 8:33
  */
-public class SuggestionActivity extends SmsCheckCodeActivity<RegistPresent> implements RegistContract.IRegistView,
+public class SuggestionActivity extends SmsCheckCodeActivity<RegistPresent> implements RegistContract.BaseIRegistView,
         View.OnClickListener {
 
 

@@ -50,7 +50,7 @@ import okhttp3.RequestBody;
  * @aouther ZhangZhenlong
  * @date 2020-9-23
  */
-public class UpdateImageNewsActivity extends BaseMvpActivity<NewsPresent> implements NewsContract.INewsView, View.OnClickListener {
+public class UpdateImageNewsActivity extends BaseMvpActivity<NewsPresent> implements NewsContract.BaseINewsView, View.OnClickListener {
     /**
      * 起一个吸引人的名称让更多人看到哟
      */

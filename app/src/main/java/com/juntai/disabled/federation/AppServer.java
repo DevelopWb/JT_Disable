@@ -43,6 +43,16 @@ import com.juntai.disabled.federation.bean.business.MyBusinessDetailBean;
 import com.juntai.disabled.federation.bean.business.detail.HomeCareDetailBean;
 import com.juntai.disabled.federation.bean.business.detail.RecoveryDetailBean;
 import com.juntai.disabled.federation.bean.business.detail.TrainRequestDetailBean;
+import com.juntai.disabled.federation.bean.careTaker.CareRecordDetailBean;
+import com.juntai.disabled.federation.bean.careTaker.CareRecordPositionBean;
+import com.juntai.disabled.federation.bean.careTaker.CareTakerBaseInfoBean;
+import com.juntai.disabled.federation.bean.careTaker.CareTakerInfoBean;
+import com.juntai.disabled.federation.bean.careTaker.CareTakerInfoMoreBean;
+import com.juntai.disabled.federation.bean.careTaker.SearchedPeopleBean;
+import com.juntai.disabled.federation.bean.careTaker.ServicePeoplesBean;
+import com.juntai.disabled.federation.bean.careTaker.ServiceTypeBean;
+import com.juntai.disabled.federation.bean.careTaker.StreetBean;
+import com.juntai.disabled.federation.bean.careTaker.YearsBean;
 import com.juntai.disabled.federation.bean.case_bean.CaseDesBean;
 import com.juntai.disabled.federation.bean.case_bean.CaseInfoBean;
 import com.juntai.disabled.federation.bean.case_bean.CaseTypeBean;
@@ -2058,4 +2068,78 @@ public interface AppServer {
 
 
 
+
+
+
+    /*==============================================  描述信息  =============================================*/
+    /**
+     * 搜索托养人员
+     */
+    @POST(AppHttpPath.SEARCH_CARETAKER)
+    Observable<SearchedPeopleBean> searchCareTaker(@Body RequestBody requestBody);
+    /**
+     * 搜索所有的残疾人
+     */
+    @POST(AppHttpPath.SEARCH_ALL_DISABLED_PEOPLE)
+    Observable<SearchedPeopleBean> searchDisabledPeoples(@Body RequestBody requestBody);
+    /**
+     * 托养信息
+     */
+    @POST(AppHttpPath.CARE_INFO)
+    Observable<CareTakerInfoBean> careInfo(@Body RequestBody requestBody);
+    /**
+     * 托养信息  更多
+     */
+    @POST(AppHttpPath.CARE_INFO_MORE)
+    Observable<CareTakerInfoMoreBean> careInfoMore(@Body RequestBody requestBody);
+    /**
+     * 托养信息
+     */
+    @POST(AppHttpPath.CARE_RECORD)
+    Observable<CareRecordDetailBean> careRecord(@Body RequestBody requestBody);
+    /**
+     * 托养信息
+     */
+    @POST(AppHttpPath.CARE_TAKER_BASE_INFO)
+    Observable<CareTakerBaseInfoBean> careTakerBaseInfo(@Body RequestBody requestBody);
+    /**
+     * 添加托养人
+     */
+    @POST(AppHttpPath.ADD_CARE_TAKER)
+    Observable<BaseResult> addCareTaker(@Body RequestBody requestBody);
+    /**
+     * 修改托养人
+     */
+    @POST(AppHttpPath.MODIFY_CARE_TAKER)
+    Observable<BaseResult> modifyCareTaker(@Body RequestBody requestBody);
+
+    /**
+     * 按街道分类服务人员
+     */
+    @POST(AppHttpPath.GET_SERVICE_PEOPLE)
+    Observable<ServicePeoplesBean> getServicePeople(@Body RequestBody requestBody);
+
+
+
+    /**
+     * 提交托养记录
+     */
+    @POST(AppHttpPath.COMMIT_CARE_RECORD)
+    Observable<BaseResult> commitCareRecord(@Body RequestBody requestBody);
+    /**
+     * 获取服务类型
+     */
+    @POST(AppHttpPath.GET_SERVICE_TYPE)
+    Observable<ServiceTypeBean> getServiceType(@Body RequestBody requestBody);
+    /**
+     * 获取所有的区域 街道
+     */
+    @POST(AppHttpPath.ALL_STREETS)
+    Observable<StreetBean> getStreets();
+
+    /**
+     * 获取所有的区域 街道
+     */
+    @POST(AppHttpPath.GET_YEARS)
+    Observable<YearsBean> getAllYears();
 }

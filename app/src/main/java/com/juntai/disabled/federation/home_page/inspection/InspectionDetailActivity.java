@@ -37,7 +37,7 @@ import java.util.List;
  * @aouther ZhangZhenlong
  * @date 2020-3-31
  */
-public class InspectionDetailActivity extends BaseMvpActivity<InfoDetailPresent> implements InfoDetailContract.IInfoDetailView,
+public class InspectionDetailActivity extends BaseMvpActivity<InfoDetailPresent> implements InfoDetailContract.BaseIInfoDetailView,
         SelectPhotosFragment.OnPhotoItemClick {
 
     private RecyclerView mRecyclerViewTextRv;
@@ -110,7 +110,7 @@ public class InspectionDetailActivity extends BaseMvpActivity<InfoDetailPresent>
 //     * 设置头部
 //     */
 //    public void setHeadView() {
-//        View view = LayoutInflater.from(this).inflate(R.layout.head_layout_inspection, null);
+//        ViewBase view = LayoutInflater.from(this).inflate(R.layout.head_layout_inspection, null);
 //        desTv = view.findViewById(R.id.description_et);
 //        textListAdapter.setHeaderView(view);
 //    }

@@ -18,7 +18,7 @@ import com.juntai.disabled.video.player.PlayerActivity;
  * @aouther ZhangZhenlong
  * @date 2020-7-2
  */
-public class InterviewDetailActivity extends BaseBannnerDetail<InfoDetailPresent> implements InfoDetailContract.IInfoDetailView {
+public class InterviewDetailActivity extends BaseBannnerDetail<InfoDetailPresent> implements InfoDetailContract.BaseIInfoDetailView {
 
     @Override
     public void initData() {

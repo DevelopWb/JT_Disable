@@ -35,7 +35,7 @@ import java.util.Map;
  * @UpdateUser: 更新者
  * @UpdateDate: 2020/8/14 9:23
  */
-public class CameraVideoRecordFragment extends BaseMvpFragment<PlayPresent> implements PlayContract.IPlayView,
+public class CameraVideoRecordFragment extends BaseMvpFragment<PlayPresent> implements PlayContract.BaseIPlayView,
         View.OnClickListener {
     private ImageView mFinishIv;
     private ImageView mPreMonthIv;

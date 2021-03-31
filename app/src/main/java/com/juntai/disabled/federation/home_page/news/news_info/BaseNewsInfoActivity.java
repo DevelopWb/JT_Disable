@@ -44,7 +44,7 @@ import cn.sharesdk.framework.PlatformActionListener;
  * 2020-8-13
  * email:954101549@qq.com
  */
-public abstract class BaseNewsInfoActivity extends BaseMvpActivity<NewsPresent> implements NewsContract.INewsView, View.OnClickListener{
+public abstract class BaseNewsInfoActivity extends BaseMvpActivity<NewsPresent> implements NewsContract.BaseINewsView, View.OnClickListener{
     protected ImageView mInfoUserImage;
     /**
      * 姓名

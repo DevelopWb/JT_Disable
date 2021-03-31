@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.baidu.mapapi.model.LatLng;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseAppActivity;
@@ -38,7 +37,7 @@ import java.util.List;
  * @description 描述  巡检点信息
  * @date 2020/5/12 15:58
  */
-public class InspectionInfoActivity extends BaseAppActivity<MapPresenter> implements MapContract.View {
+public class InspectionInfoActivity extends BaseAppActivity<MapPresenter> implements MapContract.ViewBase {
     private int inspectionPointId;
     TextView trackingBtn, navigationBtn;
     private Banner banner;

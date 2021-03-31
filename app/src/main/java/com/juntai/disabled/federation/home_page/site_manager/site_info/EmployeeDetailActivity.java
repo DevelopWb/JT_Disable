@@ -18,7 +18,7 @@ import java.util.List;
  * @description 描述  从业人员详情
  * @date 2020/4/5 16:53
  */
-public class EmployeeDetailActivity extends BaseInfoDetail<SiteManagerPresent> implements SiteManagerContract.ISiteManagerView {
+public class EmployeeDetailActivity extends BaseInfoDetail<SiteManagerPresent> implements SiteManagerContract.BaseISiteManagerView {
 
     private ArrayList<String> photos = new ArrayList<>();
     private EmployeeDetailBean.DataBean dataBean;

@@ -41,7 +41,7 @@ import okhttp3.RequestBody;
  * 案件发布
  * @date 2020-3-14
  */
-public class PublishCaseActivity extends BaseSelectPicsAndVedioActivity<PublishPresent> implements PublishContract.IPublishView,
+public class PublishCaseActivity extends BaseSelectPicsAndVedioActivity<PublishPresent> implements PublishContract.BaseIPublishView,
         View.OnClickListener {
 
     private View view;

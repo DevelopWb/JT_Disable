@@ -57,7 +57,7 @@ import okhttp3.RequestBody;
  * @aouther ZhangZhenlong
  * @date 2020-7-30
  */
-public class PublishImageNewsFragment extends BaseMvpFragment<NewsPresent> implements NewsContract.INewsView, View.OnClickListener {
+public class PublishImageNewsFragment extends BaseMvpFragment<NewsPresent> implements NewsContract.BaseINewsView, View.OnClickListener {
     /**
      * 起一个吸引人的名称让更多人看到哟
      */
@@ -147,13 +147,13 @@ public class PublishImageNewsFragment extends BaseMvpFragment<NewsPresent> imple
         re.setPlaceHolder(getString(R.string.news_publish_article_hint));
         re.setPadding(20, 20, 20, 20);
 
-        //        mEditor.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        //        mEditor.setOnFocusChangeListener(new ViewBase.OnFocusChangeListener() {
         //            @Override
-        //            public void onFocusChange(View v, boolean hasFocus) {
+        //            public void onFocusChange(ViewBase v, boolean hasFocus) {
         //                if (hasFocus) {
-        //                    mBottom.setVisibility(View.VISIBLE);
+        //                    mBottom.setVisibility(ViewBase.VISIBLE);
         //                } else {
-        //                    mBottom.setVisibility(View.GONE);
+        //                    mBottom.setVisibility(ViewBase.GONE);
         //                }
         //            }
         //        });

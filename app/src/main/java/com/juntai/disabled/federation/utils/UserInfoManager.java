@@ -34,7 +34,14 @@ public class UserInfoManager {
         }
         return status;
     }
-
+    /**
+     * 获取账号的性质 是否是测试号
+     * @return
+     */
+    public static boolean  isTest(){
+//        return getUserBean().isTest();
+        return false;
+    }
     /**
      * 获取用户信息
      *

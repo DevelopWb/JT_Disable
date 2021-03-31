@@ -21,7 +21,7 @@ import java.util.List;
  * @description 描述  一键报警
  * @date 2020/3/11 15:41
  */
-public class CallToPoliceActivity extends BaseMvpActivity<HomePagePresent> implements HomePageContract.IHomePageView,
+public class CallToPoliceActivity extends BaseMvpActivity<HomePagePresent> implements HomePageContract.BaseIHomePageView,
         View.OnClickListener {
 
     /**

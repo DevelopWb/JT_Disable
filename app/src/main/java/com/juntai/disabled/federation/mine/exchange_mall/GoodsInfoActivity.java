@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * @aouther ZhangZhenlong
  * @date 2020-6-2
  */
-public class GoodsInfoActivity extends BaseMvpActivity<ExchangeMallPresent> implements ExchangeMallContract.IMallView, View.OnClickListener {
+public class GoodsInfoActivity extends BaseMvpActivity<ExchangeMallPresent> implements ExchangeMallContract.BaseIMallView, View.OnClickListener {
 
     private Banner banner;
     /**

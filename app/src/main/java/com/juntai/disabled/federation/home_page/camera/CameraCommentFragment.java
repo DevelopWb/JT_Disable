@@ -41,7 +41,7 @@ import cn.sharesdk.framework.PlatformActionListener;
  * @UpdateUser: 更新者
  * @UpdateDate: 2020/8/14 9:23
  */
-public class CameraCommentFragment extends BaseMvpFragment<PlayPresent> implements PlayContract.IPlayView,
+public class CameraCommentFragment extends BaseMvpFragment<PlayPresent> implements PlayContract.BaseIPlayView,
         View.OnClickListener {
     /**
      * 设备位置:

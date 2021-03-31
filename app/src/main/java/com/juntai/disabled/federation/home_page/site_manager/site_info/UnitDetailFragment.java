@@ -39,7 +39,7 @@ import java.util.List;
  * @aouther ZhangZhenlong
  * @date 2020-7-4
  */
-public class UnitDetailFragment extends BaseMvpFragment<MapPresenter> implements MapContract.View, View.OnClickListener {
+public class UnitDetailFragment extends BaseMvpFragment<MapPresenter> implements MapContract.ViewBase, View.OnClickListener {
     int type = 0;
     private Banner mBanner;
     private RecyclerView mDetailTexts;

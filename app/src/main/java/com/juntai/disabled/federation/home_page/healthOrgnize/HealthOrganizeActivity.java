@@ -24,7 +24,7 @@ import okhttp3.FormBody;
  * @description 描述  康复机构
  * @date 2020/7/23 16:35
  */
-public class HealthOrganizeActivity extends BaseAppActivity<HomePagePresent> implements HomePageContract.IHomePageView,View.OnClickListener {
+public class HealthOrganizeActivity extends BaseAppActivity<HomePagePresent> implements HomePageContract.BaseIHomePageView,View.OnClickListener {
     public static String ID = "id";
     /**
      * 机构名称

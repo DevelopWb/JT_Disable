@@ -27,7 +27,7 @@ import java.util.List;
  * @UpdateUser: 更新者
  * @UpdateDate: 2020/8/14 9:23
  */
-public class CameraYunControlChildPositionsFragment extends BaseMvpFragment<PlayPresent> implements PlayContract.IPlayView, View.OnClickListener {
+public class CameraYunControlChildPositionsFragment extends BaseMvpFragment<PlayPresent> implements PlayContract.BaseIPlayView, View.OnClickListener {
     private RecyclerView mRecyclerview;
     private SmartRefreshLayout mSmartrefreshlayout;
     /**

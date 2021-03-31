@@ -1,22 +1,14 @@
 package com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness;
 
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.support.v4.app.FragmentActivity;
-
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
-import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.disabled.federation.AppNetModule;
 import com.juntai.disabled.federation.MyApp;
-import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
-import com.juntai.disabled.federation.bean.MyMenuBean;
-import com.juntai.disabled.federation.bean.TextListBean;
 import com.juntai.disabled.federation.bean.business.AllBusinessBean;
 import com.juntai.disabled.federation.bean.business.BusinessListBean;
 import com.juntai.disabled.federation.bean.business.BusinessNeedInfoBean;
@@ -43,16 +35,10 @@ import com.juntai.disabled.federation.bean.business.detail.RecoveryDetailBean;
 import com.juntai.disabled.federation.bean.business.detail.TrainRequestDetailBean;
 import com.juntai.disabled.federation.utils.StringTools;
 import com.juntai.disabled.federation.utils.UserInfoManager;
-import com.juntai.disabled.video.record.VideoPreviewActivity;
-import com.mabeijianxi.smallvideorecord2.MediaRecorderActivity;
-import com.mabeijianxi.smallvideorecord2.model.MediaRecorderConfig;
-import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import es.dmoral.toasty.Toasty;
-import io.reactivex.functions.Consumer;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -60,7 +46,7 @@ import okhttp3.RequestBody;
  * @aouther Ma
  * @date 2019/3/14
  */
-public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBusinessView> implements BusinessContract.IBusinessPresent {
+public class BusinessPresent extends BasePresenter<IModel, BusinessContract.BaseIBusinessView> implements BusinessContract.IBusinessPresent {
 
     public String FAMILY_TAG = "F";
     public String PERSIONAL_TAG = "P";

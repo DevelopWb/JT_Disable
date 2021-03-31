@@ -11,7 +11,7 @@ import java.lang.ref.SoftReference;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-public abstract class BasePresenter<M extends IModel, V extends IView> implements IPresenter<V>, LifecycleObserver {
+public abstract class BasePresenter<M extends IModel, V extends BaseIView> implements IPresenter<V>, LifecycleObserver {
 
     protected final String TAG = this.getClass().getSimpleName();
     protected CompositeDisposable mCompositeDisposable;
@@ -53,7 +53,7 @@ public abstract class BasePresenter<M extends IModel, V extends IView> implement
         if (mReferenceV==null) {
             return null;
         }
-        Preconditions.checkNotNull(mReferenceV.get(), "%s cannot be null", IView.class.getName());
+        Preconditions.checkNotNull(mReferenceV.get(), "%s cannot be null", BaseIView.class.getName());
         return mReferenceV.get();
     }
 

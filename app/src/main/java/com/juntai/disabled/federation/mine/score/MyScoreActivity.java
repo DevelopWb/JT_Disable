@@ -33,7 +33,7 @@ import java.util.List;
  * @aouther ZhangZhenlong
  * @date 2020-3-12
  */
-public class MyScoreActivity extends BaseMvpActivity<MyScorePresent> implements MyCenterContract.IMyScoreView, View.OnClickListener {
+public class MyScoreActivity extends BaseMvpActivity<MyScorePresent> implements MyCenterContract.BaseIMyScoreView, View.OnClickListener {
     PopupWindow popupWindow;
     String type = null;//1获取；2使用,null全部
     int page = 1, pagesize = 20;

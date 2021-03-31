@@ -84,7 +84,14 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
         AlertDialog alertDialog = build.create();
         alertDialog.show();
     }
-
+    /**
+     * 是否是内部账号
+     *
+     * @return
+     */
+    public boolean isInnerAccount() {
+        return UserInfoManager.isTest();
+    }
 
     /**
      * 发送更新头像的广播

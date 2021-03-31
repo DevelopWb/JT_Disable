@@ -2,14 +2,11 @@ package com.juntai.disabled.federation.base.search;
 
 
 import com.juntai.disabled.basecomponent.base.BaseObserver;
-import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.disabled.federation.AppNetModule;
-import com.juntai.disabled.federation.bean.business.detail.HomeCareDetailBean;
 import com.juntai.disabled.federation.bean.collect.CollectSearchResultBean;
-import com.juntai.disabled.federation.utils.UserInfoManager;
 
 import okhttp3.RequestBody;
 
@@ -20,7 +17,7 @@ import okhttp3.RequestBody;
  * @UpdateUser: 更新者
  * @UpdateDate: 2020/7/9 15:01
  */
-public class SearchPresent extends BasePresenter<IModel,SearchContract.ISearchView> implements SearchContract.ISearchPresent {
+public class SearchPresent extends BasePresenter<IModel, SearchContract.BaseISearchView> implements SearchContract.ISearchPresent {
 
     @Override
     public void getStreets(String tag) {

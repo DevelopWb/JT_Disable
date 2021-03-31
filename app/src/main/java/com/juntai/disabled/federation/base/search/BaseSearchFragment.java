@@ -42,7 +42,7 @@ import okhttp3.RequestBody;
  * @UpdateDate: 2020/3/15 9:18
  */
 public abstract class BaseSearchFragment extends BaseAppFragment<SearchPresent> implements View.OnClickListener,
-        SearchContract.ISearchView {
+        SearchContract.BaseISearchView {
 
     public static String SEARCH_HIS_KEY = "search_his_key";//保存本地的历史记录的key
 
@@ -273,7 +273,7 @@ public abstract class BaseSearchFragment extends BaseAppFragment<SearchPresent> 
                     mHisRecordLl.setVisibility(showFilterView ? View.GONE : View.VISIBLE);
                 }
 
-                mSearchTv.setVisibility(showFilterView?View.GONE:View.VISIBLE);
+                mSearchTv.setVisibility(showFilterView ? View.GONE : View.VISIBLE);
                 break;
             case R.id.select_area_tv:
                 mPresenter.getStreets(SearchContract.STREETS);
@@ -428,10 +428,10 @@ public abstract class BaseSearchFragment extends BaseAppFragment<SearchPresent> 
         builder.add("account", UserInfoManager.getUserAccount());
         builder.add("token", UserInfoManager.getUserToken());
         String content = mSearchContentSv.getQuery().toString();
-            builder.add("name", content==null?"":content);
-//        if (StringTools.isStringValueOk(currentYear)) {
-//            builder.add("year", currentYear);
-//        }
+        builder.add("name", content == null ? "" : content);
+        //        if (StringTools.isStringValueOk(currentYear)) {
+        //            builder.add("year", currentYear);
+        //        }
 
         builder.add("currentPage", String.valueOf(currentPage));
         builder.add("pageSize", String.valueOf(limit));
@@ -440,10 +440,11 @@ public abstract class BaseSearchFragment extends BaseAppFragment<SearchPresent> 
 
     /**
      * 获取底部布局
+     *
      * @return
      */
-    protected View getFootView(){
-        View view = LayoutInflater.from(mContext).inflate(R.layout.search_result_foot_view,null);
+    protected View getFootView() {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.search_result_foot_view, null);
         searchedAmount = view.findViewById(R.id.search_result_foot_tv);
         return view;
     }

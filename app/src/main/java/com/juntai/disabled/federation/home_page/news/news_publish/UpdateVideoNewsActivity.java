@@ -35,7 +35,7 @@ import okhttp3.MultipartBody;
  * @aouther ZhangZhenlong
  * @date 2020-11-13
  */
-public class UpdateVideoNewsActivity extends BaseMvpActivity<NewsPresent> implements NewsContract.INewsView, View.OnClickListener {
+public class UpdateVideoNewsActivity extends BaseMvpActivity<NewsPresent> implements NewsContract.BaseINewsView, View.OnClickListener {
 
     private ImageView mVideoImage;
     /**

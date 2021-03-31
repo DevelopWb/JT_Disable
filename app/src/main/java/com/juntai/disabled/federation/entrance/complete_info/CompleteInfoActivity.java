@@ -1,6 +1,5 @@
 package com.juntai.disabled.federation.entrance.complete_info;
 
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,7 +18,6 @@ import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.PoliceBranchBean;
 import com.juntai.disabled.federation.bean.PolicePositionBean;
 import com.juntai.disabled.federation.bean.weather.PoliceGriddingBean;
-import com.juntai.disabled.federation.entrance.complete_info.DataValueAdapter;
 import com.juntai.disabled.federation.entrance.regist.RegistContract;
 import com.juntai.disabled.federation.entrance.regist.RegistPresent;
 import com.juntai.disabled.federation.entrance.sendcode.SmsCheckCodeActivity;
@@ -37,7 +35,7 @@ import okhttp3.FormBody;
  * @aouther ZhangZhenlong
  * @date 2020-9-11
  */
-public class CompleteInfoActivity extends SmsCheckCodeActivity<RegistPresent> implements RegistContract.IRegistView,
+public class CompleteInfoActivity extends SmsCheckCodeActivity<RegistPresent> implements RegistContract.BaseIRegistView,
         View.OnClickListener,
         AdapterView.OnItemClickListener {
 

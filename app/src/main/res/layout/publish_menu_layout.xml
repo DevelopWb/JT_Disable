@@ -19,7 +19,7 @@
         android:paddingBottom="20dp">
 
         <ImageView
-            android:id="@+id/anjian_btn"
+            android:id="@+id/care_service_iv"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:paddingTop="20dp"
@@ -36,9 +36,9 @@
             android:text="托养服务"
             android:textColor="@color/colorAccent"
             android:textSize="14dp"
-            app:layout_constraintLeft_toLeftOf="@+id/anjian_btn"
-            app:layout_constraintRight_toRightOf="@+id/anjian_btn"
-            app:layout_constraintTop_toBottomOf="@+id/anjian_btn" />
+            app:layout_constraintLeft_toLeftOf="@+id/care_service_iv"
+            app:layout_constraintRight_toRightOf="@+id/care_service_iv"
+            app:layout_constraintTop_toBottomOf="@+id/care_service_iv" />
 
         <ImageView
             android:id="@+id/site_iv"
@@ -48,9 +48,9 @@
             android:paddingTop="20dp"
             android:scaleType="fitCenter"
             android:src="@mipmap/navigation_care"
-            app:layout_constraintEnd_toStartOf="@id/zixun_btn"
+            app:layout_constraintEnd_toStartOf="@id/disabled_collect_iv"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/anjian_btn"
+            app:layout_constraintStart_toEndOf="@+id/care_service_iv"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -65,7 +65,7 @@
             app:layout_constraintTop_toBottomOf="@+id/site_iv" />
 
         <ImageView
-            android:id="@+id/zixun_btn"
+            android:id="@+id/disabled_collect_iv"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:paddingTop="20dp"
@@ -82,9 +82,9 @@
             android:text="残疾人信息采集"
             android:textColor="@color/colorAccent"
             android:textSize="14dp"
-            app:layout_constraintLeft_toLeftOf="@+id/zixun_btn"
-            app:layout_constraintRight_toRightOf="@+id/zixun_btn"
-            app:layout_constraintTop_toBottomOf="@+id/zixun_btn" />
+            app:layout_constraintLeft_toLeftOf="@+id/disabled_collect_iv"
+            app:layout_constraintRight_toRightOf="@+id/disabled_collect_iv"
+            app:layout_constraintTop_toBottomOf="@+id/disabled_collect_iv" />
 
     </android.support.constraint.ConstraintLayout>
 </LinearLayout>

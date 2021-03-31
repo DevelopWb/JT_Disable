@@ -86,7 +86,6 @@ import com.juntai.disabled.federation.home_page.map.SelectTime;
 import com.juntai.disabled.federation.home_page.search.SearchActivity;
 import com.juntai.disabled.federation.home_page.weather.WeatherActivity;
 import com.juntai.disabled.federation.home_page.inspection.InspectionInfoActivity;
-import com.juntai.disabled.federation.home_page.site_manager.site_info.NewUnitDetailActivity;
 import com.juntai.disabled.federation.utils.AppUtils;
 import com.juntai.disabled.federation.utils.DateUtil;
 import com.juntai.disabled.federation.utils.ImageUtil;
@@ -109,7 +108,7 @@ import java.util.Map;
  * @aouther Ma
  * @date 2019/3/14
  */
-public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapContract.View,
+public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapContract.ViewBase,
         View.OnClickListener,
         LocateAndUpload.Callback,
         ClusterManager.OnClusterClickListener<MapClusterItem>,

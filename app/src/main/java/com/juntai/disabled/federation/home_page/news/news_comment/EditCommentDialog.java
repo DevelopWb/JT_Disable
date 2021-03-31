@@ -48,7 +48,7 @@ public class EditCommentDialog extends DialogFragment {
     BaseEditText editText;
     boolean isCommentIng = false;
     RefreshListener refreshListener;
-//    View view;
+//    ViewBase view;
     BaseMvpActivity baseActivity;
 
     int typeId;  //评论类型id 8资讯

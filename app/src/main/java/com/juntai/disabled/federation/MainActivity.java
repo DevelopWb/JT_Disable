@@ -68,7 +68,7 @@ import io.reactivex.schedulers.Schedulers;
 import me.leolin.shortcutbadger.ShortcutBadger;
 
 public class MainActivity extends BaseAppActivity<MainPagePresent> implements ViewPager.OnPageChangeListener,
-        View.OnClickListener, MainPageContract.IMainPageView {
+        View.OnClickListener, MainPageContract.BaseIMainPageView {
     private MainPagerAdapter adapter;
     private LinearLayout mainLayout;
     private CustomViewPager mainViewpager;
@@ -84,6 +84,7 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
     CGBroadcastReceiver broadcastReceiver = new CGBroadcastReceiver();
 
     PopupWindow popupWindow;
+    private CollectInfosFragment mCollectInfosFragment;
 
 
     @Override
@@ -97,9 +98,10 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
         mainTablayout = findViewById(R.id.main_tablayout);
         mainLayout = findViewById(R.id.main_layout);
         mainViewpager.setScanScroll(false);
+        mCollectInfosFragment = new CollectInfosFragment();
         mFragments.append(0, new MyMapFragment());//地图
         mFragments.append(1, new HandlerBusinessFragment());//
-        mFragments.append(2, new CollectInfosFragment());//
+        mFragments.append(2, mCollectInfosFragment);//
         mFragments.append(3, new MyCenterFragment());//资讯
         //
         getToolbar().setVisibility(View.GONE);
@@ -372,22 +374,25 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
         if (popupWindow.isShowing()) {
             mImmersionBar.statusBarColor(R.color.gray_light).statusBarDarkFont(true).init();
         }
-        viewPop.findViewById(R.id.anjian_btn).setOnClickListener(v -> {
+        viewPop.findViewById(R.id.care_service_iv).setOnClickListener(v -> {
             if (UserInfoManager.getAccountStatus() != 1) {
                 //没有绑定手机号
                 startActivity(new Intent(mContext, BindingPhoneActivity.class));
                 return;
             }
             popupWindow.dismiss();
-        });
-        viewPop.findViewById(R.id.zixun_btn).setOnClickListener(v -> {
-            if (UserInfoManager.getAccountStatus() != 1) {
-                //没有绑定手机号
-                startActivity(new Intent(mContext, BindingPhoneActivity.class));
-                return;
-            }
             mainViewpager.setCurrentItem(2);
+            mCollectInfosFragment.initFragment(0);
+        });
+        viewPop.findViewById(R.id.disabled_collect_iv).setOnClickListener(v -> {
+            if (UserInfoManager.getAccountStatus() != 1) {
+                //没有绑定手机号
+                startActivity(new Intent(mContext, BindingPhoneActivity.class));
+                return;
+            }
             popupWindow.dismiss();
+            mainViewpager.setCurrentItem(2);
+            mCollectInfosFragment.initFragment(1);
         });
     }
 

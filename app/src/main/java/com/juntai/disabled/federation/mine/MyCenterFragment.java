@@ -23,8 +23,6 @@ import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MyMenuBean;
 import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.bean.message.UnReadCountBean;
-import com.juntai.disabled.federation.mine.MyCenterContract;
-import com.juntai.disabled.federation.mine.MyCenterPresent;
 import com.juntai.disabled.federation.mine.mycenter.MyMenuAdapter;
 import com.juntai.disabled.federation.mine.myinfo.MyInformationActivity;
 import com.juntai.disabled.federation.utils.AppUtils;
@@ -41,7 +39,7 @@ import me.leolin.shortcutbadger.ShortcutBadger;
  * @aouther ZhangZhenlong
  * @date 2020/3/9
  */
-public class MyCenterFragment extends BaseMvpFragment<MyCenterPresent> implements MyCenterContract.ICenterView, View.OnClickListener {
+public class MyCenterFragment extends BaseMvpFragment<MyCenterPresent> implements MyCenterContract.BaseICenterView, View.OnClickListener {
 
     private UserBean userBean;
     MyMenuAdapter myMenuAdapter;

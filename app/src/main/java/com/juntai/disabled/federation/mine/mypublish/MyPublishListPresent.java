@@ -18,7 +18,7 @@ import java.util.List;
  * 2020-3-12
  * email:954101549@qq.com
  */
-public class MyPublishListPresent extends BasePresenter<IModel,MyCenterContract.IMyPublishListView>
+public class MyPublishListPresent extends BasePresenter<IModel, MyCenterContract.BaseIMyPublishListView>
         implements MyCenterContract.IMyPublishListPresent {
 
     @Override

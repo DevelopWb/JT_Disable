@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.baidu.mapapi.model.LatLng;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseAppActivity;
@@ -37,7 +36,7 @@ import java.util.ArrayList;
  * update  tobato  2020/03/26
  * on 2019/4/16
  */
-public class CaseInfoActivity extends BaseAppActivity<MapPresenter> implements MapContract.View {
+public class CaseInfoActivity extends BaseAppActivity<MapPresenter> implements MapContract.ViewBase {
     private int id;
     private TextView placeTv, timeTv, typeTv, kindTv, followStatusTv, mCaseDesTv, gridTv;
     TextView trackingBtn, navigationBtn;

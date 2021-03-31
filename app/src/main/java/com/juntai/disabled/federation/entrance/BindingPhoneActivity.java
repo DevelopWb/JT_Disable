@@ -1,7 +1,6 @@
 package com.juntai.disabled.federation.entrance;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.EditText;
@@ -34,7 +33,7 @@ import okhttp3.MultipartBody;
  * @aouther ZhangZhenlong
  * @date 2020-10-16
  */
-public class BindingPhoneActivity extends SmsCheckCodeActivity<RegistPresent> implements RegistContract.IRegistView, View.OnClickListener {
+public class BindingPhoneActivity extends SmsCheckCodeActivity<RegistPresent> implements RegistContract.BaseIRegistView, View.OnClickListener {
     /**
      * 请输入注册手机号码
      */

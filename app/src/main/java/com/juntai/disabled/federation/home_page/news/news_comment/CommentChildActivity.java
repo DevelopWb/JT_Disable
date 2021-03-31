@@ -21,7 +21,7 @@ import java.util.ArrayList;
  * Created by Ma
  * on 2019/7/20
  */
-public class CommentChildActivity extends BaseMvpActivity<NewsPresent> implements InfoDetailContract.IInfoDetailView {
+public class CommentChildActivity extends BaseMvpActivity<NewsPresent> implements InfoDetailContract.BaseIInfoDetailView {
     SmartRefreshLayout smartRefeshLayout;
     RecyclerView recyclerView;
     CommentChildAdapter commentAdapter;

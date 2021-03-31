@@ -1,4 +1,4 @@
-package com.juntai.disabled.federation.home_page.collectInfos;
+package com.juntai.disabled.federation.home_page.collectInfos.disabledInfoCollect;
 
 import android.content.Intent;
 import android.view.View;
@@ -7,9 +7,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.search.BaseSearchFragment;
-import com.juntai.disabled.federation.base.search.SearchContract;
 import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
 import com.juntai.disabled.federation.bean.collect.CollectSearchResultBean;
+import com.juntai.disabled.federation.home_page.collectInfos.CollectInfoContract;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ import java.util.List;
  * @UpdateUser: 更新者
  * @UpdateDate: 2021/3/17 16:46
  */
-public class DisabledPeopleInfoTakeFragment extends BaseSearchFragment implements CollectInfoContract.TakeInfoView,
+public class DisabledPeopleInfoTakeFragment extends BaseSearchFragment implements CollectInfoContract.TakeInfoViewBase,
         SelectPhotosFragment.OnPhotoItemClick {
 
 
@@ -29,7 +29,6 @@ public class DisabledPeopleInfoTakeFragment extends BaseSearchFragment implement
     @Override
     protected BaseQuickAdapter getSearchResultAdapter() {
         adapter = new DisabledPeoplesAdapter(R.layout.disabled_peoples_item);
-
         return adapter;
     }
 
@@ -73,6 +72,7 @@ public class DisabledPeopleInfoTakeFragment extends BaseSearchFragment implement
 
     @Override
     protected void initData() {
+        getBaseActivity().setMargin(mSearchTopCl, 0, 35, 0, 0);
         mFilterIv.setVisibility(View.GONE);
         mSmartrefreshlayout.setOnRefreshListener(refreshLayout -> {
             currentPage = 1;

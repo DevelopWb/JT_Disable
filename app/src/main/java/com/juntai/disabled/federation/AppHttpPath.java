@@ -1,5 +1,20 @@
 package com.juntai.disabled.federation;
 
+import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.juntai.disabled.federation.bean.careTaker.CareRecordDetailBean;
+import com.juntai.disabled.federation.bean.careTaker.CareRecordPositionBean;
+import com.juntai.disabled.federation.bean.careTaker.CareTakerBaseInfoBean;
+import com.juntai.disabled.federation.bean.careTaker.CareTakerInfoBean;
+import com.juntai.disabled.federation.bean.careTaker.CareTakerInfoMoreBean;
+import com.juntai.disabled.federation.bean.careTaker.SearchedPeopleBean;
+import com.juntai.disabled.federation.bean.careTaker.ServicePeoplesBean;
+import com.juntai.disabled.federation.bean.careTaker.ServiceTypeBean;
+
+import io.reactivex.Observable;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
+import retrofit2.http.POST;
+
 public class AppHttpPath {
     /**
      */
@@ -977,5 +992,78 @@ public class AppHttpPath {
      * 无障碍采集上传接口
      */
     public static final String COLLECT_DISABLED_ACCESSBLE = BASE + "/insertCase2.shtml";
+
+
+
+
+
+
+    /*==============================================  描述信息  =============================================*/
+
+
+
+
+
+
+
+    /*==============================================  描述信息  =============================================*/
+
+    public static final String CARE_BASE = "http://kb167.cn:25080/zhcl";
+
+    /**
+     * 搜索托养人员
+     */
+    public static final String SEARCH_CARETAKER = CARE_BASE + "/u/appConnector/selectCaregiversList.shtml";
+
+    /**
+     * 搜索所有的残疾人
+     */
+    public static final String SEARCH_ALL_DISABLED_PEOPLE = CARE_BASE + "/u/appConnector/selectDisabledList.shtml";
+    /**
+     * 托养信息
+     */
+    public static final String CARE_INFO = CARE_BASE + "/u/appConnector/selectCaregiversById.shtml";
+    /**
+     * 托养信息
+     */
+    public static final String CARE_RECORD = CARE_BASE + "/u/appConnector/selectServiceInfoById.shtml";
+    /**
+     * 托养信息  更多
+     */
+    public static final String CARE_INFO_MORE = CARE_BASE + "/u/appConnector/selectCaregiversMoreById.shtml";
+    /**
+     * 托养人基本信息
+     */
+    public static final String CARE_TAKER_BASE_INFO = CARE_BASE + "/u/appConnector/selectDisabledInfoByIdNo.shtml";
+    /**
+     * 添加托养人
+     */
+    public static final String ADD_CARE_TAKER = CARE_BASE + "/u/appConnector/insertCaregivers.shtml";
+    /**
+     * 修改托养人
+     */
+    public static final String MODIFY_CARE_TAKER = CARE_BASE + "/u/appConnector/insertCaregiversUpdate.shtml";
+    /**
+     * 按街道分类服务人员(选择服务人员)接口
+     */
+    public static final String GET_SERVICE_PEOPLE = CARE_BASE + "/u/appConnector/selectStreetServicerList.shtml";
+    /**
+     * 提交托养记录
+     */
+    public static final String COMMIT_CARE_RECORD = CARE_BASE + "/u/appConnector/insertService.shtml";
+    /**
+     * 获取服务类型
+     */
+    public static final String GET_SERVICE_TYPE = CARE_BASE + "/u/appConnector/getServiceCate.shtml";
+
+    /**
+     * 获取托养子列表/u/infoAppCase.shtml
+     */
+    public static final String ALL_STREETS = BASE + "/u/appConnector/selectStreet.shtml";
+    /**
+     * 查询年份
+     */
+    public static final String GET_YEARS = BASE + "/u/appConnector/selectYear.shtml";
+
 
 }

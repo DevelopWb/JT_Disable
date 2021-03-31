@@ -11,7 +11,7 @@ import com.juntai.disabled.im.MsgFragment;
  * Created by Ma
  * on 2019/5/7
  */
-public class MyMsgFragment extends BaseMvpFragment<MessagePresent> implements IMessageContract.IMessageView {
+public class MyMsgFragment extends BaseMvpFragment<MessagePresent> implements IMessageContract.BaseIMessageView {
     TextView null_view,titleTv;
     @Override
     protected void lazyLoad() {

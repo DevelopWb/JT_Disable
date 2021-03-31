@@ -1,6 +1,6 @@
 package com.juntai.disabled.federation.home_page.site_manager;
 
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 
 import okhttp3.RequestBody;
 
@@ -18,7 +18,7 @@ public interface SiteManagerContract {
     String ADD_SITE_MANAGER = "add_site_manager";
     String UPDATE_SITE_MANAGER = "update_site_manager";
 
-    interface ISiteManagerView extends IView {
+    interface BaseISiteManagerView extends BaseIView {
     }
 
     interface SiteManagerPresent {

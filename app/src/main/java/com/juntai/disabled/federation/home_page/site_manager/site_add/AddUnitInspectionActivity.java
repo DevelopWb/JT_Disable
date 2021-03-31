@@ -50,7 +50,7 @@ import okhttp3.RequestBody;
  * @aouther ZhangZhenlong
  * @date 2020-7-4
  */
-public class AddUnitInspectionActivity extends BaseMvpActivity<SiteManagerPresent> implements SiteManagerContract.ISiteManagerView,
+public class AddUnitInspectionActivity extends BaseMvpActivity<SiteManagerPresent> implements SiteManagerContract.BaseISiteManagerView,
         View.OnClickListener,
         SelectPhotosFragment.OnPhotoItemClick, SelectPhotosFragment.OnPicCalculateed  {
     /**

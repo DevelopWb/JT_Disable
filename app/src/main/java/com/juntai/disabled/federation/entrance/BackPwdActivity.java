@@ -28,7 +28,7 @@ import cn.smssdk.SMSSDK;
  * @description 描述  找回密码/修改手机号
  * @date 2020/3/10 9:33
  */
-public class BackPwdActivity extends SmsCheckCodeActivity<RegistPresent> implements RegistContract.IRegistView,
+public class BackPwdActivity extends SmsCheckCodeActivity<RegistPresent> implements RegistContract.BaseIRegistView,
         View.OnClickListener {
 
     /**

@@ -39,7 +39,7 @@ import org.greenrobot.eventbus.ThreadMode;
  * @description 描述   车辆直播
  * @date 2020/7/25 16:44
  */
-public class CarLiveActivity extends BaseDownLoadActivity<PlayPresent> implements PlayContract.IPlayView,
+public class CarLiveActivity extends BaseDownLoadActivity<PlayPresent> implements PlayContract.BaseIPlayView,
         View.OnClickListener, BaseDownLoadActivity.OnFileDownloaded {
 
     public static String STREAM_CAMERA_URL = "stream_url";

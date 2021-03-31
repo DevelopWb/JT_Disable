@@ -11,9 +11,9 @@ import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
 import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
-import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.utils.BaseAppUtils;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.GlideEngine4;
@@ -57,17 +57,17 @@ import top.zibin.luban.OnCompressListener;
  * 2020-7-29
  * email:954101549@qq.com
  */
-public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> implements NewsContract.INewsPresent {
+public class NewsPresent extends BasePresenter<IModel, NewsContract.BaseINewsView> implements NewsContract.INewsPresent {
     private int compressedSize = 0;//被压缩的图片个数
     List<String> icons = new ArrayList<>();
-    private IView iView;
+    private BaseIView iView;
 
     @Override
     protected IModel createModel() {
         return null;
     }
 
-    public void setCallBack(IView iView) {
+    public void setCallBack(BaseIView iView) {
         this.iView = iView;
     }
 
@@ -326,7 +326,7 @@ public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> i
 
     @Override
     public void getCommentList(int commentedId, int pageSize, int currentPage, String tag) {
-        IView viewCallBack = null;
+        BaseIView viewCallBack = null;
         if (getView() == null) {
             if (iView != null) {
                 viewCallBack = iView;
@@ -334,7 +334,7 @@ public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> i
         } else {
             viewCallBack = getView();
         }
-        IView finalViewCallBack = viewCallBack;
+        BaseIView finalViewCallBack = viewCallBack;
 
         AppNetModule.createrRetrofit()
                 .getAllCommentNews(MyApp.getAccount(), MyApp.getUserToken(), MyApp.getUid(), commentedId, pageSize,
@@ -359,7 +359,7 @@ public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> i
 
     @Override
     public void getCommentChildList(int commentedId, int unreadId, int pageSize, int currentPage, String tag) {
-        IView viewCallBack = null;
+        BaseIView viewCallBack = null;
         if (getView() == null) {
             if (iView != null) {
                 viewCallBack = iView;
@@ -367,7 +367,7 @@ public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> i
         } else {
             viewCallBack = getView();
         }
-        IView finalViewCallBack = viewCallBack;
+        BaseIView finalViewCallBack = viewCallBack;
         AppNetModule.createrRetrofit()
                 .getChildCommentNews(MyApp.getAccount(), MyApp.getUserToken(), commentedId, unreadId, pageSize,
                         currentPage)
@@ -391,7 +391,7 @@ public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> i
 
     @Override
     public void like(int id, int userId, int isType, int typeId, int likeId, String tag) {
-        IView viewCallBack = null;
+        BaseIView viewCallBack = null;
         if (getView() == null) {
             if (iView != null) {
                 viewCallBack = iView;
@@ -399,7 +399,7 @@ public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> i
         } else {
             viewCallBack = getView();
         }
-        IView finalViewCallBack = viewCallBack;
+        BaseIView finalViewCallBack = viewCallBack;
         AppNetModule.createrRetrofit()
                 .addOrCancleLikeNews(id, MyApp.getAccount(), MyApp.getUserToken(), userId, isType, typeId, likeId)
                 .compose(RxScheduler.ObsIoMain(viewCallBack))
@@ -596,7 +596,7 @@ public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> i
      */
     @SuppressLint("CheckResult")
     public void recordVideo(BaseFragment fragment) {
-        IView viewCallBack = null;
+        BaseIView viewCallBack = null;
         if (getView() == null) {
             if (iView != null) {
                 viewCallBack = iView;
@@ -635,7 +635,7 @@ public class NewsPresent extends BasePresenter<IModel, NewsContract.INewsView> i
     //选择视频
     @SuppressLint("CheckResult")
     public void videoChoose(BaseFragment fragment) {
-        IView viewCallBack = null;
+        BaseIView viewCallBack = null;
         if (getView() == null) {
             if (iView != null) {
                 viewCallBack = iView;

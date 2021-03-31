@@ -3,7 +3,7 @@ package com.juntai.disabled.basecomponent.utils;
 
 
 
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -49,7 +49,7 @@ public class RxTaskManager {
      * @param task
      * @param <T>
      */
-    public static <T> void doTask(IView iView, final RxTask<T> task) {
+    public static <T> void doTask(BaseIView iView, final RxTask<T> task) {
         if (iView != null) {
             iView.showLoading();
         }

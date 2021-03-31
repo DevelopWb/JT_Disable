@@ -32,7 +32,7 @@ import java.util.List;
  * @aouther ZhangZhenlong
  * @date 2020/3/10
  */
-public class MyInformationActivity extends BaseMvpActivity<MyInfoPresent> implements MyCenterContract.IMyInfoView {
+public class MyInformationActivity extends BaseMvpActivity<MyInfoPresent> implements MyCenterContract.BaseIMyInfoView {
 
         public static final int REQUEST_CODE_CHOOSE = 0x3;
         public static final int START_CROP_IMAGE_REQUEST = 0x4;

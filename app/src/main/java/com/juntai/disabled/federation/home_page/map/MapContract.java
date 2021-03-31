@@ -1,7 +1,7 @@
 package com.juntai.disabled.federation.home_page.map;
 
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 import com.juntai.disabled.basecomponent.mvp.IPresenter;
-import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.federation.bean.MapClusterItem;
 
 import okhttp3.RequestBody;
@@ -34,11 +34,11 @@ public interface MapContract {
     String GET_KEY_PERSONNEL_INFO = "get_key_personnel_info";//获取重点人员详情
     String GET_INTERVIEW = "get_interview";//获取走访记录
 
-    interface View extends IView {
+    interface ViewBase extends BaseIView {
 
     }
 
-    interface Presenter extends IPresenter<View> {
+    interface Presenter extends IPresenter<ViewBase> {
         /**
          * 获取菜单
          *

@@ -16,7 +16,7 @@ import java.util.List;
  * Created by Ma
  * on 2019/4/16
  */
-public class CaseDetailActivity extends BaseInfoDetail<MapPresenter> implements MapContract.View {
+public class CaseDetailActivity extends BaseInfoDetail<MapPresenter> implements MapContract.ViewBase {
     private ArrayList<String> photos = new ArrayList<>();
     private String content;
     private CaseInfoBean.DataBean dataBean;

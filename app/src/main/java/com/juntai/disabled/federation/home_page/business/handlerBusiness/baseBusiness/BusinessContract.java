@@ -1,7 +1,7 @@
 package com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness;
 
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 import com.juntai.disabled.basecomponent.mvp.IPresenter;
-import com.juntai.disabled.basecomponent.mvp.IView;
 
 import java.util.List;
 
@@ -141,11 +141,11 @@ public interface BusinessContract {
     String TABLE_TITLE_HOPE_TRAIN_TYPE = "希望参加何种培训";//
 
 
-    interface IBusinessView extends IView {
+    interface BaseIBusinessView extends BaseIView {
 
     }
 
-    interface IBusinessPresent extends IPresenter<IBusinessView> {
+    interface IBusinessPresent extends IPresenter<BaseIBusinessView> {
         void businessList(String account, String token, String keyWord, int pageSize, int currentPage, String tag);
 
         void businessDataNeeded(int declareId, String tag);

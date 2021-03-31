@@ -17,7 +17,7 @@ import com.juntai.disabled.federation.utils.RxScheduler;
  * 2020-6-2
  * email:954101549@qq.com
  */
-public class ExchangeMallPresent extends BasePresenter<IModel, ExchangeMallContract.IMallView> implements ExchangeMallContract.IMallPresent {
+public class ExchangeMallPresent extends BasePresenter<IModel, ExchangeMallContract.BaseIMallView> implements ExchangeMallContract.IMallPresent {
 
     @Override
     protected IModel createModel() {

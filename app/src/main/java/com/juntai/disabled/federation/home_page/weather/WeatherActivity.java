@@ -32,7 +32,7 @@ import java.util.List;
  * @description 描述
  * @date 2020/3/21 14:12
  */
-public class WeatherActivity extends BaseMvpActivity<HomePagePresent> implements HomePageContract.IHomePageView, View.OnClickListener {
+public class WeatherActivity extends BaseMvpActivity<HomePagePresent> implements HomePageContract.BaseIHomePageView, View.OnClickListener {
     private String province = "山东省";
     private String city = "临沂市", area = "河东区";
     private List<WeatherHoursBean> hourlyBeans = new ArrayList<>();

@@ -15,7 +15,7 @@ import com.juntai.disabled.federation.utils.RxScheduler;
  * 2020/3/10
  * email:954101549@qq.com
  */
-public class MyScorePresent extends BasePresenter<IModel,MyCenterContract.IMyScoreView> implements MyCenterContract.IMyScorePresent {
+public class MyScorePresent extends BasePresenter<IModel, MyCenterContract.BaseIMyScoreView> implements MyCenterContract.IMyScorePresent {
     @Override
     protected IModel createModel() {
         return null;

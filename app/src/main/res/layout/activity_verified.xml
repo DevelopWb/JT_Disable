@@ -73,11 +73,11 @@
     <!--                    app:layout_constraintRight_toRightOf="parent"-->
     <!--                    app:layout_constraintTop_toTopOf="@+id/name_tag_tv" />-->
 
-    <!--                <View-->
+    <!--                <ViewBase-->
     <!--                    android:id="@+id/id_card_divider_tag"-->
     <!--                    style="@style/divider_style"-->
     <!--                    app:layout_constraintLeft_toLeftOf="parent"-->
-    <!--                    app:layout_constraintTop_toBottomOf="@+id/name_tag_tv"></View>-->
+    <!--                    app:layout_constraintTop_toBottomOf="@+id/name_tag_tv"></ViewBase>-->
 
     <!--                <TextView-->
     <!--                    android:id="@+id/id_card_tag_tv"-->

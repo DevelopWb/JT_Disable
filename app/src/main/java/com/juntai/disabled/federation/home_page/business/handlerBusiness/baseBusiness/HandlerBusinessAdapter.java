@@ -525,13 +525,13 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                         break;
                     case R.id.wear_aid_rb:
                         deafBean1.setWear(0);
-                        //                                wearTimeLl.setVisibility(View.VISIBLE);
-                        //                                whichEarWearRg.setVisibility(View.VISIBLE);
+                        //                                wearTimeLl.setVisibility(ViewBase.VISIBLE);
+                        //                                whichEarWearRg.setVisibility(ViewBase.VISIBLE);
                         break;
                     case R.id.not_wear_aid_rb:
                         deafBean1.setWear(1);
-                        //                                wearTimeLl.setVisibility(View.GONE);
-                        //                                whichEarWearRg.setVisibility(View.GONE);
+                        //                                wearTimeLl.setVisibility(ViewBase.GONE);
+                        //                                whichEarWearRg.setVisibility(ViewBase.GONE);
                         break;
 
                     default:

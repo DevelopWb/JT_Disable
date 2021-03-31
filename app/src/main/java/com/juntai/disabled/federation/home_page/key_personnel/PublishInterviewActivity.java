@@ -47,7 +47,7 @@ import okhttp3.RequestBody;
  * @aouther ZhangZhenlong
  * @date 2020-7-2
  */
-public class PublishInterviewActivity extends BaseMvpActivity<PublishPresent> implements PublishContract.IPublishView,
+public class PublishInterviewActivity extends BaseMvpActivity<PublishPresent> implements PublishContract.BaseIPublishView,
         View.OnClickListener,
         SelectPhotosFragment.OnPhotoItemClick, SelectPhotosFragment.OnPicCalculateed {
 

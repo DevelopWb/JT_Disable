@@ -29,7 +29,7 @@ import java.util.List;
  * @date 2020-10-7
  */
 public class ConciliationListActivity extends BaseMvpActivity<ConciliationPresent> implements
-        ConciliationContract.IConciliationView {
+        ConciliationContract.BaseIConciliationView {
 
     private RecyclerView mRecyclerview;
     private SmartRefreshLayout mSmartrefreshlayout;

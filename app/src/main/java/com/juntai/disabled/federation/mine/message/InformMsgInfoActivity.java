@@ -14,7 +14,7 @@ import com.juntai.disabled.federation.bean.message.InformDetailBean;
  * @aouther ZhangZhenlong
  * @date 2020-3-27
  */
-public class InformMsgInfoActivity extends BaseMvpActivity<MessagePresent> implements IMessageContract.IMessageView {
+public class InformMsgInfoActivity extends BaseMvpActivity<MessagePresent> implements IMessageContract.BaseIMessageView {
     /**
      * 标题
      */

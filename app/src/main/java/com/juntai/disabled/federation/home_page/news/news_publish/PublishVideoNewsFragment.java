@@ -52,7 +52,7 @@ import okhttp3.RequestBody;
  * @aouther ZhangZhenlong
  * @date 2020-7-30
  */
-public class PublishVideoNewsFragment extends BaseMvpFragment<NewsPresent> implements NewsContract.INewsView, View.OnClickListener {
+public class PublishVideoNewsFragment extends BaseMvpFragment<NewsPresent> implements NewsContract.BaseINewsView, View.OnClickListener {
 
     private ImageView mAddTag;
     private ImageView mVideoImage;

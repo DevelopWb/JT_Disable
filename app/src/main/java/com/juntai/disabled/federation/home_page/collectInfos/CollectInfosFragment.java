@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentTransaction;
 import com.juntai.disabled.basecomponent.mvp.IPresenter;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseAppFragment;
+import com.juntai.disabled.federation.home_page.collectInfos.careService.addCareTaker.SearchCareTakerFragment;
+import com.juntai.disabled.federation.home_page.collectInfos.disabledInfoCollect.DisabledPeopleInfoTakeFragment;
 
 /**
  * @aouther tobato
@@ -26,9 +28,20 @@ public class CollectInfosFragment extends BaseAppFragment {
 
     @Override
     protected void initData() {
+    }
+
+    /**
+     * 0代表托养服务 1代表残疾人信息采集
+     * @param type
+     */
+    public  void initFragment(int type ) {
         FragmentManager manager = getFragmentManager();
-        FragmentTransaction  transaction = manager.beginTransaction();
-        transaction.add(R.id.navigation_third_menu_fl,new DisabledPeopleInfoTakeFragment());
+        FragmentTransaction transaction = manager.beginTransaction();
+        if (0==type) {
+            transaction.replace(R.id.navigation_third_menu_fl,new SearchCareTakerFragment());
+        }else {
+            transaction.replace(R.id.navigation_third_menu_fl,new DisabledPeopleInfoTakeFragment());
+        }
         transaction.commit();
     }
 

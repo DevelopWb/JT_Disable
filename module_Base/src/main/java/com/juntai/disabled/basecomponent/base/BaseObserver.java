@@ -5,7 +5,7 @@ import android.content.Intent;
 import com.google.gson.JsonParseException;
 import com.juntai.disabled.basecomponent.app.BaseApplication;
 import com.juntai.disabled.basecomponent.bean.BaseStreamBean;
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 import com.juntai.disabled.basecomponent.utils.ActionConfig;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 
@@ -20,7 +20,7 @@ import io.reactivex.observers.DisposableObserver;
 import retrofit2.HttpException;
 
 public abstract class BaseObserver<T> extends DisposableObserver<T> {
-    protected IView view;
+    protected BaseIView view;
     /**
      * 解析数据失败
      */
@@ -39,7 +39,7 @@ public abstract class BaseObserver<T> extends DisposableObserver<T> {
     public static final int CONNECT_TIMEOUT = 1004;
 
 
-    public BaseObserver(IView view) {
+    public BaseObserver(BaseIView view) {
         this.view = view;
     }
 

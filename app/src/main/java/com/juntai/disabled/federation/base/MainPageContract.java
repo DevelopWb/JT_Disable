@@ -1,7 +1,7 @@
 package com.juntai.disabled.federation.base;
 
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 import com.juntai.disabled.basecomponent.mvp.IPresenter;
-import com.juntai.disabled.basecomponent.mvp.IView;
 
 /**
  * Describe: 首页
@@ -14,10 +14,10 @@ public interface MainPageContract {
     String UPLOAD_HISTORY = "upload_history";
 
 
-    interface IMainPageView extends IView {
+    interface BaseIMainPageView extends BaseIView {
     }
 
-    interface IMainPagePresent extends IPresenter<IMainPageView> {
+    interface IMainPagePresent extends IPresenter<BaseIMainPageView> {
         /**
          * 删除资讯图片
          * @param informationId 资讯id

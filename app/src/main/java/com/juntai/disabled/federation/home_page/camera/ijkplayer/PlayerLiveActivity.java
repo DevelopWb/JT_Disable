@@ -46,7 +46,6 @@ import com.juntai.disabled.federation.home_page.camera.CameraCommentFragment;
 import com.juntai.disabled.federation.home_page.camera.CameraVideoRecordFragment;
 import com.juntai.disabled.federation.home_page.camera.PlayContract;
 import com.juntai.disabled.federation.home_page.camera.PlayPresent;
-import com.juntai.disabled.federation.home_page.camera.ijkplayer.KeepAliveService;
 import com.juntai.disabled.federation.home_page.camera.yunkong.CameraYunControlFragment;
 import com.juntai.disabled.federation.home_page.news.NewsContract;
 import com.juntai.disabled.federation.utils.GlideImageLoader;
@@ -59,7 +58,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
-import io.rong.callkit.util.GlideUtils;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -69,7 +67,7 @@ import okhttp3.RequestBody;
  * @description 描述   播放视频流
  * @date 2020/7/25 16:44
  */
-public class PlayerLiveActivity extends BaseDownLoadActivity<PlayPresent> implements PlayContract.IPlayView,
+public class PlayerLiveActivity extends BaseDownLoadActivity<PlayPresent> implements PlayContract.BaseIPlayView,
         View.OnClickListener, BaseDownLoadActivity.OnFileDownloaded {
 
     private PlayerView player;
@@ -436,8 +434,8 @@ public class PlayerLiveActivity extends BaseDownLoadActivity<PlayPresent> implem
             //                break;
             //            case R.id.top_yuntai_iv:
             //                mDrawerlayout.openDrawer(mFullScreenRightLl);
-            //                mFullScreenRightControlLl.setVisibility(View.VISIBLE);
-            //                mFullScreenRightMoreCl.setVisibility(View.GONE);
+            //                mFullScreenRightControlLl.setVisibility(ViewBase.VISIBLE);
+            //                mFullScreenRightMoreCl.setVisibility(ViewBase.GONE);
             //                break;
             case R.id.top_video_capture_iv:
                 mVerCaptureIv.performClick();

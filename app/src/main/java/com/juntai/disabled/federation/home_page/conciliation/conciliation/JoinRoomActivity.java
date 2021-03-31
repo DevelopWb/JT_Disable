@@ -63,7 +63,7 @@ import static cn.rongcloud.rtc.util.UserUtils.VIDEOMUTE_MUST;
  * @aouther ZhangZhenlong
  * @date 2020-7-14
  */
-public class JoinRoomActivity extends BaseMvpActivity<ConciliationPresent> implements ConciliationContract.IConciliationView, View.OnClickListener{
+public class JoinRoomActivity extends BaseMvpActivity<ConciliationPresent> implements ConciliationContract.BaseIConciliationView, View.OnClickListener{
     private static final int CHECK_BUTTON_DELATY = 1100;
     private static final int REQUEST_CODE_SELECT_COUNTRY = 1200;
     private static final int REQUEST_CODE_VERIFY = 1300;

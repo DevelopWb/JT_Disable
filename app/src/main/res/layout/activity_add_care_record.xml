@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    >
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/care_taker_addr_tv"
+                style="@style/item_title_style"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                ></TextView>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/add_taker_location_title_tv"
+                    style="@style/item_title_style"
+                    android:text="定位:"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></TextView>
+
+                <TextView
+                    android:id="@+id/add_location_addr_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:paddingRight="30dp"
+                    android:singleLine="true"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/add_taker_location_title_tv"
+                    app:layout_constraintLeft_toRightOf="@+id/add_taker_location_title_tv"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/add_taker_location_title_tv"></TextView>
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:padding="3dp"
+                    android:src="@mipmap/location_icon"
+                    app:layout_constraintBottom_toBottomOf="@+id/add_location_addr_tv"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/add_location_addr_tv"></ImageView>
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                style="@style/item_title_style"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="添加服务人员(最少2位)"></TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:gravity="center">
+
+                <TextView
+                    style="@style/item_title_style"
+                    android:text="所在区域："></TextView>
+
+                <TextView
+                    android:id="@+id/service_people_area_tv"
+                    style="@style/item_content_style"
+                    android:hint="请选择所在区域"
+                    android:gravity="center_vertical|left"
+                    android:layout_weight="1"
+                    android:lines="1"></TextView>
+
+                <ImageView
+                    android:id="@+id/filter_iv"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:padding="8dp"
+                    android:src="@mipmap/filter_icon"></ImageView>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/service_people_rv"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                ></android.support.v7.widget.RecyclerView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/service_people_title_tv"
+                    style="@style/item_title_style"
+                    android:text="服务人员："></TextView>
+
+                <TextView
+                    android:id="@+id/service_people_value_tv"
+                    style="@style/item_content_style"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|left"
+                    android:lines="1"></TextView>
+            </LinearLayout>
+            <TextView
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                style="@style/item_title_style"
+                android:text="影像资料"></TextView>
+
+            <LinearLayout
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/care_taker_record_pics_rv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+
+            </LinearLayout>
+
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp">
+
+                <TextView
+                    android:id="@+id/service_start_time_key_tv"
+                    style="@style/item_content_style"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="服务开始时间"
+                    app:layout_constraintBottom_toTopOf="@+id/service_start_time_value_tv"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/service_controler_ll"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed"></TextView>
+
+                <TextView
+                    android:id="@+id/service_start_time_value_tv"
+                    style="@style/item_content_style"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="-  -  -"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintLeft_toLeftOf="@+id/service_start_time_key_tv"
+                    app:layout_constraintRight_toRightOf="@+id/service_start_time_key_tv"
+                    app:layout_constraintTop_toBottomOf="@+id/service_start_time_key_tv"></TextView>
+
+                <LinearLayout
+                    android:id="@+id/service_controler_ll"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/start_stop_service_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/sp_half_circle_green"
+                        android:gravity="center|bottom"
+                        android:paddingBottom="10dp"
+                        android:text="开始"
+                        android:textColor="@color/white"
+                        android:textSize="16dp"></TextView>
+
+                    <TextView
+                        android:id="@+id/servied_time_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/sp_half_circle_white"
+                        android:gravity="center|top"
+                        android:text="服务时长\n-  -  -"
+                        android:paddingTop="3dp"
+                        android:textColor="@color/text_default_color"
+                        android:textSize="12dp"></TextView>
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/service_end_time_key_tv"
+                    style="@style/item_content_style"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="服务结束时间"
+                    app:layout_constraintBottom_toTopOf="@+id/service_end_time_value_tv"
+                    app:layout_constraintLeft_toRightOf="@+id/service_controler_ll"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed"></TextView>
+
+                <TextView
+                    android:id="@+id/service_end_time_value_tv"
+                    style="@style/item_content_style"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="-  -  -"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintLeft_toLeftOf="@+id/service_end_time_key_tv"
+                    app:layout_constraintRight_toRightOf="@+id/service_end_time_key_tv"
+                    app:layout_constraintTop_toBottomOf="@+id/service_end_time_key_tv"></TextView>
+            </android.support.constraint.ConstraintLayout>
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/service_type_name_tv"
+                    style="@style/item_title_style"
+                    android:text="服务项目:"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></TextView>
+
+                <TextView
+                    android:id="@+id/service_type_value_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingBottom="5dp"
+                    android:ellipsize="end"
+                    android:hint="请选择服务类型"
+                    android:paddingRight="30dp"
+                    android:singleLine="true"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/service_type_name_tv"
+                    app:layout_constraintLeft_toRightOf="@+id/service_type_name_tv"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/service_type_name_tv"></TextView>
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="18dp"
+                    android:padding="3dp"
+                    android:alpha="0.5"
+                    android:src="@mipmap/right"
+                    app:layout_constraintBottom_toBottomOf="@+id/service_type_value_tv"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/service_type_value_tv"></ImageView>
+            </android.support.constraint.ConstraintLayout>
+            <TextView
+                style="@style/item_title_style"
+                android:paddingTop="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp"
+                android:text="备注："></TextView>
+
+            <EditText
+                android:id="@+id/add_taker_record_remark_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/stroke_gray_square_bg"
+                android:hint="如：常年在村前花棚看花，来之前电话联系他哥哥。"
+                android:minHeight="60dp"
+                android:maxLength="100"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textSize="14dp"></EditText>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp">
+
+                <TextView
+                    android:id="@+id/save_record_tv"
+                    style="@style/bt_style"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/sp_green_square_button"
+                    android:text="保存草稿"></TextView>
+
+                <TextView
+                    android:id="@+id/commit_record_tv"
+                    style="@style/bt_style"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:text="提交"></TextView>
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

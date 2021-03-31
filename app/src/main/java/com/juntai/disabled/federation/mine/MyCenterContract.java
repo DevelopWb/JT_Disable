@@ -1,13 +1,11 @@
 package com.juntai.disabled.federation.mine;
 
 
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 import com.juntai.disabled.federation.bean.MyMenuBean;
 
 import java.io.File;
 import java.util.List;
-
-import retrofit2.http.Query;
 
 /**
  * Describe: 个人信息接口类
@@ -65,7 +63,7 @@ public interface MyCenterContract {
     //    interface ICenterModel {
     //    }
 
-    interface ICenterView extends IView {
+    interface BaseICenterView extends BaseIView {
         void refreshAdapter();
     }
 
@@ -93,7 +91,7 @@ public interface MyCenterContract {
     }
 
     /*---------------我的信息----------------*/
-    interface IMyInfoView extends IView{}
+    interface BaseIMyInfoView extends BaseIView {}
     interface IMyInfoPresent{
         /**
          * 头像选择
@@ -119,7 +117,7 @@ public interface MyCenterContract {
     }
 
     /*---------------我的积分----------------*/
-    interface IMyScoreView extends IView{}
+    interface BaseIMyScoreView extends BaseIView {}
     interface IMyScorePresent{
         /**
          * 获取积分明细列表
@@ -133,14 +131,14 @@ public interface MyCenterContract {
 
     /*---------------我的订单----------------*/
     interface IOrderModel{}
-    interface IMyOrderView extends IView{}
+    interface BaseIMyOrderView extends BaseIView {}
     interface IMyOrderPresent{
         void getOrderList();
     }
 
     /*---------------我的收藏/分享----------------*/
     interface ICollectModel{}
-    interface ICollectView extends IView{}
+    interface BaseICollectView extends BaseIView {}
     interface ICollectPresent{
         /**
          * 获取监控收藏列表
@@ -192,7 +190,7 @@ public interface MyCenterContract {
 
     /*---------------我的发布----------------*/
     interface IMyPublishListModel{}
-    interface IMyPublishListView extends IView{}
+    interface BaseIMyPublishListView extends BaseIView {}
     interface IMyPublishListPresent{
         /**
          * 获取我的发布(案件)
@@ -230,7 +228,7 @@ public interface MyCenterContract {
 
     /*---------------我的任务-----------------*/
     interface ITaskModel{}
-    interface ITaskView extends IView{}
+    interface BaseITaskView extends BaseIView {}
     interface ITaskPresent{
         /**
          * 获取我的任务列表

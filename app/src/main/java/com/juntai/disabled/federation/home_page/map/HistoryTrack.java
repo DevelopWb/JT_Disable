@@ -40,7 +40,7 @@ import java.util.List;
  * @description 描述  警员轨迹
  * @date 2020/4/2 15:05
  */
-public class HistoryTrack extends BaseMvpActivity<MapPresenter> implements View.OnClickListener, MapContract.View {
+public class HistoryTrack extends BaseMvpActivity<MapPresenter> implements View.OnClickListener, MapContract.ViewBase {
     private PanoramaView panoramaView;
     private TextureMapView mapView;
     private BaiduMap map;

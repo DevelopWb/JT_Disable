@@ -1,7 +1,7 @@
 package com.juntai.disabled.federation.home_page;
 
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 import com.juntai.disabled.basecomponent.mvp.IPresenter;
-import com.juntai.disabled.basecomponent.mvp.IView;
 
 import okhttp3.RequestBody;
 
@@ -21,11 +21,11 @@ public interface HomePageContract {
     String SEARCH_MORE = "search_more";//搜索更多
 
 
-    interface IHomePageView extends IView {
+    interface BaseIHomePageView extends BaseIView {
 
     }
 
-    interface IHomePagePresent extends IPresenter<IHomePageView> {
+    interface IHomePagePresent extends IPresenter<BaseIHomePageView> {
         /**
          * 认证
          *

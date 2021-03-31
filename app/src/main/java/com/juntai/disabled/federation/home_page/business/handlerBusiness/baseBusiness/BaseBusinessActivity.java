@@ -41,9 +41,6 @@ import com.juntai.disabled.federation.utils.DateUtil;
 import com.juntai.disabled.federation.utils.StringTools;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -61,7 +58,7 @@ import okhttp3.RequestBody;
  * @UpdateUser: 更新者
  * @UpdateDate: 2021/1/19 9:36
  */
-public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPresent> implements BusinessContract.IBusinessView, View.OnClickListener {
+public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPresent> implements BusinessContract.BaseIBusinessView, View.OnClickListener {
     private RecyclerView mRecyclerview;
     private SmartRefreshLayout mSmartrefreshlayout;
     protected HandlerBusinessAdapter adapter;
@@ -546,11 +543,11 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    //                    mSignNameTagIv.setVisibility(View.GONE);
-                    //                    mSignNameNoticeTv.setVisibility(View.GONE);
-                    //                    mSignRedactImg.setVisibility(View.VISIBLE);
+                    //                    mSignNameTagIv.setVisibility(ViewBase.GONE);
+                    //                    mSignNameNoticeTv.setVisibility(ViewBase.GONE);
+                    //                    mSignRedactImg.setVisibility(ViewBase.VISIBLE);
                     bottomSheetDialog.dismiss();
-                    //                    mSignResign.getRightTextView().setVisibility(View.VISIBLE);
+                    //                    mSignResign.getRightTextView().setVisibility(ViewBase.VISIBLE);
                 } else {
                     ToastUtils.toast(mContext, "请签名！");
                 }

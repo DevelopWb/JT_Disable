@@ -2,7 +2,7 @@ package com.juntai.disabled.basecomponent.utils;
 
 
 
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 
 import org.reactivestreams.Publisher;
 
@@ -45,7 +45,7 @@ public class RxScheduler {
      * @param <T> 指定的泛型类型
      * @return ObservableTransformer
      */
-    public static <T> ObservableTransformer<T, T> ObsIoMain(IView view) {
+    public static <T> ObservableTransformer<T, T> ObsIoMain(BaseIView view) {
         return new ObservableTransformer<T, T>() {
             @Override
             public ObservableSource<T> apply(Observable<T> upstream) {
@@ -56,7 +56,7 @@ public class RxScheduler {
         };
     }
 
-    public static <T> void doTask(IView iView, final RxTask<T> task) {
+    public static <T> void doTask(BaseIView iView, final RxTask<T> task) {
         if (iView != null) {
             iView.showLoading();
         }

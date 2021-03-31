@@ -46,7 +46,7 @@ import okhttp3.FormBody;
  * @description 描述  登录
  * @date 2020/3/6 9:12
  */
-public class LoginActivity extends BaseMvpActivity<EntrancePresent> implements EntranceContract.IEntranceView,
+public class LoginActivity extends BaseMvpActivity<EntrancePresent> implements EntranceContract.BaseIEntranceView,
         View.OnClickListener {
     public String otherHeadIcon = "";
     /**

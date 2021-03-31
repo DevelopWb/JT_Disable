@@ -67,10 +67,10 @@ public class GuideActivity extends BaseActivity {
                 //将当前的点选中
                 llPoints.getChildAt(i).setEnabled(true);
                 if (i == (imgs.length -1)){
-//                    experienceNowTv.setVisibility(View.VISIBLE);
+//                    experienceNowTv.setVisibility(ViewBase.VISIBLE);
                     showAgreementAlter();
                 }else {
-//                    experienceNowTv.setVisibility(View.GONE);
+//                    experienceNowTv.setVisibility(ViewBase.GONE);
                 }
                 lastPointIndex = i;
             }

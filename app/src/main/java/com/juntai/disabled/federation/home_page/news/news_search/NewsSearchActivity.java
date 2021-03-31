@@ -21,7 +21,7 @@ import java.util.List;
  * @aouther ZhangZhenlong
  * @date 2020-8-8
  */
-public class NewsSearchActivity extends BaseSearchListActivity<NewsPresent> implements NewsContract.INewsView {
+public class NewsSearchActivity extends BaseSearchListActivity<NewsPresent> implements NewsContract.BaseINewsView {
     private List<NewsListBean.DataBean.DatasBean> newsList = new ArrayList<>();
     private NewsListAdapter newsListAdapter;
 

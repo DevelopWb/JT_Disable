@@ -38,7 +38,7 @@ import static com.juntai.disabled.im.ModuleIm_Init.chat;
  * @description 描述  搜索
  * @date 2020/3/14 14:47
  */
-public class SearchActivity extends BaseMvpActivity<HomePagePresent> implements HomePageContract.IHomePageView, View.OnClickListener,
+public class SearchActivity extends BaseMvpActivity<HomePagePresent> implements HomePageContract.BaseIHomePageView, View.OnClickListener,
         SearchFragment.OnSearchCallBack {
 
     private SearchFragment searchTopFragment;

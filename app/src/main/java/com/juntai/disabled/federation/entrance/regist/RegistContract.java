@@ -1,7 +1,7 @@
 package com.juntai.disabled.federation.entrance.regist;
 
 
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 
 import okhttp3.RequestBody;
 
@@ -23,7 +23,7 @@ public interface RegistContract {
     String REGIST = "regist";//注册
     String ADD_USER_INFO = "add_user_info";//补充用户信息
 
-    interface IRegistView extends IView {
+    interface BaseIRegistView extends BaseIView {
         /**
          * 接收到验证码后更改view得状态
          *

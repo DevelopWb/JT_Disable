@@ -27,7 +27,7 @@ import okhttp3.RequestBody;
  * 2020-5-22
  * email:954101549@qq.com
  */
-public class SiteManagerPresent extends BasePresenter<IModel, SiteManagerContract.ISiteManagerView>
+public class SiteManagerPresent extends BasePresenter<IModel, SiteManagerContract.BaseISiteManagerView>
         implements SiteManagerContract.SiteManagerPresent {
 
     @Override

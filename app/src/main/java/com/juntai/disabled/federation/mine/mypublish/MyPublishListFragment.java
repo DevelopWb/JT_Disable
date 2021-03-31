@@ -42,7 +42,7 @@ import java.util.List;
  * 2020-3-12
  * email:954101549@qq.com
  */
-public class MyPublishListFragment extends BaseMvpFragment<MyPublishListPresent> implements MyCenterContract.IMyPublishListView, View.OnClickListener {
+public class MyPublishListFragment extends BaseMvpFragment<MyPublishListPresent> implements MyCenterContract.BaseIMyPublishListView, View.OnClickListener {
     private RecyclerView mRecyclerview;
     private SmartRefreshLayout mSmartrefreshlayout;
     private TextView deleteBtn;

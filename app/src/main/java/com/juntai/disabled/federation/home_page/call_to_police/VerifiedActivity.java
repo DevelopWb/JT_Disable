@@ -43,7 +43,7 @@ import okhttp3.RequestBody;
  * @description 描述  实名认证
  * @date 2020/3/11 15:52
  */
-public class VerifiedActivity extends SmsCheckCodeActivity<RegistPresent> implements RegistContract.IRegistView,
+public class VerifiedActivity extends SmsCheckCodeActivity<RegistPresent> implements RegistContract.BaseIRegistView,
         View.OnClickListener, SelectPhotosFragment.OnPhotoItemClick {
 
     /**

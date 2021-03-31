@@ -41,7 +41,7 @@ import cn.sharesdk.framework.PlatformActionListener;
  * @aouther ZhangZhenlong
  * @date 2020-8-16
  */
-public class PersonalHomepageActivity extends BaseMvpActivity<NewsPresent> implements NewsContract.INewsView, View.OnClickListener, ViewPager.OnPageChangeListener {
+public class PersonalHomepageActivity extends BaseMvpActivity<NewsPresent> implements NewsContract.BaseINewsView, View.OnClickListener, ViewPager.OnPageChangeListener {
 
     /**
      * 返回

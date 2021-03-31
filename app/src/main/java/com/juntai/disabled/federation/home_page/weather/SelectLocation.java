@@ -25,7 +25,7 @@ import java.util.List;
  * @date 2020/4/10 11:14
  */
 public class SelectLocation extends BaseMvpActivity<HomePagePresent> implements
-        HomePageContract.IHomePageView, AdapterView.OnItemSelectedListener {
+        HomePageContract.BaseIHomePageView, AdapterView.OnItemSelectedListener {
     Spinner first, second, third, four;
     TextView dangqiandiqu;
     Button confirm;

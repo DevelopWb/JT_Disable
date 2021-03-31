@@ -18,7 +18,7 @@ import com.juntai.disabled.federation.home_page.camera.ijkplayer.PlayerLiveActiv
  * @UpdateUser: 更新者
  * @UpdateDate: 2020/8/14 9:23
  */
-public class CameraYunControlChildFragment extends BaseMvpFragment<PlayPresent> implements PlayContract.IPlayView,
+public class CameraYunControlChildFragment extends BaseMvpFragment<PlayPresent> implements PlayContract.BaseIPlayView,
         View.OnClickListener {
     private ImageView mControlUpIv;
     private ImageView mControlLeftIv;

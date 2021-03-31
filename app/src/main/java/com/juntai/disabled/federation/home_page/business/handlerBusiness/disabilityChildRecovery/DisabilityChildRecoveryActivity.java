@@ -20,7 +20,7 @@ import java.util.List;
  * @description 描述 残疾儿童抢救性康复项目
  * @date 2021/1/23 9:13
  */
-public class DisabilityChildRecoveryActivity extends BaseAppActivity<BusinessPresent> implements BusinessContract.IBusinessView {
+public class DisabilityChildRecoveryActivity extends BaseAppActivity<BusinessPresent> implements BusinessContract.BaseIBusinessView {
 
     private RecyclerView mRecyclerview;
     private SmartRefreshLayout mSmartrefreshlayout;

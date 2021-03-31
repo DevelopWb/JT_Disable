@@ -50,7 +50,7 @@ import okhttp3.RequestBody;
  * @aouther ZhangZhenlong
  * @date 2020-7-4
  */
-public class AddEmployeeActivity extends BaseMvpActivity<SiteManagerPresent> implements SiteManagerContract.ISiteManagerView,
+public class AddEmployeeActivity extends BaseMvpActivity<SiteManagerPresent> implements SiteManagerContract.BaseISiteManagerView,
         SelectPhotosFragment.OnPhotoItemClick, SelectPhotosFragment.OnPicCalculateed, View.OnClickListener,RadioGroup.OnCheckedChangeListener {
     /**
      * 请输入姓名

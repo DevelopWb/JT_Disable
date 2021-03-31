@@ -23,7 +23,7 @@ import java.util.List;
  * @aouther ZhangZhenlong
  * @date 2020-8-18
  */
-public class FansListActivity extends BaseMvpActivity<NewsPresent> implements NewsContract.INewsView {
+public class FansListActivity extends BaseMvpActivity<NewsPresent> implements NewsContract.BaseINewsView {
     List<NewsFansListBean.DataBean.DatasBean> fansList = new ArrayList<>();
     FansListAdapter fansListAdapter;
     int type = 1;//1粉丝，2关注

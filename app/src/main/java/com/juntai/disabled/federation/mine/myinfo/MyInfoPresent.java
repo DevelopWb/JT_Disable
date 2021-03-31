@@ -39,7 +39,7 @@ import top.zibin.luban.OnCompressListener;
  * 2020/3/10
  * email:954101549@qq.com
  */
-public class MyInfoPresent extends BasePresenter<IModel, MyCenterContract.IMyInfoView> implements MyCenterContract.IMyInfoPresent {
+public class MyInfoPresent extends BasePresenter<IModel, MyCenterContract.BaseIMyInfoView> implements MyCenterContract.IMyInfoPresent {
     @Override
     protected IModel createModel() {
         return null;

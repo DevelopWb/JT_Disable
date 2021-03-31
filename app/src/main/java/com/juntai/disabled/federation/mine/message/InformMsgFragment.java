@@ -34,7 +34,7 @@ import java.util.List;
  * @aouther ZhangZhenlong
  * @date 2020-3-13
  */
-public class InformMsgFragment extends BaseMvpFragment<MessagePresent> implements IMessageContract.IMessageView {
+public class InformMsgFragment extends BaseMvpFragment<MessagePresent> implements IMessageContract.BaseIMessageView {
     private RecyclerView mRecyclerview;
     private SmartRefreshLayout mSmartrefreshlayout;
 

@@ -29,7 +29,7 @@ import java.util.List;
  * @aouther ZhangZhenlong
  * @date 2020-7-2
  */
-public class KeyPersonnelInfoActivity extends BaseMvpActivity<MapPresenter> implements MapContract.View, View.OnClickListener {
+public class KeyPersonnelInfoActivity extends BaseMvpActivity<MapPresenter> implements MapContract.ViewBase, View.OnClickListener {
     private RecyclerView mKeyPersonnelDetailTexts;
     private KPInfoAdapter textListAdapter;
     private List<TextListBean> textListBeans = new ArrayList<>();

@@ -22,7 +22,7 @@ import okhttp3.RequestBody;
  * @aouther Ma
  * @date 2019/3/14
  */
-public class HomePagePresent extends BasePresenter<IModel, HomePageContract.IHomePageView> implements HomePageContract.IHomePagePresent {
+public class HomePagePresent extends BasePresenter<IModel, HomePageContract.BaseIHomePageView> implements HomePageContract.IHomePagePresent {
     @Override
     protected IModel createModel() {
         return null;

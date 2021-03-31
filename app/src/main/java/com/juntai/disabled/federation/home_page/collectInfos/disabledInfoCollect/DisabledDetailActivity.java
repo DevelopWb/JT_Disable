@@ -1,11 +1,9 @@
-package com.juntai.disabled.federation.home_page.collectInfos;
+package com.juntai.disabled.federation.home_page.collectInfos.disabledInfoCollect;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,6 +13,8 @@ import com.juntai.disabled.federation.base.BaseAppActivity;
 import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
 import com.juntai.disabled.federation.bean.TextListBean;
 import com.juntai.disabled.federation.bean.collect.CollectDisabledDetailBean;
+import com.juntai.disabled.federation.home_page.collectInfos.CollectInfoContract;
+import com.juntai.disabled.federation.home_page.collectInfos.CollectInfoPresent;
 import com.juntai.disabled.federation.home_page.key_personnel.KPInfoAdapter;
 import com.juntai.disabled.federation.utils.UrlFormatUtil;
 
@@ -27,7 +27,7 @@ import java.util.List;
  * @date 2021/3/18 17:42
  */
 public class DisabledDetailActivity extends BaseAppActivity<CollectInfoPresent> implements
-        CollectInfoContract.TakeInfoView, View.OnClickListener {
+        CollectInfoContract.TakeInfoViewBase, View.OnClickListener {
 
     private SelectPhotosFragment videoCollectfg;
     private SelectPhotosFragment accessableCollectfg;

@@ -372,7 +372,7 @@ public class PlayerView implements View.OnClickListener {
                 isHideThumb = false;
                 query.id(R.id.app_video_netTie).gone();
                 //                if (hasStream) {
-                //                    iv_trumb.setVisibility(View.GONE);
+                //                    iv_trumb.setVisibility(ViewBase.GONE);
                 //                } else {
                 //                    query.id(R.id.app_video_loading).visible();
                 //                }
@@ -1425,12 +1425,12 @@ public class PlayerView implements View.OnClickListener {
         //                || status == PlayStateParams.STATE_PREPARING
         //                || status == PlayStateParams.STATE_PAUSED) {
         //            if (isHideCenterPlayer) {
-        //                iv_player.setVisibility(View.GONE);
+        //                iv_player.setVisibility(ViewBase.GONE);
         //            } else {
-        //                iv_player.setVisibility(isLive ? View.GONE : View.VISIBLE);
+        //                iv_player.setVisibility(isLive ? ViewBase.GONE : ViewBase.VISIBLE);
         //            }
         //        } else {
-        //            iv_player.setVisibility(View.GONE);
+        //            iv_player.setVisibility(ViewBase.GONE);
         //        }
         updatePausePlay();
         mHandler.sendEmptyMessage(MESSAGE_SHOW_PROGRESS);
@@ -1629,7 +1629,7 @@ public class PlayerView implements View.OnClickListener {
             //                        operatorPanl();
             //                    }
             //                    /**延迟0.5秒隐藏视频封面隐藏*/
-            //                    iv_trumb.setVisibility(View.GONE);
+            //                    iv_trumb.setVisibility(ViewBase.GONE);
             //                }
             //            }, 800);
         } else if (newStatus == PlayStateParams.MEDIA_INFO_VIDEO_INTERRUPT) {
@@ -1755,7 +1755,7 @@ public class PlayerView implements View.OnClickListener {
      * 隐藏状态界面
      */
     private void hideStatusUI() {
-        //        iv_player.setVisibility(View.GONE);
+        //        iv_player.setVisibility(ViewBase.GONE);
         query.id(R.id.simple_player_select_stream_container).gone();
         query.id(R.id.app_video_replay).gone();
         //        if (isShowNetTie) {

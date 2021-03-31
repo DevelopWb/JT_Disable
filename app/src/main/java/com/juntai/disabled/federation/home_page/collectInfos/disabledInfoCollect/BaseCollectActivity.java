@@ -1,4 +1,4 @@
-package com.juntai.disabled.federation.home_page.collectInfos;
+package com.juntai.disabled.federation.home_page.collectInfos.disabledInfoCollect;
 
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
@@ -20,6 +20,8 @@ import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseSelectVideoActivity;
 import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
 import com.juntai.disabled.federation.home_page.PublishContract;
+import com.juntai.disabled.federation.home_page.collectInfos.CollectInfoContract;
+import com.juntai.disabled.federation.home_page.collectInfos.CollectInfoPresent;
 import com.juntai.disabled.federation.utils.DateUtil;
 import com.juntai.disabled.federation.utils.StringTools;
 import com.juntai.disabled.federation.utils.UserInfoManager;
@@ -40,7 +42,7 @@ import okhttp3.RequestBody;
  * @UpdateUser: 更新者
  * @UpdateDate: 2021/3/28 14:19
  */
-public abstract class BaseCollectActivity extends BaseSelectVideoActivity<CollectInfoPresent> implements SelectPhotosFragment.OnPicCalculateed,CollectInfoContract.TakeInfoView {
+public abstract class BaseCollectActivity extends BaseSelectVideoActivity<CollectInfoPresent> implements SelectPhotosFragment.OnPicCalculateed, CollectInfoContract.TakeInfoViewBase {
     /**
      * 请选择地点
      */

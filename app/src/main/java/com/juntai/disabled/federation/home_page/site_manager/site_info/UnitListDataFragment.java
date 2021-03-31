@@ -10,9 +10,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseAppFragment;
 import com.juntai.disabled.federation.bean.site.EmployeeListBean;
@@ -31,7 +29,7 @@ import java.util.List;
  * @aouther ZhangZhenlong
  * @date 2020-7-4
  */
-public class UnitListDataFragment extends BaseAppFragment<SiteManagerPresent> implements SiteManagerContract.ISiteManagerView,
+public class UnitListDataFragment extends BaseAppFragment<SiteManagerPresent> implements SiteManagerContract.BaseISiteManagerView,
         View.OnClickListener {
     int type = 1;//1从业人员，2检查记录
     private int unitId;

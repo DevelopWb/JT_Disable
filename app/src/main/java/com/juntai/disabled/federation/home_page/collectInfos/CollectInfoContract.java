@@ -1,6 +1,6 @@
 package com.juntai.disabled.federation.home_page.collectInfos;
 
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 
 import okhttp3.RequestBody;
 
@@ -13,7 +13,7 @@ import okhttp3.RequestBody;
  */
 public interface CollectInfoContract {
 
-    interface TakeInfoView extends IView{
+    interface TakeInfoViewBase extends BaseIView {
 
     }
 

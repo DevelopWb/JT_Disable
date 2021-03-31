@@ -17,7 +17,7 @@ import com.juntai.disabled.video.player.PlayerActivity;
  * @aouther ZhangZhenlong
  * @date 2020-7-4
  */
-public class UnitInspectionDetailActivity extends BaseBannnerDetail<SiteManagerPresent> implements SiteManagerContract.ISiteManagerView {
+public class UnitInspectionDetailActivity extends BaseBannnerDetail<SiteManagerPresent> implements SiteManagerContract.BaseISiteManagerView {
 
     @Override
     public void initData() {

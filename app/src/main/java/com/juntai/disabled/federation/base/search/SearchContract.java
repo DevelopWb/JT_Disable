@@ -1,6 +1,6 @@
 package com.juntai.disabled.federation.base.search;
 
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 
 import okhttp3.RequestBody;
 
@@ -16,7 +16,7 @@ public interface SearchContract {
     String  YEARS = "years";//所有的街道
     String  ALL_DISABLED_PEOPLE = "DISABLED_PEOPLE";//所有残疾人
     String  ALL_CARE_TAKER = "CARE_TAKER";//所有的托养人
-    interface ISearchView extends IView {}
+    interface BaseISearchView extends BaseIView {}
 
 
     interface ISearchPresent {

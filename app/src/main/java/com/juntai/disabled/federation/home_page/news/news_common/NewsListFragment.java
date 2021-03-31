@@ -36,7 +36,7 @@ import java.util.List;
  * @aouther ZhangZhenlong
  * @date 2020-7-29
  */
-public class NewsListFragment extends BaseMvpFragment<NewsPresent> implements NewsContract.INewsView, View.OnClickListener {
+public class NewsListFragment extends BaseMvpFragment<NewsPresent> implements NewsContract.BaseINewsView, View.OnClickListener {
     private LinearLayout mSearchLl;
     /**
      * 发布

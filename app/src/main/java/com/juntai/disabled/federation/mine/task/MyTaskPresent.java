@@ -1,9 +1,9 @@
 package com.juntai.disabled.federation.mine.task;
 
 import com.juntai.disabled.basecomponent.base.BaseObserver;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
-import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.federation.AppNetModule;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.bean.task.TaskDetailBean;
@@ -18,15 +18,15 @@ import com.juntai.disabled.federation.utils.RxScheduler;
  * 2020-5-16
  * email:954101549@qq.com
  */
-public class MyTaskPresent extends BasePresenter<IModel, MyCenterContract.ITaskView> implements MyCenterContract.ITaskPresent {
-    private IView iView;
+public class MyTaskPresent extends BasePresenter<IModel, MyCenterContract.BaseITaskView> implements MyCenterContract.ITaskPresent {
+    private BaseIView iView;
 
     @Override
     protected IModel createModel() {
         return null;
     }
 
-    public void  setCallBack(IView iView) {
+    public void  setCallBack(BaseIView iView) {
         this.iView = iView;
     }
 
@@ -53,7 +53,7 @@ public class MyTaskPresent extends BasePresenter<IModel, MyCenterContract.ITaskV
 
     @Override
     public void getTaskInfo(int missionId, int taskPeopleId, String tag) {
-        IView viewCallBack = null;
+        BaseIView viewCallBack = null;
         if (getView()==null) {
             if (iView != null) {
                 viewCallBack = iView;
@@ -61,7 +61,7 @@ public class MyTaskPresent extends BasePresenter<IModel, MyCenterContract.ITaskV
         }else{
             viewCallBack = getView();
         }
-        IView finalViewCallBack = viewCallBack;
+        BaseIView finalViewCallBack = viewCallBack;
 
         AppNetModule.createrRetrofit()
                 .getTaskInfo(MyApp.getAccount(), MyApp.getUserToken(), MyApp.getUid(), missionId, taskPeopleId)

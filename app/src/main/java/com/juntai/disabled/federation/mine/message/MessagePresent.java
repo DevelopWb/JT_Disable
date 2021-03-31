@@ -16,7 +16,7 @@ import com.juntai.disabled.federation.utils.RxScheduler;
  * 2020-3-13
  * email:954101549@qq.com
  */
-public class MessagePresent extends BasePresenter<IModel,IMessageContract.IMessageView>
+public class MessagePresent extends BasePresenter<IModel, IMessageContract.BaseIMessageView>
         implements IMessageContract.IMessagePresent {
     @Override
     protected IModel createModel() {

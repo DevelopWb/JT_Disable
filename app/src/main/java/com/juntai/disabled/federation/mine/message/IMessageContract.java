@@ -1,6 +1,6 @@
 package com.juntai.disabled.federation.mine.message;
 
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 
 /**
  * Describe:我的消息关联类
@@ -18,7 +18,7 @@ public interface IMessageContract {
     interface IMessageModel{
 
     }
-    interface IMessageView extends IView {
+    interface BaseIMessageView extends BaseIView {
 
     }
     interface IMessagePresent{

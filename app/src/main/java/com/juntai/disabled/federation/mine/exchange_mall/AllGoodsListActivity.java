@@ -25,7 +25,7 @@ import java.util.List;
  * @aouther ZhangZhenlong
  * @date 2020-6-2
  */
-public class AllGoodsListActivity extends BaseMvpActivity<ExchangeMallPresent> implements ExchangeMallContract.IMallView {
+public class AllGoodsListActivity extends BaseMvpActivity<ExchangeMallPresent> implements ExchangeMallContract.BaseIMallView {
     private RecyclerView mRecyclerview;
     private SmartRefreshLayout mSmartrefreshlayout;
 

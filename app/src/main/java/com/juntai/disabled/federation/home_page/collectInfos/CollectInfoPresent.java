@@ -17,7 +17,7 @@ import okhttp3.RequestBody;
  * @UpdateUser: 更新者
  * @UpdateDate: 2021/3/17 16:47
  */
-public class CollectInfoPresent extends BasePresenter<IModel, CollectInfoContract.TakeInfoView> implements  CollectInfoContract.ITakeInfoPresent{
+public class CollectInfoPresent extends BasePresenter<IModel, CollectInfoContract.TakeInfoViewBase> implements  CollectInfoContract.ITakeInfoPresent{
     @Override
     protected IModel createModel() {
         return null;

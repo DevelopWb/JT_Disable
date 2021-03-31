@@ -57,7 +57,7 @@ import okhttp3.RequestBody;
  * @aouther ZhangZhenlong
  * @date 2020-9-5
  */
-public class UpdateSiteActivity extends BaseAppActivity<SiteManagerPresent> implements SiteManagerContract.ISiteManagerView,
+public class UpdateSiteActivity extends BaseAppActivity<SiteManagerPresent> implements SiteManagerContract.BaseISiteManagerView,
         View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
     /**

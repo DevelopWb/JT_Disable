@@ -26,7 +26,6 @@ import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseAppActivity;
-import com.juntai.disabled.federation.base.update.UpdateActivity;
 import com.juntai.disabled.federation.bean.MyMenuBean;
 import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.entrance.BackPwdActivity;
@@ -49,9 +48,6 @@ import cn.sharesdk.framework.PlatformDb;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.wechat.friends.Wechat;
-import io.reactivex.Observable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * 个人设置
@@ -59,7 +55,7 @@ import io.reactivex.schedulers.Schedulers;
  * @aouther ZhangZhenlong
  * @date 2020/3/9
  */
-public class MySettingActivity extends BaseAppActivity<EntrancePresent> implements EntranceContract.IEntranceView {
+public class MySettingActivity extends BaseAppActivity<EntrancePresent> implements EntranceContract.BaseIEntranceView {
     SettingMenuAdapter settingMenuAdapter;
     List<MyMenuBean> menuBeans = new ArrayList<>();
 

@@ -48,7 +48,7 @@ import java.util.List;
  * @description 描述  我的业务
  * @date 2020/5/22 10:13
  */
-public class MyBusinessActivity extends BaseAppActivity<BusinessPresent> implements BusinessContract.IBusinessView,
+public class MyBusinessActivity extends BaseAppActivity<BusinessPresent> implements BusinessContract.BaseIBusinessView,
         View.OnClickListener {
 
     private RecyclerView mRecyclerview;

@@ -38,7 +38,7 @@ import okhttp3.RequestBody;
  * @aouther Ma
  * @date 2019/3/14
  */
-public class MapPresenter extends BaseAppPresent<IModel, MapContract.View> implements MapContract.Presenter {
+public class MapPresenter extends BaseAppPresent<IModel, MapContract.ViewBase> implements MapContract.Presenter {
     @Override
     protected IModel createModel() {
         return null;
