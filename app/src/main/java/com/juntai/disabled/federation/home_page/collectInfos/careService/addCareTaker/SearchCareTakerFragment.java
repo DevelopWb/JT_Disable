@@ -10,6 +10,7 @@ import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.search.BaseSearchFragment;
 import com.juntai.disabled.federation.base.search.SearchContract;
 import com.juntai.disabled.federation.bean.careTaker.SearchedPeopleBean;
+import com.juntai.disabled.federation.home_page.collectInfos.careService.careInfo.CareTakerInfoActivity;
 
 import java.util.List;
 
@@ -43,7 +44,12 @@ public class SearchCareTakerFragment extends BaseSearchFragment implements
         mSearchResultAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                startActivity(new Intent(mContext,AddCareTakerActivity.class));
+                if (0==position) {
+                    startActivity(new Intent(mContext,AddCareTakerActivity.class));
+                }else {
+                    startActivity(new Intent(mContext, CareTakerInfoActivity.class));
+                }
+
 //                SearchedPeopleBean.DataBean.DatasBean datasBean =
 //                        (SearchedPeopleBean.DataBean.DatasBean) adapter.getData().get(position);
 //                if (CalendarUtil.isCareble(Integer.parseInt(datasBean.getYear()))) {

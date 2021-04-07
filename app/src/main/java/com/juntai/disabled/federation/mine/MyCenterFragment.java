@@ -105,7 +105,7 @@ public class MyCenterFragment extends BaseMvpFragment<MyCenterPresent> implement
                             ToastUtils.toast(mContext,"暂未开放");
                             break;
                         case MyCenterContract.CENTER_MESSAGE_TAG:
-                            ToastUtils.toast(mContext,"暂未开放");
+                            startActivity(new Intent(mContext, myMenuAdapter.getData().get(position).getCls()));
                             break;
                         case MyCenterContract.CENTER_FABU_TAG:
                             ToastUtils.toast(mContext,"暂未开放");

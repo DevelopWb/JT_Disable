@@ -34,12 +34,26 @@
             android:name=".home_page.business.handlerBusiness.HeadCropActivity"
             android:launchMode="singleTop" />
         <activity
+            android:name=".home_page.collectInfos.careService.careInfo.CareTakerInfoActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.collectInfos.careService.careInfo.CareRecordDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".home_page.collectInfos.careService.careInfo.CareInfoMoreActivity"
+            android:launchMode="singleTop" />
+        <activity
             android:name=".home_page.business.handlerBusiness.SuggestionActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".home_page.business.handlerBusiness.studentBursary.detail.DisabledFamilyStudentBursaryDetailActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".home_page.collectInfos.careService.addCareTaker.AddCareTakerActivity"></activity>
+        <activity
+            android:name=".home_page.collectInfos.careService.addCareTaker.AddCareTakerActivity"
+            android:launchMode="singleTop"></activity>
+        <activity
+            android:name=".home_page.collectInfos.careService.addCareTaker.AddCareRecordActivity"
+            android:launchMode="singleTop"></activity>
         <activity
             android:name=".home_page.business.handlerBusiness.studentBursary.detail.DisabledStudentBursaryDetailActivity"
             android:launchMode="singleTop" />
@@ -420,7 +434,8 @@
             android:name=".home_page.collectInfos.disabledInfoCollect.VideoCollectActivity"
             android:launchMode="singleTop" />
 
-        <activity android:name=".home_page.collectInfos.disabledInfoCollect.DisabledDetailActivity"
+        <activity
+            android:name=".home_page.collectInfos.disabledInfoCollect.DisabledDetailActivity"
             android:launchMode="singleTop"></activity>
     </application>
 

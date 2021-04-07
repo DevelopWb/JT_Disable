@@ -163,9 +163,9 @@ public class CareTakerInfoActivity extends BaseAppActivity<CarePresent> implemen
 
     @Override
     public void initData() {
-        mPresenter.getCareInfo(getPublishMultipartBody()
-                        .addFormDataPart("id", String.valueOf(id)).build(),
-                CareContract.CARE_INFO);
+//        mPresenter.getCareInfo(getPublishMultipartBody()
+//                        .addFormDataPart("id", String.valueOf(id)).build(),
+//                CareContract.CARE_INFO);
 
     }
 
