@@ -99,7 +99,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                     helper.setGone(R.id.send_check_code_tv, false);
                 }
                 EditText editText = helper.getView(R.id.edit_value_et);
-                if (isDetail||BusinessContract.TABLE_TITLE_ASSIST_TOOL_AMOUNT.equals(textValueEditBean.getKey())) {
+                if (isDetail || BusinessContract.TABLE_TITLE_ASSIST_TOOL_AMOUNT.equals(textValueEditBean.getKey())) {
                     editText.setClickable(false);
                     editText.setFocusable(false);
                 } else {
@@ -139,32 +139,27 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 });
                 editText.setHint(textValueEditBean.getHint());
                 editText.setText(textValueEditBean.getValue());
-                String editKey = textValueEditBean.getKey();
+                String editKey = ((BusinessTextValueBean) editText.getTag()).getKey();
                 //正则
                 switch (editKey) {
                     case BusinessContract.TABLE_TITLE_CONTACT_MODE:
                         //联系方式
-                        setMaxLength(editText, 11);
                         editText.setInputType(InputType.TYPE_CLASS_PHONE);
                         break;
                     case BusinessContract.TABLE_TITLE_PHONE:
                         //联系电话
-                        setMaxLength(editText, 11);
                         editText.setInputType(InputType.TYPE_CLASS_PHONE);
                         break;
                     case BusinessContract.TABLE_TITLE_MOBILE_NUM:
                         //手机号码
-                        setMaxLength(editText, 11);
                         editText.setInputType(InputType.TYPE_CLASS_PHONE);
                         break;
                     case BusinessContract.TABLE_TITLE_HOUSE_PHONE:
                         //住宅电话
-                        setMaxLength(editText, 11);
                         editText.setInputType(InputType.TYPE_CLASS_PHONE);
                         break;
                     case BusinessContract.TABLE_TITLE_WCHAT_PHONE:
                         //微信手机号
-                        setMaxLength(editText, 11);
                         editText.setInputType(InputType.TYPE_CLASS_PHONE);
                         break;
                     case BusinessContract.TABLE_TITLE_CARD_NUM:
@@ -173,15 +168,12 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                         break;
                     case BusinessContract.TABLE_TITLE_IDCARD:
                         //身份证号
-                        setMaxLength(editText, 18);
                         break;
                     case BusinessContract.TABLE_TITLE_CHILD_IDCARD:
                         //儿童身份证号
-                        setMaxLength(editText, 18);
                         break;
                     case BusinessContract.TABLE_TITLE_GUARDIAN_ID_CARD:
                         //监护人身份证号
-                        setMaxLength(editText, 18);
                         break;
                     case BusinessContract.TABLE_TITLE_AGE_FAMILY:
                         //F年龄
@@ -193,12 +185,10 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                         break;
                     case BusinessContract.TABLE_TITLE_DISABLE_CARD_ID:
                         //残疾证号
-                        setMaxLength(editText, 20);
                         break;
                     default:
                         //输入类型为普通文本
                         editText.setInputType(InputType.TYPE_CLASS_TEXT);
-                        setMaxLength(editText, 1000);
                         break;
                 }
 
@@ -259,7 +249,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
             case MultipleItem.ITEM_BUSINESS_RADIO:
                 BusinessRadioBean radioBean = (BusinessRadioBean) item.getObject();
                 RadioGroup radioGroup = helper.getView(R.id.item_radio_g);
-                if (isDetail||BusinessContract.TABLE_TITLE_PROJECT_LEVEL.equals(radioBean.getKey())) {
+                if (isDetail || BusinessContract.TABLE_TITLE_PROJECT_LEVEL.equals(radioBean.getKey())) {
                     for (int i = 0; i < radioGroup.getChildCount(); i++) {
                         radioGroup.getChildAt(i).setEnabled(false);
                     }
@@ -356,6 +346,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 break;
             case MultipleItem.ITEM_BUSINESS_PIC:
                 BusinessPicBean businessPicBean = (BusinessPicBean) item.getObject();
+                String picPath = businessPicBean.getPicPath();
                 int index = businessPicBean.getPicNameIndex();
                 if (index > 0) {
                     helper.setText(R.id.form_pic_title_tv, String.format("%s%s%s", String.valueOf(index), ".",
@@ -364,14 +355,31 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                     helper.setText(R.id.form_pic_title_tv, businessPicBean.getPicName());
                 }
                 ImageView picIv = helper.getView(R.id.form_pic_src_iv);
-
-                if (!isDetail) {
+                //示例图格式不需要标注
+                if (BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE.equals(picPath)
+                        || BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE.equals(picPath)) {
+                    helper.setGone(R.id.pic_form_notice_tv,false);
+                }else {
+                    helper.setGone(R.id.pic_form_notice_tv,true);
+                }
+                //详情时 图片不可点击  示例图不可点击
+                if (!isDetail ) {
                     helper.addOnClickListener(R.id.form_pic_src_iv);
                 }
 
-                String picPath = businessPicBean.getPicPath();
                 if (!TextUtils.isEmpty(picPath)) {
-                    ImageLoadUtil.loadImage(mContext, picPath, picIv);
+                    switch (picPath) {
+                        case BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE:
+                            ImageLoadUtil.loadImage(mContext, R.mipmap.front_pic, picIv);
+                            break;
+                        case BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE:
+                            ImageLoadUtil.loadImage(mContext, R.mipmap.back_pic, picIv);
+                            break;
+                        default:
+                            ImageLoadUtil.loadImage(mContext, picPath, picIv);
+                            break;
+                    }
+
                 } else {
                     ImageLoadUtil.loadImage(mContext, R.mipmap.item_add_pic, picIv);
                 }

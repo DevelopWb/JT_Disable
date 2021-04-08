@@ -164,7 +164,14 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
 
                 switch (view.getId()) {
                     case R.id.form_pic_src_iv:
-                        choseImage(0, BaseBusinessActivity.this, 1);
+                        BusinessPicBean businessPicBean = (BusinessPicBean) multipleItem.getObject();
+                        if (BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE.equals(businessPicBean.getPicName())
+                              ||BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE.equals(businessPicBean.getPicName())) {
+                           //示例图片不可点击
+
+                        }else {
+                            choseImage(0, BaseBusinessActivity.this, 1);
+                        }
                         break;
                     case R.id.form_head_pic_iv:
                         choseImage(0, BaseBusinessActivity.this, 1);
@@ -657,9 +664,11 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             break;
                         case BusinessContract.TABLE_TITLE_DISABLE_CARD_ID:
                             //残疾证号
-                            if (!RuleTools.isDisabledIdNO(mContext, textValueEditBean.getValue())) {
-                                ToastUtils.toast(mContext, "残疾证号格式不正确");
-                                return null;
+                            if (!TextUtils.isEmpty(textValueEditBean.getValue())) {
+                                if (!RuleTools.isDisabledIdNO(mContext, textValueEditBean.getValue())) {
+                                    ToastUtils.toast(mContext, "残疾证号格式不正确");
+                                    return null;
+                                }
                             }
                             formKey = "disabilityCertificate";
                             break;
@@ -1029,6 +1038,26 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                         RequestBody.create(MediaType.parse("file"),
                                                 new File(picBean.getPicPath())));
                                 break;
+                            case BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT:
+                                if (!StringTools.isStringValueOk(picBean.getPicPath())) {
+                                    ToastUtils.toast(mContext, "请选择残疾证正面照片");
+                                    return null;
+                                }
+                                //残疾证正面照片
+                                builder.addFormDataPart("pictureFile", "pictureFile",
+                                        RequestBody.create(MediaType.parse("file"),
+                                                new File(picBean.getPicPath())));
+                                break;
+                            case BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK:
+                                if (!StringTools.isStringValueOk(picBean.getPicPath())) {
+                                    ToastUtils.toast(mContext, "请选择残疾证反面照片");
+                                    return null;
+                                }
+                                //残疾证反面照片
+                                builder.addFormDataPart("backPictureFile", "backPictureFile",
+                                        RequestBody.create(MediaType.parse("file"),
+                                                new File(picBean.getPicPath())));
+                                break;
                             case BusinessContract.TABLE_TITLE_DISABLED_PIC_IN_HEALTH_POSITION:
                                 if (!StringTools.isStringValueOk(picBean.getPicPath())) {
                                     ToastUtils.toast(mContext, "请选择孩子在康复机构照片");
@@ -1275,6 +1304,9 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                 case MultipleItem.ITEM_BUSINESS_EDIT:
                     BusinessTextValueBean textValueEditBean = (BusinessTextValueBean) array
                             .getObject();
+                    if (TextUtils.isEmpty(textValueEditBean.getValue())) {
+                        return "";
+                    }
                     switch (textValueEditBean.getKey()) {
                         case BusinessContract.TABLE_TITLE_STREET:
                             //街道

@@ -112,14 +112,8 @@ public class EmploymentRegDetailBean extends BaseResult {
         private String trainingIntention;
         private String remark;
         private String idNumber;
-
-        public String getIdNumber() {
-            return TextUtils.isEmpty(idNumber) ? "暂无" : idNumber;
-        }
-
-        public void setIdNumber(String idNumber) {
-            this.idNumber = idNumber == null ? "" : idNumber;
-        }
+        //残疾证反面照片
+        private String disabilityCertificateBackPicture;
 
         public int getId() {
             return id;
@@ -130,19 +124,19 @@ public class EmploymentRegDetailBean extends BaseResult {
         }
 
         public String getPhoto() {
-            return photo;
+            return TextUtils.isEmpty(photo) ? "暂无" : photo;
         }
 
         public void setPhoto(String photo) {
-            this.photo = photo;
+            this.photo = photo == null ? "" : photo;
         }
 
         public String getName() {
-            return name;
+            return TextUtils.isEmpty(name) ? "暂无" : name;
         }
 
         public void setName(String name) {
-            this.name = name;
+            this.name = name == null ? "" : name;
         }
 
         public int getSex() {
@@ -154,19 +148,19 @@ public class EmploymentRegDetailBean extends BaseResult {
         }
 
         public String getSexName() {
-            return sexName;
+            return TextUtils.isEmpty(sexName) ? "暂无" : sexName;
         }
 
         public void setSexName(String sexName) {
-            this.sexName = sexName;
+            this.sexName = sexName == null ? "" : sexName;
         }
 
         public String getBirth() {
-            return birth;
+            return TextUtils.isEmpty(birth) ? "暂无" : birth;
         }
 
         public void setBirth(String birth) {
-            this.birth = birth;
+            this.birth = birth == null ? "" : birth;
         }
 
         public int getNation() {
@@ -178,11 +172,11 @@ public class EmploymentRegDetailBean extends BaseResult {
         }
 
         public String getNationName() {
-            return nationName;
+            return TextUtils.isEmpty(nationName) ? "暂无" : nationName;
         }
 
         public void setNationName(String nationName) {
-            this.nationName = nationName;
+            this.nationName = nationName == null ? "" : nationName;
         }
 
         public int getEducation() {
@@ -194,19 +188,19 @@ public class EmploymentRegDetailBean extends BaseResult {
         }
 
         public String getEducationName() {
-            return educationName;
+            return TextUtils.isEmpty(educationName) ? "暂无" : educationName;
         }
 
         public void setEducationName(String educationName) {
-            this.educationName = educationName;
+            this.educationName = educationName == null ? "" : educationName;
         }
 
         public String getSpecialty() {
-            return specialty;
+            return TextUtils.isEmpty(specialty) ? "暂无" : specialty;
         }
 
         public void setSpecialty(String specialty) {
-            this.specialty = specialty;
+            this.specialty = specialty == null ? "" : specialty;
         }
 
         public int getMarriage() {
@@ -218,11 +212,11 @@ public class EmploymentRegDetailBean extends BaseResult {
         }
 
         public String getMarriageName() {
-            return marriageName;
+            return TextUtils.isEmpty(marriageName) ? "暂无" : marriageName;
         }
 
         public void setMarriageName(String marriageName) {
-            this.marriageName = marriageName;
+            this.marriageName = marriageName == null ? "" : marriageName;
         }
 
         public int getWay() {
@@ -233,28 +227,28 @@ public class EmploymentRegDetailBean extends BaseResult {
             this.way = way;
         }
 
-        public String getResidenceAddress() {
-            return residenceAddress;
-        }
-
-        public void setResidenceAddress(String residenceAddress) {
-            this.residenceAddress = residenceAddress;
-        }
-
-        public String getResidentialAddress() {
-            return residentialAddress;
-        }
-
-        public void setResidentialAddress(String residentialAddress) {
-            this.residentialAddress = residentialAddress;
-        }
-
         public String getWayName() {
-            return wayName == null ? "" : wayName;
+            return TextUtils.isEmpty(wayName) ? "暂无" : wayName;
         }
 
         public void setWayName(String wayName) {
             this.wayName = wayName == null ? "" : wayName;
+        }
+
+        public String getResidenceAddress() {
+            return TextUtils.isEmpty(residenceAddress) ? "暂无" : residenceAddress;
+        }
+
+        public void setResidenceAddress(String residenceAddress) {
+            this.residenceAddress = residenceAddress == null ? "" : residenceAddress;
+        }
+
+        public String getResidentialAddress() {
+            return TextUtils.isEmpty(residentialAddress) ? "暂无" : residentialAddress;
+        }
+
+        public void setResidentialAddress(String residentialAddress) {
+            this.residentialAddress = residentialAddress == null ? "" : residentialAddress;
         }
 
         public int getCategory() {
@@ -266,7 +260,7 @@ public class EmploymentRegDetailBean extends BaseResult {
         }
 
         public String getCategoryName() {
-            return categoryName == null ? "" : categoryName;
+            return TextUtils.isEmpty(categoryName) ? "暂无" : categoryName;
         }
 
         public void setCategoryName(String categoryName) {
@@ -282,7 +276,7 @@ public class EmploymentRegDetailBean extends BaseResult {
         }
 
         public String getLevelName() {
-            return levelName == null ? "" : levelName;
+            return TextUtils.isEmpty(levelName) ? "暂无" : levelName;
         }
 
         public void setLevelName(String levelName) {
@@ -290,19 +284,19 @@ public class EmploymentRegDetailBean extends BaseResult {
         }
 
         public String getTelephone() {
-            return telephone;
+            return TextUtils.isEmpty(telephone) ? "暂无" : telephone;
         }
 
         public void setTelephone(String telephone) {
-            this.telephone = telephone;
+            this.telephone = telephone == null ? "" : telephone;
         }
 
         public String getDisabilityCertificate() {
-            return disabilityCertificate;
+            return TextUtils.isEmpty(disabilityCertificate) ? "暂无" : disabilityCertificate;
         }
 
         public void setDisabilityCertificate(String disabilityCertificate) {
-            this.disabilityCertificate = disabilityCertificate;
+            this.disabilityCertificate = disabilityCertificate == null ? "" : disabilityCertificate;
         }
 
         public int getHearingDisability() {
@@ -314,11 +308,11 @@ public class EmploymentRegDetailBean extends BaseResult {
         }
 
         public String getHearingDisabilityName() {
-            return hearingDisabilityName;
+            return TextUtils.isEmpty(hearingDisabilityName) ? "暂无" : hearingDisabilityName;
         }
 
         public void setHearingDisabilityName(String hearingDisabilityName) {
-            this.hearingDisabilityName = hearingDisabilityName;
+            this.hearingDisabilityName = hearingDisabilityName == null ? "" : hearingDisabilityName;
         }
 
         public int getPhysicalDisability() {
@@ -330,67 +324,83 @@ public class EmploymentRegDetailBean extends BaseResult {
         }
 
         public String getPhysicalDisabilityName() {
-            return physicalDisabilityName;
+            return TextUtils.isEmpty(physicalDisabilityName) ? "暂无" : physicalDisabilityName;
         }
 
         public void setPhysicalDisabilityName(String physicalDisabilityName) {
-            this.physicalDisabilityName = physicalDisabilityName;
+            this.physicalDisabilityName = physicalDisabilityName == null ? "" : physicalDisabilityName;
         }
 
         public String getMineResume() {
-            return mineResume;
+            return TextUtils.isEmpty(mineResume) ? "暂无" : mineResume;
         }
 
         public void setMineResume(String mineResume) {
-            this.mineResume = mineResume;
+            this.mineResume = mineResume == null ? "" : mineResume;
         }
 
         public String getPostIntention() {
-            return postIntention;
+            return TextUtils.isEmpty(postIntention) ? "暂无" : postIntention;
         }
 
         public void setPostIntention(String postIntention) {
-            this.postIntention = postIntention;
+            this.postIntention = postIntention == null ? "" : postIntention;
         }
 
         public String getAreaIntention() {
-            return areaIntention;
+            return TextUtils.isEmpty(areaIntention) ? "暂无" : areaIntention;
         }
 
         public void setAreaIntention(String areaIntention) {
-            this.areaIntention = areaIntention;
+            this.areaIntention = areaIntention == null ? "" : areaIntention;
         }
 
         public String getMonthlySalaryIntention() {
-            return monthlySalaryIntention;
+            return TextUtils.isEmpty(monthlySalaryIntention) ? "暂无" : monthlySalaryIntention;
         }
 
         public void setMonthlySalaryIntention(String monthlySalaryIntention) {
-            this.monthlySalaryIntention = monthlySalaryIntention;
+            this.monthlySalaryIntention = monthlySalaryIntention == null ? "" : monthlySalaryIntention;
         }
 
         public String getDisabilityCertificatePicture() {
-            return disabilityCertificatePicture;
+            return TextUtils.isEmpty(disabilityCertificatePicture) ? "暂无" : disabilityCertificatePicture;
         }
 
         public void setDisabilityCertificatePicture(String disabilityCertificatePicture) {
-            this.disabilityCertificatePicture = disabilityCertificatePicture;
+            this.disabilityCertificatePicture = disabilityCertificatePicture == null ? "" : disabilityCertificatePicture;
         }
 
         public String getTrainingIntention() {
-            return trainingIntention;
+            return TextUtils.isEmpty(trainingIntention) ? "暂无" : trainingIntention;
         }
 
         public void setTrainingIntention(String trainingIntention) {
-            this.trainingIntention = trainingIntention;
+            this.trainingIntention = trainingIntention == null ? "" : trainingIntention;
         }
 
         public String getRemark() {
-            return remark;
+            return TextUtils.isEmpty(remark) ? "暂无" : remark;
         }
 
         public void setRemark(String remark) {
-            this.remark = remark;
+            this.remark = remark == null ? "" : remark;
+        }
+
+        public String getIdNumber() {
+            return TextUtils.isEmpty(idNumber) ? "暂无" : idNumber;
+        }
+
+        public void setIdNumber(String idNumber) {
+            this.idNumber = idNumber == null ? "" : idNumber;
+        }
+
+        public String getDisabilityCertificateBackPicture() {
+            return TextUtils.isEmpty(disabilityCertificateBackPicture) ? "暂无" : disabilityCertificateBackPicture;
+        }
+
+        public void setDisabilityCertificateBackPicture(String disabilityCertificateBackPicture) {
+            this.disabilityCertificateBackPicture = disabilityCertificateBackPicture == null ? "" : disabilityCertificateBackPicture;
         }
     }
 }

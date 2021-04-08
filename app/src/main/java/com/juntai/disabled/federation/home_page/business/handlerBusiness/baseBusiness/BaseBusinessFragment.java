@@ -130,7 +130,14 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
 
                 switch (view.getId()) {
                     case R.id.form_pic_src_iv:
-                        choseImageFromFragment(0, BaseBusinessFragment.this, 1, SELECT_PIC_RESULT);
+                        if (BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE.equals(businessPicBean.getPicName())
+                                ||BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE.equals(businessPicBean.getPicName())) {
+                            //示例图片不可点击
+
+                        }else {
+                            choseImageFromFragment(0, BaseBusinessFragment.this, 1, SELECT_PIC_RESULT);
+                        }
+
                         break;
                     case R.id.form_head_pic_iv:
                         choseImageFromFragment(0, BaseBusinessFragment.this, 1, SELECT_PIC_RESULT);
