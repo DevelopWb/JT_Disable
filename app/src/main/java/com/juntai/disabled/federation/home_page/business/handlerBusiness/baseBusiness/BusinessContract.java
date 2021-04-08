@@ -45,7 +45,6 @@ public interface BusinessContract {
     String TABLE_TITLE_VILLAGE_PERSIONAL = "P(村)社区";//
     String TABLE_TITLE_WANTED_POST = "意向岗位";//
     String TABLE_TITLE_WORK_AREA = "择业地区";//
-    String TABLE_TITLE_SALARY = "月薪要求";//薪资
     String TABLE_TITLE_IDCARD = "身份证号";//
     String TABLE_TITLE_CHILD_IDCARD = "儿童身份证号";//
     String TABLE_TITLE_ADDR = "现住址";//
@@ -66,6 +65,7 @@ public interface BusinessContract {
     String TABLE_TITLE_DISABLED_PIC_IN_HEALTH_POSITION = "孩子在康复机构照片";//
     String TABLE_TITLE_DISABLE_PHOTO = "残疾证照片";//
     String TABLE_TITLE_GUARDIAN_ID_PIC = "监护人身份证拍照";//
+    String TABLE_TITLE_GUARDIAN_HUJI_PIC = "监护人户籍证明照片";//
     String TABLE_TITLE_HUKOU_RELATION_PIC = "户口本能证明监护关系页拍照";//
     String TABLE_TITLE_STUDENT_CARD_PIC = "学生证照片";//
     String TABLE_TITLE_ADMISSION_NOTICE_PIC = "入学通知书照片";//
@@ -98,7 +98,7 @@ public interface BusinessContract {
     String TABLE_TITLE_PRESENT_DISBILITY_IDCARD = "家长重度残疾证照片";//
     String TABLE_TITLE_GROUP_PHOTO = "学生与家长生活合影照片";//
     String TABLE_TITLE_ACCOUNT_BOOK = "户口本说明家庭关系照片或实际抚养证明";//
-    String TABLE_TITLE_YEAR = "年度";//
+    String TABLE_TITLE_YEAR = "年";//
     String TABLE_TITLE_PROJECT_LEVEL = "项目级别";//
     String TABLE_TITLE_HOME_ADDR2 = "家庭住址";//
     String TABLE_TITLE_DIAGNOSIS_AGENCY = "诊断机构";//

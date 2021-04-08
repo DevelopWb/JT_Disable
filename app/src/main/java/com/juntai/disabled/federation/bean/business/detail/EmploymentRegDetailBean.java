@@ -1,5 +1,7 @@
 package com.juntai.disabled.federation.bean.business.detail;
 
+import android.text.TextUtils;
+
 import com.juntai.disabled.basecomponent.base.BaseResult;
 
 /**
@@ -109,6 +111,15 @@ public class EmploymentRegDetailBean extends BaseResult {
         private String disabilityCertificatePicture;
         private String trainingIntention;
         private String remark;
+        private String idNumber;
+
+        public String getIdNumber() {
+            return TextUtils.isEmpty(idNumber) ? "暂无" : idNumber;
+        }
+
+        public void setIdNumber(String idNumber) {
+            this.idNumber = idNumber == null ? "" : idNumber;
+        }
 
         public int getId() {
             return id;

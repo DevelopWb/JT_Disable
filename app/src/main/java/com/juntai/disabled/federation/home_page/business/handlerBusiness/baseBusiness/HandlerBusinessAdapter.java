@@ -99,7 +99,13 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                     helper.setGone(R.id.send_check_code_tv, false);
                 }
                 EditText editText = helper.getView(R.id.edit_value_et);
-                initEdittextFocuseStatus(editText);
+                if (isDetail||BusinessContract.TABLE_TITLE_ASSIST_TOOL_AMOUNT.equals(textValueEditBean.getKey())) {
+                    editText.setClickable(false);
+                    editText.setFocusable(false);
+                } else {
+                    editText.setClickable(true);
+                    editText.setFocusable(true);
+                }
                 int editType = textValueEditBean.getType();
                 LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) editText.getLayoutParams();
                 if (0 == editType) {
@@ -253,7 +259,15 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
             case MultipleItem.ITEM_BUSINESS_RADIO:
                 BusinessRadioBean radioBean = (BusinessRadioBean) item.getObject();
                 RadioGroup radioGroup = helper.getView(R.id.item_radio_g);
-                initRadioGroupStatus(radioGroup);
+                if (isDetail||BusinessContract.TABLE_TITLE_PROJECT_LEVEL.equals(radioBean.getKey())) {
+                    for (int i = 0; i < radioGroup.getChildCount(); i++) {
+                        radioGroup.getChildAt(i).setEnabled(false);
+                    }
+                } else {
+                    for (int i = 0; i < radioGroup.getChildCount(); i++) {
+                        radioGroup.getChildAt(i).setEnabled(true);
+                    }
+                }
                 radioGroup.setTag(radioBean);
                 RadioButton radioButton0 = helper.getView(R.id.radio_zero_rb);
                 RadioButton radioButton1 = helper.getView(R.id.radio_first_rb);
@@ -305,19 +319,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                     }
                 });
                 int defaultIndex = radioBean.getDefaultSelectedIndex();
-                //                switch (radioBean.getKey()) {
-                //                    case BusinessContract.TABLE_TITLE_FAMILY_EMONIC_STATUS:
-                //                        defaultIndex -= 1;
-                //                        break;
-                //                    case BusinessContract.TABLE_TITLE_PROJECT_LEVEL:
-                //                        defaultIndex -= 1;
-                //                        break;
-                //                    case BusinessContract.TABLE_TITLE_HUKOU:
-                //                        defaultIndex -= 1;
-                //                        break;
-                //                    default:
-                //                        break;
-                //                }
+
                 switch (defaultIndex) {
                     case 0:
                         radioButton0.setChecked(true);
@@ -344,6 +346,10 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                         radioButton3.setChecked(true);
                         break;
                     default:
+                        radioButton0.setChecked(false);
+                        radioButton1.setChecked(false);
+                        radioButton2.setChecked(false);
+                        radioButton3.setChecked(false);
                         break;
                 }
 
@@ -358,6 +364,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                     helper.setText(R.id.form_pic_title_tv, businessPicBean.getPicName());
                 }
                 ImageView picIv = helper.getView(R.id.form_pic_src_iv);
+
                 if (!isDetail) {
                     helper.addOnClickListener(R.id.form_pic_src_iv);
                 }
@@ -586,5 +593,18 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 }
             }
         });
+    }
+
+    /**
+     * 配置view的margin属性
+     */
+    private void setMargin(View view, int left, int top, int right, int bottom) {
+        left = DisplayUtil.dp2px(mContext, left);
+        top = DisplayUtil.dp2px(mContext, top);
+        right = DisplayUtil.dp2px(mContext, right);
+        bottom = DisplayUtil.dp2px(mContext, bottom);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(view.getLayoutParams());
+        layoutParams.setMargins(left, top, right, bottom);
+        view.setLayoutParams(layoutParams);
     }
 }

@@ -536,10 +536,6 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
                             //择业地区
                             formKey = "areaIntention";
                             break;
-                        case BusinessContract.TABLE_TITLE_SALARY:
-                            //月薪要求
-                            formKey = "monthlySalaryIntention";
-                            break;
                         case BusinessContract.TABLE_TITLE_TRAIN_INTENT:
                             //培训意向
                             formKey = "trainingIntention";
@@ -686,9 +682,9 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
                             builder.addFormDataPart("physicalDisability",
                                     String.valueOf(radioBean.getDefaultSelectedIndex()));
                             break;
-                        case BusinessContract.TABLE_TITLE_PROJECT_LEVEL:
-                            builder.addFormDataPart("grand", String.valueOf(radioBean.getDefaultSelectedIndex() + 1));
-                            break;
+//                        case BusinessContract.TABLE_TITLE_PROJECT_LEVEL:
+//                            builder.addFormDataPart("grand", String.valueOf(radioBean.getDefaultSelectedIndex() + 1));
+//                            break;
                         case BusinessContract.TABLE_TITLE_IS_POOR_FAMILY:
                             builder.addFormDataPart("alleviation", String.valueOf(radioBean.getDefaultSelectedIndex()));
                             break;

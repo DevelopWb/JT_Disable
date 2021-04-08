@@ -758,10 +758,6 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             //择业地区
                             formKey = "areaIntention";
                             break;
-                        case BusinessContract.TABLE_TITLE_SALARY:
-                            //月薪要求
-                            formKey = "monthlySalaryIntention";
-                            break;
 
                         case BusinessContract.TABLE_TITLE_REMARK:
                             //备注
@@ -918,10 +914,10 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             builder.addFormDataPart("physicalDisability",
                                     String.valueOf(radioBean.getDefaultSelectedIndex()));
                             break;
-                        case BusinessContract.TABLE_TITLE_PROJECT_LEVEL:
-                            //项目级别
-                            builder.addFormDataPart("grand", String.valueOf(radioBean.getDefaultSelectedIndex() + 1));
-                            break;
+//                        case BusinessContract.TABLE_TITLE_PROJECT_LEVEL:
+//                            //项目级别
+//                            builder.addFormDataPart("grand", String.valueOf(radioBean.getDefaultSelectedIndex() + 1));
+//                            break;
                         case BusinessContract.TABLE_TITLE_IS_POOR_FAMILY:
                             builder.addFormDataPart("alleviation", String.valueOf(radioBean.getDefaultSelectedIndex()));
                             break;
@@ -1043,6 +1039,16 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                         RequestBody.create(MediaType.parse("file"),
                                                 new File(picBean.getPicPath())));
                                 break;
+                            case BusinessContract.TABLE_TITLE_PIC_IDCARD:
+                                if (!StringTools.isStringValueOk(picBean.getPicPath())) {
+                                    ToastUtils.toast(mContext, "请选择身份证照片");
+                                    return null;
+                                }
+                                //身份证照片
+                                builder.addFormDataPart("idPictureFile", "idPictureFile",
+                                        RequestBody.create(MediaType.parse("file"),
+                                                new File(picBean.getPicPath())));
+                                break;
                             case BusinessContract.TABLE_TITLE_DISABLE_PHOTO:
                                 if (!StringTools.isStringValueOk(picBean.getPicPath())) {
                                     ToastUtils.toast(mContext, "请选择残疾证照片");
@@ -1081,6 +1087,16 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                 }
                                 //残疾证照片
                                 builder.addFormDataPart("casePictureFile", "casePictureFile",
+                                        RequestBody.create(MediaType.parse("file"),
+                                                new File(picBean.getPicPath())));
+                                break;
+                            case BusinessContract.TABLE_TITLE_GUARDIAN_HUJI_PIC:
+                                if (!StringTools.isStringValueOk(picBean.getPicPath())) {
+                                    ToastUtils.toast(mContext, "请选择监护人户籍证明照片");
+                                    return null;
+                                }
+                                //监护人户籍证明照片
+                                builder.addFormDataPart("guardianRegisterPictureFile", "guardianRegisterPictureFile",
                                         RequestBody.create(MediaType.parse("file"),
                                                 new File(picBean.getPicPath())));
                                 break;

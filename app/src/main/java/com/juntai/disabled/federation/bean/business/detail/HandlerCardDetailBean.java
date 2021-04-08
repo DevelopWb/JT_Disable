@@ -1,5 +1,7 @@
 package com.juntai.disabled.federation.bean.business.detail;
 
+import android.text.TextUtils;
+
 import com.google.gson.annotations.SerializedName;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 
@@ -106,6 +108,56 @@ public class HandlerCardDetailBean extends BaseResult {
         private String unitWelfareName;
         private String commitment;
         private String applicantSign;
+        /**
+         * 身份证照片文件
+         */
+        private String idPicture;
+
+        /**
+         * 生活照片文件
+         */
+        private String lifePicture;
+
+        /**
+         * 病例材料照片文件
+         */
+        private String casePicture;
+        /**
+         * 监护人户籍证明照片文件
+         */
+        private String guardianRegisterPicture;
+
+        public String getIdPicture() {
+            return TextUtils.isEmpty(idPicture) ? "暂无" : idPicture;
+        }
+
+        public void setIdPicture(String idPicture) {
+            this.idPicture = idPicture == null ? "" : idPicture;
+        }
+
+        public String getLifePicture() {
+            return TextUtils.isEmpty(lifePicture) ? "暂无" : lifePicture;
+        }
+
+        public void setLifePicture(String lifePicture) {
+            this.lifePicture = lifePicture == null ? "" : lifePicture;
+        }
+
+        public String getCasePicture() {
+            return TextUtils.isEmpty(casePicture) ? "暂无" : casePicture;
+        }
+
+        public void setCasePicture(String casePicture) {
+            this.casePicture = casePicture == null ? "" : casePicture;
+        }
+
+        public String getGuardianRegisterPicture() {
+            return TextUtils.isEmpty(guardianRegisterPicture) ? "暂无" : guardianRegisterPicture;
+        }
+
+        public void setGuardianRegisterPicture(String guardianRegisterPicture) {
+            this.guardianRegisterPicture = guardianRegisterPicture == null ? "" : guardianRegisterPicture;
+        }
 
         public int getId() {
             return id;
