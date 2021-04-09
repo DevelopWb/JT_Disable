@@ -57,12 +57,6 @@ public abstract class BaseDisabledCardBusinessActivity extends BaseBusinessActiv
         return mPresenter.getBaseChildAdapterData(null);
     }
 
-    @Override
-    public void onSuccess(String tag, Object o) {
-        BaseResult baseResult = (BaseResult) o;
-        ToastUtils.toast(mContext,baseResult.message);
-        finish();
-    }
 
 
     @Override

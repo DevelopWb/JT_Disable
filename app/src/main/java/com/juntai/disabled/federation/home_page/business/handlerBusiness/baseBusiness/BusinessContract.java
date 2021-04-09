@@ -61,14 +61,12 @@ public interface BusinessContract {
     String TABLE_TITLE_JOB = "职业";//
     String TABLE_TITLE_UNIT_NATURE = "单位性质";//
     String TABLE_TITLE_IS_WEEL_COMPANY = "是否福利企业";//
-    String TABLE_TITLE_DISABLE_PIC = "申请人残疾证照片";//
     String TABLE_TITLE_DISABLE_PIC_FRONT_ALL = "申请人残疾证照片\n正面照";//
     String TABLE_TITLE_DISABLE_PIC_FRONT = "正面照";//
     String TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE = "正面照示例图片";//
     String TABLE_TITLE_DISABLE_PIC_BACK = "反面照";//
     String TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE = "反面照示例图片";//
     String TABLE_TITLE_DISABLED_PIC_IN_HEALTH_POSITION = "孩子在康复机构照片";//
-    String TABLE_TITLE_DISABLE_PHOTO = "残疾证照片";//
     String TABLE_TITLE_DISABLE_PHOTO_ALL = "残疾证照片\n正面照";//
     String TABLE_TITLE_GUARDIAN_ID_PIC = "监护人身份证拍照";//
     String TABLE_TITLE_GUARDIAN_HUJI_PIC = "监护人户籍证明照片";//
@@ -409,6 +407,11 @@ public interface BusinessContract {
          * @param tag
          */
         void getHomCareInfo(int businessId, String tag);
+        /**
+         * @param idNo
+         * @param tag
+         */
+        void getDisabledBaseInfo(String  idNo, String tag);
 
     }
 }

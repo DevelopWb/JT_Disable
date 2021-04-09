@@ -41,7 +41,12 @@ import java.util.List;
  */
 public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseViewHolder> {
     private boolean isDetail = false;//是否是详情模式
+private boolean isWatch = true;//是否监听
+    private BaseBusinessActivity.OnIdCardSearchCallBack onIdCardSearchCallBack;
 
+    public void setOnIdCardSearchCallBack(BaseBusinessActivity.OnIdCardSearchCallBack onIdCardSearchCallBack) {
+        this.onIdCardSearchCallBack = onIdCardSearchCallBack;
+    }
 
     /**
      * Same as QuickAdapter#QuickAdapter(Context,int) but with
@@ -134,7 +139,24 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                     @Override
                     public void afterTextChanged(Editable s) {
                         BusinessTextValueBean editBean = (BusinessTextValueBean) editText.getTag();
-                        editBean.setValue(s.toString().trim());
+                        String str = s.toString().trim();
+                        if (BusinessContract.TABLE_TITLE_IDCARD.equals(editBean.getKey())||BusinessContract.TABLE_TITLE_CHILD_IDCARD.equals(editBean.getKey())) {
+                            if (str.length() == 18) {
+                                //身份证输完18位之后 获取残疾人基础信息
+                                if (isWatch) {
+                                    if (onIdCardSearchCallBack != null) {
+                                        isWatch = false;
+                                        if (!isDetail) {
+                                            onIdCardSearchCallBack.searchDisabledInfoByIdCard(str);
+                                        }
+                                    }
+                                }
+
+                            }else {
+                                isWatch = true;
+                            }
+                        }
+                        editBean.setValue(str);
                     }
                 });
                 editText.setHint(textValueEditBean.getHint());
@@ -358,12 +380,12 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 //示例图格式不需要标注
                 if (BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE.equals(picPath)
                         || BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE.equals(picPath)) {
-                    helper.setGone(R.id.pic_form_notice_tv,false);
-                }else {
-                    helper.setGone(R.id.pic_form_notice_tv,true);
+                    helper.setGone(R.id.pic_form_notice_tv, false);
+                } else {
+                    helper.setGone(R.id.pic_form_notice_tv, true);
                 }
                 //详情时 图片不可点击  示例图不可点击
-                if (!isDetail ) {
+                if (!isDetail) {
                     helper.addOnClickListener(R.id.form_pic_src_iv);
                 }
 
