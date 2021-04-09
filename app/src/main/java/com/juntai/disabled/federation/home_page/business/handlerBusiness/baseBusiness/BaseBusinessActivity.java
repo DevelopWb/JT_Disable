@@ -1048,6 +1048,26 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                         RequestBody.create(MediaType.parse("file"),
                                                 new File(picBean.getPicPath())));
                                 break;
+                            case BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_ALL:
+                                if (!StringTools.isStringValueOk(picBean.getPicPath())) {
+                                    ToastUtils.toast(mContext, "请选择残疾证正面照片");
+                                    return null;
+                                }
+                                //残疾证正面照片
+                                builder.addFormDataPart("pictureFile", "pictureFile",
+                                        RequestBody.create(MediaType.parse("file"),
+                                                new File(picBean.getPicPath())));
+                                break;
+                            case BusinessContract.TABLE_TITLE_DISABLE_PHOTO_ALL:
+                                if (!StringTools.isStringValueOk(picBean.getPicPath())) {
+                                    ToastUtils.toast(mContext, "请选择残疾证正面照片");
+                                    return null;
+                                }
+                                //残疾证正面照片
+                                builder.addFormDataPart("pictureFile", "pictureFile",
+                                        RequestBody.create(MediaType.parse("file"),
+                                                new File(picBean.getPicPath())));
+                                break;
                             case BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK:
                                 if (!StringTools.isStringValueOk(picBean.getPicPath())) {
                                     ToastUtils.toast(mContext, "请选择残疾证反面照片");

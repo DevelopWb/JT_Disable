@@ -1,5 +1,7 @@
 package com.juntai.disabled.federation.bean.business.detail;
 
+import android.text.TextUtils;
+
 import com.juntai.disabled.basecomponent.base.BaseResult;
 
 /**
@@ -64,6 +66,7 @@ public class BusinessChildDetailBean extends BaseResult {
         private String casePicture;
         private String lifePicture;
         private String applicantSign;
+        private String disabilityCertificateBackPicture;
 
         public int getId() {
             return id;
@@ -74,83 +77,92 @@ public class BusinessChildDetailBean extends BaseResult {
         }
 
         public String getPhoto() {
-            return photo;
+            return TextUtils.isEmpty(photo) ? "暂无" : photo;
         }
 
         public void setPhoto(String photo) {
-            this.photo = photo;
+            this.photo = photo == null ? "" : photo;
         }
 
         public String getName() {
-            return name;
+            return TextUtils.isEmpty(name) ? "暂无" : name;
         }
 
         public void setName(String name) {
-            this.name = name;
+            this.name = name == null ? "" : name;
         }
 
         public String getIdNumber() {
-            return idNumber;
+            return TextUtils.isEmpty(idNumber) ? "暂无" : idNumber;
         }
 
         public void setIdNumber(String idNumber) {
-            this.idNumber = idNumber;
+            this.idNumber = idNumber == null ? "" : idNumber;
         }
 
         public String getDisabilityCertificate() {
-            return disabilityCertificate;
+            return TextUtils.isEmpty(disabilityCertificate) ? "暂无" : disabilityCertificate;
         }
 
         public void setDisabilityCertificate(String disabilityCertificate) {
-            this.disabilityCertificate = disabilityCertificate;
+            this.disabilityCertificate = disabilityCertificate == null ? "" : disabilityCertificate;
         }
 
         public String getAddress() {
-            return address;
+            return TextUtils.isEmpty(address) ? "暂无" : address;
         }
 
         public void setAddress(String address) {
-            this.address = address;
+            this.address = address == null ? "" : address;
         }
 
         public String getTelephone() {
-            return telephone;
+            return TextUtils.isEmpty(telephone) ? "暂无" : telephone;
         }
 
         public void setTelephone(String telephone) {
-            this.telephone = telephone;
+            this.telephone = telephone == null ? "" : telephone;
         }
 
         public String getDisabilityCertificatePicture() {
-            return disabilityCertificatePicture;
+            return TextUtils.isEmpty(disabilityCertificatePicture) ? "暂无" : disabilityCertificatePicture;
         }
 
         public void setDisabilityCertificatePicture(String disabilityCertificatePicture) {
-            this.disabilityCertificatePicture = disabilityCertificatePicture;
+            this.disabilityCertificatePicture = disabilityCertificatePicture == null ? "" :
+                    disabilityCertificatePicture;
         }
 
         public String getCasePicture() {
-            return casePicture;
+            return TextUtils.isEmpty(casePicture) ? "暂无" : casePicture;
         }
 
         public void setCasePicture(String casePicture) {
-            this.casePicture = casePicture;
+            this.casePicture = casePicture == null ? "" : casePicture;
         }
 
         public String getLifePicture() {
-            return lifePicture;
+            return TextUtils.isEmpty(lifePicture) ? "暂无" : lifePicture;
         }
 
         public void setLifePicture(String lifePicture) {
-            this.lifePicture = lifePicture;
+            this.lifePicture = lifePicture == null ? "" : lifePicture;
         }
 
         public String getApplicantSign() {
-            return applicantSign;
+            return TextUtils.isEmpty(applicantSign) ? "暂无" : applicantSign;
         }
 
         public void setApplicantSign(String applicantSign) {
-            this.applicantSign = applicantSign;
+            this.applicantSign = applicantSign == null ? "" : applicantSign;
+        }
+
+        public String getDisabilityCertificateBackPicture() {
+            return TextUtils.isEmpty(disabilityCertificateBackPicture) ? "暂无" : disabilityCertificateBackPicture;
+        }
+
+        public void setDisabilityCertificateBackPicture(String disabilityCertificateBackPicture) {
+            this.disabilityCertificateBackPicture = disabilityCertificateBackPicture == null ? "" : disabilityCertificateBackPicture;
         }
     }
 }

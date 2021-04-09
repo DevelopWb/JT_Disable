@@ -1,5 +1,7 @@
 package com.juntai.disabled.federation.bean.business.detail;
 
+import android.text.TextUtils;
+
 import com.juntai.disabled.basecomponent.base.BaseResult;
 
 /**
@@ -100,6 +102,16 @@ public class HomeCareDetailBean extends BaseResult {
         private String address;
         private int familyEconomy;
         private String familyEconomyName;
+        private String idNumber;
+        private String disabilityCertificateBackPicture;
+
+        public String getDisabilityCertificateBackPicture() {
+            return TextUtils.isEmpty(disabilityCertificateBackPicture) ? "暂无" : disabilityCertificateBackPicture;
+        }
+
+        public void setDisabilityCertificateBackPicture(String disabilityCertificateBackPicture) {
+            this.disabilityCertificateBackPicture = disabilityCertificateBackPicture == null ? "" : disabilityCertificateBackPicture;
+        }
 
         public int getId() {
             return id;
@@ -110,11 +122,11 @@ public class HomeCareDetailBean extends BaseResult {
         }
 
         public String getName() {
-            return name;
+            return TextUtils.isEmpty(name) ? "暂无" : name;
         }
 
         public void setName(String name) {
-            this.name = name;
+            this.name = name == null ? "" : name;
         }
 
         public int getSex() {
@@ -126,11 +138,11 @@ public class HomeCareDetailBean extends BaseResult {
         }
 
         public String getSexName() {
-            return sexName;
+            return TextUtils.isEmpty(sexName) ? "暂无" : sexName;
         }
 
         public void setSexName(String sexName) {
-            this.sexName = sexName;
+            this.sexName = sexName == null ? "" : sexName;
         }
 
         public int getAge() {
@@ -150,11 +162,11 @@ public class HomeCareDetailBean extends BaseResult {
         }
 
         public String getEducationName() {
-            return educationName;
+            return TextUtils.isEmpty(educationName) ? "暂无" : educationName;
         }
 
         public void setEducationName(String educationName) {
-            this.educationName = educationName;
+            this.educationName = educationName == null ? "" : educationName;
         }
 
         public int getCategory() {
@@ -166,11 +178,11 @@ public class HomeCareDetailBean extends BaseResult {
         }
 
         public String getCategoryName() {
-            return categoryName;
+            return TextUtils.isEmpty(categoryName) ? "暂无" : categoryName;
         }
 
         public void setCategoryName(String categoryName) {
-            this.categoryName = categoryName;
+            this.categoryName = categoryName == null ? "" : categoryName;
         }
 
         public int getLevel() {
@@ -182,63 +194,64 @@ public class HomeCareDetailBean extends BaseResult {
         }
 
         public String getLevelName() {
-            return levelName;
+            return TextUtils.isEmpty(levelName) ? "暂无" : levelName;
         }
 
         public void setLevelName(String levelName) {
-            this.levelName = levelName;
+            this.levelName = levelName == null ? "" : levelName;
         }
 
         public String getResidentialAddress() {
-            return residentialAddress;
+            return TextUtils.isEmpty(residentialAddress) ? "暂无" : residentialAddress;
         }
 
         public void setResidentialAddress(String residentialAddress) {
-            this.residentialAddress = residentialAddress;
+            this.residentialAddress = residentialAddress == null ? "" : residentialAddress;
         }
 
         public String getDisabilityCertificate() {
-            return disabilityCertificate;
+            return TextUtils.isEmpty(disabilityCertificate) ? "暂无" : disabilityCertificate;
         }
 
         public void setDisabilityCertificate(String disabilityCertificate) {
-            this.disabilityCertificate = disabilityCertificate;
+            this.disabilityCertificate = disabilityCertificate == null ? "" : disabilityCertificate;
         }
 
         public String getDisabilityCertificatePicture() {
-            return disabilityCertificatePicture;
+            return TextUtils.isEmpty(disabilityCertificatePicture) ? "暂无" : disabilityCertificatePicture;
         }
 
         public void setDisabilityCertificatePicture(String disabilityCertificatePicture) {
-            this.disabilityCertificatePicture = disabilityCertificatePicture;
+            this.disabilityCertificatePicture = disabilityCertificatePicture == null ? "" :
+                    disabilityCertificatePicture;
         }
 
         public String getGuardianIdPicture() {
-            return guardianIdPicture;
+            return TextUtils.isEmpty(guardianIdPicture) ? "暂无" : guardianIdPicture;
         }
 
         public void setGuardianIdPicture(String guardianIdPicture) {
-            this.guardianIdPicture = guardianIdPicture;
+            this.guardianIdPicture = guardianIdPicture == null ? "" : guardianIdPicture;
         }
 
         public String getHouseholdRegisterPicture() {
-            return householdRegisterPicture;
+            return TextUtils.isEmpty(householdRegisterPicture) ? "暂无" : householdRegisterPicture;
         }
 
         public void setHouseholdRegisterPicture(String householdRegisterPicture) {
-            this.householdRegisterPicture = householdRegisterPicture;
+            this.householdRegisterPicture = householdRegisterPicture == null ? "" : householdRegisterPicture;
         }
 
         public String getLifePicture() {
-            return lifePicture;
+            return TextUtils.isEmpty(lifePicture) ? "暂无" : lifePicture;
         }
 
         public void setLifePicture(String lifePicture) {
-            this.lifePicture = lifePicture;
+            this.lifePicture = lifePicture == null ? "" : lifePicture;
         }
 
         public String getHousePicture() {
-            return housePicture == null ? "" : housePicture;
+            return TextUtils.isEmpty(housePicture) ? "暂无" : housePicture;
         }
 
         public void setHousePicture(String housePicture) {
@@ -246,19 +259,19 @@ public class HomeCareDetailBean extends BaseResult {
         }
 
         public String getApplicantSign() {
-            return applicantSign;
+            return TextUtils.isEmpty(applicantSign) ? "暂无" : applicantSign;
         }
 
         public void setApplicantSign(String applicantSign) {
-            this.applicantSign = applicantSign;
+            this.applicantSign = applicantSign == null ? "" : applicantSign;
         }
 
         public String getGuardianName() {
-            return guardianName;
+            return TextUtils.isEmpty(guardianName) ? "暂无" : guardianName;
         }
 
         public void setGuardianName(String guardianName) {
-            this.guardianName = guardianName;
+            this.guardianName = guardianName == null ? "" : guardianName;
         }
 
         public int getGuardianSex() {
@@ -270,11 +283,11 @@ public class HomeCareDetailBean extends BaseResult {
         }
 
         public String getGuardianSexName() {
-            return guardianSexName;
+            return TextUtils.isEmpty(guardianSexName) ? "暂无" : guardianSexName;
         }
 
         public void setGuardianSexName(String guardianSexName) {
-            this.guardianSexName = guardianSexName;
+            this.guardianSexName = guardianSexName == null ? "" : guardianSexName;
         }
 
         public int getGuardianAge() {
@@ -286,35 +299,35 @@ public class HomeCareDetailBean extends BaseResult {
         }
 
         public String getProfession() {
-            return profession;
+            return TextUtils.isEmpty(profession) ? "暂无" : profession;
         }
 
         public void setProfession(String profession) {
-            this.profession = profession;
+            this.profession = profession == null ? "" : profession;
         }
 
         public String getRelationship() {
-            return relationship;
+            return TextUtils.isEmpty(relationship) ? "暂无" : relationship;
         }
 
         public void setRelationship(String relationship) {
-            this.relationship = relationship;
+            this.relationship = relationship == null ? "" : relationship;
         }
 
         public String getTelephone() {
-            return telephone;
+            return TextUtils.isEmpty(telephone) ? "暂无" : telephone;
         }
 
         public void setTelephone(String telephone) {
-            this.telephone = telephone;
+            this.telephone = telephone == null ? "" : telephone;
         }
 
         public String getAddress() {
-            return address;
+            return TextUtils.isEmpty(address) ? "暂无" : address;
         }
 
         public void setAddress(String address) {
-            this.address = address;
+            this.address = address == null ? "" : address;
         }
 
         public int getFamilyEconomy() {
@@ -326,11 +339,19 @@ public class HomeCareDetailBean extends BaseResult {
         }
 
         public String getFamilyEconomyName() {
-            return familyEconomyName;
+            return TextUtils.isEmpty(familyEconomyName) ? "暂无" : familyEconomyName;
         }
 
         public void setFamilyEconomyName(String familyEconomyName) {
-            this.familyEconomyName = familyEconomyName;
+            this.familyEconomyName = familyEconomyName == null ? "" : familyEconomyName;
+        }
+
+        public String getIdNumber() {
+            return TextUtils.isEmpty(idNumber) ? "暂无" : idNumber;
+        }
+
+        public void setIdNumber(String idNumber) {
+            this.idNumber = idNumber == null ? "" : idNumber;
         }
     }
 }
