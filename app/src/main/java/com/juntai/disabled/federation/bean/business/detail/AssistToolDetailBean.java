@@ -1,5 +1,7 @@
 package com.juntai.disabled.federation.bean.business.detail;
 
+import android.text.TextUtils;
+
 import com.juntai.disabled.basecomponent.base.BaseResult;
 
 /**
@@ -74,34 +76,19 @@ public class AssistToolDetailBean extends BaseResult {
         private String deliveryWay;
         private String deliveryWayName;
         private String disabilityCertificatePicture;
-
-        public String getDeliveryWay() {
-            return deliveryWay == null ? "" : deliveryWay;
-        }
-
-        public void setDeliveryWay(String deliveryWay) {
-            this.deliveryWay = deliveryWay == null ? "" : deliveryWay;
-        }
-
-        public String getDeliveryWayName() {
-            return deliveryWayName == null ? "" : deliveryWayName;
-        }
-
-        public void setDeliveryWayName(String deliveryWayName) {
-            this.deliveryWayName = deliveryWayName == null ? "" : deliveryWayName;
-        }
-
+        private String disabilityCertificateBackPicture;
         /**
          * 生活照片
          */
         private String lifePicture;
+        private String idNumber;
 
-        public String getLifePicture() {
-            return lifePicture == null ? "" : lifePicture;
+        public String getIdNumber() {
+            return TextUtils.isEmpty(idNumber) ? "暂无" : idNumber;
         }
 
-        public void setLifePicture(String lifePicture) {
-            this.lifePicture = lifePicture == null ? "" : lifePicture;
+        public void setIdNumber(String idNumber) {
+            this.idNumber = idNumber == null ? "" : idNumber;
         }
 
         public int getId() {
@@ -113,11 +100,11 @@ public class AssistToolDetailBean extends BaseResult {
         }
 
         public String getName() {
-            return name;
+            return TextUtils.isEmpty(name) ? "暂无" : name;
         }
 
         public void setName(String name) {
-            this.name = name;
+            this.name = name == null ? "" : name;
         }
 
         public int getSex() {
@@ -129,27 +116,27 @@ public class AssistToolDetailBean extends BaseResult {
         }
 
         public String getSexName() {
-            return sexName;
+            return TextUtils.isEmpty(sexName) ? "暂无" : sexName;
         }
 
         public void setSexName(String sexName) {
-            this.sexName = sexName;
+            this.sexName = sexName == null ? "" : sexName;
         }
 
         public String getBirth() {
-            return birth;
+            return TextUtils.isEmpty(birth) ? "暂无" : birth;
         }
 
         public void setBirth(String birth) {
-            this.birth = birth;
+            this.birth = birth == null ? "" : birth;
         }
 
         public String getTelephone() {
-            return telephone;
+            return TextUtils.isEmpty(telephone) ? "暂无" : telephone;
         }
 
         public void setTelephone(String telephone) {
-            this.telephone = telephone;
+            this.telephone = telephone == null ? "" : telephone;
         }
 
         public int getCategory() {
@@ -161,11 +148,11 @@ public class AssistToolDetailBean extends BaseResult {
         }
 
         public String getCategoryName() {
-            return categoryName;
+            return TextUtils.isEmpty(categoryName) ? "暂无" : categoryName;
         }
 
         public void setCategoryName(String categoryName) {
-            this.categoryName = categoryName;
+            this.categoryName = categoryName == null ? "" : categoryName;
         }
 
         public int getLevel() {
@@ -177,11 +164,11 @@ public class AssistToolDetailBean extends BaseResult {
         }
 
         public String getLevelName() {
-            return levelName;
+            return TextUtils.isEmpty(levelName) ? "暂无" : levelName;
         }
 
         public void setLevelName(String levelName) {
-            this.levelName = levelName;
+            this.levelName = levelName == null ? "" : levelName;
         }
 
         public int getAidsId() {
@@ -193,27 +180,27 @@ public class AssistToolDetailBean extends BaseResult {
         }
 
         public String getAidsName() {
-            return aidsName;
+            return TextUtils.isEmpty(aidsName) ? "暂无" : aidsName;
         }
 
         public void setAidsName(String aidsName) {
-            this.aidsName = aidsName;
+            this.aidsName = aidsName == null ? "" : aidsName;
         }
 
         public String getDisabilityCertificate() {
-            return disabilityCertificate;
+            return TextUtils.isEmpty(disabilityCertificate) ? "暂无" : disabilityCertificate;
         }
 
         public void setDisabilityCertificate(String disabilityCertificate) {
-            this.disabilityCertificate = disabilityCertificate;
+            this.disabilityCertificate = disabilityCertificate == null ? "" : disabilityCertificate;
         }
 
         public String getAddress() {
-            return address;
+            return TextUtils.isEmpty(address) ? "暂无" : address;
         }
 
         public void setAddress(String address) {
-            this.address = address;
+            this.address = address == null ? "" : address;
         }
 
         public int getQuantity() {
@@ -225,27 +212,59 @@ public class AssistToolDetailBean extends BaseResult {
         }
 
         public String getApplicantSign() {
-            return applicantSign;
+            return TextUtils.isEmpty(applicantSign) ? "暂无" : applicantSign;
         }
 
         public void setApplicantSign(String applicantSign) {
-            this.applicantSign = applicantSign;
+            this.applicantSign = applicantSign == null ? "" : applicantSign;
         }
 
         public String getPhoto() {
-            return photo == null ? "" : photo;
+            return TextUtils.isEmpty(photo) ? "暂无" : photo;
         }
 
         public void setPhoto(String photo) {
             this.photo = photo == null ? "" : photo;
         }
 
+        public String getDeliveryWay() {
+            return TextUtils.isEmpty(deliveryWay) ? "暂无" : deliveryWay;
+        }
+
+        public void setDeliveryWay(String deliveryWay) {
+            this.deliveryWay = deliveryWay == null ? "" : deliveryWay;
+        }
+
+        public String getDeliveryWayName() {
+            return TextUtils.isEmpty(deliveryWayName) ? "暂无" : deliveryWayName;
+        }
+
+        public void setDeliveryWayName(String deliveryWayName) {
+            this.deliveryWayName = deliveryWayName == null ? "" : deliveryWayName;
+        }
+
         public String getDisabilityCertificatePicture() {
-            return disabilityCertificatePicture;
+            return TextUtils.isEmpty(disabilityCertificatePicture) ? "暂无" : disabilityCertificatePicture;
         }
 
         public void setDisabilityCertificatePicture(String disabilityCertificatePicture) {
-            this.disabilityCertificatePicture = disabilityCertificatePicture;
+            this.disabilityCertificatePicture = disabilityCertificatePicture == null ? "" : disabilityCertificatePicture;
+        }
+
+        public String getDisabilityCertificateBackPicture() {
+            return TextUtils.isEmpty(disabilityCertificateBackPicture) ? "暂无" : disabilityCertificateBackPicture;
+        }
+
+        public void setDisabilityCertificateBackPicture(String disabilityCertificateBackPicture) {
+            this.disabilityCertificateBackPicture = disabilityCertificateBackPicture == null ? "" : disabilityCertificateBackPicture;
+        }
+
+        public String getLifePicture() {
+            return TextUtils.isEmpty(lifePicture) ? "暂无" : lifePicture;
+        }
+
+        public void setLifePicture(String lifePicture) {
+            this.lifePicture = lifePicture == null ? "" : lifePicture;
         }
     }
 }

@@ -26,6 +26,7 @@ import com.juntai.disabled.federation.bean.business.BusinessRadioBean;
 import com.juntai.disabled.federation.bean.business.BusinessTextValueBean;
 import com.juntai.disabled.federation.bean.business.ChildBusinessesBean;
 import com.juntai.disabled.federation.bean.business.DeafBean;
+import com.juntai.disabled.federation.bean.business.DisabledBaseInfoBean;
 import com.juntai.disabled.federation.bean.business.ImportantTagBean;
 import com.juntai.disabled.federation.bean.business.ToolInfoBean;
 import com.juntai.disabled.federation.bean.business.detail.AssistToolDetailBean;
@@ -759,10 +760,11 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                     }
                 });
     }
+
     @Override
-    public void getDisabledAIDSInfo(int  aidsId , String tag) {
+    public void getDisabledAIDSInfo(int aidsId, String tag) {
         AppNetModule.createrRetrofit()
-                .getDisabledAIDSInfo(aidsId )
+                .getDisabledAIDSInfo(aidsId)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<ToolInfoBean>(getView()) {
                     @Override
@@ -1253,6 +1255,29 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                 });
     }
 
+    @Override
+    public void getDisabledBaseInfo(String idNo, String tag) {
+        AppNetModule.createrRetrofit()
+                .getDisabledBaseInfo(idNo)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<DisabledBaseInfoBean>(getView()) {
+                    @Override
+                    public void onSuccess(DisabledBaseInfoBean o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
 
     /**
      * 获取builder
@@ -1283,6 +1308,9 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                         dataBean == null ? "" : dataBean.getPhoto())));
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME, dataBean == null ?
                 "" : dataBean.getName(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_IDCARD, dataBean == null ?
+                "" :
+                dataBean.getIdNumber(), true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, dataBean == null ? 0 : dataBean.getSex(),
                 new String[]{"男", "女"}, false);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_NATION,
@@ -1296,9 +1324,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOMETOWN,
                 dataBean == null ? ""
                         : dataBean.getNativePlace(), true);
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_IDCARD, dataBean == null ?
-                "" :
-                dataBean.getIdNumber(), true);
+
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ADDR, dataBean == null ? "" :
                 dataBean.getAddress(), true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_HUKOU, dataBean == null ? 0 : dataBean.getAccountType() - 1,
@@ -1321,6 +1347,19 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                 ? "" : dataBean.getUnitNature(), false);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_IS_WEEL_COMPANY, dataBean == null ? 1 :
                 dataBean.getUnitWelfare(), null, false);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_PIC_IDCARD, 1, dataBean == null
+                        ? "" : dataBean.getIdPicture())));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_LIFE_PIC, 2, dataBean == null ? "" :
+                        dataBean.getLifePicture())));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_MATERIAL_PIC, 3, dataBean == null ? "" :
+                        dataBean.getCasePicture())));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_GUARDIAN_HUJI_PIC, 4, dataBean == null ? "" :
+                        dataBean.getGuardianRegisterPicture())));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "申办残疾人证承诺书"));
         return arrays;
     }
@@ -1351,8 +1390,21 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                 dataBean == null ? "" : dataBean.getTelephone(), true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
-                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC, 1, dataBean == null ? "" :
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_ALL, 1, dataBean == null ? "" :
                         dataBean.getDisabilityCertificatePicture())));
+        if (dataBean == null) {
+            arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                    new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE, -1,
+                            BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE)));
+        }
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK, -1, dataBean == null ? "" :
+                        dataBean.getDisabilityCertificateBackPicture())));
+        if (dataBean == null) {
+            arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                    new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE, -1,
+                            BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE)));
+        }
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_MATERIAL_PIC, 2, dataBean == null ? "" :
                         dataBean.getCasePicture())));
@@ -1382,14 +1434,16 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                         dataBean == null ? "" : dataBean.getPhoto())));
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME, dataBean == null ? "" :
                 dataBean.getName(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_IDCARD, dataBean == null ?
+                "" : dataBean.getIdNumber(), true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, dataBean == null ? 0 : dataBean.getSex(), new String[]{
-                "男", "女"}, true);
+                "男", "女"}, false);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_NATION,
                 dataBean == null ? ""
-                        : dataBean.getNationName(), true);
+                        : dataBean.getNationName(), false);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL,
                 new ImportantTagBean(BusinessContract.TABLE_TITLE_HUKOU_ADDR,
-                        true)));
+                        false)));
         if (dataBean != null) {
             String hukouAddr = dataBean.getResidenceAddress();
             if (StringTools.isStringValueOk(hukouAddr)) {
@@ -1401,33 +1455,34 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
             }
         }
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
-                new BusinessTextValueBean(BusinessContract.TABLE_TITLE_STREET, dataBean == null ? "" : street,
-                        String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_STREET), 0, true)));
+                new BusinessTextValueBean(BusinessContract.TABLE_TITLE_STREET, dataBean == null ? "" : street==null?
+                        "暂无":street,
+                        String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_STREET), 0, false)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_EDIT,
-                new BusinessTextValueBean(BusinessContract.TABLE_TITLE_VILLAGE, dataBean == null ? "" : village,
-                        String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_VILLAGE), 0, true)));
+                new BusinessTextValueBean(BusinessContract.TABLE_TITLE_VILLAGE, dataBean == null ? "" : village==null
+                        ?"暂无":village,
+                        String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_VILLAGE), 0, false)));
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_EDUCATION_LEVEL,
-                dataBean == null ? "" : dataBean.getLevelName(), true);
+                dataBean == null ? "" : dataBean.getEducationName(), false);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_MARRIAGE,
                 dataBean == null ?
-                        "" : dataBean.getMarriageName(), true);
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_IDCARD, dataBean == null ?
-                "" : dataBean.getIdNumber(), true);
+                        "" : dataBean.getMarriageName(), false);
+
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_PHONE, dataBean == null ?
                 "" : dataBean.getTelephone(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CONTACTER, dataBean == null ?
-                "" : dataBean.getContacts(), true);
+                "" : dataBean.getContacts(), false);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CURRENT_LIVE_ADDR,
                 dataBean == null ?
-                        "" : dataBean.getResidentialAddress(), true);
+                        "" : dataBean.getResidentialAddress(), false);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_KINDS,
                 dataBean == null ?
-                        "" : dataBean.getCategoryName(), true);
+                        "" : dataBean.getCategoryName(), false);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_LEVEL,
                 dataBean == null ?
-                        "" : dataBean.getLevelName(), true);
+                        "" : dataBean.getLevelName(), false);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_SPECIALTY, dataBean == null ?
-                "" : dataBean.getSpecialty(), true);
+                "" : dataBean.getSpecialty(), false);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_JOB_STATUS,
                 dataBean == null ?
                         "" : dataBean.getJobSituationName(), true);
@@ -1436,15 +1491,27 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                         "" : dataBean.getTrainsName(), true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, BusinessContract.TABLE_TITLE_RESUME_WORK));
         initEditHighType(arrays, BusinessContract.TABLE_TITLE_RESUME_WORK, dataBean == null ?
-                "" : dataBean.getWorkingResume(), true);
+                "" : dataBean.getWorkingResume(), false);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, BusinessContract.TABLE_TITLE_RESUME_TRAIN));
         initEditHighType(arrays, BusinessContract.TABLE_TITLE_RESUME_TRAIN, dataBean == null ?
-                "" : dataBean.getTrainingResume(), true);
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
+                "" : dataBean.getTrainingResume(), false);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料（申请人残疾证照片）"));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
-                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC, 1, dataBean == null ?
-                        "" : dataBean.getDisabilityCertificatePicture())));
-
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT, -1, dataBean == null ? "" :
+                        dataBean.getDisabilityCertificatePicture())));
+        if (dataBean == null) {
+            arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                    new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE, -1,
+                            BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE)));
+        }
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK, -1, dataBean == null ? "" :
+                        dataBean.getDisabilityCertificateBackPicture())));
+        if (dataBean == null) {
+            arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                    new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE, -1,
+                            BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE)));
+        }
 
         return arrays;
     }
@@ -1501,6 +1568,9 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME_PERSIONAL,
                 dataBean == null
                         ? "" : dataBean.getName(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_IDCARD, dataBean == null ?
+                "" :
+                dataBean.getIdNumber(), true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX_PERSIONAL, dataBean == null
                 ? 0 : dataBean.getSex(), new String[]{"男", "女"}, true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_AGE_PERSIONAL,
@@ -1537,8 +1607,21 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                         String.format("%s%s", "请输入", BusinessContract.TABLE_TITLE_VILLAGE), 0, true)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
-                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PHOTO, 1, dataBean == null
-                        ? "" : dataBean.getDisabilityCertificatePicture())));
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PHOTO_ALL, 1, dataBean == null ? "" :
+                        dataBean.getDisabilityCertificatePicture())));
+        if (dataBean == null) {
+            arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                    new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE, -1,
+                            BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE)));
+        }
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK, -1, dataBean == null ? "" :
+                        dataBean.getDisabilityCertificateBackPicture())));
+        if (dataBean == null) {
+            arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                    new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE, -1,
+                            BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE)));
+        }
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_GUARDIAN_ID_PIC, 2, dataBean == null
                         ? "" : dataBean.getGuardianIdPicture())));
@@ -1567,11 +1650,14 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "申请人基本信息"));
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME, dataBean == null ? "" :
                 dataBean.getName(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_IDCARD, dataBean == null ?
+                "" :
+                dataBean.getIdNumber(), true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, dataBean == null ? 0 :
                 dataBean.getSex(), new String[]{"男", "女"}, true);
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_BIRTH, dataBean == null ?
-                "" :
-                dataBean.getBirth(), true);
+//        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_BIRTH, dataBean == null ?
+//                "" :
+//                dataBean.getBirth(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_PHONE, dataBean == null ?
                 "" :
                 dataBean.getTelephone(), true);
@@ -1589,8 +1675,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                 dataBean == null ? "" :
                         dataBean.getDisabilityCertificate(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ASSIST_TOOL_AMOUNT,
-                dataBean == null ? "" :
-                        String.valueOf(dataBean.getQuantity()), true);
+                "1", true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DELIVERY_METHOD,
                 dataBean == null ? "" :
                         dataBean.getDeliveryWayName(), true);
@@ -1602,8 +1687,21 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                 dataBean.getApplicantSign(), 0)));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
-                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC, 1, dataBean == null ? "" :
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_ALL, 1, dataBean == null ? "" :
                         dataBean.getDisabilityCertificatePicture())));
+        if (dataBean == null) {
+            arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                    new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE, -1,
+                            BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE)));
+        }
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK, -1, dataBean == null ? "" :
+                        dataBean.getDisabilityCertificateBackPicture())));
+        if (dataBean == null) {
+            arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                    new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE, -1,
+                            BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE)));
+        }
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_LIFE_PIC, 2, dataBean == null ? "" :
                         dataBean.getLifePicture())));
@@ -1628,61 +1726,73 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                         dataBean == null ? "" : dataBean.getPhoto())));
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME, dataBean == null ? "" :
                 dataBean.getName(), true);
-        initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, dataBean == null ? 0 : dataBean.getSex(), new String[]{
-                "男", "女"}, true);
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_BIRTH, dataBean == null ?
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_IDCARD, dataBean == null ?
                 "" :
-                dataBean.getBirth(), true);
+                dataBean.getIdNumber(), true);
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, dataBean == null ? 0 : dataBean.getSex(), new String[]{
+                "男", "女"}, false);
+//        initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_BIRTH, dataBean == null ?
+//                "" :
+//                dataBean.getBirth(), false);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_NATION, dataBean == null ?
-                "" : dataBean.getNationName(), true);
+                "" : dataBean.getNationName(), false);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_EDUCATION_LEVEL,
-                dataBean == null ? "" : dataBean.getEducationName(), true);
+                dataBean == null ? "" : dataBean.getEducationName(), false);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_SPECIAL, dataBean == null
                 ? ""
-                : dataBean.getSpecialty(), true);
+                : dataBean.getSpecialty(), false);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_MARRIAGE, dataBean == null
-                ? "" : dataBean.getMarriageName(), true);
+                ? "" : dataBean.getMarriageName(), false);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_HOME_ADDR, dataBean == null ?
-                "" : dataBean.getResidenceAddress(), true);
+                "" : dataBean.getResidenceAddress(), false);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_ADDR_LIVE_NOW,
-                dataBean == null ? "" : dataBean.getResidentialAddress(), true);
+                dataBean == null ? "" : dataBean.getResidentialAddress(), false);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_KINDS,
-                dataBean == null ? "" : dataBean.getCategoryName(), true);
+                dataBean == null ? "" : dataBean.getCategoryName(), false);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_LEVEL,
-                dataBean == null ? "" : dataBean.getLevelName(), true);
+                dataBean == null ? "" : dataBean.getLevelName(), false);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_PHONE, dataBean == null ?
                 "" :
                 dataBean.getTelephone(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_DISABLE_CARD_ID,
-                dataBean == null ? "" : dataBean.getDisabilityCertificate(), true);
+                dataBean == null ? "" : dataBean.getDisabilityCertificate(), false);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_DISABILITY_HEAR, dataBean == null ? 1 :
                         dataBean.getHearingDisability(),
-                null, true);
+                null, false);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_DISABILITY_LIMB, dataBean == null ? 2 :
                         dataBean.getPhysicalDisability(),
-                new String[]{"上肢残疾", "下肢残疾"}, true);
+                new String[]{"上肢残疾", "下肢残疾"}, false);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, BusinessContract.TABLE_TITLE_RESUME));
         initEditHighType(arrays, BusinessContract.TABLE_TITLE_RESUME, dataBean == null ? "" :
-                dataBean.getMineResume(), true);
+                dataBean.getMineResume(), false);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "求职意向"));
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_WANTED_POST,
                 dataBean == null ? "" : dataBean.getPostIntention(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_WORK_AREA, dataBean == null ?
                 "" : dataBean.getAreaIntention(), true);
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_SALARY, dataBean == null ?
-                "" :
-                dataBean.getMonthlySalaryIntention(), true);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, BusinessContract.TABLE_TITLE_TRAIN_INTENT));
         initEditHighType(arrays, BusinessContract.TABLE_TITLE_TRAIN_INTENT, dataBean == null ? "" :
-                dataBean.getTrainingIntention(), true);
+                dataBean.getTrainingIntention(), false);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, BusinessContract.TABLE_TITLE_REMARK));
         initEditHighType(arrays, BusinessContract.TABLE_TITLE_REMARK, dataBean == null ? "" : dataBean.getRemark(),
-                true);
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
+                false);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料（申请人残疾证照片）"));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
-                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC, -1, dataBean == null ? "" :
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT, -1, dataBean == null ? "" :
                         dataBean.getDisabilityCertificatePicture())));
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_NOTICE, "说明：求职登记需携带身份证、残疾人证原件及复印件一份"));
+        if (dataBean == null) {
+            arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                    new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE, -1,
+                            BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE)));
+        }
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK, -1, dataBean == null ? "" :
+                        dataBean.getDisabilityCertificateBackPicture())));
+        if (dataBean == null) {
+            arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                    new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE, -1,
+                            BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE)));
+        }
         return arrays;
     }
 
@@ -1696,8 +1806,21 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         List<MultipleItem> arrays = new ArrayList<>();
         getBaseDisabilityStudentBursaryAdapterData(dataBean, arrays);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
-                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PHOTO, 1, dataBean == null
-                        ? "" : dataBean.getDisabilityCertificatePicture())));
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PHOTO_ALL, 1, dataBean == null ? "" :
+                        dataBean.getDisabilityCertificatePicture())));
+        if (dataBean == null) {
+            arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                    new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE, -1,
+                            BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE)));
+        }
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK, -1, dataBean == null ? "" :
+                        dataBean.getDisabilityCertificateBackPicture())));
+        if (dataBean == null) {
+            arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                    new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE, -1,
+                            BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE)));
+        }
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_PIC_IDCARD, 2, dataBean == null
                         ? "" : dataBean.getIdPicture())));
@@ -1727,6 +1850,19 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_PRESENT_DISBILITY_IDCARD, 2, dataBean == null ? "" :
                         dataBean.getDisabilityCertificatePicture())));
+        if (dataBean == null) {
+            arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                    new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE, -1,
+                            BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE)));
+        }
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK, -1, dataBean == null ? "" :
+                        dataBean.getDisabilityCertificateBackPicture())));
+        if (dataBean == null) {
+            arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                    new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE, -1,
+                            BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE)));
+        }
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_GROUP_PHOTO, 3, dataBean == null ? "" :
                         dataBean.getLifePicture())));
@@ -1777,15 +1913,16 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                         dataBean == null ? "" : dataBean.getPhoto())));
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_NAME, dataBean == null ? "" :
                 dataBean.getName(), true);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_IDCARD, dataBean == null ?
+                "" :
+                dataBean.getIdNumber(), true);
         initRadioType(arrays, BusinessContract.TABLE_TITLE_SEX, dataBean == null ? 0 : dataBean.getSex(),
                 new String[]{"男"
                         , "女"}, true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_NATION,
                 dataBean == null ? ""
                         : dataBean.getNationName(), true);
-        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_IDCARD, dataBean == null ?
-                "" :
-                dataBean.getIdNumber(), true);
+
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_KINDS,
                 dataBean == null ? "" : dataBean.getCategoryName(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_SELECT, BusinessContract.TABLE_TITLE_DISABILITY_LEVEL,
@@ -1903,8 +2040,21 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         List<MultipleItem> arrays = new ArrayList<>();
         getBaseDisabilityStudentBursaryAdapterData(dataBean, arrays);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
-                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PHOTO, 1, dataBean == null
-                        ? "" : dataBean.getDisabilityCertificatePicture())));
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PHOTO_ALL, 1, dataBean == null ? "" :
+                        dataBean.getDisabilityCertificatePicture())));
+        if (dataBean == null) {
+            arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                    new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE, -1,
+                            BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE)));
+        }
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK, -1, dataBean == null ? "" :
+                        dataBean.getDisabilityCertificateBackPicture())));
+        if (dataBean == null) {
+            arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                    new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE, -1,
+                            BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE)));
+        }
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_PIC_IDCARD, 2, dataBean == null
                         ? "" : dataBean.getIdPicture())));
@@ -1927,9 +2077,9 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_YEAR,
                 new BusinessTextValueBean(BusinessContract.TABLE_TITLE_YEAR, dataBean == null ? "" : dataBean.getYear(),
                         null, 0, true)));
-        initRadioType(arrays, BusinessContract.TABLE_TITLE_PROJECT_LEVEL, dataBean == null ? 1 :
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_PROJECT_LEVEL, dataBean == null ? -1 :
                         dataBean.getGrand() - 1,
-                new String[]{"国家", "省级", "市级", "县级"}, true);
+                new String[]{"国家", "省级", "市级", "县级"}, false);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "申请人基本信息"));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL,
                 new ImportantTagBean(BusinessContract.TABLE_TITLE_PIC, true)));
@@ -2010,9 +2160,9 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_YEAR,
                 new BusinessTextValueBean(BusinessContract.TABLE_TITLE_YEAR, dataBean == null ? "" : dataBean.getYear(),
                         null, 0, true)));
-        initRadioType(arrays, BusinessContract.TABLE_TITLE_PROJECT_LEVEL, dataBean == null ? 1 :
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_PROJECT_LEVEL, dataBean == null ? -1 :
                         dataBean.getGrand() - 1,
-                new String[]{"国家", "省级", "市级", "县级"}, true);
+                new String[]{"国家", "省级", "市级", "县级"}, false);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "申请人基本信息"));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL,
                 new ImportantTagBean(BusinessContract.TABLE_TITLE_PIC, true)));
@@ -2081,9 +2231,9 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_YEAR,
                 new BusinessTextValueBean(BusinessContract.TABLE_TITLE_YEAR, dataBean == null ? "" : dataBean.getYear(),
                         null, 0, true)));
-        initRadioType(arrays, BusinessContract.TABLE_TITLE_PROJECT_LEVEL, dataBean == null ? 1 :
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_PROJECT_LEVEL, dataBean == null ? -1 :
                         dataBean.getGrand() - 1,
-                new String[]{"国家", "省级", "市级", "县级"}, true);
+                new String[]{"国家", "省级", "市级", "县级"}, false);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "申请人基本信息"));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL,
                 new ImportantTagBean(BusinessContract.TABLE_TITLE_PIC, true)));
@@ -2194,9 +2344,9 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_YEAR,
                 new BusinessTextValueBean(BusinessContract.TABLE_TITLE_YEAR, dataBean == null ? "" : dataBean.getYear(),
                         null, 0, true)));
-        initRadioType(arrays, BusinessContract.TABLE_TITLE_PROJECT_LEVEL, dataBean == null ? 1 :
+        initRadioType(arrays, BusinessContract.TABLE_TITLE_PROJECT_LEVEL, dataBean == null ? -1 :
                         dataBean.getGrand() - 1,
-                new String[]{"国家", "省级", "市级", "县级"}, true);
+                new String[]{"国家", "省级", "市级", "县级"}, false);
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "申请人基本信息"));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_SMALL,
                 new ImportantTagBean(BusinessContract.TABLE_TITLE_PIC, true)));

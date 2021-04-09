@@ -1,5 +1,7 @@
 package com.juntai.disabled.federation.bean.business.detail;
 
+import android.text.TextUtils;
+
 import com.juntai.disabled.basecomponent.base.BaseResult;
 
 /**
@@ -93,22 +95,7 @@ public class TrainRequestDetailBean extends BaseResult {
         private String disabilityCertificatePicture;
         private String jobSituationName;
         private String trainsName;
-
-        public String getJobSituationName() {
-            return jobSituationName == null ? "" : jobSituationName;
-        }
-
-        public void setJobSituationName(String jobSituationName) {
-            this.jobSituationName = jobSituationName == null ? "" : jobSituationName;
-        }
-
-        public String getTrainsName() {
-            return trainsName == null ? "" : trainsName;
-        }
-
-        public void setTrainsName(String trainsName) {
-            this.trainsName = trainsName == null ? "" : trainsName;
-        }
+        private String disabilityCertificateBackPicture;
 
         public int getId() {
             return id;
@@ -119,19 +106,19 @@ public class TrainRequestDetailBean extends BaseResult {
         }
 
         public String getPhoto() {
-            return photo;
+            return TextUtils.isEmpty(photo) ? "暂无" : photo;
         }
 
         public void setPhoto(String photo) {
-            this.photo = photo;
+            this.photo = photo == null ? "" : photo;
         }
 
         public String getName() {
-            return name;
+            return TextUtils.isEmpty(name) ? "暂无" : name;
         }
 
         public void setName(String name) {
-            this.name = name;
+            this.name = name == null ? "" : name;
         }
 
         public int getSex() {
@@ -143,19 +130,19 @@ public class TrainRequestDetailBean extends BaseResult {
         }
 
         public String getSexName() {
-            return sexName;
+            return TextUtils.isEmpty(sexName) ? "暂无" : sexName;
         }
 
         public void setSexName(String sexName) {
-            this.sexName = sexName;
+            this.sexName = sexName == null ? "" : sexName;
         }
 
         public String getBirth() {
-            return birth;
+            return TextUtils.isEmpty(birth) ? "暂无" : birth;
         }
 
         public void setBirth(String birth) {
-            this.birth = birth;
+            this.birth = birth == null ? "" : birth;
         }
 
         public int getNation() {
@@ -167,19 +154,19 @@ public class TrainRequestDetailBean extends BaseResult {
         }
 
         public String getNationName() {
-            return nationName;
+            return TextUtils.isEmpty(nationName) ? "暂无" : nationName;
         }
 
         public void setNationName(String nationName) {
-            this.nationName = nationName;
+            this.nationName = nationName == null ? "" : nationName;
         }
 
         public String getResidenceAddress() {
-            return residenceAddress;
+            return TextUtils.isEmpty(residenceAddress) ? "暂无" : residenceAddress;
         }
 
         public void setResidenceAddress(String residenceAddress) {
-            this.residenceAddress = residenceAddress;
+            this.residenceAddress = residenceAddress == null ? "" : residenceAddress;
         }
 
         public int getEducation() {
@@ -191,11 +178,11 @@ public class TrainRequestDetailBean extends BaseResult {
         }
 
         public String getEducationName() {
-            return educationName;
+            return TextUtils.isEmpty(educationName) ? "暂无" : educationName;
         }
 
         public void setEducationName(String educationName) {
-            this.educationName = educationName;
+            this.educationName = educationName == null ? "" : educationName;
         }
 
         public int getMarriage() {
@@ -207,43 +194,43 @@ public class TrainRequestDetailBean extends BaseResult {
         }
 
         public String getMarriageName() {
-            return marriageName;
+            return TextUtils.isEmpty(marriageName) ? "暂无" : marriageName;
         }
 
         public void setMarriageName(String marriageName) {
-            this.marriageName = marriageName;
+            this.marriageName = marriageName == null ? "" : marriageName;
         }
 
         public String getIdNumber() {
-            return idNumber;
+            return TextUtils.isEmpty(idNumber) ? "暂无" : idNumber;
         }
 
         public void setIdNumber(String idNumber) {
-            this.idNumber = idNumber;
+            this.idNumber = idNumber == null ? "" : idNumber;
         }
 
         public String getContacts() {
-            return contacts;
+            return TextUtils.isEmpty(contacts) ? "暂无" : contacts;
         }
 
         public void setContacts(String contacts) {
-            this.contacts = contacts;
+            this.contacts = contacts == null ? "" : contacts;
         }
 
         public String getTelephone() {
-            return telephone;
+            return TextUtils.isEmpty(telephone) ? "暂无" : telephone;
         }
 
         public void setTelephone(String telephone) {
-            this.telephone = telephone;
+            this.telephone = telephone == null ? "" : telephone;
         }
 
         public String getResidentialAddress() {
-            return residentialAddress;
+            return TextUtils.isEmpty(residentialAddress) ? "暂无" : residentialAddress;
         }
 
         public void setResidentialAddress(String residentialAddress) {
-            this.residentialAddress = residentialAddress;
+            this.residentialAddress = residentialAddress == null ? "" : residentialAddress;
         }
 
         public int getCategory() {
@@ -255,11 +242,11 @@ public class TrainRequestDetailBean extends BaseResult {
         }
 
         public String getCategoryName() {
-            return categoryName;
+            return TextUtils.isEmpty(categoryName) ? "暂无" : categoryName;
         }
 
         public void setCategoryName(String categoryName) {
-            this.categoryName = categoryName;
+            this.categoryName = categoryName == null ? "" : categoryName;
         }
 
         public int getLevel() {
@@ -271,59 +258,83 @@ public class TrainRequestDetailBean extends BaseResult {
         }
 
         public String getLevelName() {
-            return levelName;
+            return TextUtils.isEmpty(levelName) ? "暂无" : levelName;
         }
 
         public void setLevelName(String levelName) {
-            this.levelName = levelName;
+            this.levelName = levelName == null ? "" : levelName;
         }
 
         public String getSpecialty() {
-            return specialty;
+            return TextUtils.isEmpty(specialty) ? "暂无" : specialty;
         }
 
         public void setSpecialty(String specialty) {
-            this.specialty = specialty;
+            this.specialty = specialty == null ? "" : specialty;
         }
 
         public String getJobSituation() {
-            return jobSituation;
+            return TextUtils.isEmpty(jobSituation) ? "暂无" : jobSituation;
         }
 
         public void setJobSituation(String jobSituation) {
-            this.jobSituation = jobSituation;
+            this.jobSituation = jobSituation == null ? "" : jobSituation;
         }
 
         public String getTrains() {
-            return trains;
+            return TextUtils.isEmpty(trains) ? "暂无" : trains;
         }
 
         public void setTrains(String trains) {
-            this.trains = trains;
+            this.trains = trains == null ? "" : trains;
         }
 
         public String getWorkingResume() {
-            return workingResume;
+            return TextUtils.isEmpty(workingResume) ? "暂无" : workingResume;
         }
 
         public void setWorkingResume(String workingResume) {
-            this.workingResume = workingResume;
+            this.workingResume = workingResume == null ? "" : workingResume;
         }
 
         public String getTrainingResume() {
-            return trainingResume;
+            return TextUtils.isEmpty(trainingResume) ? "暂无" : trainingResume;
         }
 
         public void setTrainingResume(String trainingResume) {
-            this.trainingResume = trainingResume;
+            this.trainingResume = trainingResume == null ? "" : trainingResume;
         }
 
         public String getDisabilityCertificatePicture() {
-            return disabilityCertificatePicture;
+            return TextUtils.isEmpty(disabilityCertificatePicture) ? "暂无" : disabilityCertificatePicture;
         }
 
         public void setDisabilityCertificatePicture(String disabilityCertificatePicture) {
-            this.disabilityCertificatePicture = disabilityCertificatePicture;
+            this.disabilityCertificatePicture = disabilityCertificatePicture == null ? "" : disabilityCertificatePicture;
+        }
+
+        public String getJobSituationName() {
+            return TextUtils.isEmpty(jobSituationName) ? "暂无" : jobSituationName;
+        }
+
+        public void setJobSituationName(String jobSituationName) {
+            this.jobSituationName = jobSituationName == null ? "" : jobSituationName;
+        }
+
+        public String getTrainsName() {
+            return TextUtils.isEmpty(trainsName) ? "暂无" : trainsName;
+        }
+
+        public void setTrainsName(String trainsName) {
+            this.trainsName = trainsName == null ? "" : trainsName;
+        }
+
+        public String getDisabilityCertificateBackPicture() {
+            return TextUtils.isEmpty(disabilityCertificateBackPicture) ? "暂无" : disabilityCertificateBackPicture;
+        }
+
+        public void setDisabilityCertificateBackPicture(String disabilityCertificateBackPicture) {
+            this.disabilityCertificateBackPicture = disabilityCertificateBackPicture == null ? "" : disabilityCertificateBackPicture;
         }
     }
 }

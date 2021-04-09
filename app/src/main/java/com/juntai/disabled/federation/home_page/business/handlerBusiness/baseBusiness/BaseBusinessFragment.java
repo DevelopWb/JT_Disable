@@ -25,6 +25,7 @@ import com.juntai.disabled.federation.bean.business.BusinessPropertyBean;
 import com.juntai.disabled.federation.bean.business.BusinessRadioBean;
 import com.juntai.disabled.federation.bean.business.BusinessTextValueBean;
 import com.juntai.disabled.federation.bean.business.DeafBean;
+import com.juntai.disabled.federation.bean.business.DisabledBaseInfoBean;
 import com.juntai.disabled.federation.bean.business.ItemCheckBoxBean;
 import com.juntai.disabled.federation.bean.business.ItemSignBean;
 import com.juntai.disabled.federation.bean.business.RecycleBean;
@@ -57,6 +58,8 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
     private GestureSignatureView gsv_signature;
     private BottomSheetDialog bottomSheetDialog;
     private String signPath;
+    private DisabledBaseInfoBean.DataBean mDisabledInfo = null;
+
     private int currentPosition;
     private String birthDay = null;
     private BusinessPicBean businessPicBean;
@@ -109,6 +112,13 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
         mSmartrefreshlayout.setEnableRefresh(false);
         adapter = new HandlerBusinessAdapter(getAdapterData(), getBaseFragmentActivity().businessId == -1 ? false :
                 true);
+        adapter.setOnIdCardSearchCallBack(new BaseBusinessActivity.OnIdCardSearchCallBack() {
+            @Override
+            public void searchDisabledInfoByIdCard(String idNo) {
+                //获取残疾人基本信息
+                mPresenter.getDisabledBaseInfo(idNo, AppHttpPath.GET_DISABLED_BASE_INFO);
+            }
+        });
         getBaseFragmentActivity().initRecyclerview(mRecyclerview, adapter, LinearLayoutManager.VERTICAL);
         if (getFootView() != null) {
             adapter.setFooterView(getFootView());
@@ -130,7 +140,14 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
 
                 switch (view.getId()) {
                     case R.id.form_pic_src_iv:
-                        choseImageFromFragment(0, BaseBusinessFragment.this, 1, SELECT_PIC_RESULT);
+                        if (BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE.equals(businessPicBean.getPicName())
+                                ||BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE.equals(businessPicBean.getPicName())) {
+                            //示例图片不可点击
+
+                        }else {
+                            choseImageFromFragment(0, BaseBusinessFragment.this, 1, SELECT_PIC_RESULT);
+                        }
+
                         break;
                     case R.id.form_head_pic_iv:
                         choseImageFromFragment(0, BaseBusinessFragment.this, 1, SELECT_PIC_RESULT);
@@ -536,10 +553,6 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
                             //择业地区
                             formKey = "areaIntention";
                             break;
-                        case BusinessContract.TABLE_TITLE_SALARY:
-                            //月薪要求
-                            formKey = "monthlySalaryIntention";
-                            break;
                         case BusinessContract.TABLE_TITLE_TRAIN_INTENT:
                             //培训意向
                             formKey = "trainingIntention";
@@ -686,9 +699,9 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
                             builder.addFormDataPart("physicalDisability",
                                     String.valueOf(radioBean.getDefaultSelectedIndex()));
                             break;
-                        case BusinessContract.TABLE_TITLE_PROJECT_LEVEL:
-                            builder.addFormDataPart("grand", String.valueOf(radioBean.getDefaultSelectedIndex() + 1));
-                            break;
+//                        case BusinessContract.TABLE_TITLE_PROJECT_LEVEL:
+//                            builder.addFormDataPart("grand", String.valueOf(radioBean.getDefaultSelectedIndex() + 1));
+//                            break;
                         case BusinessContract.TABLE_TITLE_IS_POOR_FAMILY:
                             builder.addFormDataPart("alleviation", String.valueOf(radioBean.getDefaultSelectedIndex()));
                             break;
@@ -770,23 +783,43 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
                     String picKey = picBean.getPicName();
                     if (picKey != null) {
                         switch (picKey) {
-                            case BusinessContract.TABLE_TITLE_DISABLE_PIC:
+                            case BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT:
                                 if (!StringTools.isStringValueOk(picBean.getPicPath())) {
-                                    ToastUtils.toast(mContext, "请选择残疾证照片");
+                                    ToastUtils.toast(mContext, "请选择残疾证正面照片");
                                     return null;
                                 }
-                                //残疾证照片
+                                //残疾证正面照片
                                 builder.addFormDataPart("pictureFile", "pictureFile",
                                         RequestBody.create(MediaType.parse("file"),
                                                 new File(picBean.getPicPath())));
                                 break;
-                            case BusinessContract.TABLE_TITLE_DISABLE_PHOTO:
+                            case BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_ALL:
                                 if (!StringTools.isStringValueOk(picBean.getPicPath())) {
-                                    ToastUtils.toast(mContext, "请选择残疾证照片");
+                                    ToastUtils.toast(mContext, "请选择残疾证正面照片");
                                     return null;
                                 }
-                                //残疾证照片
+                                //残疾证正面照片
                                 builder.addFormDataPart("pictureFile", "pictureFile",
+                                        RequestBody.create(MediaType.parse("file"),
+                                                new File(picBean.getPicPath())));
+                                break;
+                            case BusinessContract.TABLE_TITLE_DISABLE_PHOTO_ALL:
+                                if (!StringTools.isStringValueOk(picBean.getPicPath())) {
+                                    ToastUtils.toast(mContext, "请选择残疾证正面照片");
+                                    return null;
+                                }
+                                //残疾证正面照片
+                                builder.addFormDataPart("pictureFile", "pictureFile",
+                                        RequestBody.create(MediaType.parse("file"),
+                                                new File(picBean.getPicPath())));
+                                break;
+                            case BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK:
+                                if (!StringTools.isStringValueOk(picBean.getPicPath())) {
+                                    ToastUtils.toast(mContext, "请选择残疾证反面照片");
+                                    return null;
+                                }
+                                //残疾证反面照片
+                                builder.addFormDataPart("backPictureFile", "backPictureFile",
                                         RequestBody.create(MediaType.parse("file"),
                                                 new File(picBean.getPicPath())));
                                 break;
@@ -1047,6 +1080,76 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
             BaseResult baseResult = (BaseResult) o;
             ToastUtils.toast(mContext, baseResult.message);
             getBaseFragmentActivity().finish();
+
+        }else if (AppHttpPath.GET_DISABLED_BASE_INFO.equals(tag)) {
+            //残疾人基本信息
+            DisabledBaseInfoBean disabledBaseInfoBean = (DisabledBaseInfoBean) o;
+            if (disabledBaseInfoBean != null) {
+                mDisabledInfo = disabledBaseInfoBean.getData();
+                if (mDisabledInfo != null) {
+                    //给适配器赋值
+                    List<MultipleItem> arrays = adapter.getData();
+                    for (MultipleItem array : arrays) {
+                        switch (array.getItemType()) {
+
+                            case MultipleItem.ITEM_BUSINESS_EDIT:
+                                BusinessTextValueBean textValueEditBean = (BusinessTextValueBean) array
+                                        .getObject();
+                                switch (textValueEditBean.getKey()) {
+                                    case BusinessContract.TABLE_TITLE_HOMETOWN:
+                                        //籍贯
+                                        textValueEditBean.setValue(mDisabledInfo.getPermanentAddress());
+                                        break;
+                                    case BusinessContract.TABLE_TITLE_HOME_ADDR:
+                                        //户籍所在地
+                                        textValueEditBean.setValue(mDisabledInfo.getPermanentAddress());
+                                        break;
+                                    case BusinessContract.TABLE_TITLE_DISABLE_CARD_ID:
+                                        //残疾证号
+                                        textValueEditBean.setValue(mDisabledInfo.getCertificateNo());
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+
+                                break;
+                            case MultipleItem.ITEM_BUSINESS_RADIO:
+                                BusinessRadioBean radioBean = (BusinessRadioBean) array.getObject();
+                                switch (radioBean.getKey()) {
+                                    case BusinessContract.TABLE_TITLE_SEX:
+                                        radioBean.setDefaultSelectedIndex(mDisabledInfo.getSex());
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case MultipleItem.ITEM_BUSINESS_SELECT:
+                                BusinessTextValueBean textValueSelectBean = (BusinessTextValueBean) array.getObject();
+                                switch (textValueSelectBean.getKey()) {
+                                    case BusinessContract.TABLE_TITLE_DISABILITY_KINDS:
+                                        categoryId = mDisabledInfo.getCategory();
+                                        textValueSelectBean.setValue(mDisabledInfo.getCategoryName());
+                                        break;
+                                    case BusinessContract.TABLE_TITLE_DISABILITY_LEVEL:
+                                        levelId = mDisabledInfo.getLevel();
+                                        textValueSelectBean.setValue(mDisabledInfo.getLevelName());
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
+                }else {
+                    //没有查到相应残疾人的信息
+                    mDisabledInfo = null;
+
+                }
+            }
 
         }
 
