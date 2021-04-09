@@ -32,6 +32,7 @@ import com.juntai.disabled.federation.bean.business.BusinessListBean;
 import com.juntai.disabled.federation.bean.business.BusinessNeedInfoBean;
 import com.juntai.disabled.federation.bean.business.BusinessPropertyBean;
 import com.juntai.disabled.federation.bean.business.ChildBusinessesBean;
+import com.juntai.disabled.federation.bean.business.DisabledBaseInfoBean;
 import com.juntai.disabled.federation.bean.business.ToolInfoBean;
 import com.juntai.disabled.federation.bean.business.detail.AssistToolDetailBean;
 import com.juntai.disabled.federation.bean.business.detail.BusinessChildDetailBean;
@@ -2036,6 +2037,11 @@ public interface AppServer {
     @GET(AppHttpPath.HOME_CARE_DETAIL)
     Observable<HomeCareDetailBean> getHomCareInfo(@Query("account") String account, @Query("token") String token,
                                                   @Query("businessId") String businessId);
+    /**
+     * @return
+     */
+    @GET(AppHttpPath.GET_DISABLED_BASE_INFO)
+    Observable<DisabledBaseInfoBean> getDisabledBaseInfo(@Query("idNo") String idNo);
 
 
 

@@ -961,6 +961,10 @@ public class AppHttpPath {
      * 居家托养
      */
     public static final String HOME_CARE_DETAIL = BASE + "/getHomCareInfo.shtml";
+    /**
+     * 根据身份证号码查询残疾人信息（用户申请时使用，简化填写项目）
+     */
+    public static final String GET_DISABLED_BASE_INFO = BASE + "/getDisabledInfo.shtml";
 
 
 

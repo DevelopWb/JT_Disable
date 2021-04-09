@@ -32,6 +32,7 @@ import com.juntai.disabled.federation.bean.business.BusinessPropertyBean;
 import com.juntai.disabled.federation.bean.business.BusinessRadioBean;
 import com.juntai.disabled.federation.bean.business.BusinessTextValueBean;
 import com.juntai.disabled.federation.bean.business.DeafBean;
+import com.juntai.disabled.federation.bean.business.DisabledBaseInfoBean;
 import com.juntai.disabled.federation.bean.business.ItemCheckBoxBean;
 import com.juntai.disabled.federation.bean.business.ItemSignBean;
 import com.juntai.disabled.federation.bean.business.RecycleBean;
@@ -100,6 +101,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
      */
     private TextView mReserveTv;
     private WebView mToolInfoDesWb;
+    private DisabledBaseInfoBean.DataBean mDisabledInfo = null;
 
     protected abstract String getTitleName();
 
@@ -139,6 +141,13 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         mSmartrefreshlayout.setEnableLoadMore(false);
         mSmartrefreshlayout.setEnableRefresh(false);
         adapter = new HandlerBusinessAdapter(getAdapterData(), businessId == -1 ? false : true);
+        adapter.setOnIdCardSearchCallBack(new OnIdCardSearchCallBack() {
+            @Override
+            public void searchDisabledInfoByIdCard(String idNo) {
+                //获取残疾人基本信息
+                mPresenter.getDisabledBaseInfo(idNo, AppHttpPath.GET_DISABLED_BASE_INFO);
+            }
+        });
         initRecyclerview(mRecyclerview, adapter, LinearLayoutManager.VERTICAL);
         if (getFootView() != null) {
             adapter.setFooterView(getFootView());
@@ -161,7 +170,14 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
 
                 switch (view.getId()) {
                     case R.id.form_pic_src_iv:
-                        choseImage(0, BaseBusinessActivity.this, 1);
+                        BusinessPicBean businessPicBean = (BusinessPicBean) multipleItem.getObject();
+                        if (BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE.equals(businessPicBean.getPicName())
+                                || BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE.equals(businessPicBean.getPicName())) {
+                            //示例图片不可点击
+
+                        } else {
+                            choseImage(0, BaseBusinessActivity.this, 1);
+                        }
                         break;
                     case R.id.form_head_pic_iv:
                         choseImage(0, BaseBusinessActivity.this, 1);
@@ -316,21 +332,20 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         View view = LayoutInflater.from(mContext).inflate(R.layout.tool_info_view, null);
         mToolNameTv = (TextView) view.findViewById(R.id.tool_name_tv);
         mToolPicIv = (ImageView) view.findViewById(R.id.tool_info_pic_iv);
-        ImageLoadUtil.loadImageNoCache(mContext,dataBean.getImg(),mToolPicIv);
+        ImageLoadUtil.loadImageNoCache(mContext, dataBean.getImg(), mToolPicIv);
         mReserveTv = (TextView) view.findViewById(R.id.reserve_tv);
         mToolInfoDesWb = (WebView) view.findViewById(R.id.tool_info_des_wb);
         mToolNameTv.setText(dataBean.getName());
         mReserveTv.append(String.valueOf(dataBean.getInventory()));
-        initWebView(mToolInfoDesWb,dataBean.getContent());
+        initWebView(mToolInfoDesWb, dataBean.getContent());
         return view;
     }
 
     /**
-     *
      * @param webView
      * @param urlString
      */
-    private void initWebView(WebView webView,String urlString) {
+    private void initWebView(WebView webView, String urlString) {
         //覆盖WebView默认使用第三方或系统默认浏览器打开网页的行为，使网页用WebView打开
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -358,6 +373,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
             return true;
         }
     }
+
     /**
      * 儿童发育商（1<=25；2<=26-39；3<=40-54；4<=55-75）
      *
@@ -400,6 +416,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         arrays.add("已就业");
         return arrays;
     }
+
     /**
      * 配送方式
      * 1自提；2送货上门
@@ -654,9 +671,11 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             break;
                         case BusinessContract.TABLE_TITLE_DISABLE_CARD_ID:
                             //残疾证号
-                            if (!RuleTools.isDisabledIdNO(mContext, textValueEditBean.getValue())) {
-                                ToastUtils.toast(mContext, "残疾证号格式不正确");
-                                return null;
+                            if (!TextUtils.isEmpty(textValueEditBean.getValue())) {
+                                if (!RuleTools.isDisabledIdNO(mContext, textValueEditBean.getValue())) {
+                                    ToastUtils.toast(mContext, "残疾证号格式不正确");
+                                    return null;
+                                }
                             }
                             formKey = "disabilityCertificate";
                             break;
@@ -754,10 +773,6 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         case BusinessContract.TABLE_TITLE_WORK_AREA:
                             //择业地区
                             formKey = "areaIntention";
-                            break;
-                        case BusinessContract.TABLE_TITLE_SALARY:
-                            //月薪要求
-                            formKey = "monthlySalaryIntention";
                             break;
 
                         case BusinessContract.TABLE_TITLE_REMARK:
@@ -915,10 +930,11 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             builder.addFormDataPart("physicalDisability",
                                     String.valueOf(radioBean.getDefaultSelectedIndex()));
                             break;
-                        case BusinessContract.TABLE_TITLE_PROJECT_LEVEL:
-                            //项目级别
-                            builder.addFormDataPart("grand", String.valueOf(radioBean.getDefaultSelectedIndex() + 1));
-                            break;
+                        //                        case BusinessContract.TABLE_TITLE_PROJECT_LEVEL:
+                        //                            //项目级别
+                        //                            builder.addFormDataPart("grand", String.valueOf(radioBean
+                        //                            .getDefaultSelectedIndex() + 1));
+                        //                            break;
                         case BusinessContract.TABLE_TITLE_IS_POOR_FAMILY:
                             builder.addFormDataPart("alleviation", String.valueOf(radioBean.getDefaultSelectedIndex()));
                             break;
@@ -1020,13 +1036,43 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                     String picKey = picBean.getPicName();
                     if (picKey != null) {
                         switch (picKey) {
-                            case BusinessContract.TABLE_TITLE_DISABLE_PIC:
+                            case BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT:
                                 if (!StringTools.isStringValueOk(picBean.getPicPath())) {
-                                    ToastUtils.toast(mContext, "请选择残疾证照片");
+                                    ToastUtils.toast(mContext, "请选择残疾证正面照片");
                                     return null;
                                 }
-                                //残疾证照片
+                                //残疾证正面照片
                                 builder.addFormDataPart("pictureFile", "pictureFile",
+                                        RequestBody.create(MediaType.parse("file"),
+                                                new File(picBean.getPicPath())));
+                                break;
+                            case BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_ALL:
+                                if (!StringTools.isStringValueOk(picBean.getPicPath())) {
+                                    ToastUtils.toast(mContext, "请选择残疾证正面照片");
+                                    return null;
+                                }
+                                //残疾证正面照片
+                                builder.addFormDataPart("pictureFile", "pictureFile",
+                                        RequestBody.create(MediaType.parse("file"),
+                                                new File(picBean.getPicPath())));
+                                break;
+                            case BusinessContract.TABLE_TITLE_DISABLE_PHOTO_ALL:
+                                if (!StringTools.isStringValueOk(picBean.getPicPath())) {
+                                    ToastUtils.toast(mContext, "请选择残疾证正面照片");
+                                    return null;
+                                }
+                                //残疾证正面照片
+                                builder.addFormDataPart("pictureFile", "pictureFile",
+                                        RequestBody.create(MediaType.parse("file"),
+                                                new File(picBean.getPicPath())));
+                                break;
+                            case BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK:
+                                if (!StringTools.isStringValueOk(picBean.getPicPath())) {
+                                    ToastUtils.toast(mContext, "请选择残疾证反面照片");
+                                    return null;
+                                }
+                                //残疾证反面照片
+                                builder.addFormDataPart("backPictureFile", "backPictureFile",
                                         RequestBody.create(MediaType.parse("file"),
                                                 new File(picBean.getPicPath())));
                                 break;
@@ -1040,13 +1086,13 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                         RequestBody.create(MediaType.parse("file"),
                                                 new File(picBean.getPicPath())));
                                 break;
-                            case BusinessContract.TABLE_TITLE_DISABLE_PHOTO:
+                            case BusinessContract.TABLE_TITLE_PIC_IDCARD:
                                 if (!StringTools.isStringValueOk(picBean.getPicPath())) {
-                                    ToastUtils.toast(mContext, "请选择残疾证照片");
+                                    ToastUtils.toast(mContext, "请选择身份证照片");
                                     return null;
                                 }
-                                //残疾证照片
-                                builder.addFormDataPart("pictureFile", "pictureFile",
+                                //身份证照片
+                                builder.addFormDataPart("idPictureFile", "idPictureFile",
                                         RequestBody.create(MediaType.parse("file"),
                                                 new File(picBean.getPicPath())));
                                 break;
@@ -1078,6 +1124,16 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                 }
                                 //残疾证照片
                                 builder.addFormDataPart("casePictureFile", "casePictureFile",
+                                        RequestBody.create(MediaType.parse("file"),
+                                                new File(picBean.getPicPath())));
+                                break;
+                            case BusinessContract.TABLE_TITLE_GUARDIAN_HUJI_PIC:
+                                if (!StringTools.isStringValueOk(picBean.getPicPath())) {
+                                    ToastUtils.toast(mContext, "请选择监护人户籍证明照片");
+                                    return null;
+                                }
+                                //监护人户籍证明照片
+                                builder.addFormDataPart("guardianRegisterPictureFile", "guardianRegisterPictureFile",
                                         RequestBody.create(MediaType.parse("file"),
                                                 new File(picBean.getPicPath())));
                                 break;
@@ -1256,6 +1312,9 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                 case MultipleItem.ITEM_BUSINESS_EDIT:
                     BusinessTextValueBean textValueEditBean = (BusinessTextValueBean) array
                             .getObject();
+                    if (TextUtils.isEmpty(textValueEditBean.getValue())) {
+                        return "";
+                    }
                     switch (textValueEditBean.getKey()) {
                         case BusinessContract.TABLE_TITLE_STREET:
                             //街道
@@ -1407,6 +1466,76 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                 adapter.notifyItemChanged(currentPosition);
             }
 
+        } else if (AppHttpPath.GET_DISABLED_BASE_INFO.equals(tag)) {
+            //残疾人基本信息
+            DisabledBaseInfoBean disabledBaseInfoBean = (DisabledBaseInfoBean) o;
+            if (disabledBaseInfoBean != null) {
+                mDisabledInfo = disabledBaseInfoBean.getData();
+                if (mDisabledInfo != null) {
+                    //给适配器赋值
+                    List<MultipleItem> arrays = adapter.getData();
+                    for (MultipleItem array : arrays) {
+                        switch (array.getItemType()) {
+
+                            case MultipleItem.ITEM_BUSINESS_EDIT:
+                                BusinessTextValueBean textValueEditBean = (BusinessTextValueBean) array
+                                        .getObject();
+                                switch (textValueEditBean.getKey()) {
+                                    case BusinessContract.TABLE_TITLE_HOMETOWN:
+                                        //籍贯
+                                        textValueEditBean.setValue(mDisabledInfo.getPermanentAddress());
+                                        break;
+                                    case BusinessContract.TABLE_TITLE_HOME_ADDR:
+                                        //户籍所在地
+                                        textValueEditBean.setValue(mDisabledInfo.getPermanentAddress());
+                                        break;
+                                    case BusinessContract.TABLE_TITLE_DISABLE_CARD_ID:
+                                        //残疾证号
+                                        textValueEditBean.setValue(mDisabledInfo.getCertificateNo());
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+
+                                break;
+                            case MultipleItem.ITEM_BUSINESS_RADIO:
+                                BusinessRadioBean radioBean = (BusinessRadioBean) array.getObject();
+                                switch (radioBean.getKey()) {
+                                    case BusinessContract.TABLE_TITLE_SEX:
+                                        radioBean.setDefaultSelectedIndex(mDisabledInfo.getSex());
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case MultipleItem.ITEM_BUSINESS_SELECT:
+                                BusinessTextValueBean textValueSelectBean = (BusinessTextValueBean) array.getObject();
+                                switch (textValueSelectBean.getKey()) {
+                                    case BusinessContract.TABLE_TITLE_DISABILITY_KINDS:
+                                        categoryId = mDisabledInfo.getCategory();
+                                        textValueSelectBean.setValue(mDisabledInfo.getCategoryName());
+                                        break;
+                                    case BusinessContract.TABLE_TITLE_DISABILITY_LEVEL:
+                                        levelId = mDisabledInfo.getLevel();
+                                        textValueSelectBean.setValue(mDisabledInfo.getLevelName());
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
+                }else {
+                    //没有查到相应残疾人的信息
+                    mDisabledInfo = null;
+
+                }
+            }
+
         } else {
             BaseResult baseResult = (BaseResult) o;
             ToastUtils.toast(mContext, baseResult.message);
@@ -1455,5 +1584,13 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
             }
         }
         return value;
+    }
+
+
+    //通过身份证搜索残疾人信息的接口
+    interface OnIdCardSearchCallBack {
+
+
+        void searchDisabledInfoByIdCard(String idNo);
     }
 }

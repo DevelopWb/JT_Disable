@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseAppActivity;
 import com.juntai.disabled.federation.bean.business.ChildBusinessesBean;
@@ -51,21 +52,23 @@ public class DisabilityChildRecoveryActivity extends BaseAppActivity<BusinessPre
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 ChildBusinessesBean.DataBean bean = (ChildBusinessesBean.DataBean) adapter.getData().get(position);
                 String name = bean.getName();
+                ToastUtils.toast(mContext,getString(R.string.not_open_notice));
                 switch (position) {
                     case 0:
-                        startActivity(new Intent(mContext, MoronRecoveryActivity.class).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
+
+//                        startActivity(new Intent(mContext, MoronRecoveryActivity.class).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
                         break;
                     case 1:
-                        startActivity(new Intent(mContext, LonelyChildRecoveryActivity.class).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
+//                        startActivity(new Intent(mContext, LonelyChildRecoveryActivity.class).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
                         break;
                     case 2:
                         //聋哑儿童  deaf dumb
-                        startActivity(new Intent(mContext, DeafDumbChildRecoveryActivity.class).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
+//                        startActivity(new Intent(mContext, DeafDumbChildRecoveryActivity.class).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
 
                         break;
                     case 3:
                         //脑瘫痪brainpalsy
-                        startActivity(new Intent(mContext, BrainPalsyRecoveryActivity.class).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
+//                        startActivity(new Intent(mContext, BrainPalsyRecoveryActivity.class).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
 
                         break;
                     default:
