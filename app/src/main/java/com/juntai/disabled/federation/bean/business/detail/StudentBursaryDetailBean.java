@@ -138,7 +138,15 @@ public class StudentBursaryDetailBean extends BaseResult {
         private String idPicture;
         private String disabilityCertificateBackPicture;
         private int startSchoolTime;
+        private int estatus;//评价状态（0已评价；1未评价）
 
+        public int getEstatus() {
+            return estatus;
+        }
+
+        public void setEstatus(int estatus) {
+            this.estatus = estatus;
+        }
         public int getId() {
             return id;
         }

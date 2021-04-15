@@ -18,7 +18,7 @@ public class LonelyChildRecoveryDetailActivity extends BaseRecoveryDetailActivit
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter.getDisabledChildrenAutismInfo(businessId,"");
+        mPresenter.getDisabledChildrenAutismInfo(businessId,RECOVERY_DETAIL);
     }
 
 }

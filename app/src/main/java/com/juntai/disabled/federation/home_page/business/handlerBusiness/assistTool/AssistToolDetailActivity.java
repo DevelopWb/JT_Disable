@@ -21,7 +21,7 @@ public class AssistToolDetailActivity extends BaseBusinessActivity {
     @Override
     public void initData() {
 
-        mPresenter.getAIDSInfo(businessId, null);
+        mPresenter.getAIDSInfo(businessId, AppHttpPath.REQUEST_AIDS_DETAIL);
     }
 
     @Override
@@ -32,11 +32,21 @@ public class AssistToolDetailActivity extends BaseBusinessActivity {
 
     @Override
     public void onSuccess(String tag, Object o) {
-        AssistToolDetailBean detailBean = (AssistToolDetailBean) o;
-        if (detailBean != null) {
-            AssistToolDetailBean.DataBean dataBean = detailBean.getData();
-            adapter.setNewData(mPresenter.getAssistToolAdapterData(dataBean));
+
+        if (AppHttpPath.REQUEST_AIDS_DETAIL.equals(tag)) {
+            AssistToolDetailBean detailBean = (AssistToolDetailBean) o;
+            if (detailBean != null) {
+                AssistToolDetailBean.DataBean dataBean = detailBean.getData();
+                if (1==dataBean.getEstatus()&&checkStatusId==1) {
+                    //未评价
+                    showScoreDialog(businessItemId);
+                }
+                adapter.setNewData(mPresenter.getAssistToolAdapterData(dataBean));
+            }
+        }else {
+            super.onSuccess(tag,o);
         }
+
     }
 
     @Override

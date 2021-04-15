@@ -24,6 +24,7 @@ import okhttp3.MultipartBody;
  */
 public abstract class BaseRecoveryDetailActivity extends BaseBusinessActivity {
     public static String RECOVERY_NAME = "recoveryname";
+    public static String RECOVERY_DETAIL = "recoverydetail";
     public abstract   int getChildId();
 
     @Override
@@ -66,26 +67,36 @@ public abstract class BaseRecoveryDetailActivity extends BaseBusinessActivity {
 
     @Override
     public void onSuccess(String tag, Object o) {
-        RecoveryDetailBean recoveryDetailBean = (RecoveryDetailBean) o;
-        if (recoveryDetailBean != null) {
-            RecoveryDetailBean.DataBean dataBean = recoveryDetailBean.getData();
-            switch (getChildId()) {
-                case 0:
-                    adapter.setNewData(mPresenter.getMoronRecoveryData(dataBean));
-                    break;
-                case 1:
-                    adapter.setNewData(mPresenter.getLonelyChildRecoveryData(dataBean));
-                    break;
-                case 2:
-                    adapter.setNewData(mPresenter.getDeafDumbChildRecoveryData(dataBean));
-                    break;
-                case 3:
-                    adapter.setNewData(mPresenter.getBrainPalsyRecoveryData(dataBean));
-                    break;
-                default:
-                    break;
-            }
 
+        if (RECOVERY_DETAIL.equals(tag)) {
+            RecoveryDetailBean recoveryDetailBean = (RecoveryDetailBean) o;
+            if (recoveryDetailBean != null) {
+                RecoveryDetailBean.DataBean dataBean = recoveryDetailBean.getData();
+                if (1==dataBean.getEstatus()&&checkStatusId==1) {
+                    //未评价
+                    showScoreDialog(businessItemId);
+                }
+                switch (getChildId()) {
+                    case 0:
+                        adapter.setNewData(mPresenter.getMoronRecoveryData(dataBean));
+                        break;
+                    case 1:
+                        adapter.setNewData(mPresenter.getLonelyChildRecoveryData(dataBean));
+                        break;
+                    case 2:
+                        adapter.setNewData(mPresenter.getDeafDumbChildRecoveryData(dataBean));
+                        break;
+                    case 3:
+                        adapter.setNewData(mPresenter.getBrainPalsyRecoveryData(dataBean));
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+        }else {
+            super.onSuccess(tag,o);
         }
+
     }
 }

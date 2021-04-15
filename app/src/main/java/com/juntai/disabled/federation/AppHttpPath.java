@@ -951,5 +951,10 @@ public class AppHttpPath {
      */
     public static final String GET_DISABLED_BASE_INFO = BASE + "/getDisabledInfo.shtml";
 
+    /**
+     * 业务评价打分接口
+     */
+    public static final String SCORE = BASE + "/evaluate.shtml";
+
 
 }

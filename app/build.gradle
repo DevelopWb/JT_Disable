@@ -102,7 +102,7 @@ dependencies {
     implementation "me.leolin:ShortcutBadger:1.1.22@aar"
     implementation project(':videocompressor')
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
-
+    implementation 'com.hedgehog.ratingbar:app:1.1.2'
     //数据库框架
     implementation 'org.greenrobot:greendao:3.2.2'
     implementation 'com.haibin:calendarview:3.4.8'

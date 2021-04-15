@@ -67,7 +67,15 @@ public class BusinessChildDetailBean extends BaseResult {
         private String lifePicture;
         private String applicantSign;
         private String disabilityCertificateBackPicture;
+        private int estatus;//评价状态（0已评价；1未评价）
 
+        public int getEstatus() {
+            return estatus;
+        }
+
+        public void setEstatus(int estatus) {
+            this.estatus = estatus;
+        }
         public int getId() {
             return id;
         }

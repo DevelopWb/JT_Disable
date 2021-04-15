@@ -33,27 +33,28 @@ public abstract class BaseDisabledCardBusinessDetailActivity extends BaseBusines
     public static final String BUSINESS_NAME_MOVE_IN = "残疾证迁入详情";
     public static final String BUSINESS_NAME_MOVE_OUT = "残疾证迁出详情";
     public static final String BUSINESS_NAME_LOGOUT = "残疾证注销详情";
+    public static final String BUSINESS_BASE = "基础业务";
 
     @Override
     public void initData() {
         switch (getTitleName()) {
             case BUSINESS_NAME_RENEWAL:
-                mPresenter.getCertificatesExchangeInfo(businessId, BUSINESS_NAME_RENEWAL);
+                mPresenter.getCertificatesExchangeInfo(businessId, BUSINESS_BASE);
                 break;
             case BUSINESS_NAME_LEVEL_CHANGE:
-                mPresenter.getCertificatesChangeInfo(businessId, BUSINESS_NAME_LEVEL_CHANGE);
+                mPresenter.getCertificatesChangeInfo(businessId, BUSINESS_BASE);
                 break;
             case BUSINESS_NAME_REISSUE:
-                mPresenter.getCertificatesReissueInfo(businessId, BUSINESS_NAME_REISSUE);
+                mPresenter.getCertificatesReissueInfo(businessId, BUSINESS_BASE);
                 break;
             case BUSINESS_NAME_MOVE_IN:
-                mPresenter.getCertificatesMoveinInfo(businessId, BUSINESS_NAME_MOVE_IN);
+                mPresenter.getCertificatesMoveinInfo(businessId, BUSINESS_BASE);
                 break;
             case BUSINESS_NAME_MOVE_OUT:
-                mPresenter.getCertificatesMoveoutInfo(businessId, BUSINESS_NAME_MOVE_OUT);
+                mPresenter.getCertificatesMoveoutInfo(businessId, BUSINESS_BASE);
                 break;
             case BUSINESS_NAME_LOGOUT:
-                mPresenter.getCertificatesCancelInfo(businessId, BUSINESS_NAME_LOGOUT);
+                mPresenter.getCertificatesCancelInfo(businessId, BUSINESS_BASE);
                 break;
             default:
                 break;
@@ -77,18 +78,27 @@ public abstract class BaseDisabledCardBusinessDetailActivity extends BaseBusines
 
     @Override
     protected List<MultipleItem> getAdapterData() {
-        return null ;
+        return null;
     }
 
     @Override
     public void onSuccess(String tag, Object o) {
-        BusinessChildDetailBean detailBean = (BusinessChildDetailBean) o;
-        if (detailBean != null) {
-            BusinessChildDetailBean.DataBean dataBean =  detailBean.getData();
-            if (dataBean != null) {
-                adapter.setNewData(mPresenter.getBaseChildAdapterData(dataBean));
+        if (BUSINESS_BASE.equals(tag)) {
+            BusinessChildDetailBean detailBean = (BusinessChildDetailBean) o;
+            if (detailBean != null) {
+                BusinessChildDetailBean.DataBean dataBean = detailBean.getData();
+                if (1 == dataBean.getEstatus()&&checkStatusId==1) {
+                    //未评价
+                    showScoreDialog(businessItemId);
+                }
+                if (dataBean != null) {
+                    adapter.setNewData(mPresenter.getBaseChildAdapterData(dataBean));
+                }
             }
+        } else {
+            super.onSuccess(tag, o);
         }
+
     }
 
 

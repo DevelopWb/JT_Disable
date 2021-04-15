@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.bean.business.detail.StudentBursaryDetailBean;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
@@ -19,7 +20,7 @@ public class DisabledFamilyStudentBursaryDetailActivity extends BaseBusinessActi
 
     @Override
     public void initData() {
-        mPresenter.getDisabledStudentFamilyGrantInfo(businessId,null);
+        mPresenter.getDisabledStudentFamilyGrantInfo(businessId, AppHttpPath.DISABLED_FAMILY_CHILD_BURSARY_DETAIL);
     }
 
     @Override
@@ -54,17 +55,26 @@ public class DisabledFamilyStudentBursaryDetailActivity extends BaseBusinessActi
 
     @Override
     public void onSuccess(String tag, Object o) {
-        StudentBursaryDetailBean bursaryDetailBean = (StudentBursaryDetailBean) o;
-        if (bursaryDetailBean != null) {
-            StudentBursaryDetailBean.DataBean dataBean = bursaryDetailBean.getData();
-            int  whichYear = dataBean.getIsFirst();
-            if (0==whichYear) {
-                //第一年
-                adapter.setNewData(mPresenter.getDisabilityFamilyStudentBursaryAdapterData(dataBean));
-            }else {
-                adapter.setNewData(mPresenter.getDisabilityFamilyStudentBursaryNextYearAdapterData(dataBean));
-            }
+        if (AppHttpPath.DISABLED_FAMILY_CHILD_BURSARY_DETAIL.equals(tag)) {
+            StudentBursaryDetailBean bursaryDetailBean = (StudentBursaryDetailBean) o;
+            if (bursaryDetailBean != null) {
+                StudentBursaryDetailBean.DataBean dataBean = bursaryDetailBean.getData();
+                if (1==dataBean.getEstatus()&&checkStatusId==1) {
+                    //未评价
+                    showScoreDialog(businessItemId);
+                }
+                int  whichYear = dataBean.getIsFirst();
+                if (0==whichYear) {
+                    //第一年
+                    adapter.setNewData(mPresenter.getDisabilityFamilyStudentBursaryAdapterData(dataBean));
+                }else {
+                    adapter.setNewData(mPresenter.getDisabilityFamilyStudentBursaryNextYearAdapterData(dataBean));
+                }
 
+            }
+        }else {
+            super.onSuccess(tag,o);
         }
+
     }
 }

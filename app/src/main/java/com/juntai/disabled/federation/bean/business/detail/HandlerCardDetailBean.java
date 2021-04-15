@@ -126,7 +126,15 @@ public class HandlerCardDetailBean extends BaseResult {
          * 监护人户籍证明照片文件
          */
         private String guardianRegisterPicture;
+        private int estatus;//评价状态（0已评价；1未评价）
 
+        public int getEstatus() {
+            return estatus;
+        }
+
+        public void setEstatus(int estatus) {
+            this.estatus = estatus;
+        }
         public String getIdPicture() {
             return TextUtils.isEmpty(idPicture) ? "暂无" : idPicture;
         }

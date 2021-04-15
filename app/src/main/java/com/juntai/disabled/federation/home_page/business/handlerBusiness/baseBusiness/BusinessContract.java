@@ -285,6 +285,10 @@ public interface BusinessContract {
          * @param tag
          */
         void addDisabledStudentGrant(RequestBody requestBody, String tag);
+        /**
+         * @param tag
+         */
+        void score(RequestBody requestBody, String tag);
 
         /**
          * @param tag

@@ -12,7 +12,7 @@ public class BrainPalsyRecoveryDetailActivity extends BaseRecoveryDetailActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter.getDisabledChildrenCerebralPalsyInfo(businessId,"");
+        mPresenter.getDisabledChildrenCerebralPalsyInfo(businessId,RECOVERY_DETAIL);
 
     }
 }

@@ -114,7 +114,15 @@ public class EmploymentRegDetailBean extends BaseResult {
         private String idNumber;
         //残疾证反面照片
         private String disabilityCertificateBackPicture;
+        private int estatus;//评价状态（0已评价；1未评价）
 
+        public int getEstatus() {
+            return estatus;
+        }
+
+        public void setEstatus(int estatus) {
+            this.estatus = estatus;
+        }
         public int getId() {
             return id;
         }

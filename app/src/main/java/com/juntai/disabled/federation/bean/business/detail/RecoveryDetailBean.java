@@ -1,5 +1,7 @@
 package com.juntai.disabled.federation.bean.business.detail;
 
+import android.text.TextUtils;
+
 import com.juntai.disabled.basecomponent.base.BaseResult;
 
 /**
@@ -110,7 +112,15 @@ public class RecoveryDetailBean extends BaseResult {
         private String guardianApply;
         private String applicantSign;
         private String riPicture;
+        private int estatus;//评价状态（0已评价；1未评价）
 
+        public int getEstatus() {
+            return estatus;
+        }
+
+        public void setEstatus(int estatus) {
+            this.estatus = estatus;
+        }
         public String getRiPicture() {
             return riPicture == null ? "" : riPicture;
         }

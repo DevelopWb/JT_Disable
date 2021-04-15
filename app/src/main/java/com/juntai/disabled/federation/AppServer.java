@@ -2030,5 +2030,9 @@ public interface AppServer {
      */
     @GET(AppHttpPath.GET_DISABLED_BASE_INFO)
     Observable<DisabledBaseInfoBean> getDisabledBaseInfo(@Query("idNo") String idNo);
-
+    /**
+     * @return
+     */
+    @POST(AppHttpPath.SCORE)
+    Observable<BaseResult> score(@Body RequestBody requestBody);
 }

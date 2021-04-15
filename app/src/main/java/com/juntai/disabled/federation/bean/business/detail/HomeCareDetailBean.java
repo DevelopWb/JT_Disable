@@ -104,7 +104,15 @@ public class HomeCareDetailBean extends BaseResult {
         private String familyEconomyName;
         private String idNumber;
         private String disabilityCertificateBackPicture;
+        private int estatus;//评价状态（0已评价；1未评价）
 
+        public int getEstatus() {
+            return estatus;
+        }
+
+        public void setEstatus(int estatus) {
+            this.estatus = estatus;
+        }
         public String getDisabilityCertificateBackPicture() {
             return TextUtils.isEmpty(disabilityCertificateBackPicture) ? "暂无" : disabilityCertificateBackPicture;
         }

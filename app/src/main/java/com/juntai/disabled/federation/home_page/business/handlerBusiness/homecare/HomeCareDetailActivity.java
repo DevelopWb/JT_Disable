@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.bean.business.detail.HomeCareDetailBean;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
@@ -19,7 +20,7 @@ public class HomeCareDetailActivity extends BaseBusinessActivity {
 
     @Override
     public void initData() {
-        mPresenter.getHomCareInfo(businessId,null);
+        mPresenter.getHomCareInfo(businessId, AppHttpPath.HOME_CARE_DETAIL);
     }
 
     @Override
@@ -39,11 +40,20 @@ public class HomeCareDetailActivity extends BaseBusinessActivity {
 
     @Override
     public void onSuccess(String tag, Object o) {
-        HomeCareDetailBean homeCareDetailBean = (HomeCareDetailBean) o;
-        if (homeCareDetailBean != null) {
-            HomeCareDetailBean.DataBean dataBean =   homeCareDetailBean.getData();
-            adapter.setNewData(mPresenter.getHomeCareAdapterData(dataBean));
+        if (AppHttpPath.HOME_CARE_DETAIL.equals(tag)) {
+            HomeCareDetailBean homeCareDetailBean = (HomeCareDetailBean) o;
+            if (homeCareDetailBean != null) {
+                HomeCareDetailBean.DataBean dataBean =   homeCareDetailBean.getData();
+                if (1==dataBean.getEstatus()&&checkStatusId==1) {
+                    //未评价
+                    showScoreDialog(businessItemId);
+                }
+                adapter.setNewData(mPresenter.getHomeCareAdapterData(dataBean));
+            }
+        }else {
+            super.onSuccess(tag,o);
         }
+
 
     }
 

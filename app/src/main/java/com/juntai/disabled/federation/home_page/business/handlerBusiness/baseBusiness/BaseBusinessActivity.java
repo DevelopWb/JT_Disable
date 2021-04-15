@@ -2,20 +2,25 @@ package com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBu
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.hedgehog.ratingbar.RatingBar;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
@@ -41,9 +46,6 @@ import com.juntai.disabled.federation.home_page.business.handlerBusiness.HeadCro
 import com.juntai.disabled.federation.utils.DateUtil;
 import com.juntai.disabled.federation.utils.StringTools;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
 import java.io.File;
 import java.io.IOException;
@@ -88,9 +90,16 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     private int trainIntentId = 0;//何种培训类型
     private int levelId = 0;//残疾等级
     private int toolId = 0;//辅具id
+    private int speedStarAmount = 0;//办理速度打星
+    private int qualityStarAmount = 0;//质量
+    private int statusStarAmount = 0;//态度
     private BusinessTextValueBean selectBean;
     public static String BUSINESS_ID = "businessid";
+    public static String BUSINESS_ITEM_ID = "businessitemid";
+    public static String CHECK_STATUS = "审核状态";
     protected int businessId = -1;
+    protected int businessItemId = -1;
+    protected int checkStatusId = -1;//审批状态（0：审核中）（1：审核通过）（2：审核失败）
     private ItemSignBean itemSignBean = null;
     private OnPicSelectedCallBack picSelectedCallBack;
     private BusinessPicBean businessPicBean;
@@ -105,6 +114,24 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     private TextView mReserveTv;
     private WebView mToolInfoDesWb;
     private DisabledBaseInfoBean.DataBean mDisabledInfo = null;
+    private ImageView mCloseDialogIv;
+    private RatingBar mRatingbarSpeed;
+    private RatingBar mRatingbarQuality;
+    private RatingBar mRatingbarAttitude;
+    private TextView mItemBusinessBigTitleTv;
+    /**
+     * 点击输入评价内容
+     */
+    private EditText mDescriptionEt;
+    /**
+     * 已输入0/200
+     */
+    private TextView mInputNumTv;
+    /**
+     * 提交
+     */
+    private TextView mCommitScoreTv;
+    private AlertDialog alertDialog;
 
     protected abstract String getTitleName();
 
@@ -138,6 +165,8 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     public void initView() {
         ////businessId=-1进入详情模式
         businessId = getIntent().getIntExtra(BUSINESS_ID, -1);
+        businessItemId = getIntent().getIntExtra(BUSINESS_ITEM_ID, -1);
+        checkStatusId = getIntent().getIntExtra(CHECK_STATUS, -1);
         setTitleName(getTitleName());
         mRecyclerview = (RecyclerView) findViewById(R.id.recyclerview);
         mSmartrefreshlayout = (SmartRefreshLayout) findViewById(R.id.smartrefreshlayout);
@@ -325,6 +354,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         });
     }
 
+
     /**
      * 辅具详情的view
      *
@@ -367,6 +397,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         webView.loadDataWithBaseURL("", urlString, "text/html",
                 "utf-8", null);
     }
+
 
     private class WebViewClientDemo extends WebViewClient {
         @Override
@@ -1532,13 +1563,21 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         }
                     }
                     adapter.notifyDataSetChanged();
-                }else {
+                } else {
                     //没有查到相应残疾人的信息
                     mDisabledInfo = null;
 
                 }
             }
 
+        } else if (AppHttpPath.SCORE.equals(tag)) {
+            BaseResult baseResult = (BaseResult) o;
+            ToastUtils.toast(mContext, baseResult.message);
+            if (alertDialog != null) {
+                if (alertDialog.isShowing()) {
+                    alertDialog.dismiss();
+                }
+            }
         } else {
             BaseResult baseResult = (BaseResult) o;
             ToastUtils.toast(mContext, baseResult.message);
@@ -1595,5 +1634,79 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
 
 
         void searchDisabledInfoByIdCard(String idNo);
+    }
+
+    /**
+     * 展示评分的对话框
+     */
+    protected void showScoreDialog(int businessId) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.score_dialog, null);
+        alertDialog = new AlertDialog.Builder(mContext)
+                .setView(view)
+                .setCancelable(false)
+                .create();
+        mCloseDialogIv = (ImageView) view.findViewById(R.id.close_dialog_iv);
+        mCloseDialogIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        mRatingbarSpeed = (RatingBar) view.findViewById(R.id.ratingbar_speed);
+        mRatingbarSpeed.setOnRatingChangeListener(new RatingBar.OnRatingChangeListener() {
+            @Override
+            public void onRatingChange(float RatingCount) {
+                speedStarAmount = (int) RatingCount;
+            }
+        });
+        mRatingbarQuality = (RatingBar) view.findViewById(R.id.ratingbar_quality);
+        mRatingbarQuality.setOnRatingChangeListener(new RatingBar.OnRatingChangeListener() {
+            @Override
+            public void onRatingChange(float RatingCount) {
+                qualityStarAmount = (int) RatingCount;
+            }
+        });
+        mRatingbarAttitude = (RatingBar) view.findViewById(R.id.ratingbar_attitude);
+        mRatingbarAttitude.setOnRatingChangeListener(new RatingBar.OnRatingChangeListener() {
+            @Override
+            public void onRatingChange(float RatingCount) {
+                statusStarAmount = (int) RatingCount;
+            }
+        });
+        mItemBusinessBigTitleTv = (TextView) view.findViewById(R.id.item_business_big_title_tv);
+        mItemBusinessBigTitleTv.setText("评价内容");
+        mDescriptionEt = (EditText) view.findViewById(R.id.description_et);
+        mInputNumTv = (TextView) view.findViewById(R.id.input_num_tv);
+        mCommitScoreTv = (TextView) view.findViewById(R.id.commit_score_tv);
+        mCommitScoreTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.score(getPublishMultipartBody().addFormDataPart("id", String.valueOf(businessId))
+                        .addFormDataPart("speed", String.valueOf(speedStarAmount))
+                        .addFormDataPart("quality", String.valueOf(qualityStarAmount))
+                        .addFormDataPart("attitude", String.valueOf(statusStarAmount))
+                        .addFormDataPart("evaluate", getTextViewValue(mDescriptionEt)).build(), AppHttpPath.SCORE);
+
+            }
+        });
+        alertDialog.show();
+        mDescriptionEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s != null) {
+                    mInputNumTv.setText("已输入" + s.length() + "/200");
+                }
+            }
+        });
     }
 }
