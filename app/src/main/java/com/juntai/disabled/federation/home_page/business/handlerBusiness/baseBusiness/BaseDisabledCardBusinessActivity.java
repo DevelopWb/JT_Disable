@@ -52,10 +52,6 @@ public abstract class BaseDisabledCardBusinessActivity extends BaseBusinessActiv
         return view;
     }
 
-    @Override
-    protected List<MultipleItem> getAdapterData() {
-        return mPresenter.getBaseChildAdapterData(null);
-    }
 
 
 

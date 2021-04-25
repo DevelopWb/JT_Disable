@@ -111,7 +111,7 @@ public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<Busin
         mSmartrefreshlayout.setEnableLoadMore(false);
         mSmartrefreshlayout.setEnableRefresh(false);
         adapter = new HandlerBusinessAdapter(getAdapterData(), getBaseFragmentActivity().businessId == -1 ? false :
-                true);
+                true,getFragmentManager());
         adapter.setOnIdCardSearchCallBack(new BaseBusinessActivity.OnIdCardSearchCallBack() {
             @Override
             public void searchDisabledInfoByIdCard(String idNo) {

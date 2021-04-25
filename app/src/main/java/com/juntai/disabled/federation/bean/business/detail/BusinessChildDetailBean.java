@@ -68,9 +68,44 @@ public class BusinessChildDetailBean extends BaseResult {
         private String applicantSign;
         private String disabilityCertificateBackPicture;
         private int estatus;//评价状态（0已评价；1未评价）
-
+        private String casePicture2;
+        private String casePicture3;
+        private String casePicture4;
+        private String casePicture5;
         public int getEstatus() {
             return estatus;
+        }
+
+        public String getCasePicture2() {
+            return casePicture2 == null ? "" : casePicture2;
+        }
+
+        public void setCasePicture2(String casePicture2) {
+            this.casePicture2 = casePicture2 == null ? "" : casePicture2;
+        }
+
+        public String getCasePicture3() {
+            return casePicture3 == null ? "" : casePicture3;
+        }
+
+        public void setCasePicture3(String casePicture3) {
+            this.casePicture3 = casePicture3 == null ? "" : casePicture3;
+        }
+
+        public String getCasePicture4() {
+            return casePicture4 == null ? "" : casePicture4;
+        }
+
+        public void setCasePicture4(String casePicture4) {
+            this.casePicture4 = casePicture4 == null ? "" : casePicture4;
+        }
+
+        public String getCasePicture5() {
+            return casePicture5 == null ? "" : casePicture5;
+        }
+
+        public void setCasePicture5(String casePicture5) {
+            this.casePicture5 = casePicture5 == null ? "" : casePicture5;
         }
 
         public void setEstatus(int estatus) {

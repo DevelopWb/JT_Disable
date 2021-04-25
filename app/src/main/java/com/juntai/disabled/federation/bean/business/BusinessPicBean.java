@@ -1,5 +1,8 @@
 package com.juntai.disabled.federation.bean.business;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @Author: tobato
  * @Description: 作用描述
@@ -11,11 +14,29 @@ public class BusinessPicBean {
     private String picName;
     private int picNameIndex;//图片的索引  -1 代表没有序号
     private String picPath;
+    private List<String> fragmentPics;//多选图片时 图片库
 
     public BusinessPicBean(String picName, int picNameIndex, String picPath) {
         this.picName = picName;
         this.picNameIndex = picNameIndex;
         this.picPath = picPath;
+    }
+
+    public BusinessPicBean(String picName, int picNameIndex,  List<String> fragmentPics) {
+        this.picName = picName;
+        this.picNameIndex = picNameIndex;
+        this.fragmentPics = fragmentPics;
+    }
+
+    public List<String> getFragmentPics() {
+        if (fragmentPics == null) {
+            return new ArrayList<>();
+        }
+        return fragmentPics;
+    }
+
+    public void setFragmentPics(List<String> fragmentPics) {
+        this.fragmentPics = fragmentPics;
     }
 
     public int getPicNameIndex() {

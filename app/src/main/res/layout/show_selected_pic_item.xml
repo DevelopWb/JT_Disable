@@ -1,18 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5dp">
+    android:layout_marginTop="10dp">
 
-    <ImageView
-        android:id="@+id/select_pic_icon_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/add_icons"
+
+    <LinearLayout
+        android:id="@+id/select_pic_icon_gv"
+        android:layout_width="200dp"
+        android:layout_height="130dp"
+        android:background="@drawable/stroke_gray_square_bg"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <ImageView
+            android:id="@+id/select_pic_icon_iv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:scaleType="centerInside"
+            android:src="@mipmap/item_add_pic"
+             />
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/delete_pushed_news_iv"
@@ -23,8 +36,8 @@
         android:src="@mipmap/icon_delete"
         android:visibility="visible"
         android:background="@drawable/bg_btn_red_round"
-        app:layout_constraintRight_toRightOf="@+id/select_pic_icon_iv"
-        app:layout_constraintTop_toTopOf="@+id/select_pic_icon_iv" />
+        app:layout_constraintRight_toRightOf="@+id/select_pic_icon_gv"
+        app:layout_constraintTop_toTopOf="@+id/select_pic_icon_gv" />
     <ImageView
         android:id="@+id/item_video_tag"
         android:layout_width="wrap_content"

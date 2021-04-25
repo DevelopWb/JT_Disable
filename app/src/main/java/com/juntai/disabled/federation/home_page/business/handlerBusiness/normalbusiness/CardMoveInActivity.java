@@ -1,6 +1,9 @@
 package com.juntai.disabled.federation.home_page.business.handlerBusiness.normalbusiness;
 
+import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseDisabledCardBusinessActivity;
+
+import java.util.List;
 
 /**
  * @aouther tobato
@@ -13,5 +16,10 @@ public class CardMoveInActivity extends BaseDisabledCardBusinessActivity {
     @Override
     protected String getTitleName() {
         return BUSINESS_NAME_MOVE_IN;
+    }
+
+    @Override
+    protected List<MultipleItem> getAdapterData() {
+        return mPresenter.getMoveInAdapterData(null);
     }
 }

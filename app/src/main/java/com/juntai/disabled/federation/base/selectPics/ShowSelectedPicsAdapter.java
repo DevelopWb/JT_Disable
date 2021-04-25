@@ -35,7 +35,7 @@ public class ShowSelectedPicsAdapter extends BaseQuickAdapter<String, BaseViewHo
     @Override
     protected void convert(BaseViewHolder helper, String item) {
         if ("-1".equals(item)) {
-            ImageLoadUtil.loadCentercropImage(mContext.getApplicationContext(), R.mipmap.add_icons, (ImageView) helper.getView(R.id.select_pic_icon_iv));
+            ImageLoadUtil.loadCentercropImage(mContext.getApplicationContext(), R.mipmap.item_add_pic, (ImageView) helper.getView(R.id.select_pic_icon_iv));
             helper.setGone(R.id.delete_pushed_news_iv, false);
         } else {
             ImageLoadUtil.loadImageNoCache(mContext, item, (ImageView) helper.getView(R.id.select_pic_icon_iv));
@@ -53,10 +53,10 @@ public class ShowSelectedPicsAdapter extends BaseQuickAdapter<String, BaseViewHo
         }
         helper.addOnClickListener(R.id.select_pic_icon_iv);
         helper.addOnClickListener(R.id.delete_pushed_news_iv);
-        ImageView imageView = helper.getView(R.id.select_pic_icon_iv);
-        ConstraintLayout.LayoutParams linearParams = (ConstraintLayout.LayoutParams) imageView.getLayoutParams(); //取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
-        linearParams.width = DisplayUtil.dp2px(mContext, widthAndHeigh);// 控件的宽强制设成30
-        linearParams.height = DisplayUtil.dp2px(mContext, widthAndHeigh);// 控件的高强制设成30
-        imageView.setLayoutParams(linearParams); //使设置好的布局参数应用到控件
+//        ImageView imageView = helper.getView(R.id.select_pic_icon_iv);
+//        ConstraintLayout.LayoutParams linearParams = (ConstraintLayout.LayoutParams) imageView.getLayoutParams(); //取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
+//        linearParams.width = DisplayUtil.dp2px(mContext, widthAndHeigh);// 控件的宽强制设成30
+//        linearParams.height = DisplayUtil.dp2px(mContext, widthAndHeigh);// 控件的高强制设成30
+//        imageView.setLayoutParams(linearParams); //使设置好的布局参数应用到控件
     }
 }

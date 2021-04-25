@@ -92,7 +92,7 @@ public abstract class BaseDisabledCardBusinessDetailActivity extends BaseBusines
                     showScoreDialog(businessItemId);
                 }
                 if (dataBean != null) {
-                    adapter.setNewData(mPresenter.getBaseChildAdapterData(dataBean));
+                    adapter.setNewData(mPresenter.getRenewalAdapterData(dataBean));
                 }
             }
         } else {

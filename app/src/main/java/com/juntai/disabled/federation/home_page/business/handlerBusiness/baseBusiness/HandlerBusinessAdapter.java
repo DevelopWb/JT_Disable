@@ -1,5 +1,6 @@
 package com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness;
 
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +23,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.federation.R;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.bean.business.BusinessPicBean;
 import com.juntai.disabled.federation.bean.business.BusinessRadioBean;
@@ -41,7 +43,8 @@ import java.util.List;
  */
 public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseViewHolder> {
     private boolean isDetail = false;//是否是详情模式
-private boolean isWatch = true;//是否监听
+    private boolean isWatch = true;//是否监听
+    private FragmentManager mFragmentManager;
     private BaseBusinessActivity.OnIdCardSearchCallBack onIdCardSearchCallBack;
 
     public void setOnIdCardSearchCallBack(BaseBusinessActivity.OnIdCardSearchCallBack onIdCardSearchCallBack) {
@@ -54,7 +57,7 @@ private boolean isWatch = true;//是否监听
      *
      * @param data A new list is created out of this one to avoid mutable list
      */
-    public HandlerBusinessAdapter(List<MultipleItem> data, boolean isDetail) {
+    public HandlerBusinessAdapter(List<MultipleItem> data, boolean isDetail, FragmentManager mFragmentManager) {
         super(data);
         addItemType(MultipleItem.ITEM_BUSINESS_HEAD_PIC, R.layout.item_layout_type_head_pic);
         addItemType(MultipleItem.ITEM_BUSINESS_TITILE_BIG, R.layout.item_layout_type_title_big);
@@ -69,7 +72,9 @@ private boolean isWatch = true;//是否监听
         addItemType(MultipleItem.ITEM_BUSINESS_YEAR, R.layout.item_layout_type_year);
         addItemType(MultipleItem.ITEM_BUSINESS_NORMAL_RECYCLEVIEW, R.layout.item_layout_type_recyclerview);
         addItemType(MultipleItem.ITEM_BUSINESS_DEAF_TABLE, R.layout.item_layout_type_deaf_table);
+        addItemType(MultipleItem.ITEM_BUSINESS_FRAGMENT, R.layout.item_layout_type_fragment);
         this.isDetail = isDetail;
+        this.mFragmentManager = mFragmentManager;
     }
 
     @Override
@@ -140,7 +145,7 @@ private boolean isWatch = true;//是否监听
                     public void afterTextChanged(Editable s) {
                         BusinessTextValueBean editBean = (BusinessTextValueBean) editText.getTag();
                         String str = s.toString().trim();
-                        if (BusinessContract.TABLE_TITLE_IDCARD.equals(editBean.getKey())||BusinessContract.TABLE_TITLE_CHILD_IDCARD.equals(editBean.getKey())) {
+                        if (BusinessContract.TABLE_TITLE_IDCARD.equals(editBean.getKey()) || BusinessContract.TABLE_TITLE_CHILD_IDCARD.equals(editBean.getKey())) {
                             if (str.length() == 18) {
                                 //身份证输完18位之后 获取残疾人基础信息
                                 if (isWatch) {
@@ -152,7 +157,7 @@ private boolean isWatch = true;//是否监听
                                     }
                                 }
 
-                            }else {
+                            } else {
                                 isWatch = true;
                             }
                         }
@@ -369,17 +374,18 @@ private boolean isWatch = true;//是否监听
             case MultipleItem.ITEM_BUSINESS_PIC:
                 BusinessPicBean businessPicBean = (BusinessPicBean) item.getObject();
                 String picPath = businessPicBean.getPicPath();
+                String name = businessPicBean.getPicName();
                 int index = businessPicBean.getPicNameIndex();
                 if (index > 0) {
                     helper.setText(R.id.form_pic_title_tv, String.format("%s%s%s", String.valueOf(index), ".",
-                            businessPicBean.getPicName()));
+                            name));
                 } else {
-                    helper.setText(R.id.form_pic_title_tv, businessPicBean.getPicName());
+                    helper.setText(R.id.form_pic_title_tv, name);
                 }
                 ImageView picIv = helper.getView(R.id.form_pic_src_iv);
                 //示例图格式不需要标注
-                if (BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE.equals(picPath)
-                        || BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE.equals(picPath)) {
+                if (BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE.equals(name)
+                        || BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE.equals(name)) {
                     helper.setGone(R.id.pic_form_notice_tv, false);
                 } else {
                     helper.setGone(R.id.pic_form_notice_tv, true);
@@ -390,7 +396,7 @@ private boolean isWatch = true;//是否监听
                 }
 
                 if (!TextUtils.isEmpty(picPath)) {
-                    switch (picPath) {
+                    switch (name) {
                         case BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE:
                             ImageLoadUtil.loadImage(mContext, R.mipmap.front_pic, picIv);
                             break;
@@ -405,6 +411,50 @@ private boolean isWatch = true;//是否监听
                 } else {
                     ImageLoadUtil.loadImage(mContext, R.mipmap.item_add_pic, picIv);
                 }
+                break;
+            case MultipleItem.ITEM_BUSINESS_FRAGMENT:
+                //上传材料时 多选照片
+                BusinessPicBean picBean = (BusinessPicBean) item.getObject();
+                SelectPhotosFragment fragment = (SelectPhotosFragment) mFragmentManager.findFragmentById(R.id.photo_fg);
+                fragment.setT(picBean);
+
+                if (isDetail) {
+                    fragment.setPhotoDelateable(false).setMaxCount(picBean.getFragmentPics().size());
+                    if (!picBean.getFragmentPics().isEmpty()) {
+                        fragment.setIcons(picBean.getFragmentPics());
+                    }
+                } else {
+                    fragment.setPhotoDelateable(true).setMaxCount(5);
+                }
+
+                fragment.setSpanCount(1).setOnPicLoadSuccessCallBack(new SelectPhotosFragment.OnPicLoadSuccessCallBack() {
+                    @Override
+                    public void loadSuccess(List<String> icons) {
+                        BusinessPicBean picBean = (BusinessPicBean) fragment.getT();
+                        picBean.setFragmentPics(icons);
+                    }
+                });
+
+
+                int picNameIndex = picBean.getPicNameIndex();
+                String picName = picBean.getPicName();
+                if (picNameIndex > 0) {
+                    helper.setText(R.id.form_pic_title_tv, String.format("%s%s%s", String.valueOf(picNameIndex), ".",
+                            picBean.getPicName()));
+                } else {
+                    helper.setText(R.id.form_pic_title_tv, picBean.getPicName());
+                }
+                //示例图格式不需要标注
+                if (BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_SAMPLE.equals(picName)
+                        || BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE.equals(picName)) {
+                    helper.setGone(R.id.pic_form_notice_tv, false);
+                } else {
+                    helper.setGone(R.id.pic_form_notice_tv, true);
+                }
+                //                //详情时 图片不可点击  示例图不可点击
+                //                if (!isDetail) {
+                //                    helper.addOnClickListener(R.id.form_pic_src_iv);
+                //                }
                 break;
             case MultipleItem.ITEM_BUSINESS_NOTICE:
                 helper.setText(R.id.business_item_notice_tv, (String) item.getObject());

@@ -75,6 +75,9 @@ public interface BusinessContract {
     String TABLE_TITLE_ADMISSION_NOTICE_PIC = "入学通知书照片";//
     String TABLE_TITLE_TUITION_PIC = "缴费凭证照片";//学费
     String TABLE_TITLE_MATERIAL_PIC = "病例材料照片";//
+    String TABLE_TITLE_MATERIAL_PIC_RENEWAL = "换证材料照片";//
+    String TABLE_TITLE_MATERIAL_PIC_LEVEL = "等级变更材料照片";//
+    String TABLE_TITLE_MATERIAL_HANDLE_PIC = "申请材料(病例、医学测试结果等)";//最多5张照片
     String TABLE_TITLE_LIFE_PIC = "申请人生活照片";//
     String TABLE_TITLE_LIFE_PIC_MYSELF = "本人生活照照片";//
     String TABLE_TITLE_LIFE_PIC_HOUSE = "房屋外观照片";//
@@ -99,6 +102,8 @@ public interface BusinessContract {
     String TABLE_TITLE_DISABILITY_PEOPLE_RELATION = "与残疾人关系";//
     String TABLE_TITLE_STUDENT_IDCARD = "学生身份证照片";//
     String TABLE_TITLE_PIC_IDCARD = "身份证照片";//
+    String TABLE_TITLE_PIC_IDCARD_FRONT = "身份证正面照";//
+    String TABLE_TITLE_PIC_IDCARD_BACK = "身份证反面照";//
     String TABLE_TITLE_PRESENT_DISBILITY_IDCARD = "家长重度残疾证照片\n正面照";//
     String TABLE_TITLE_GROUP_PHOTO = "学生与家长生活合影照片";//
     String TABLE_TITLE_ACCOUNT_BOOK = "户口本说明家庭关系照片或实际抚养证明";//

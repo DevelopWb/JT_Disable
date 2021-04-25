@@ -31,6 +31,7 @@ import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseAppActivity;
 import com.juntai.disabled.federation.base.customview.GestureSignatureView;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.bean.business.BusinessPicBean;
 import com.juntai.disabled.federation.bean.business.BusinessPropertyBean;
@@ -64,7 +65,7 @@ import okhttp3.RequestBody;
  * @UpdateUser: 更新者
  * @UpdateDate: 2021/1/19 9:36
  */
-public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPresent> implements BusinessContract.IBusinessView, View.OnClickListener {
+public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPresent> implements BusinessContract.IBusinessView, View.OnClickListener, SelectPhotosFragment.OnPhotoItemClick {
     private RecyclerView mRecyclerview;
     private SmartRefreshLayout mSmartrefreshlayout;
     protected HandlerBusinessAdapter adapter;
@@ -172,7 +173,8 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         mSmartrefreshlayout = (SmartRefreshLayout) findViewById(R.id.smartrefreshlayout);
         mSmartrefreshlayout.setEnableLoadMore(false);
         mSmartrefreshlayout.setEnableRefresh(false);
-        adapter = new HandlerBusinessAdapter(getAdapterData(), businessId == -1 ? false : true);
+        adapter = new HandlerBusinessAdapter(getAdapterData(), businessId == -1 ? false :
+                true, getSupportFragmentManager());
         adapter.setOnIdCardSearchCallBack(new OnIdCardSearchCallBack() {
             @Override
             public void searchDisabledInfoByIdCard(String idNo) {
@@ -1120,13 +1122,23 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                         RequestBody.create(MediaType.parse("file"),
                                                 new File(picBean.getPicPath())));
                                 break;
-                            case BusinessContract.TABLE_TITLE_PIC_IDCARD:
+                            case BusinessContract.TABLE_TITLE_PIC_IDCARD_FRONT:
                                 if (!StringTools.isStringValueOk(picBean.getPicPath())) {
-                                    ToastUtils.toast(mContext, "请选择身份证照片");
+                                    ToastUtils.toast(mContext, "请选择身份证正面照片");
                                     return null;
                                 }
                                 //身份证照片
                                 builder.addFormDataPart("idPictureFile", "idPictureFile",
+                                        RequestBody.create(MediaType.parse("file"),
+                                                new File(picBean.getPicPath())));
+                                break;
+                            case BusinessContract.TABLE_TITLE_PIC_IDCARD_BACK:
+                                if (!StringTools.isStringValueOk(picBean.getPicPath())) {
+                                    ToastUtils.toast(mContext, "请选择身份证反面照片");
+                                    return null;
+                                }
+                                //身份证照片
+                                builder.addFormDataPart("idPictureBackFile", "idPictureBackFile",
                                         RequestBody.create(MediaType.parse("file"),
                                                 new File(picBean.getPicPath())));
                                 break;
@@ -1205,6 +1217,44 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                 break;
                         }
                     }
+                    break;
+
+                case MultipleItem.ITEM_BUSINESS_FRAGMENT:
+                    //多选图片
+                    BusinessPicBean fragmentPicBean = (BusinessPicBean) array.getObject();
+                    List<String> photos = fragmentPicBean.getFragmentPics();
+
+                    String name = fragmentPicBean.getPicName();
+                    String msg = null;
+                    switch (name) {
+                        case BusinessContract.TABLE_TITLE_MATERIAL_HANDLE_PIC:
+                            msg = "请选择申请材料照片";
+                            break;
+                        case BusinessContract.TABLE_TITLE_MATERIAL_PIC_RENEWAL:
+                            msg = "请选择换证材料照片";
+                            break;
+                        default:
+                            break;
+                    }
+                    if (photos.isEmpty()) {
+                        ToastUtils.toast(mContext,msg);
+                        return null;
+                    }else {
+
+                    }
+                    for (int i = 0; i < photos.size(); i++) {
+                        String  picPah = photos.get(i);
+                        if (0==i) {
+                            builder.addFormDataPart("casePictureFile", "casePictureFile",
+                                    RequestBody.create(MediaType.parse("file"),
+                                            new File(picPah)));
+                        }else {
+                            builder.addFormDataPart("casePictureFile"+(i+1), "casePictureFile"+(i+1),
+                                    RequestBody.create(MediaType.parse("file"),
+                                            new File(picPah)));
+                        }
+                    }
+
                     break;
 
                 case MultipleItem.ITEM_BUSINESS_SIGN:
@@ -1643,7 +1693,6 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         View view = LayoutInflater.from(mContext).inflate(R.layout.score_dialog, null);
         alertDialog = new AlertDialog.Builder(mContext)
                 .setView(view)
-                .setCancelable(false)
                 .create();
         mCloseDialogIv = (ImageView) view.findViewById(R.id.close_dialog_iv);
         mCloseDialogIv.setOnClickListener(new View.OnClickListener() {
@@ -1681,6 +1730,18 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         mCommitScoreTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (speedStarAmount == 0) {
+                    ToastUtils.toast(mContext, "办理速度您还没有评分");
+                    return;
+                }
+                if (qualityStarAmount == 0) {
+                    ToastUtils.toast(mContext, "办理质量您还没有评分");
+                    return;
+                }
+                if (statusStarAmount == 0) {
+                    ToastUtils.toast(mContext, "办理态度您还没有评分");
+                    return;
+                }
                 mPresenter.score(getPublishMultipartBody().addFormDataPart("id", String.valueOf(businessId))
                         .addFormDataPart("speed", String.valueOf(speedStarAmount))
                         .addFormDataPart("quality", String.valueOf(qualityStarAmount))
@@ -1708,5 +1769,15 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                 }
             }
         });
+    }
+
+    @Override
+    public void onVedioPicClick(BaseQuickAdapter adapter, int position) {
+
+    }
+
+    @Override
+    public void onPicClick(BaseQuickAdapter adapter, int position) {
+
     }
 }
