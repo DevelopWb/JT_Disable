@@ -1437,7 +1437,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                 dataBean.getAddress(), true);
         initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_CONTACT_MODE,
                 dataBean == null ? "" : dataBean.getTelephone(), true);
-        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
+
 
         return arrays;
     }
@@ -1450,6 +1450,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
      */
     public List<MultipleItem> getRenewalAdapterData(BusinessChildDetailBean.DataBean dataBean) {
         List<MultipleItem> arrays = getBaseChildAdapterData(dataBean);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_ALL, 1, dataBean == null ? "" :
                         dataBean.getDisabilityCertificatePicture())));
@@ -1505,6 +1506,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
      */
     public List<MultipleItem> getChangedLevelAdapterData(BusinessChildDetailBean.DataBean dataBean) {
         List<MultipleItem> arrays = getBaseChildAdapterData(dataBean);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_ALL, 1, dataBean == null ? "" :
                         dataBean.getDisabilityCertificatePicture())));
@@ -1560,6 +1562,31 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
      */
     public List<MultipleItem> getReissueAdapterData(BusinessChildDetailBean.DataBean dataBean) {
         List<MultipleItem> arrays = getBaseChildAdapterData(dataBean);
+        initTextType(arrays, MultipleItem.ITEM_BUSINESS_EDIT, BusinessContract.TABLE_TITLE_APPLY_REASON,
+                dataBean == null ? "" : dataBean.getReason(), true);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_PIC_IDCARD_FRONT, 1, dataBean == null ? "" :
+                        dataBean.getIdPicture())));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_PIC_IDCARD_BACK, -1, dataBean == null ? "" :
+                        dataBean.getIdPictureBack())));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_LIFE_PIC, 2, dataBean == null ? "" :
+                        dataBean.getLifePicture())));
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_SIGN, new ItemSignBean("申请人电子签名", dataBean == null ? "" :
+                dataBean.getApplicantSign(), 1)));
+        return arrays;
+    }
+    /**
+     * 遗失补办
+     *
+     * @param dataBean
+     * @return
+     */
+    public List<MultipleItem> getaaaAdapterData(BusinessChildDetailBean.DataBean dataBean) {
+        List<MultipleItem> arrays = getBaseChildAdapterData(dataBean);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_ALL, 1, dataBean == null ? "" :
                         dataBean.getDisabilityCertificatePicture())));
@@ -1576,7 +1603,9 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
                     new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE, -1,
                             BusinessContract.TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE)));
         }
-
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
+                new BusinessPicBean(BusinessContract.TABLE_TITLE_MATERIAL_PIC, 2, dataBean == null ? "" :
+                        dataBean.getCasePicture())));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_LIFE_PIC, 3, dataBean == null ? "" :
                         dataBean.getLifePicture())));
@@ -1592,6 +1621,7 @@ public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBus
      */
     public List<MultipleItem> getMoveInAdapterData(BusinessChildDetailBean.DataBean dataBean) {
         List<MultipleItem> arrays = getBaseChildAdapterData(dataBean);
+        arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_TITILE_BIG, "上传资料"));
         arrays.add(new MultipleItem(MultipleItem.ITEM_BUSINESS_PIC,
                 new BusinessPicBean(BusinessContract.TABLE_TITLE_DISABLE_PIC_FRONT_ALL, 1, dataBean == null ? "" :
                         dataBean.getDisabilityCertificatePicture())));

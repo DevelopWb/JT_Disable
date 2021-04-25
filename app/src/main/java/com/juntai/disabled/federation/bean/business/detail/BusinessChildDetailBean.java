@@ -72,8 +72,35 @@ public class BusinessChildDetailBean extends BaseResult {
         private String casePicture3;
         private String casePicture4;
         private String casePicture5;
+        private String reason;
+        private String idPicture;
+        private String idPictureBack;
         public int getEstatus() {
             return estatus;
+        }
+
+        public String getReason() {
+            return reason == null ? "" : reason;
+        }
+
+        public void setReason(String reason) {
+            this.reason = reason == null ? "" : reason;
+        }
+
+        public String getIdPicture() {
+            return idPicture == null ? "" : idPicture;
+        }
+
+        public void setIdPicture(String idPicture) {
+            this.idPicture = idPicture == null ? "" : idPicture;
+        }
+
+        public String getIdPictureBack() {
+            return idPictureBack == null ? "" : idPictureBack;
+        }
+
+        public void setIdPictureBack(String idPictureBack) {
+            this.idPictureBack = idPictureBack == null ? "" : idPictureBack;
         }
 
         public String getCasePicture2() {

@@ -772,6 +772,10 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             //职业工种
                             formKey = "profession";
                             break;
+                        case BusinessContract.TABLE_TITLE_APPLY_REASON:
+                            //  申请原因
+                            formKey = "reason";
+                            break;
                         case BusinessContract.TABLE_TITLE_UNIT_NATURE:
                             //单位性质
                             formKey = "unitNature";

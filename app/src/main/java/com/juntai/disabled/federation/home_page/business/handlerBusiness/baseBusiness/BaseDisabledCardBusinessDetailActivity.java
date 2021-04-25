@@ -33,28 +33,27 @@ public abstract class BaseDisabledCardBusinessDetailActivity extends BaseBusines
     public static final String BUSINESS_NAME_MOVE_IN = "残疾证迁入详情";
     public static final String BUSINESS_NAME_MOVE_OUT = "残疾证迁出详情";
     public static final String BUSINESS_NAME_LOGOUT = "残疾证注销详情";
-    public static final String BUSINESS_BASE = "基础业务";
 
     @Override
     public void initData() {
         switch (getTitleName()) {
             case BUSINESS_NAME_RENEWAL:
-                mPresenter.getCertificatesExchangeInfo(businessId, BUSINESS_BASE);
+                mPresenter.getCertificatesExchangeInfo(businessId, BUSINESS_NAME_RENEWAL);
                 break;
             case BUSINESS_NAME_LEVEL_CHANGE:
-                mPresenter.getCertificatesChangeInfo(businessId, BUSINESS_BASE);
+                mPresenter.getCertificatesChangeInfo(businessId, BUSINESS_NAME_LEVEL_CHANGE);
                 break;
             case BUSINESS_NAME_REISSUE:
-                mPresenter.getCertificatesReissueInfo(businessId, BUSINESS_BASE);
+                mPresenter.getCertificatesReissueInfo(businessId, BUSINESS_NAME_REISSUE);
                 break;
             case BUSINESS_NAME_MOVE_IN:
-                mPresenter.getCertificatesMoveinInfo(businessId, BUSINESS_BASE);
+                mPresenter.getCertificatesMoveinInfo(businessId, BUSINESS_NAME_MOVE_IN);
                 break;
             case BUSINESS_NAME_MOVE_OUT:
-                mPresenter.getCertificatesMoveoutInfo(businessId, BUSINESS_BASE);
+                mPresenter.getCertificatesMoveoutInfo(businessId, BUSINESS_NAME_MOVE_OUT);
                 break;
             case BUSINESS_NAME_LOGOUT:
-                mPresenter.getCertificatesCancelInfo(businessId, BUSINESS_BASE);
+                mPresenter.getCertificatesCancelInfo(businessId, BUSINESS_NAME_LOGOUT);
                 break;
             default:
                 break;
@@ -83,21 +82,56 @@ public abstract class BaseDisabledCardBusinessDetailActivity extends BaseBusines
 
     @Override
     public void onSuccess(String tag, Object o) {
-        if (BUSINESS_BASE.equals(tag)) {
+        if (BUSINESS_NAME_RENEWAL.equals(tag)||BUSINESS_NAME_LEVEL_CHANGE.equals(tag)||BUSINESS_NAME_REISSUE.equals(tag)
+                ||BUSINESS_NAME_MOVE_IN.equals(tag)||BUSINESS_NAME_MOVE_OUT.equals(tag)||BUSINESS_NAME_LOGOUT.equals(tag)) {
             BusinessChildDetailBean detailBean = (BusinessChildDetailBean) o;
+            BusinessChildDetailBean.DataBean dataBean = null;
             if (detailBean != null) {
-                BusinessChildDetailBean.DataBean dataBean = detailBean.getData();
+                dataBean = detailBean.getData();
                 if (1 == dataBean.getEstatus()&&checkStatusId==1) {
                     //未评价
                     showScoreDialog(businessItemId);
                 }
-                if (dataBean != null) {
-                    adapter.setNewData(mPresenter.getRenewalAdapterData(dataBean));
-                }
+
             }
-        } else {
+            switch (tag) {
+                case BUSINESS_NAME_RENEWAL:
+                    if (dataBean != null) {
+                        adapter.setNewData(mPresenter.getRenewalAdapterData(dataBean));
+                    }
+                    break;
+                case BUSINESS_NAME_LEVEL_CHANGE:
+                    if (dataBean != null) {
+                        adapter.setNewData(mPresenter.getChangedLevelAdapterData(dataBean));
+                    }
+                    break;
+                case BUSINESS_NAME_REISSUE:
+                    if (dataBean != null) {
+                        adapter.setNewData(mPresenter.getReissueAdapterData(dataBean));
+                    }
+                    break;
+                case BUSINESS_NAME_MOVE_IN:
+                    if (dataBean != null) {
+                        adapter.setNewData(mPresenter.getMoveInAdapterData(dataBean));
+                    }
+                    break;
+//                case BUSINESS_NAME_MOVE_OUT:
+//                    if (dataBean != null) {
+//                        adapter.setNewData(mPresenter.getRenewalAdapterData(dataBean));
+//                    }
+//                    break;
+//                case BUSINESS_NAME_LOGOUT:
+//                    if (dataBean != null) {
+//                        adapter.setNewData(mPresenter.getRenewalAdapterData(dataBean));
+//                    }
+//                    break;
+                default:
+                    break;
+            }
+        }else {
             super.onSuccess(tag, o);
         }
+
 
     }
 

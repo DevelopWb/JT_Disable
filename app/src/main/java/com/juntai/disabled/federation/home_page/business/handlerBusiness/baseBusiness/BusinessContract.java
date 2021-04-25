@@ -54,6 +54,7 @@ public interface BusinessContract {
     String TABLE_TITLE_GUARDIAN_RELATION = "与监护人关系";//
     String TABLE_TITLE_PHONE = "联系电话";//
     String TABLE_TITLE_CONTACT_MODE = "联系方式";//
+    String TABLE_TITLE_APPLY_REASON = "申请原因";//残疾证遗失补办
     String TABLE_TITLE_CONTACTER = "联系人";//
     String TABLE_TITLE_CURRENT_LIVE_ADDR = "目前居住地";//
     String TABLE_TITLE_WORKER = "工作单位";//
@@ -74,7 +75,7 @@ public interface BusinessContract {
     String TABLE_TITLE_STUDENT_CARD_PIC = "学生证照片";//
     String TABLE_TITLE_ADMISSION_NOTICE_PIC = "入学通知书照片";//
     String TABLE_TITLE_TUITION_PIC = "缴费凭证照片";//学费
-    String TABLE_TITLE_MATERIAL_PIC = "病例材料照片";//
+    String TABLE_TITLE_MATERIAL_PIC = "原始材料照片";//
     String TABLE_TITLE_MATERIAL_PIC_RENEWAL = "换证材料照片";//
     String TABLE_TITLE_MATERIAL_PIC_LEVEL = "等级变更材料照片";//
     String TABLE_TITLE_MATERIAL_HANDLE_PIC = "申请材料(病例、医学测试结果等)";//最多5张照片
