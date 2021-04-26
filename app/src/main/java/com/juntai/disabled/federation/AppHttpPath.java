@@ -956,5 +956,10 @@ public class AppHttpPath {
      */
     public static final String SCORE = BASE + "/evaluate.shtml";
 
+    /**
+     * 查询残疾辅具自提地址接口
+     */
+    public static final String GET_SELF_TAKE_ADDR = BASE + "/getAidsDelivery.shtml";
+
 
 }

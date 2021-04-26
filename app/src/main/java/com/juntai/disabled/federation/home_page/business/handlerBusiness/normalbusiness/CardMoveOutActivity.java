@@ -19,6 +19,6 @@ public class CardMoveOutActivity extends BaseDisabledCardBusinessActivity {
 
     @Override
     protected List<MultipleItem> getAdapterData() {
-        return null;
+        return mPresenter.getMoveOutAdapterData(null);
     }
 }

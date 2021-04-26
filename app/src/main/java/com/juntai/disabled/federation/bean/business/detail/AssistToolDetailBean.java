@@ -82,6 +82,7 @@ public class AssistToolDetailBean extends BaseResult {
          */
         private String lifePicture;
         private String idNumber;
+        private String deliveryName;
         private int estatus;//评价状态（0已评价；1未评价）
 
         public int getEstatus() {
@@ -98,6 +99,14 @@ public class AssistToolDetailBean extends BaseResult {
 
         public void setIdNumber(String idNumber) {
             this.idNumber = idNumber == null ? "" : idNumber;
+        }
+
+        public String getDeliveryName() {
+            return deliveryName == null ? "" : deliveryName;
+        }
+
+        public void setDeliveryName(String deliveryName) {
+            this.deliveryName = deliveryName == null ? "" : deliveryName;
         }
 
         public int getId() {

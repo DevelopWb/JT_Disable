@@ -103,8 +103,17 @@ public class HomeCareDetailBean extends BaseResult {
         private int familyEconomy;
         private String familyEconomyName;
         private String idNumber;
+        private String guardianIdPictureBack;
         private String disabilityCertificateBackPicture;
         private int estatus;//评价状态（0已评价；1未评价）
+
+        public String getGuardianIdPictureBack() {
+            return guardianIdPictureBack == null ? "" : guardianIdPictureBack;
+        }
+
+        public void setGuardianIdPictureBack(String guardianIdPictureBack) {
+            this.guardianIdPictureBack = guardianIdPictureBack == null ? "" : guardianIdPictureBack;
+        }
 
         public int getEstatus() {
             return estatus;

@@ -19,7 +19,7 @@ MobSDK {
                 appKey "87267714beb24352f2b2ffc5c9a14317"
             }
             WechatMoments {
-                appId "wxfa0af7477eb173a5"
+                appId "wxdf698fd6bffbea97"
                 appSecret "fd1fd3ff4469750b1ec9bc5337847e40"
             }
             WechatFavorite {

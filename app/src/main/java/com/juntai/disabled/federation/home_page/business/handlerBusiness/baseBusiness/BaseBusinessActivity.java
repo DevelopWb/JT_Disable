@@ -79,7 +79,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     private ImageView mSignIv = null;
     private ImageView mHandlerSignIv = null;//办理残疾证的时候的签名
     private TextView mSelectTv;
-    private int methodsId = 1;//配送方式
+    private int methodsId = 0;//配送方式
     private int selectedIQId = 1;//（1<=25；2<=26-39；3<=40-54；4<=55-75）
     private int selectedBrainId = 1;//（1<=25；2<=26-39；3<=40-54；4<=55-75）
     private int selectedMarrayStatus = 0;//0未婚；1已婚(有配偶)；2丧偶；3离婚
@@ -89,6 +89,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     private int categoryId = 0;//残疾类别
     private int jobStatusId = 0;//就业状态
     private int trainIntentId = 0;//何种培训类型
+    private int selfTakeAddrId = 0;//自提地址
     private int levelId = 0;//残疾等级
     private int toolId = 0;//辅具id
     private int speedStarAmount = 0;//办理速度打星
@@ -281,19 +282,23 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                 }
                                 mPresenter.getDisabledAIDS(categoryId, AppHttpPath.GET_DISABLED_AIDS);
                                 break;
-                            case BusinessContract.TABLE_TITLE_DELIVERY_METHOD:
-                                //配送方式
-                                List<String> methods = getDeliveryMode();
-                                PickerManager.getInstance().showOptionPicker(mContext, methods,
-                                        new PickerManager.OnOptionPickerSelectedListener() {
-                                            @Override
-                                            public void onOptionsSelect(int options1, int option2, int options3,
-                                                                        View v) {
-                                                methodsId = options1 + 1;
-                                                mSelectTv.setText(methods.get(options1));
-                                                selectBean.setValue(methods.get(options1));
-                                            }
-                                        });
+//                            case BusinessContract.TABLE_TITLE_DELIVERY_METHOD:
+//                                //配送方式
+//                                List<String> methods = getDeliveryMode();
+//                                PickerManager.getInstance().showOptionPicker(mContext, methods,
+//                                        new PickerManager.OnOptionPickerSelectedListener() {
+//                                            @Override
+//                                            public void onOptionsSelect(int options1, int option2, int options3,
+//                                                                        View v) {
+//                                                methodsId = options1 + 1;
+//                                                mSelectTv.setText(methods.get(options1));
+//                                                selectBean.setValue(methods.get(options1));
+//                                            }
+//                                        });
+//                                break;
+                            case BusinessContract.TABLE_TITLE_ADDR_SELF_TAKE:
+                                //自提地址
+                                mPresenter.getSelfTakeAddr(AppHttpPath.GET_SELF_TAKE_ADDR);
                                 break;
                             case BusinessContract.TABLE_TITLE_CHILD_IQ:
                                 //儿童发育商
@@ -462,7 +467,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     protected List<String> getDeliveryMode() {
         List<String> arrays = new ArrayList<>();
         arrays.add("自提");
-        arrays.add("送货上门");
+        //        arrays.add("送货上门");
         return arrays;
     }
 
@@ -776,6 +781,10 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             //  申请原因
                             formKey = "reason";
                             break;
+                        case BusinessContract.TABLE_TITLE_MOVE_IN_PLACE:
+                            //  迁入地
+                            formKey = "moveinAddress";
+                            break;
                         case BusinessContract.TABLE_TITLE_UNIT_NATURE:
                             //单位性质
                             formKey = "unitNature";
@@ -1025,7 +1034,19 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         case BusinessContract.TABLE_TITLE_DELIVERY_METHOD:
                             //配送方式
                             if (StringTools.isStringValueOk(textValueSelectBean.getValue())) {
-                                builder.addFormDataPart("deliveryWay ", String.valueOf(methodsId));
+//                                builder.addFormDataPart("deliveryWay ", String.valueOf(methodsId));
+                                //现在写死 只能自提
+                                builder.addFormDataPart("deliveryWay ", "1");
+                            }
+                            break;
+                        case BusinessContract.TABLE_TITLE_ADDR_SELF_TAKE:
+                            //自提地址
+//                            if (methodsId==0) {
+//                                ToastUtils.toast(mContext,"请先选择配送方式");
+//                                return null;
+//                            }
+                            if (StringTools.isStringValueOk(textValueSelectBean.getValue())) {
+                                builder.addFormDataPart("deliveryId ", String.valueOf(selfTakeAddrId));
                             }
                             break;
                         case BusinessContract.TABLE_TITLE_BRAIN_PALSY_STYLE:
@@ -1148,11 +1169,21 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                 break;
                             case BusinessContract.TABLE_TITLE_GUARDIAN_ID_PIC:
                                 if (!StringTools.isStringValueOk(picBean.getPicPath())) {
-                                    ToastUtils.toast(mContext, "请选择监护人身份证照片");
+                                    ToastUtils.toast(mContext, "请选择监护人身份证正面照片");
                                     return null;
                                 }
-                                //残疾证照片
+                                //监护人身份证正面照
                                 builder.addFormDataPart("guardianIdPictureFile", "guardianIdPictureFile",
+                                        RequestBody.create(MediaType.parse("file"),
+                                                new File(picBean.getPicPath())));
+                                break;
+                            case BusinessContract.TABLE_TITLE_GUARDIAN_ID_PIC_BACK:
+                                if (!StringTools.isStringValueOk(picBean.getPicPath())) {
+                                    ToastUtils.toast(mContext, "请选择监护人身份证反面照片");
+                                    return null;
+                                }
+                                //监护人身份证反面照
+                                builder.addFormDataPart("guardianIdPictureBackFile", "guardianIdPictureBackFile",
                                         RequestBody.create(MediaType.parse("file"),
                                                 new File(picBean.getPicPath())));
                                 break;
@@ -1241,19 +1272,19 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                             break;
                     }
                     if (photos.isEmpty()) {
-                        ToastUtils.toast(mContext,msg);
+                        ToastUtils.toast(mContext, msg);
                         return null;
-                    }else {
+                    } else {
 
                     }
                     for (int i = 0; i < photos.size(); i++) {
-                        String  picPah = photos.get(i);
-                        if (0==i) {
+                        String picPah = photos.get(i);
+                        if (0 == i) {
                             builder.addFormDataPart("casePictureFile", "casePictureFile",
                                     RequestBody.create(MediaType.parse("file"),
                                             new File(picPah)));
-                        }else {
-                            builder.addFormDataPart("casePictureFile"+(i+1), "casePictureFile"+(i+1),
+                        } else {
+                            builder.addFormDataPart("casePictureFile" + (i + 1), "casePictureFile" + (i + 1),
                                     RequestBody.create(MediaType.parse("file"),
                                             new File(picPah)));
                         }
@@ -1505,7 +1536,8 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         List<BusinessPropertyBean.DataBean> data = null;
         if (BusinessContract.TABLE_TITLE_NATION.equals(tag) || BusinessContract.TABLE_TITLE_EDUCATION_LEVEL.equals(tag)
                 || AppHttpPath.GET_DISABLED_TYPE.equals(tag) || AppHttpPath.GET_DISABLED_LEVEL.equals(tag)
-                || AppHttpPath.GET_DISABLED_AIDS.equals(tag) || AppHttpPath.GET_TRAIN_INTENT_TYPES.equals(tag)) {
+                || AppHttpPath.GET_DISABLED_AIDS.equals(tag) || AppHttpPath.GET_TRAIN_INTENT_TYPES.equals(tag)
+        ||AppHttpPath.GET_SELF_TAKE_ADDR.equals(tag)) {
             propertyNationBean = (BusinessPropertyBean) o;
             data = propertyNationBean.getData();
             if (propertyNationBean != null && data.size() > 0) {
@@ -1537,6 +1569,9 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                         break;
                                     case AppHttpPath.GET_TRAIN_INTENT_TYPES:
                                         trainIntentId = dataBean.getId();
+                                        break;
+                                    case AppHttpPath.GET_SELF_TAKE_ADDR:
+                                        selfTakeAddrId = dataBean.getId();
                                         break;
                                     default:
                                         break;

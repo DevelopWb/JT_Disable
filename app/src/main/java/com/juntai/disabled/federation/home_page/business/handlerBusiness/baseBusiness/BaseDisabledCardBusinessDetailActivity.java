@@ -115,16 +115,16 @@ public abstract class BaseDisabledCardBusinessDetailActivity extends BaseBusines
                         adapter.setNewData(mPresenter.getMoveInAdapterData(dataBean));
                     }
                     break;
-//                case BUSINESS_NAME_MOVE_OUT:
-//                    if (dataBean != null) {
-//                        adapter.setNewData(mPresenter.getRenewalAdapterData(dataBean));
-//                    }
-//                    break;
-//                case BUSINESS_NAME_LOGOUT:
-//                    if (dataBean != null) {
-//                        adapter.setNewData(mPresenter.getRenewalAdapterData(dataBean));
-//                    }
-//                    break;
+                case BUSINESS_NAME_MOVE_OUT:
+                    if (dataBean != null) {
+                        adapter.setNewData(mPresenter.getMoveOutAdapterData(dataBean));
+                    }
+                    break;
+                case BUSINESS_NAME_LOGOUT:
+                    if (dataBean != null) {
+                        adapter.setNewData(mPresenter.getLogOutAdapterData(dataBean));
+                    }
+                    break;
                 default:
                     break;
             }

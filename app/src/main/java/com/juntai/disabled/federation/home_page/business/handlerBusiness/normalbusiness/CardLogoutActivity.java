@@ -20,7 +20,7 @@ public class CardLogoutActivity extends BaseDisabledCardBusinessActivity {
 
     @Override
     protected List<MultipleItem> getAdapterData() {
-        return null;
+        return mPresenter.getLogOutAdapterData(null);
     }
 
 

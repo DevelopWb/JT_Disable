@@ -25,7 +25,7 @@ android {
     }
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "智慧残联-" + variant.versionCode + "-" + variant.versionName + ".apk"
+            outputFileName = "惠残宝-" + variant.versionCode + "-" + variant.versionName + ".apk"
         }
     }
     signingConfigs {

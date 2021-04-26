@@ -75,8 +75,17 @@ public class BusinessChildDetailBean extends BaseResult {
         private String reason;
         private String idPicture;
         private String idPictureBack;
+        private String moveinAddress;
         public int getEstatus() {
             return estatus;
+        }
+
+        public String getMoveinAddress() {
+            return moveinAddress == null ? "" : moveinAddress;
+        }
+
+        public void setMoveinAddress(String moveinAddress) {
+            this.moveinAddress = moveinAddress == null ? "" : moveinAddress;
         }
 
         public String getReason() {

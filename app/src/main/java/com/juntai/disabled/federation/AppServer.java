@@ -2035,4 +2035,9 @@ public interface AppServer {
      */
     @POST(AppHttpPath.SCORE)
     Observable<BaseResult> score(@Body RequestBody requestBody);
+    /**
+     * @return
+     */
+    @GET(AppHttpPath.GET_SELF_TAKE_ADDR)
+    Observable<BusinessPropertyBean> getSelfTakeAddr();
 }
