@@ -1,18 +1,18 @@
 apply plugin: 'com.mob.sdk'
 
 MobSDK {
-    appKey "2e77ecd4aad54"
-    appSecret "50d1d66df7a2cdd8b33d5fede8e1d648"
+    appKey "330744cd49946"
+    appSecret "d62a1bd4ac363664b731d5b4df3086c2"
     ShareSDK {
         //平台配置信息
         devInfo {
             Wechat {
-                appId "wxfa0af7477eb173a5"
-                appSecret "fd1fd3ff4469750b1ec9bc5337847e40"
-                userName "gh_afb25ac019c9"
-                path "pages/index/index.html?id=1"
-                withShareTicket true
-                miniprogramType 2
+                appId "wxdf698fd6bffbea97"
+                appSecret "b1fd7e1557144adf722b0d9631649166"
+//                userName "gh_afb25ac019c9"
+//                path "pages/index/index.html?id=1"
+//                withShareTicket true
+//                miniprogramType 2
             }
             QQ {
                 appId "101935239"
@@ -20,11 +20,11 @@ MobSDK {
             }
             WechatMoments {
                 appId "wxdf698fd6bffbea97"
-                appSecret "fd1fd3ff4469750b1ec9bc5337847e40"
+                appSecret "b1fd7e1557144adf722b0d9631649166"
             }
             WechatFavorite {
-                appId "wxfa0af7477eb173a5"
-                appSecret "fd1fd3ff4469750b1ec9bc5337847e40"
+                appId "wxdf698fd6bffbea97"
+                appSecret "b1fd7e1557144adf722b0d9631649166"
             }
         }
     }

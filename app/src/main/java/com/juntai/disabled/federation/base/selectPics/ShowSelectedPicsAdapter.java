@@ -35,7 +35,8 @@ public class ShowSelectedPicsAdapter extends BaseQuickAdapter<String, BaseViewHo
     @Override
     protected void convert(BaseViewHolder helper, String item) {
         if ("-1".equals(item)) {
-            ImageLoadUtil.loadCentercropImage(mContext.getApplicationContext(), R.mipmap.item_add_pic, (ImageView) helper.getView(R.id.select_pic_icon_iv));
+            ImageLoadUtil.loadCentercropImage(mContext.getApplicationContext(), 0,
+                    (ImageView) helper.getView(R.id.select_pic_icon_iv));
             helper.setGone(R.id.delete_pushed_news_iv, false);
         } else {
             ImageLoadUtil.loadImageNoCache(mContext, item, (ImageView) helper.getView(R.id.select_pic_icon_iv));

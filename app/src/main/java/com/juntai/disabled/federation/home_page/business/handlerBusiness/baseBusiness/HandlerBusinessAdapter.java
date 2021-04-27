@@ -409,7 +409,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                     }
 
                 } else {
-                    ImageLoadUtil.loadImage(mContext, R.mipmap.item_add_pic, picIv);
+                    ImageLoadUtil.loadImage(mContext,0, picIv);
                 }
                 break;
             case MultipleItem.ITEM_BUSINESS_FRAGMENT:
