@@ -769,7 +769,7 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.SET_PWD)
-    Observable<BaseResult> setPwd(@Query("account") String account, @Query("password") String password);
+    Observable<BaseResult> setPwd(@Query("account") String account, @Query("password") String password, @Query("code") String code);
 
     /**
      * 修改密码
@@ -2040,4 +2040,9 @@ public interface AppServer {
      */
     @GET(AppHttpPath.GET_SELF_TAKE_ADDR)
     Observable<BusinessPropertyBean> getSelfTakeAddr();
+    /**
+     * @return
+     */
+    @POST(AppHttpPath.GET_SMS_CODE)
+    Observable<BaseResult> getSmsCode(@Query("phone") String phone);
 }

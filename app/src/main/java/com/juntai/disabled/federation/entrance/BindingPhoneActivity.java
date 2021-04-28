@@ -1,7 +1,6 @@
 package com.juntai.disabled.federation.entrance;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.EditText;
@@ -19,7 +18,6 @@ import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.entrance.regist.RegistContract;
-import com.juntai.disabled.federation.entrance.regist.RegistPresent;
 import com.juntai.disabled.federation.entrance.sendcode.SmsCheckCodeActivity;
 import com.juntai.disabled.federation.utils.AppUtils;
 import com.juntai.disabled.federation.utils.StringTools;
@@ -34,7 +32,8 @@ import okhttp3.MultipartBody;
  * @aouther ZhangZhenlong
  * @date 2020-10-16
  */
-public class BindingPhoneActivity extends SmsCheckCodeActivity<RegistPresent> implements RegistContract.IRegistView, View.OnClickListener {
+public class BindingPhoneActivity extends SmsCheckCodeActivity implements RegistContract.IRegistView,
+        View.OnClickListener {
     /**
      * 请输入注册手机号码
      */
@@ -54,11 +53,6 @@ public class BindingPhoneActivity extends SmsCheckCodeActivity<RegistPresent> im
 
     private EntrancePresent entrancePresent;
     private EditText mRegistCheckPwdEt;
-
-    @Override
-    protected RegistPresent createPresenter() {
-        return new RegistPresent();
-    }
 
     @Override
     public int getLayoutView() {
@@ -96,43 +90,21 @@ public class BindingPhoneActivity extends SmsCheckCodeActivity<RegistPresent> im
         mSendCheckCodeTv.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
     }
 
-    @Override
-    protected void checkCodeSuccessed() {
-        MultipartBody.Builder builder = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("account", MyApp.getAccount())
-                .addFormDataPart("id", String.valueOf(MyApp.getUid()))
-                .addFormDataPart("phoneNumber", getTextViewValue(mPhoneEt))
-                .addFormDataPart("password",  MD5.md5(String.format("%s#%s", getTextViewValue(mPhoneEt),
-                        getTextViewValue(mRegistCheckPwdEt))))
-                .addFormDataPart("token", MyApp.getUserToken());
-        entrancePresent.bindPhoneNum(builder.build(), EntranceContract.BIND_PHONE);
-    }
 
     @Override
     public void onSuccess(String tag, Object o) {
+        super.onSuccess(tag,o);
         switch (tag){
             default:
                 break;
             case EntranceContract.BIND_PHONE:
-                BaseResult bindResult = (BaseResult) o;
-                if (bindResult != null) {
-                    if (bindResult.status == 200) {
-                        ToastUtils.success(mContext, "绑定成功");
-                        UserBean userBean = MyApp.getUser();
-                        if (userBean != null) {
-                            userBean.getData().setPhoneNumber(getTextViewValue(mPhoneEt));
-                            Hawk.put(AppUtils.SP_KEY_USER,userBean);
-                            onBackPressed();
-                        }
-                    } else if (bindResult.status == 410) {
-                        ToastUtils.warning(mContext, bindResult.message);
-                    }
-                } else {
-                    ToastUtils.error(mContext, PubUtil.ERROR_NOTICE);
+                ToastUtils.success(mContext, "绑定成功");
+                UserBean userBean = MyApp.getUser();
+                if (userBean != null) {
+                    userBean.getData().setPhoneNumber(getTextViewValue(mPhoneEt));
+                    Hawk.put(AppUtils.SP_KEY_USER,userBean);
+                    onBackPressed();
                 }
-
-
                 break;
             case EntranceContract.BIND_QQ_OR_WECHAT:
                 BaseResult baseResult = (BaseResult) o;
@@ -166,11 +138,9 @@ public class BindingPhoneActivity extends SmsCheckCodeActivity<RegistPresent> im
                         onBackPressed();
                         LogUtil.d("token=" + MyApp.getUserToken());
                     } else {
-                        verify = false;
                         ToastUtils.error(mContext, loginBean.message == null?PubUtil.ERROR_NOTICE : loginBean.message);
                     }
                 }else {
-                    verify = false;
                     ToastUtils.error(mContext, PubUtil.ERROR_NOTICE);
                 }
                 break;
@@ -179,8 +149,7 @@ public class BindingPhoneActivity extends SmsCheckCodeActivity<RegistPresent> im
 
     @Override
     public void onError(String tag, Object o) {
-        verify = false;
-        ToastUtils.error(mContext, (String) o);
+       super.onError(tag,o);
     }
 
     @Override
@@ -189,9 +158,8 @@ public class BindingPhoneActivity extends SmsCheckCodeActivity<RegistPresent> im
             default:
                 break;
             case R.id.send_check_code_tv:
-                verify = false;
                 mCheckCodeEt.setText("");
-                mPresenter.sendCheckCode(getTextViewValue(mPhoneEt),SMS_TEMP_CODE);
+                mPresenter.sendCheckCode(getTextViewValue(mPhoneEt), GET_CODE_TAG);
                 break;
             case R.id.binding_tv:
                 if (!mPresenter.checkMobile(getTextViewValue(mPhoneEt))) {
@@ -212,9 +180,16 @@ public class BindingPhoneActivity extends SmsCheckCodeActivity<RegistPresent> im
                         return;
                     }
                 }
-                if (!verify) {
-                    SMSSDK.submitVerificationCode("+86",getTextViewValue(mPhoneEt),getTextViewValue(mCheckCodeEt));
-                }
+                MultipartBody.Builder builder = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        .addFormDataPart("account", MyApp.getAccount())
+                        .addFormDataPart("id", String.valueOf(MyApp.getUid()))
+                        .addFormDataPart("phoneNumber", getTextViewValue(mPhoneEt))
+                        .addFormDataPart("password",  MD5.md5(String.format("%s#%s", getTextViewValue(mPhoneEt),
+                                getTextViewValue(mRegistCheckPwdEt))))
+                        .addFormDataPart("code",getTextViewValue(mCheckCodeEt))
+                        .addFormDataPart("token", MyApp.getUserToken());
+                mPresenter.bindPhoneNum(builder.build(), EntranceContract.BIND_PHONE);
                 break;
         }
     }

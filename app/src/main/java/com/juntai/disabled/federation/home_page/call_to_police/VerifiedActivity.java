@@ -1,7 +1,6 @@
 package com.juntai.disabled.federation.home_page.call_to_police;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.constraint.Group;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,17 +11,17 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.baidu.location.BDLocation;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.utils.PubUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
 import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.bean.VerifiedInfoBean;
 import com.juntai.disabled.federation.entrance.regist.RegistContract;
-import com.juntai.disabled.federation.entrance.regist.RegistPresent;
 import com.juntai.disabled.federation.entrance.sendcode.SmsCheckCodeActivity;
 import com.juntai.disabled.federation.utils.AppUtils;
 import com.juntai.disabled.federation.utils.StringTools;
@@ -45,7 +44,7 @@ import okhttp3.RequestBody;
  * @description 描述  实名认证
  * @date 2020/3/11 15:52
  */
-public class VerifiedActivity extends SmsCheckCodeActivity<RegistPresent> implements RegistContract.IRegistView,
+public class VerifiedActivity extends SmsCheckCodeActivity implements RegistContract.IRegistView,
         View.OnClickListener, SelectPhotosFragment.OnPhotoItemClick {
 
     /**
@@ -67,7 +66,6 @@ public class VerifiedActivity extends SmsCheckCodeActivity<RegistPresent> implem
      * 确认
      */
     private TextView mVerifiedConfirmTv;
-    RequestBody requestBody = null;
     /**
      * 提交成功！\n  我们需要人工审核, 最长1-3个工作日\n如遇紧急事情，请及时拨打110！
      */
@@ -92,11 +90,6 @@ public class VerifiedActivity extends SmsCheckCodeActivity<RegistPresent> implem
      */
     private TextView mSendCheckCodeTv;
     private LinearLayout mCompleteInfoPhoneLl;
-
-    @Override
-    protected RegistPresent createPresenter() {
-        return new RegistPresent();
-    }
 
     @Override
     public int getLayoutView() {
@@ -212,12 +205,16 @@ public class VerifiedActivity extends SmsCheckCodeActivity<RegistPresent> implem
 
     @Override
     public void onSuccess(String tag, Object o) {
-        ToastUtils.success(mContext, (String) o);
-        mVerifiedInfoFillingG.setVisibility(View.GONE);
-        mVerifiedInfoFilledG.setVisibility(View.VISIBLE);
-        UserBean userBean = Hawk.get(AppUtils.SP_KEY_USER);
-        userBean.getData().setRealNameStatus(1);
-        Hawk.put(AppUtils.SP_KEY_USER, userBean);
+        super.onSuccess(tag, o);
+        if (AppHttpPath.USER_AUTH.equals(tag)) {
+            ToastUtils.success(mContext, ((BaseResult) o).message);
+            mVerifiedInfoFillingG.setVisibility(View.GONE);
+            mVerifiedInfoFilledG.setVisibility(View.VISIBLE);
+            UserBean userBean = Hawk.get(AppUtils.SP_KEY_USER);
+            userBean.getData().setRealNameStatus(1);
+            Hawk.put(AppUtils.SP_KEY_USER, userBean);
+        }
+
     }
 
 
@@ -246,7 +243,21 @@ public class VerifiedActivity extends SmsCheckCodeActivity<RegistPresent> implem
                 if (!checkSelectedPics()) {
                     return;
                 }
-
+                MultipartBody.Builder builder = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        .addFormDataPart("account", MyApp.getAccount())
+                        .addFormDataPart("token", MyApp.getUserToken())
+                        .addFormDataPart("userId", MyApp.getUid() + "")
+                        .addFormDataPart("realName", getTextViewValue(mNameEt))
+                        .addFormDataPart("idNumber", getTextViewValue(mIdCardTv))
+                        .addFormDataPart("IDCardHead", "IDCardHead",
+                                RequestBody.create(MediaType.parse("file"),
+                                        positiveIvsfile))
+                        .addFormDataPart("IDCardNationalEmblem", "IDCardNationalEmblem",
+                                RequestBody.create(MediaType.parse("file"), obverseIvsfile))
+                        .addFormDataPart("IDCardinHand", "IDCardinHand",
+                                RequestBody.create(MediaType.parse("file"),
+                                        handIvsfile));
                 if (UserInfoManager.getAccountStatus() != 1) {
                     if (!mPresenter.checkMobile(getTextViewValue(mPhoneEt))) {
                         return;
@@ -255,33 +266,14 @@ public class VerifiedActivity extends SmsCheckCodeActivity<RegistPresent> implem
                         checkFormatError("验证码不能为空");
                         return;
                     }
-                    if (!verify) {
-                        SMSSDK.submitVerificationCode("+86", getTextViewValue(mPhoneEt),
-                                getTextViewValue(mCheckCodeEt));
-                    }
-                }else {
-                    MultipartBody.Builder builder = new MultipartBody.Builder()
-                            .setType(MultipartBody.FORM)
-                            .addFormDataPart("account", MyApp.getAccount())
-                            .addFormDataPart("token", MyApp.getUserToken())
-                            .addFormDataPart("userId", MyApp.getUid() + "")
-                            .addFormDataPart("realName", getTextViewValue(mNameEt))
-                            .addFormDataPart("idNumber", getTextViewValue(mIdCardTv))
-                            .addFormDataPart("IDCardHead", "IDCardHead",
-                                    RequestBody.create(MediaType.parse("file"),
-                                            positiveIvsfile))
-                            .addFormDataPart("IDCardNationalEmblem", "IDCardNationalEmblem",
-                                    RequestBody.create(MediaType.parse("file"), obverseIvsfile))
-                            .addFormDataPart("IDCardinHand", "IDCardinHand",
-                                    RequestBody.create(MediaType.parse("file"),
-                                            handIvsfile));
-                    requestBody = builder.build();
-                    mPresenter.userAuth("", requestBody);
-                }
 
+                    builder.addFormDataPart("phoneNumber", getTextViewValue(mPhoneEt))
+                            .addFormDataPart("code",getTextViewValue(mCheckCodeEt));
+                }
+                mPresenter.userAuth(AppHttpPath.USER_AUTH, builder.build());
                 break;
             case R.id.send_check_code_tv:
-                mPresenter.sendCheckCode(getTextViewValue(mPhoneEt), SMS_TEMP_CODE);
+                mPresenter.sendCheckCode(getTextViewValue(mPhoneEt), GET_CODE_TAG);
                 break;
         }
     }
@@ -361,27 +353,6 @@ public class VerifiedActivity extends SmsCheckCodeActivity<RegistPresent> implem
         mSendCheckCodeTv.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
     }
 
-    @Override
-    protected void checkCodeSuccessed() {
-        MultipartBody.Builder builder = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("account", MyApp.getAccount())
-                .addFormDataPart("token", MyApp.getUserToken())
-                .addFormDataPart("phoneNumber", getTextViewValue(mPhoneEt))
-                .addFormDataPart("userId", MyApp.getUid() + "")
-                .addFormDataPart("realName", getTextViewValue(mNameEt))
-                .addFormDataPart("idNumber", getTextViewValue(mIdCardTv))
-                .addFormDataPart("IDCardHead", "IDCardHead",
-                        RequestBody.create(MediaType.parse("file"),
-                                positiveIvsfile))
-                .addFormDataPart("IDCardNationalEmblem", "IDCardNationalEmblem",
-                        RequestBody.create(MediaType.parse("file"), obverseIvsfile))
-                .addFormDataPart("IDCardinHand", "IDCardinHand",
-                        RequestBody.create(MediaType.parse("file"),
-                                handIvsfile));
-        requestBody = builder.build();
-        mPresenter.userAuth("", requestBody);
-    }
 
     @Override
     public void updateSendCheckCodeViewStatus(long second) {
@@ -401,9 +372,9 @@ public class VerifiedActivity extends SmsCheckCodeActivity<RegistPresent> implem
     public void checkFormatError(String error) {
         ToastUtils.warning(mContext, error);
     }
+
     @Override
     public void onError(String tag, Object o) {
-        verify = false;
         ToastUtils.error(mContext, (String) o);
     }
 

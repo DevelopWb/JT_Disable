@@ -1,6 +1,5 @@
 package com.juntai.disabled.federation.entrance.complete_info;
 
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,9 +18,7 @@ import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.PoliceBranchBean;
 import com.juntai.disabled.federation.bean.PolicePositionBean;
 import com.juntai.disabled.federation.bean.weather.PoliceGriddingBean;
-import com.juntai.disabled.federation.entrance.complete_info.DataValueAdapter;
 import com.juntai.disabled.federation.entrance.regist.RegistContract;
-import com.juntai.disabled.federation.entrance.regist.RegistPresent;
 import com.juntai.disabled.federation.entrance.sendcode.SmsCheckCodeActivity;
 import com.juntai.disabled.federation.utils.StringTools;
 import com.juntai.disabled.federation.utils.UserInfoManager;
@@ -37,7 +34,7 @@ import okhttp3.FormBody;
  * @aouther ZhangZhenlong
  * @date 2020-9-11
  */
-public class CompleteInfoActivity extends SmsCheckCodeActivity<RegistPresent> implements RegistContract.IRegistView,
+public class CompleteInfoActivity extends SmsCheckCodeActivity implements RegistContract.IRegistView,
         View.OnClickListener,
         AdapterView.OnItemClickListener {
 
@@ -92,10 +89,6 @@ public class CompleteInfoActivity extends SmsCheckCodeActivity<RegistPresent> im
     private TextView mSendCheckCodeTv;
     private LinearLayout mCompleteInfoPhoneLl;
 
-    @Override
-    protected RegistPresent createPresenter() {
-        return new RegistPresent();
-    }
 
     @Override
     public int getLayoutView() {
@@ -127,7 +120,7 @@ public class CompleteInfoActivity extends SmsCheckCodeActivity<RegistPresent> im
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (departMentBean != null){
+                if (departMentBean != null) {
                     departMentBean = null;
                 }
             }
@@ -202,6 +195,7 @@ public class CompleteInfoActivity extends SmsCheckCodeActivity<RegistPresent> im
                     ToastUtils.warning(mContext, "请选择职务");
                     return;
                 }
+                FormBody.Builder builder = mPresenter.getBaseFormBodyBuilder();
                 if (UserInfoManager.getAccountStatus() != 1) {
                     //未绑定手机号  这时候需要绑定手机
                     if (!mPresenter.checkMobile(getTextViewValue(mPhoneEt))) {
@@ -211,33 +205,28 @@ public class CompleteInfoActivity extends SmsCheckCodeActivity<RegistPresent> im
                         checkFormatError("验证码不能为空");
                         return;
                     }
-                    if (!verify) {
-                        SMSSDK.submitVerificationCode("+86", getTextViewValue(mPhoneEt),
-                                getTextViewValue(mCheckCodeEt));
-                    }
-                } else {
-                    FormBody.Builder builder = mPresenter.getBaseFormBodyBuilder();
-                    builder.add("provinceCode", departMentBean.getProvinceCode())
-                            .add("cityCode", departMentBean.getCityCode())
-                            .add("areaCode", departMentBean.getAreaCode())
-                            .add("streetCode", departMentBean.getStreetCode())
-                            .add("departmentId", departMentBean.getDepartmentId() + "")
-                            .add("departmentBranchId", childDepartmentBean == null ? "" :
-                                    childDepartmentBean.getId() + "")
-                            .add("postId", policePositionBean.getId() + "")
-                            .add("grid", policeGriddingBean == null ? "" : policePositionBean.getId() + "");
-                    mPresenter.addUserInfo(RegistContract.ADD_USER_INFO, builder.build());
+                    builder .add("phoneNumber", getTextViewValue(mPhoneEt))
+                            .add("code", getTextViewValue(mCheckCodeEt));
                 }
+                builder.add("provinceCode", departMentBean.getProvinceCode())
+                        .add("cityCode", departMentBean.getCityCode())
+                        .add("areaCode", departMentBean.getAreaCode())
+                        .add("streetCode", departMentBean.getStreetCode())
+                        .add("departmentId", departMentBean.getDepartmentId() + "")
+                        .add("departmentBranchId", childDepartmentBean == null ? "" :
+                                childDepartmentBean.getId() + "")
+                        .add("postId", policePositionBean.getId() + "")
+                        .add("grid", policeGriddingBean == null ? "" : policePositionBean.getId() + "");
+                mPresenter.addUserInfo(RegistContract.ADD_USER_INFO, builder.build());
                 break;
             case R.id.send_check_code_tv:
-                mPresenter.sendCheckCode(getTextViewValue(mPhoneEt), SMS_TEMP_CODE);
+                mPresenter.sendCheckCode(getTextViewValue(mPhoneEt), GET_CODE_TAG);
                 break;
         }
     }
 
     @Override
     public void onError(String tag, Object o) {
-        verify = false;
         ToastUtils.error(mContext, (String) o);
     }
 
@@ -262,6 +251,7 @@ public class CompleteInfoActivity extends SmsCheckCodeActivity<RegistPresent> im
 
     @Override
     public void onSuccess(String tag, Object o) {
+        super.onSuccess(tag, o);
         switch (tag) {
             case RegistContract.GET_POLICE_POSITION://职务
                 PolicePositionBean positionBean = (PolicePositionBean) o;
@@ -364,21 +354,6 @@ public class CompleteInfoActivity extends SmsCheckCodeActivity<RegistPresent> im
         mSendCheckCodeTv.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
     }
 
-    @Override
-    protected void checkCodeSuccessed() {
-        FormBody.Builder builder = mPresenter.getBaseFormBodyBuilder();
-        builder.add("provinceCode", departMentBean.getProvinceCode())
-                .add("cityCode", departMentBean.getCityCode())
-                .add("areaCode", departMentBean.getAreaCode())
-                .add("phoneNumber", getTextViewValue(mPhoneEt))
-                .add("streetCode", departMentBean.getStreetCode())
-                .add("departmentId", departMentBean.getDepartmentId() + "")
-                .add("departmentBranchId", childDepartmentBean == null ? "" : childDepartmentBean.getId() + "")
-                .add("postId", policePositionBean.getId() + "")
-                .add("grid", policeGriddingBean == null ? "" : policePositionBean.getId() + "");
-        mPresenter.addUserInfo(RegistContract.ADD_USER_INFO, builder.build());
-
-    }
 
     /**
      * 释放pickerview
@@ -403,7 +378,7 @@ public class CompleteInfoActivity extends SmsCheckCodeActivity<RegistPresent> im
     /**
      * 重置数据
      */
-    private void clearData(){
+    private void clearData() {
         mRegistGriddingTv.setText("");
         policeGriddingBean = null;
         mRegistChildBranchTv.setText("");

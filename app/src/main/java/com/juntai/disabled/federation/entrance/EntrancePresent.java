@@ -109,39 +109,7 @@ public class EntrancePresent extends BasePresenter<IModel, EntranceContract.IEnt
                 });
     }
 
-    public void bindPhoneNum(RequestBody requestBody, String tag) {
-        IView viewCallBack = null;
-        if (getView()==null) {
-            if (iView != null) {
-                viewCallBack = iView;
-                viewCallBack.showLoading();
-            }
-        }else{
-            viewCallBack = getView();
-            viewCallBack.showLoading();
-        }
-        IView finalViewCallBack = viewCallBack;
-        AppNetModule.createrRetrofit()
-                .bindPhoneNum(requestBody)
-                .compose(RxScheduler.ObsIoMain(viewCallBack))
-                .subscribe(new Consumer<BaseResult>() {
-                    @Override
-                    public void accept(BaseResult baseResult) throws Exception {
-                        if (finalViewCallBack != null) {
-                            finalViewCallBack.hideLoading();
-                            finalViewCallBack.onSuccess(tag, baseResult);
-                        }
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        if (finalViewCallBack != null) {
-                            finalViewCallBack.hideLoading();
-                            finalViewCallBack.onError(tag, PubUtil.ERROR_NOTICE);
-                        }
-                    }
-                });
-    }
+
 
 
     public void regist(RequestBody body,String tag) {

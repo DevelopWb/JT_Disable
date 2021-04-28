@@ -205,9 +205,9 @@ public class RegistPresent extends BasePresenter<IModel, RegistContract.IRegistV
     }
 
     @Override
-    public void retrievePwd(String tag, String account, String password) {
+    public void retrievePwd(String tag, String account, String password,String code) {
         AppNetModule.createrRetrofit()
-                .setPwd(account, password)
+                .setPwd(account, password,code)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {
                     @Override
@@ -298,9 +298,27 @@ public class RegistPresent extends BasePresenter<IModel, RegistContract.IRegistV
      *
      * @param mobile
      */
-    public void getCheckCodeFromNet(String mobile,String tempCode) {
-        // 请求验证码，其中country表示国家代码，如“86”；phone表示手机号码，如“13800138000”
-        SMSSDK.getVerificationCode(tempCode,"+86", mobile);
+    public void getCheckCodeFromNet(String mobile,String tag) {
+       //获取验证码
+        AppNetModule.createrRetrofit()
+                .getSmsCode(mobile)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
     }
 
     @Override
@@ -346,7 +364,7 @@ public class RegistPresent extends BasePresenter<IModel, RegistContract.IRegistV
                     @Override
                     public void onSuccess(BaseResult o) {
                         if (getView() != null) {
-                            getView().onSuccess(tag, o.message);
+                            getView().onSuccess(tag, o);
                         }
                     }
 
@@ -358,7 +376,28 @@ public class RegistPresent extends BasePresenter<IModel, RegistContract.IRegistV
                     }
                 });
     }
+    public void bindPhoneNum(RequestBody requestBody, String tag) {
 
+        AppNetModule.createrRetrofit()
+                .bindPhoneNum(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+
+
+    }
     @Override
     public void addOpinionsAndSuggestions(RequestBody requestBody, String tag) {
         AppNetModule.createrRetrofit()

@@ -79,7 +79,7 @@ public interface RegistContract {
         /**
          * 找回密码
          */
-        void retrievePwd(String tag, String account, String password);
+        void retrievePwd(String tag, String account, String password,String code);
         /**
          * 修改密码
          */

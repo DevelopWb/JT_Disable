@@ -26,13 +26,6 @@ public interface HomePageContract {
     }
 
     interface IHomePagePresent extends IPresenter<IHomePageView> {
-        /**
-         * 认证
-         *
-         * @param tag
-         * @param requestBody
-         */
-        void userAuth(String tag, RequestBody requestBody);
 
         /**
          * 获取实时数据 天气
