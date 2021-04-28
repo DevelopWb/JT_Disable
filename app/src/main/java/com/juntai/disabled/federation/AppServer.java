@@ -769,7 +769,7 @@ public interface AppServer {
      * @return
      */
     @POST(AppHttpPath.SET_PWD)
-    Observable<BaseResult> setPwd(@Query("account") String account, @Query("password") String password, @Query("code") String code);
+    Observable<BaseResult> setPwd(@Query("account") String account, @Query("password") String password);
 
     /**
      * 修改密码
@@ -794,7 +794,7 @@ public interface AppServer {
     Observable<BaseResult> updatePhone(@Query("account") String account, @Query("token") String token,
                                        @Query("phoneNumber") String phoneNumber, @Query("userId") int userId, @Query(
             "newAccount") String newAccount,
-                                       @Query("password") String password, @Query("oldPassword") String oldPassword);
+                                       @Query("password") String password, @Query("code") String code);
 
 
         /*====================================================    上传案件、巡检等
@@ -2045,4 +2045,9 @@ public interface AppServer {
      */
     @POST(AppHttpPath.GET_SMS_CODE)
     Observable<BaseResult> getSmsCode(@Query("phone") String phone);
+    /**
+     * @return
+     */
+    @POST(AppHttpPath.CHECK_CODE)
+    Observable<BaseResult> checkCode(@Query("phoneNumber") String phoneNumber,@Query("code") String code);
 }

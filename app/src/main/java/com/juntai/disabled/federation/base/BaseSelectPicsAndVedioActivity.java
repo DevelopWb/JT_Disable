@@ -18,7 +18,7 @@ import com.juntai.disabled.basecomponent.utils.ActionConfig;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.federation.R;
-import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragmentNormal;
 
 import java.util.List;
 
@@ -29,9 +29,9 @@ import java.util.List;
  * @UpdateUser: 更新者
  * @UpdateDate: 2020/7/3 14:36
  */
-public abstract class BaseSelectPicsAndVedioActivity<P extends BasePresenter> extends BaseAppActivity<P> implements SelectPhotosFragment.OnPhotoItemClick, SelectPhotosFragment.OnPicCalculateed, View.OnClickListener {
+public abstract class BaseSelectPicsAndVedioActivity<P extends BasePresenter> extends BaseAppActivity<P> implements SelectPhotosFragmentNormal.OnPhotoItemClick, SelectPhotosFragmentNormal.OnPicCalculateed, View.OnClickListener {
 
-    protected SelectPhotosFragment selectPhotosFragment;
+    protected SelectPhotosFragmentNormal selectPhotosFragment;
     //视频回调广播
     IntentFilter intentFilter = new IntentFilter();
     private VideoBroadcastReceiver videoBroadcastReceiver = null;
@@ -42,7 +42,7 @@ public abstract class BaseSelectPicsAndVedioActivity<P extends BasePresenter> ex
 
 
     protected abstract void recordVedio();
-    protected abstract SelectPhotosFragment getFragment();
+    protected abstract SelectPhotosFragmentNormal getFragment();
     @Override
     public void onLocationReceived(BDLocation bdLocation) {
 

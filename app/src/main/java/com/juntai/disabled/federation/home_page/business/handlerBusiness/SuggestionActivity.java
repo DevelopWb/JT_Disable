@@ -9,9 +9,12 @@ import android.widget.TextView;
 
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragmentNormal;
+import com.juntai.disabled.federation.base.selectPics.ShowSelectedPicsAdapter;
 import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.entrance.regist.RegistContract;
 import com.juntai.disabled.federation.entrance.sendcode.SmsCheckCodeActivity;
@@ -103,9 +106,10 @@ public class SuggestionActivity extends SmsCheckCodeActivity implements RegistCo
     }
 
     @Override
-    protected SelectPhotosFragment getFragment() {
-        return SelectPhotosFragment.newInstance().setPhotoTitle("")
+    protected SelectPhotosFragmentNormal getFragment() {
+        return SelectPhotosFragmentNormal.newInstance().setPhotoTitle("")
                 .setPhotoSpace(60)
+                .setSpanCount(3)
                 .setMaxCount(3);
     }
 
@@ -113,8 +117,11 @@ public class SuggestionActivity extends SmsCheckCodeActivity implements RegistCo
     @Override
     public void onSuccess(String tag, Object o) {
         super.onSuccess(tag,o);
-        ToastUtils.toast(mContext, ((BaseResult)o).message);
-        finish();
+        if (AppHttpPath.REQUEST_SUGGESTION.equals(tag)) {
+            ToastUtils.toast(mContext, ((BaseResult)o).message);
+            finish();
+        }
+
     }
 
 
@@ -167,7 +174,7 @@ public class SuggestionActivity extends SmsCheckCodeActivity implements RegistCo
                     builder.addFormDataPart("videoFile", "videoFile", RequestBody.create(MediaType.parse("file"),
                             new File(videoPath)));
                 }
-                mPresenter.addOpinionsAndSuggestions(builder.build(), "");
+                mPresenter.addOpinionsAndSuggestions(builder.build(), AppHttpPath.REQUEST_SUGGESTION);
 
 
                 break;

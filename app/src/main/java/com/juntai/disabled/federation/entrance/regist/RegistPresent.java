@@ -205,9 +205,9 @@ public class RegistPresent extends BasePresenter<IModel, RegistContract.IRegistV
     }
 
     @Override
-    public void retrievePwd(String tag, String account, String password,String code) {
+    public void retrievePwd(String tag, String account, String password) {
         AppNetModule.createrRetrofit()
-                .setPwd(account, password,code)
+                .setPwd(account, password)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {
                     @Override
@@ -248,10 +248,11 @@ public class RegistPresent extends BasePresenter<IModel, RegistContract.IRegistV
     }
 
     @Override
-    public void updateAccount(String tag, String phoneNumber, String newAccount, String password, String oldPassword) {
+    public void updateAccount(String tag, String phoneNumber, String newAccount, String password,
+                              String code) {
         AppNetModule.createrRetrofit()
                 .updatePhone(MyApp.getAccount(), MyApp.getUserToken(),phoneNumber,
-                        MyApp.getUid(), newAccount, password, oldPassword)
+                        MyApp.getUid(), newAccount, password,code)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {
                     @Override
@@ -359,6 +360,33 @@ public class RegistPresent extends BasePresenter<IModel, RegistContract.IRegistV
     public void userAuth(String tag, RequestBody requestBody) {
         AppNetModule.createrRetrofit()
                 .userAuth(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 校验验证码
+     * @param phoneNo
+     * @param code
+     * @param tag
+     */
+    public void checkCode(String phoneNo,String code,String tag) {
+        AppNetModule.createrRetrofit()
+                .checkCode(phoneNo,code)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {
                     @Override

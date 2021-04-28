@@ -18,6 +18,7 @@ import com.juntai.disabled.federation.AppNetModule;
 import com.juntai.disabled.federation.base.BaseSelectPicsActivity;
 import com.juntai.disabled.federation.base.BaseSelectPicsAndVedioActivity;
 import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragmentNormal;
 import com.juntai.disabled.federation.entrance.regist.RegistPresent;
 
 import java.util.List;
@@ -59,7 +60,7 @@ public abstract class SmsCheckCodeActivity extends BaseSelectPicsAndVedioActivit
     }
 
     @Override
-    protected SelectPhotosFragment getFragment() {
+    protected SelectPhotosFragmentNormal getFragment() {
         return null;
     }
 
@@ -99,13 +100,6 @@ public abstract class SmsCheckCodeActivity extends BaseSelectPicsAndVedioActivit
 
     @Override
     public void onError(String tag, Object o) {
-        switch (tag) {
-            case GET_CODE_TAG:
-                //获取短信验证码失败
-                break;
-            default:
-                break;
-        }
         String msg = (String) o;
         if ("短信验证码错误".equals(msg)) {
             ToastUtils.error(SmsCheckCodeActivity.this, "验证码输入有误");
