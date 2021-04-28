@@ -3,8 +3,8 @@ package com.juntai.disabled.federation;
 public class AppHttpPath {
     /**
      */
-            public static final String BASE = "http://192.168.124.119:8080/disabledPersonsFederation/u/app";
-//    public static final String BASE = "https://wx.juntaikeji.com:19153/disabledPersonsFederation/u/app";
+//            public static final String BASE = "http://192.168.124.119:8080/disabledPersonsFederation/u/app";
+    public static final String BASE = "https://wx.juntaikeji.com:19153/disabledPersonsFederation/u/app";
 
 
     /**
