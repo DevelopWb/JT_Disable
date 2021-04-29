@@ -53,6 +53,11 @@ public class HomePagePresent extends BasePresenter<IModel, HomePageContract.Base
 }
 
     @Override
+    public void userAuth(String tag, RequestBody requestBody) {
+
+    }
+
+    @Override
     public void getWeatherRealTime(String tag, String lng, String lat) {
         AppNetModule.createrRetrofit().getWeatherRealtime(lng, lat).compose(RxScheduler.ObsIoMain(getView())).subscribe(new BaseObserver<ResponseRealTimeWeather>(getView()) {
             @Override

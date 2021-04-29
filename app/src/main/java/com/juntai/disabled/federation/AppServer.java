@@ -799,7 +799,6 @@ public interface AppServer {
      * @param userId
      * @param newAccount  新手机号
      * @param password    新密码
-     * @param oldPassword 旧密码
      * @return
      */
     @POST(AppHttpPath.UPDATE_PHONE)
@@ -2037,10 +2036,154 @@ public interface AppServer {
     @GET(AppHttpPath.HOME_CARE_DETAIL)
     Observable<HomeCareDetailBean> getHomCareInfo(@Query("account") String account, @Query("token") String token,
                                                   @Query("businessId") String businessId);
+
     /**
      * @return
      */
     @GET(AppHttpPath.GET_DISABLED_BASE_INFO)
     Observable<DisabledBaseInfoBean> getDisabledBaseInfo(@Query("idNo") String idNo);
 
+
+
+
+    /*==============================================  采集模块  =============================================*/
+
+
+    /**
+     * @return
+     */
+    @POST(AppHttpPath.COLLECT_DISABLED_SEARCH)
+    Observable<CollectSearchResultBean> collectDisabledSearch(@Body RequestBody requestBody);
+
+
+    /**
+     * @return
+     */
+    @POST(AppHttpPath.COLLECT_DISABLED_DETAIL)
+    Observable<CollectDisabledDetailBean> getCollectDisabledDetail(@Body RequestBody requestBody);
+
+    /**
+     * @return
+     */
+    @POST(AppHttpPath.COLLECT_DISABLED_VIDEO)
+    Observable<BaseResult> insertEvent(@Body RequestBody requestBody);
+
+    /**
+     * @return
+     */
+    @POST(AppHttpPath.COLLECT_DISABLED_ACCESSBLE)
+    Observable<BaseResult> insertCase2(@Body RequestBody requestBody);
+
+
+
+
+
+
+    /*==============================================  描述信息  =============================================*/
+
+    /**
+     * 搜索托养人员
+     */
+    @POST(AppHttpPath.SEARCH_CARETAKER)
+    Observable<SearchedPeopleBean> searchCareTaker(@Body RequestBody requestBody);
+
+    /**
+     * 搜索所有的残疾人
+     */
+    @POST(AppHttpPath.SEARCH_ALL_DISABLED_PEOPLE)
+    Observable<SearchedPeopleBean> searchDisabledPeoples(@Body RequestBody requestBody);
+
+    /**
+     * 托养信息
+     */
+    @POST(AppHttpPath.CARE_INFO)
+    Observable<CareTakerInfoBean> careInfo(@Body RequestBody requestBody);
+
+    /**
+     * 托养信息  更多
+     */
+    @POST(AppHttpPath.CARE_INFO_MORE)
+    Observable<CareTakerInfoMoreBean> careInfoMore(@Body RequestBody requestBody);
+
+    /**
+     * 托养信息
+     */
+    @POST(AppHttpPath.CARE_RECORD)
+    Observable<CareRecordDetailBean> careRecord(@Body RequestBody requestBody);
+
+    /**
+     * 托养信息
+     */
+    @POST(AppHttpPath.CARE_TAKER_BASE_INFO)
+    Observable<CareTakerBaseInfoBean> careTakerBaseInfo(@Body RequestBody requestBody);
+
+    /**
+     * 添加托养人
+     */
+    @POST(AppHttpPath.ADD_CARE_TAKER)
+    Observable<BaseResult> addCareTaker(@Body RequestBody requestBody);
+
+    /**
+     * 修改托养人
+     */
+    @POST(AppHttpPath.MODIFY_CARE_TAKER)
+    Observable<BaseResult> modifyCareTaker(@Body RequestBody requestBody);
+
+    /**
+     * 按街道分类服务人员
+     */
+    @POST(AppHttpPath.GET_SERVICE_PEOPLE)
+    Observable<ServicePeoplesBean> getServicePeople(@Body RequestBody requestBody);
+
+
+    /**
+     * 提交托养记录
+     */
+    @POST(AppHttpPath.COMMIT_CARE_RECORD)
+    Observable<BaseResult> commitCareRecord(@Body RequestBody requestBody);
+
+    /**
+     * 获取服务类型
+     */
+    @POST(AppHttpPath.GET_SERVICE_TYPE)
+    Observable<ServiceTypeBean> getServiceType(@Body RequestBody requestBody);
+
+    /**
+     * 获取所有的区域 街道
+     */
+    @POST(AppHttpPath.ALL_STREETS)
+    Observable<StreetBean> getStreets();
+
+    /**
+     * 获取所有的区域 街道
+     */
+    @POST(AppHttpPath.GET_YEARS)
+    Observable<YearsBean> getAllYears();
+
+    /**
+     * @return
+     */
+    @POST(AppHttpPath.SCORE)
+    Observable<BaseResult> score(@Body RequestBody requestBody);
+
+    /**
+     * @return
+     */
+    @GET(AppHttpPath.GET_SELF_TAKE_ADDR)
+    Observable<BusinessPropertyBean> getSelfTakeAddr();
+
+    /**
+     * @return
+     */
+    @POST(AppHttpPath.GET_SMS_CODE)
+    Observable<BaseResult> getSmsCode(@Query("phone") String phone);
+
+    /**
+     * @return
+     */
+    @POST(AppHttpPath.CHECK_CODE)
+    Observable<BaseResult> checkCode(@Query("phoneNumber") String phoneNumber, @Query("code") String code);
 }
+
+
+
