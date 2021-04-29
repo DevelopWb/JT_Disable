@@ -3,6 +3,7 @@ package com.juntai.disabled.federation.home_page.business.handlerBusiness.trainR
 import android.os.Bundle;
 import android.view.View;
 
+import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.bean.business.detail.TrainRequestDetailBean;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
@@ -19,7 +20,7 @@ public class TrainRequestDetailActivity extends BaseBusinessActivity {
     @Override
     public void initData() {
 
-        mPresenter.getTrainInfo(businessId, null);
+        mPresenter.getTrainInfo(businessId, AppHttpPath.REQUEST_TRAIN_DETAIL);
     }
 
     @Override
@@ -49,13 +50,22 @@ public class TrainRequestDetailActivity extends BaseBusinessActivity {
 
     @Override
     public void onSuccess(String tag, Object o) {
-        TrainRequestDetailBean requestDetailBean = (TrainRequestDetailBean) o;
-        if (requestDetailBean != null) {
-            TrainRequestDetailBean.DataBean dataBean = requestDetailBean.getData();
-            if (dataBean != null) {
-                adapter.setNewData(mPresenter.getTrainingRequestAdapterData(dataBean));
+        if (AppHttpPath.REQUEST_TRAIN_DETAIL.equals(tag)) {
+            TrainRequestDetailBean requestDetailBean = (TrainRequestDetailBean) o;
+            if (requestDetailBean != null) {
+                TrainRequestDetailBean.DataBean dataBean = requestDetailBean.getData();
+                if (1==dataBean.getEstatus()&&checkStatusId==1) {
+                    //未评价
+                    showScoreDialog(businessItemId);
+                }
+                if (dataBean != null) {
+                    adapter.setNewData(mPresenter.getTrainingRequestAdapterData(dataBean));
+                }
             }
+        }else {
+            super.onSuccess(tag,o);
         }
+
     }
 
     @Override

@@ -1,6 +1,10 @@
 package com.juntai.disabled.federation.home_page.business.handlerBusiness.normalbusiness;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseDisabledCardBusinessActivity;
+
+import java.util.List;
 
 /**
  * @aouther tobato
@@ -13,4 +17,11 @@ public class CardLogoutActivity extends BaseDisabledCardBusinessActivity {
     protected String getTitleName() {
         return BUSINESS_NAME_LOGOUT;
     }
+
+    @Override
+    protected List<MultipleItem> getAdapterData() {
+        return mPresenter.getLogOutAdapterData(null);
+    }
+
+
 }

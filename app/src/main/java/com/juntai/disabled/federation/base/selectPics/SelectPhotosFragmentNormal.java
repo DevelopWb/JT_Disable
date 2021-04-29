@@ -11,11 +11,9 @@ import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -23,12 +21,12 @@ import com.juntai.disabled.basecomponent.app.BaseApplication;
 import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.basecomponent.mvp.IPresenter;
 import com.juntai.disabled.basecomponent.utils.BaseAppUtils;
+import com.juntai.disabled.basecomponent.utils.CalendarUtil;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.GlideEngine4;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.federation.R;
-import com.juntai.disabled.federation.utils.DateUtil;
 import com.juntai.disabled.federation.utils.StringTools;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zhihu.matisse.Matisse;
@@ -63,22 +61,20 @@ import static android.app.Activity.RESULT_OK;
  * beginTransaction.replace(R.id.id_card_obverse_fl, SelectPhotosFragment.newInstance().setPhotoTitle("身份证反面照片")
  * .setPhotoSpace(45)
  * .setMaxCount(1));
- * beginTransaction.replace(R.id.id_card_with_hand_fl, SelectPhotosFragment.newInstance().setPhotoTitle(getString(R
- * .string.id_card_notice))
+ * beginTransaction.replace(R.id.id_card_with_hand_fl, SelectPhotosFragment.newInstance().setPhotoTitle(getString(R.string.id_card_notice))
  * .setPhotoSpace(45)
  * .setMaxCount(1));
  * //最后一步 记得commit
  * beginTransaction.commit();
  */
-public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnClickListener {
+public class SelectPhotosFragmentNormal extends BaseMvpFragment implements View.OnClickListener {
 
     private RecyclerView mSelectPhotosRv;
     private TextView mSelectPhotosTitleTv;
     private List<String> icons = new ArrayList<>();
-    private ShowSelectedPicsAdapter selectedPicsAdapter;
+    private ShowSelectedPicsNormalAdapter selectedPicsAdapter;
     private Context mContext;
-    private int mSpanCount = 1;//一行的个数，默认4
-    private int widthParama = 0;//
+    private int mSpanCount = 3;//一行的个数，默认4
     private int mMaxCount = 9;//最大个数，默认9个
     private int horSpace = 15;//图片之间的横向间距 默认10
     private int marginLeftParents = 20;//图片距离左边父窗体的距离 dp
@@ -92,26 +88,8 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
     private OnPhotoItemClick onPhotoItemClick;
     private OnPicCalculateed onPicCalculateed;
     private int type;//0拍照照片，1拍照
-    private boolean isShowTag = false;//是否显示底部标记
-
-    public void setOnPhotoItemClick(OnPhotoItemClick onPhotoItemClick) {
-        this.onPhotoItemClick = onPhotoItemClick;
-    }
 
     public String cameraPath;
-    private GridLayoutManager manager;
-    private OnPicLoadSuccessCallBack onPicLoadSuccessCallBack;
-
-
-    private T  t;
-
-    public T getT() {
-        return t;
-    }
-
-    public void setT(T t) {
-        this.t = t;
-    }
 
     /**
      * 在这里我们提供一个静态的方法来实例化PageFragment
@@ -119,8 +97,8 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
      *
      * @return
      */
-    public static SelectPhotosFragment newInstance() {
-        SelectPhotosFragment fragment = new SelectPhotosFragment();
+    public static SelectPhotosFragmentNormal newInstance() {
+        SelectPhotosFragmentNormal fragment = new SelectPhotosFragmentNormal();
         return fragment;
     }
 
@@ -128,45 +106,25 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
      * @param spanCount 一行的个数，
      * @return
      */
-    public SelectPhotosFragment setSpanCount(int spanCount) {
+    public SelectPhotosFragmentNormal setSpanCount(int spanCount) {
         this.mSpanCount = spanCount;
-        if (manager != null) {
-            manager.setSpanCount(spanCount);
-        }
         return this;
     }
-    /**
-     * 是否显示底部标识
-     * @param showTag
-     * @return
-     */
-    public SelectPhotosFragment setShowTag(boolean showTag) {
-        this.isShowTag = showTag;
-        return this;
-    }
+
     /**
      * @param maxCount //最大个数，默认9个
      * @return
      */
-    public SelectPhotosFragment setMaxCount(int maxCount) {
+    public SelectPhotosFragmentNormal setMaxCount(int maxCount) {
         this.mMaxCount = maxCount;
-        return this;
-    }
-    /**
-     * @param onPicLoadSuccessCallBack //选择图片  图片压缩后
-     * @return
-     */
-    public SelectPhotosFragment setOnPicLoadSuccessCallBack(OnPicLoadSuccessCallBack onPicLoadSuccessCallBack) {
-        this.onPicLoadSuccessCallBack = onPicLoadSuccessCallBack;
         return this;
     }
 
     /**
      * 获取最大个数
-     *
      * @return
      */
-    public int getmMaxCount() {
+    public  int getmMaxCount(){
         return mMaxCount;
     }
 
@@ -174,7 +132,7 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
      * @param photoSpace //图片距离左边父窗体的距离 dp  以距离左边父窗口和距离右边父窗口相同为标准
      * @return
      */
-    public SelectPhotosFragment setPhotoSpace(int photoSpace) {
+    public SelectPhotosFragmentNormal setPhotoSpace(int photoSpace) {
         this.marginLeftParents = photoSpace;
         return this;
     }
@@ -182,7 +140,7 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
     /**
      * @title 设置标题
      */
-    public SelectPhotosFragment setPhotoTitle(String title) {
+    public SelectPhotosFragmentNormal setPhotoTitle(String title) {
         this.title = title;
         return this;
     }
@@ -190,15 +148,12 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
     /**
      * @title 设置图片删除状态
      */
-    public SelectPhotosFragment setPhotoDelateable(boolean deleteable) {
-        if (selectedPicsAdapter != null) {
-            selectedPicsAdapter.setDelateable(deleteable);
-        }
+    public SelectPhotosFragmentNormal setPhotoDelateable(boolean deleteable) {
         this.deleteable = deleteable;
         return this;
     }
 
-    public SelectPhotosFragment setType(int type) {
+    public SelectPhotosFragmentNormal setType(int type) {
         this.type = type;
         return this;
     }
@@ -209,7 +164,7 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
      * @param onPicCalculateed
      * @return
      */
-    public SelectPhotosFragment setPicCalculateCallBack(OnPicCalculateed onPicCalculateed) {
+    public SelectPhotosFragmentNormal setPicCalculateCallBack(OnPicCalculateed onPicCalculateed) {
         this.onPicCalculateed = onPicCalculateed;
         return this;
     }
@@ -309,9 +264,6 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
                 selectedPicsAdapter.setNewData(reSortIconList());
                 if (compressedSize == paths.size()) {
                     getBaseActivity().stopLoadingDialog();
-                    if (onPicLoadSuccessCallBack != null) {
-                        onPicLoadSuccessCallBack.loadSuccess(getSelectedPics(icons));
-                    }
                 }
 
             }
@@ -352,9 +304,6 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
                 icons.add(file.getPath());
                 selectedPicsAdapter.setNewData(reSortIconList());
                 getBaseActivity().stopLoadingDialog();
-                if (onPicLoadSuccessCallBack != null) {
-                    onPicLoadSuccessCallBack.loadSuccess(getSelectedPics(icons));
-                }
             }
 
             @Override
@@ -369,8 +318,10 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = context;
-        if (context instanceof SelectPhotosFragment.OnPhotoItemClick) {
-            onPhotoItemClick = (SelectPhotosFragment.OnPhotoItemClick) context;
+        if (context instanceof SelectPhotosFragmentNormal.OnPhotoItemClick) {
+            onPhotoItemClick = (SelectPhotosFragmentNormal.OnPhotoItemClick) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement SelectPhotosFragment.OnPhotoItemClick");
         }
     }
 
@@ -382,24 +333,21 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
     @Override
     protected void initView() {
         mSelectPhotosRv = (RecyclerView) getView(R.id.select_photos_rv);
-
         mSelectPhotosTitleTv = (TextView) getView(R.id.select_photos_title_tv);
-        selectedPicsAdapter = new ShowSelectedPicsAdapter(R.layout.show_selected_pic_item);
-        selectedPicsAdapter.setShowTag(isShowTag);
+        selectedPicsAdapter = new ShowSelectedPicsNormalAdapter(R.layout.show_selected_pic_item_normal);
         selectedPicsAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
 
 
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                //                imageView = (ImageView) selectedPicsAdapter.getViewByPosition(mPublishNoticeRv,
-                //                position, R.id.mine_sugguest_icon_iv);
+                //                imageView = (ImageView) selectedPicsAdapter.getViewByPosition(mPublishNoticeRv, position, R.id.mine_sugguest_icon_iv);
                 List<String> arrays = reSortIconList();
                 String icon_path = arrays.get(position);
                 switch (view.getId()) {
                     case R.id.select_pic_icon_iv:
                         if ("-1".equals(icon_path)) {
                             int count = mMaxCount - (icons.size() - 1);
-                            choseImageFromFragment(type, SelectPhotosFragment.this, count, SELECT_PIC_RESULT);
+                            choseImageFromFragment(type, SelectPhotosFragmentNormal.this, count, SELECT_PIC_RESULT);
                         } else {
                             if (icon_path.contains(".mp4")) {
                                 //视频路径
@@ -423,9 +371,6 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
                             }
                         }
                         icons = arrays;
-                        if (onPicLoadSuccessCallBack != null) {
-                            onPicLoadSuccessCallBack.loadSuccess(getSelectedPics(icons));
-                        }
                         adapter.setNewData(arrays);
                         break;
                     default:
@@ -437,8 +382,14 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
 
     @Override
     protected void initData() {
-        manager = new GridLayoutManager(mContext, mSpanCount);
-        mSelectPhotosRv.setLayoutManager(manager);
+        GridLayoutManager managere = new GridLayoutManager(mContext, mSpanCount)
+        {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        mSelectPhotosRv.setLayoutManager(managere);
         mSelectPhotosRv.setAdapter(selectedPicsAdapter);
         selectedPicsAdapter.setWidthAndHeigh(calculateImageHeight());
         selectedPicsAdapter.setDelateable(deleteable);
@@ -472,20 +423,6 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
         }
         if (icons.size() <= mMaxCount) {
             icons_new.add("-1");
-        }
-        return icons_new;
-    }
-    /**
-     * 获取选中的照片
-     *
-     * @return
-     */
-    private List<String> getSelectedPics(List<String> pics) {
-        List<String> icons_new = new ArrayList<>();
-        for (String icon : pics) {
-            if (!"-1".equals(icon)) {
-                icons_new.add(icon);
-            }
         }
         return icons_new;
     }
@@ -532,14 +469,12 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
      * @param requestCode   请求得code
      */
     public void choseImageFromFragment(int type, Fragment fragment, int maxSelectable, int requestCode) {
-        new RxPermissions(this).request(Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA).compose(this.bindToLife()).subscribe(new Consumer<Boolean>() {
+        new RxPermissions(this).request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA).compose(this.bindToLife()).subscribe(new Consumer<Boolean>() {
             @Override
             public void accept(Boolean aBoolean) throws Exception {
                 if (aBoolean) {
                     if (type == 0) {
-                        Matisse.from(fragment).choose(MimeType.ofImage()).showSingleMediaType(true)
-                                //是否只显示选择的类型的缩略图，就不会把所有图片视频都放在一起，而是需要什么展示什么
+                        Matisse.from(fragment).choose(MimeType.ofImage()).showSingleMediaType(true)//是否只显示选择的类型的缩略图，就不会把所有图片视频都放在一起，而是需要什么展示什么
                                 .countable(true).maxSelectable(maxSelectable).capture(true).captureStrategy(new CaptureStrategy(true, BaseAppUtils.getFileprovider()))
                                 //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
                                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED).thumbnailScale(0.85f).imageEngine(new GlideEngine4()).forResult(requestCode);
@@ -547,7 +482,7 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
                     } else {
                         //打开照相机
                         Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        Uri imageUri = getOutputMediaFileUri(mContext.getApplicationContext());
+                        Uri  imageUri = getOutputMediaFileUri(mContext.getApplicationContext());
                         openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                         //Android7.0添加临时权限标记，此步千万别忘了
                         openCameraIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
@@ -569,14 +504,13 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
     public Uri getOutputMediaFileUri(Context context) {
         File mediaFile = null;
         // 文件名
-        String filename = DateUtil.getCurrentTime("yyyyMMdd_HHmmss") + ".png";
+        String filename = CalendarUtil.getCurrentTime("yyyyMMdd_HHmmss") + ".png";
         // file对象，注意路径要和resource xml里配置的一样
         mediaFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator, filename);
         cameraPath = mediaFile.getAbsolutePath();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {// sdk >= 24  android7.0以上
-            Uri contentUri = FileProvider.getUriForFile(context, BaseAppUtils.getFileprovider(),//与清单文件中android
-                    // :authorities的值保持一致
+            Uri contentUri = FileProvider.getUriForFile(context, BaseAppUtils.getFileprovider(),//与清单文件中android:authorities的值保持一致
                     mediaFile);//FileProvider方式或者ContentProvider。也可使用VmPolicy方式
             return contentUri;
         } else {
@@ -607,14 +541,5 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
         onPicCalculateed = null;
         mContext = null;
         super.onDetach();
-    }
-
-
-    /**
-     * 图片加载完成
-     */
-    public interface OnPicLoadSuccessCallBack {
-        void loadSuccess(List<String> icons);
-
     }
 }

@@ -806,7 +806,7 @@ public interface AppServer {
     Observable<BaseResult> updatePhone(@Query("account") String account, @Query("token") String token,
                                        @Query("phoneNumber") String phoneNumber, @Query("userId") int userId, @Query(
             "newAccount") String newAccount,
-                                       @Query("password") String password, @Query("oldPassword") String oldPassword);
+                                       @Query("password") String password, @Query("code") String code);
 
 
         /*====================================================    上传案件、巡检等
@@ -2043,109 +2043,4 @@ public interface AppServer {
     @GET(AppHttpPath.GET_DISABLED_BASE_INFO)
     Observable<DisabledBaseInfoBean> getDisabledBaseInfo(@Query("idNo") String idNo);
 
-
-
-
-    /*==============================================  采集模块  =============================================*/
-
-
-    /**
-     * @return
-     */
-    @POST(AppHttpPath.COLLECT_DISABLED_SEARCH)
-    Observable<CollectSearchResultBean> collectDisabledSearch(@Body RequestBody requestBody);
-
-
-    /**
-     * @return
-     */
-    @POST(AppHttpPath.COLLECT_DISABLED_DETAIL)
-    Observable<CollectDisabledDetailBean> getCollectDisabledDetail(@Body RequestBody requestBody);
-    /**
-     * @return
-     */
-    @POST(AppHttpPath.COLLECT_DISABLED_VIDEO)
-    Observable<BaseResult> insertEvent(@Body RequestBody requestBody);
-    /**
-     * @return
-     */
-    @POST(AppHttpPath.COLLECT_DISABLED_ACCESSBLE)
-    Observable<BaseResult> insertCase2(@Body RequestBody requestBody);
-
-
-
-
-
-
-    /*==============================================  描述信息  =============================================*/
-    /**
-     * 搜索托养人员
-     */
-    @POST(AppHttpPath.SEARCH_CARETAKER)
-    Observable<SearchedPeopleBean> searchCareTaker(@Body RequestBody requestBody);
-    /**
-     * 搜索所有的残疾人
-     */
-    @POST(AppHttpPath.SEARCH_ALL_DISABLED_PEOPLE)
-    Observable<SearchedPeopleBean> searchDisabledPeoples(@Body RequestBody requestBody);
-    /**
-     * 托养信息
-     */
-    @POST(AppHttpPath.CARE_INFO)
-    Observable<CareTakerInfoBean> careInfo(@Body RequestBody requestBody);
-    /**
-     * 托养信息  更多
-     */
-    @POST(AppHttpPath.CARE_INFO_MORE)
-    Observable<CareTakerInfoMoreBean> careInfoMore(@Body RequestBody requestBody);
-    /**
-     * 托养信息
-     */
-    @POST(AppHttpPath.CARE_RECORD)
-    Observable<CareRecordDetailBean> careRecord(@Body RequestBody requestBody);
-    /**
-     * 托养信息
-     */
-    @POST(AppHttpPath.CARE_TAKER_BASE_INFO)
-    Observable<CareTakerBaseInfoBean> careTakerBaseInfo(@Body RequestBody requestBody);
-    /**
-     * 添加托养人
-     */
-    @POST(AppHttpPath.ADD_CARE_TAKER)
-    Observable<BaseResult> addCareTaker(@Body RequestBody requestBody);
-    /**
-     * 修改托养人
-     */
-    @POST(AppHttpPath.MODIFY_CARE_TAKER)
-    Observable<BaseResult> modifyCareTaker(@Body RequestBody requestBody);
-
-    /**
-     * 按街道分类服务人员
-     */
-    @POST(AppHttpPath.GET_SERVICE_PEOPLE)
-    Observable<ServicePeoplesBean> getServicePeople(@Body RequestBody requestBody);
-
-
-
-    /**
-     * 提交托养记录
-     */
-    @POST(AppHttpPath.COMMIT_CARE_RECORD)
-    Observable<BaseResult> commitCareRecord(@Body RequestBody requestBody);
-    /**
-     * 获取服务类型
-     */
-    @POST(AppHttpPath.GET_SERVICE_TYPE)
-    Observable<ServiceTypeBean> getServiceType(@Body RequestBody requestBody);
-    /**
-     * 获取所有的区域 街道
-     */
-    @POST(AppHttpPath.ALL_STREETS)
-    Observable<StreetBean> getStreets();
-
-    /**
-     * 获取所有的区域 街道
-     */
-    @POST(AppHttpPath.GET_YEARS)
-    Observable<YearsBean> getAllYears();
 }

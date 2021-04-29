@@ -117,95 +117,87 @@ public class MyBusinessActivity extends BaseAppActivity<BusinessPresent> impleme
                         (MyBusinessBean.DataBean.DatasBean) adapter.getData().get(position);
                 int matterId = bean.getMatterId();
                 int businessId = bean.getBusinessId();
+                int checkStatus = bean.getStatusX();
+                int businessItemId = bean.getId();
                 String name = bean.getMatterName();
+                Intent intent = new Intent();
+                intent.putExtra(BaseBusinessActivity.BUSINESS_ITEM_ID, businessItemId)
+                        .putExtra(BaseRecoveryActivity.RECOVERY_NAME, name)
+                        .putExtra(BaseRecoveryActivity.CHECK_STATUS, checkStatus)
+                        .putExtra(BaseBusinessActivity.BUSINESS_ID, businessId);
                 switch (matterId) {
                     case 1:
                         //残疾人证业务详情
-                        startActivity(new Intent(mContext, HandlerCardDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID, businessId));
+                        intent.setClass(mContext, HandlerCardDetailActivity.class);
                         break;
                     case 2:
                         //期满换证
-                        startActivity(new Intent(mContext, RenewalDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID, businessId));
+                        intent.setClass(mContext, RenewalDetailActivity.class);
                         break;
                     case 3:
                         //等级变更
-                        startActivity(new Intent(mContext, DisabledCardLevelChangeDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
-                                businessId));
+                        intent.setClass(mContext, DisabledCardLevelChangeDetailActivity.class);
                         break;
                     case 4:
                         //补办
-                        startActivity(new Intent(mContext, DisabledCardReissueDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
-                                businessId));
+                        intent.setClass(mContext, DisabledCardReissueDetailActivity.class);
                         break;
                     case 5:
                         //迁入
-                        startActivity(new Intent(mContext, DisabledCardMoveInDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
-                                businessId));
+                        intent.setClass(mContext, DisabledCardMoveInDetailActivity.class);
                         break;
                     case 6:
                         //迁出
-                        startActivity(new Intent(mContext, DisabledCardMoveOutDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
-                                businessId));
+                        intent.setClass(mContext, DisabledCardMoveOutDetailActivity.class);
                         break;
                     case 7:
                         //注销
-                        startActivity(new Intent(mContext, DisabledCardLogoutDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
-                                businessId));
+                        intent.setClass(mContext, DisabledCardLogoutDetailActivity.class);
                         break;
                     case 8:
                         //就业登记
-                        startActivity(new Intent(mContext, EmploymentRegistDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
-                                businessId));
+                        intent.setClass(mContext, EmploymentRegistDetailActivity.class);
                         break;
                     case 12:
                         //辅助用品申请
-                        startActivity(new Intent(mContext, AssistToolDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
-                                businessId));
+                        intent.setClass(mContext, AssistToolDetailActivity.class);
                         break;
                     case 13:
                         //培训申请
-                        startActivity(new Intent(mContext, TrainRequestDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
-                                businessId));
+                        intent.setClass(mContext, TrainRequestDetailActivity.class);
                         break;
                     case 14:
                         //居家托养
-                        startActivity(new Intent(mContext, HomeCareDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
-                                businessId));
+                        intent.setClass(mContext, HomeCareDetailActivity.class);
                         break;
                     case 16:
                         //精准康复智力残疾儿童康复救助
-                        startActivity(new Intent(mContext, MoronRecoveryDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
-                                businessId).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
+                        intent.setClass(mContext, MoronRecoveryDetailActivity.class);
                         break;
                     case 17:
                         //精准康复孤独儿童康复救助
-                        startActivity(new Intent(mContext, LonelyChildRecoveryDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
-                                businessId).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
+                        intent.setClass(mContext, LonelyChildRecoveryDetailActivity.class);
                         break;
                     case 18:
                         //精准康复聋儿童康复救助
-                        startActivity(new Intent(mContext, DeafDumbChildRecoveryDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
-                                businessId).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
+                        intent.setClass(mContext, DeafDumbChildRecoveryDetailActivity.class);
                         break;
                     case 19:
                         //精准康复孤独儿童康复救助
-                        startActivity(new Intent(mContext, BrainPalsyRecoveryDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
-                                businessId).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
+                        intent.setClass(mContext, BrainPalsyRecoveryDetailActivity.class);
                         break;
                     case 20:
                         //残疾人大学生助学金
-                        startActivity(new Intent(mContext, DisabledStudentBursaryDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
-                                businessId).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
+                        intent.setClass(mContext, DisabledStudentBursaryDetailActivity.class);
                         break;
                     case 21:
                         //重残家庭大学生助学金
-                        startActivity(new Intent(mContext, DisabledFamilyStudentBursaryDetailActivity.class).putExtra(BaseBusinessActivity.BUSINESS_ID,
-                                businessId).putExtra(BaseRecoveryActivity.RECOVERY_NAME, name));
+                        intent.setClass(mContext, DisabledFamilyStudentBursaryDetailActivity.class);
                         break;
                     default:
                         break;
                 }
-
+                startActivity(intent);
 
             }
         });

@@ -33,6 +33,7 @@ public interface HomePageContract {
          * @param requestBody
          */
         void userAuth(String tag, RequestBody requestBody);
+    interface IHomePagePresent extends IPresenter<IHomePageView> {
 
         /**
          * 获取实时数据 天气

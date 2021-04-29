@@ -18,7 +18,7 @@ public class MoronRecoveryDetailActivity extends BaseRecoveryDetailActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter.getDisabledChildrenIntellectualInfo(businessId,"");
+        mPresenter.getDisabledChildrenIntellectualInfo(businessId,RECOVERY_DETAIL);
     }
 
 

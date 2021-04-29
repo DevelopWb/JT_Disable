@@ -73,6 +73,14 @@ public class UserInfoManager {
         return getUser() != null && getUser().getData() != null ? getUser().getData().getPhoneNumber() : "";
     }
     /**
+     * 获取用户密码
+     *
+     * @return
+     */
+    public static String getPwd() {
+        return getUser() != null && getUser().getData() != null ? getUser().getData().getPassword() : "";
+    }
+    /**
      * 获取账户
      *
      * @return

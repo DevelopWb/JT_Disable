@@ -248,10 +248,11 @@ public class RegistPresent extends BasePresenter<IModel, RegistContract.BaseIReg
     }
 
     @Override
-    public void updateAccount(String tag, String phoneNumber, String newAccount, String password, String oldPassword) {
+    public void updateAccount(String tag, String phoneNumber, String newAccount, String password,
+                              String code) {
         AppNetModule.createrRetrofit()
                 .updatePhone(MyApp.getAccount(), MyApp.getUserToken(),phoneNumber,
-                        MyApp.getUid(), newAccount, password, oldPassword)
+                        MyApp.getUid(), newAccount, password,code)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new BaseObserver<BaseResult>(getView()) {
                     @Override
@@ -298,9 +299,27 @@ public class RegistPresent extends BasePresenter<IModel, RegistContract.BaseIReg
      *
      * @param mobile
      */
-    public void getCheckCodeFromNet(String mobile,String tempCode) {
-        // 请求验证码，其中country表示国家代码，如“86”；phone表示手机号码，如“13800138000”
-        SMSSDK.getVerificationCode(tempCode,"+86", mobile);
+    public void getCheckCodeFromNet(String mobile,String tag) {
+       //获取验证码
+        AppNetModule.createrRetrofit()
+                .getSmsCode(mobile)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
     }
 
     @Override
@@ -346,7 +365,7 @@ public class RegistPresent extends BasePresenter<IModel, RegistContract.BaseIReg
                     @Override
                     public void onSuccess(BaseResult o) {
                         if (getView() != null) {
-                            getView().onSuccess(tag, o.message);
+                            getView().onSuccess(tag, o);
                         }
                     }
 
@@ -359,6 +378,54 @@ public class RegistPresent extends BasePresenter<IModel, RegistContract.BaseIReg
                 });
     }
 
+    /**
+     * 校验验证码
+     * @param phoneNo
+     * @param code
+     * @param tag
+     */
+    public void checkCode(String phoneNo,String code,String tag) {
+        AppNetModule.createrRetrofit()
+                .checkCode(phoneNo,code)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+    }
+    public void bindPhoneNum(RequestBody requestBody, String tag) {
+
+        AppNetModule.createrRetrofit()
+                .bindPhoneNum(requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new BaseObserver<BaseResult>(getView()) {
+                    @Override
+                    public void onSuccess(BaseResult o) {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, o);
+                        }
+                    }
+                    @Override
+                    public void onError(String msg) {
+                        if (getView() != null) {
+                            getView().onError(tag, msg);
+                        }
+                    }
+                });
+
+
+    }
     @Override
     public void addOpinionsAndSuggestions(RequestBody requestBody, String tag) {
         AppNetModule.createrRetrofit()

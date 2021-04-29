@@ -54,6 +54,8 @@ public interface BusinessContract {
     String TABLE_TITLE_GUARDIAN_RELATION = "与监护人关系";//
     String TABLE_TITLE_PHONE = "联系电话";//
     String TABLE_TITLE_CONTACT_MODE = "联系方式";//
+    String TABLE_TITLE_APPLY_REASON = "申请原因";//残疾证遗失补办
+    String TABLE_TITLE_MOVE_IN_PLACE = "迁入地";//迁入地
     String TABLE_TITLE_CONTACTER = "联系人";//
     String TABLE_TITLE_CURRENT_LIVE_ADDR = "目前居住地";//
     String TABLE_TITLE_WORKER = "工作单位";//
@@ -68,13 +70,17 @@ public interface BusinessContract {
     String TABLE_TITLE_DISABLE_PIC_BACK_SAMPLE = "反面照示例图片";//
     String TABLE_TITLE_DISABLED_PIC_IN_HEALTH_POSITION = "孩子在康复机构照片";//
     String TABLE_TITLE_DISABLE_PHOTO_ALL = "残疾证照片\n正面照";//
-    String TABLE_TITLE_GUARDIAN_ID_PIC = "监护人身份证拍照";//
+    String TABLE_TITLE_GUARDIAN_ID_PIC = "监护人身份证正面照";//
+    String TABLE_TITLE_GUARDIAN_ID_PIC_BACK = "监护人身份证反面照";//
     String TABLE_TITLE_GUARDIAN_HUJI_PIC = "监护人户籍证明照片";//
     String TABLE_TITLE_HUKOU_RELATION_PIC = "户口本能证明监护关系页拍照";//
     String TABLE_TITLE_STUDENT_CARD_PIC = "学生证照片";//
     String TABLE_TITLE_ADMISSION_NOTICE_PIC = "入学通知书照片";//
     String TABLE_TITLE_TUITION_PIC = "缴费凭证照片";//学费
-    String TABLE_TITLE_MATERIAL_PIC = "病例材料照片";//
+    String TABLE_TITLE_MATERIAL_PIC = "原始材料照片";//
+    String TABLE_TITLE_MATERIAL_PIC_RENEWAL = "换证材料照片";//
+    String TABLE_TITLE_MATERIAL_PIC_LEVEL = "等级变更材料照片";//
+    String TABLE_TITLE_MATERIAL_HANDLE_PIC = "申请材料(病例、医学测试结果等)";//最多5张照片
     String TABLE_TITLE_LIFE_PIC = "申请人生活照片";//
     String TABLE_TITLE_LIFE_PIC_MYSELF = "本人生活照照片";//
     String TABLE_TITLE_LIFE_PIC_HOUSE = "房屋外观照片";//
@@ -99,6 +105,8 @@ public interface BusinessContract {
     String TABLE_TITLE_DISABILITY_PEOPLE_RELATION = "与残疾人关系";//
     String TABLE_TITLE_STUDENT_IDCARD = "学生身份证照片";//
     String TABLE_TITLE_PIC_IDCARD = "身份证照片";//
+    String TABLE_TITLE_PIC_IDCARD_FRONT = "身份证正面照";//
+    String TABLE_TITLE_PIC_IDCARD_BACK = "身份证反面照";//
     String TABLE_TITLE_PRESENT_DISBILITY_IDCARD = "家长重度残疾证照片\n正面照";//
     String TABLE_TITLE_GROUP_PHOTO = "学生与家长生活合影照片";//
     String TABLE_TITLE_ACCOUNT_BOOK = "户口本说明家庭关系照片或实际抚养证明";//
@@ -134,6 +142,7 @@ public interface BusinessContract {
     String TABLE_TITLE_REQUEST_RECOVERY = "康复需求项目";//护工
     String TABLE_TITLE_SELECT_ASSIST_TOOL = "辅具选择";//护工
     String TABLE_TITLE_DELIVERY_METHOD = "配送方式";//护工
+    String TABLE_TITLE_ADDR_SELF_TAKE = "自提地址";//取
     String TABLE_TITLE_ASSIST_TOOL_AMOUNT = "器具数量";//护工
     String TABLE_TITLE_SPECIALTY = "特长";//
     String TABLE_TITLE_JOB_STATUS = "就业状况";//
@@ -285,6 +294,10 @@ public interface BusinessContract {
          * @param tag
          */
         void addDisabledStudentGrant(RequestBody requestBody, String tag);
+        /**
+         * @param tag
+         */
+        void score(RequestBody requestBody, String tag);
 
         /**
          * @param tag
@@ -309,6 +322,11 @@ public interface BusinessContract {
          * @param tag
          */
         void addHomCare(RequestBody requestBody, String tag);
+
+        /**
+         * @param tag
+         */
+        void getSelfTakeAddr( String tag);
 
 
 

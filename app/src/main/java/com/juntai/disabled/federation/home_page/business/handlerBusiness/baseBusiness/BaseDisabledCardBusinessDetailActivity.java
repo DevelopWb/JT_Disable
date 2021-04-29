@@ -77,18 +77,62 @@ public abstract class BaseDisabledCardBusinessDetailActivity extends BaseBusines
 
     @Override
     protected List<MultipleItem> getAdapterData() {
-        return null ;
+        return null;
     }
 
     @Override
     public void onSuccess(String tag, Object o) {
-        BusinessChildDetailBean detailBean = (BusinessChildDetailBean) o;
-        if (detailBean != null) {
-            BusinessChildDetailBean.DataBean dataBean =  detailBean.getData();
-            if (dataBean != null) {
-                adapter.setNewData(mPresenter.getBaseChildAdapterData(dataBean));
+        if (BUSINESS_NAME_RENEWAL.equals(tag)||BUSINESS_NAME_LEVEL_CHANGE.equals(tag)||BUSINESS_NAME_REISSUE.equals(tag)
+                ||BUSINESS_NAME_MOVE_IN.equals(tag)||BUSINESS_NAME_MOVE_OUT.equals(tag)||BUSINESS_NAME_LOGOUT.equals(tag)) {
+            BusinessChildDetailBean detailBean = (BusinessChildDetailBean) o;
+            BusinessChildDetailBean.DataBean dataBean = null;
+            if (detailBean != null) {
+                dataBean = detailBean.getData();
+                if (1 == dataBean.getEstatus()&&checkStatusId==1) {
+                    //未评价
+                    showScoreDialog(businessItemId);
+                }
+
             }
+            switch (tag) {
+                case BUSINESS_NAME_RENEWAL:
+                    if (dataBean != null) {
+                        adapter.setNewData(mPresenter.getRenewalAdapterData(dataBean));
+                    }
+                    break;
+                case BUSINESS_NAME_LEVEL_CHANGE:
+                    if (dataBean != null) {
+                        adapter.setNewData(mPresenter.getChangedLevelAdapterData(dataBean));
+                    }
+                    break;
+                case BUSINESS_NAME_REISSUE:
+                    if (dataBean != null) {
+                        adapter.setNewData(mPresenter.getReissueAdapterData(dataBean));
+                    }
+                    break;
+                case BUSINESS_NAME_MOVE_IN:
+                    if (dataBean != null) {
+                        adapter.setNewData(mPresenter.getMoveInAdapterData(dataBean));
+                    }
+                    break;
+                case BUSINESS_NAME_MOVE_OUT:
+                    if (dataBean != null) {
+                        adapter.setNewData(mPresenter.getMoveOutAdapterData(dataBean));
+                    }
+                    break;
+                case BUSINESS_NAME_LOGOUT:
+                    if (dataBean != null) {
+                        adapter.setNewData(mPresenter.getLogOutAdapterData(dataBean));
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }else {
+            super.onSuccess(tag, o);
         }
+
+
     }
 
 

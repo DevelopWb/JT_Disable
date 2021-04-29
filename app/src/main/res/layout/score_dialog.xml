@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:hedgehog="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:src="@mipmap/score_top_bg"
+            hedgehog:layout_constraintTop_toTopOf="parent"></ImageView>
+
+        <ImageView
+            android:id="@+id/close_dialog_iv"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="13dp"
+            android:src="@mipmap/close_gray"
+            hedgehog:layout_constraintRight_toRightOf="parent"
+            hedgehog:layout_constraintTop_toTopOf="parent"></ImageView>
+    </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="办理速度:"
+            android:textColor="@color/text_title"
+            android:textSize="16dp"></TextView>
+
+        <com.hedgehog.ratingbar.RatingBar
+            android:id="@+id/ratingbar_speed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            hedgehog:clickable="true"
+            hedgehog:halfstart="false"
+            hedgehog:starCount="5"
+            hedgehog:starEmpty="@mipmap/star_gray"
+            hedgehog:starFill="@mipmap/star_light"
+            hedgehog:starImageHeight="25dp"
+            hedgehog:starImagePadding="5dp"
+            hedgehog:starImageWidth="25dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="办理质量:"
+            android:textColor="@color/text_title"
+            android:textSize="16dp"></TextView>
+
+        <com.hedgehog.ratingbar.RatingBar
+            android:id="@+id/ratingbar_quality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            hedgehog:clickable="true"
+            hedgehog:halfstart="false"
+            hedgehog:starCount="5"
+            hedgehog:starEmpty="@mipmap/star_gray"
+            hedgehog:starFill="@mipmap/star_light"
+            hedgehog:starImageHeight="25dp"
+            hedgehog:starImagePadding="5dp"
+            hedgehog:starImageWidth="25dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="办理态度:"
+            android:textColor="@color/text_title"
+            android:textSize="16dp"></TextView>
+
+        <com.hedgehog.ratingbar.RatingBar
+            android:id="@+id/ratingbar_attitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            hedgehog:clickable="true"
+            hedgehog:halfstart="false"
+            hedgehog:starCount="5"
+            hedgehog:starEmpty="@mipmap/star_gray"
+            hedgehog:starFill="@mipmap/star_light"
+            hedgehog:starImageHeight="25dp"
+            hedgehog:starImagePadding="5dp"
+            hedgehog:starImageWidth="25dp" />
+    </LinearLayout>
+
+
+    <include layout="@layout/item_layout_type_title_big"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/sp_filled_gray_lighter"
+        android:layout_marginRight="15dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/description_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:gravity="start"
+            android:hint="点击输入评价内容"
+            android:maxLength="200"
+            android:minLines="5"
+            android:padding="10dp"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/input_num_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:padding="10dp"
+            android:text="已输入0/200"
+            android:textColor="@color/gray"
+            android:textSize="14dp" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/commit_score_tv"
+        style="@style/bt_style"
+        android:layout_marginBottom="20dp"
+        android:text="提交"></TextView>
+</LinearLayout>

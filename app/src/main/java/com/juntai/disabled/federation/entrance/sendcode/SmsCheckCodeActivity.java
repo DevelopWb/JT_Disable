@@ -7,11 +7,19 @@ import android.support.annotation.Nullable;
 import android.os.Bundle;
 
 import com.baidu.location.BDLocation;
+import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
+import com.juntai.disabled.basecomponent.base.BaseObserver;
+import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
+import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.federation.AppNetModule;
+import com.juntai.disabled.federation.base.BaseSelectPicsActivity;
 import com.juntai.disabled.federation.base.BaseSelectPicsAndVedioActivity;
 import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragmentNormal;
+import com.juntai.disabled.federation.entrance.regist.RegistPresent;
 
 import java.util.List;
 
@@ -23,7 +31,13 @@ import cn.smssdk.SMSSDK;
  * @description 描述
  * @date 2020/3/25 8:46
  */
-public abstract class SmsCheckCodeActivity<P extends BasePresenter> extends BaseSelectPicsAndVedioActivity<P> {
+public abstract class SmsCheckCodeActivity extends BaseSelectPicsAndVedioActivity<RegistPresent> {
+    public final static String GET_CODE_TAG = "getCodeTag";//获取短信验证码的标识
+//    /**
+//     * 验证成功
+//     */
+//    protected abstract void checkCodeSuccessed();
+
     @Override
     protected void selectedPicsAndEmpressed(List<String> icons) {
 
@@ -32,7 +46,10 @@ public abstract class SmsCheckCodeActivity<P extends BasePresenter> extends Base
     public void onLocationReceived(BDLocation bdLocation) {
 
     }
-
+    @Override
+    protected RegistPresent createPresenter() {
+        return new RegistPresent();
+    }
     @Override
     public boolean requestLocation() {
         return false;
@@ -43,69 +60,21 @@ public abstract class SmsCheckCodeActivity<P extends BasePresenter> extends Base
     }
 
     @Override
-    protected SelectPhotosFragment getFragment() {
+    protected SelectPhotosFragmentNormal getFragment() {
         return null;
     }
-    protected boolean verify = false;//验证是否成功
-    protected  String SMS_TEMP_CODE = "16132134";//模板编号
-    EventHandler eventHandler = new EventHandler() {
-        @Override
-        public void afterEvent(int event, int result, Object data) {
-            // afterEvent会在子线程被调用，因此如果后续有UI相关操作，需要将数据发送到UI线程
-            Message msg = new Message();
-            msg.arg1 = event;
-            msg.arg2 = result;
-            msg.obj = data;
-            new Handler(Looper.getMainLooper(), new Handler.Callback() {
-                @Override
-                public boolean handleMessage(Message msg) {
-                    int event = msg.arg1;
-                    int result = msg.arg2;
-                    Object data = msg.obj;
-                    if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
-                        if (result == SMSSDK.RESULT_COMPLETE) {
-                            ToastUtils.success(SmsCheckCodeActivity.this, "发送成功");
-                            initGetTestCodeButtonStatusStart();
-                        } else if(result==SMSSDK.RESULT_ERROR){
-                            //一天一个手机号只能接收10条短信
-                            ToastUtils.error(SmsCheckCodeActivity.this, "一天一个手机号只能发送10次验证");
-                        }else{
-                            LogUtil.d("发送失败");
-                            ((Throwable) data).printStackTrace();
-                        }
-                    } else if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
-                        if (result == SMSSDK.RESULT_COMPLETE) {
-                            verify = true;
-                            initGetTestCodeButtonStatusStop();
-                            checkCodeSuccessed();
-                        } else {
-                            verify = false;
-                            ToastUtils.error(SmsCheckCodeActivity.this, "验证码输入有误");
-                            initGetTestCodeButtonStatusStop();
-                            //  处理错误的结果
-                            ((Throwable) data).printStackTrace();
-                        }
-                    }
-                    // 其他接口的返回结果也类似，根据event判断当前数据属于哪个接口
-                    return false;
-                }
-            }).sendMessage(msg);
-        }
-    };
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 注册一个事件回调，用于处理SMSSDK接口请求的结果
-        SMSSDK.registerEventHandler(eventHandler);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SMSSDK.unregisterEventHandler(eventHandler);
     }
+
 
     /**
      * 更改获取验证码按钮得状态
@@ -114,8 +83,28 @@ public abstract class SmsCheckCodeActivity<P extends BasePresenter> extends Base
 
     protected abstract void initGetTestCodeButtonStatusStop();
 
-    /**
-     * 验证成功
-     */
-    protected abstract void checkCodeSuccessed();
+    @Override
+    public void onSuccess(String tag, Object o) {
+        switch (tag) {
+            case GET_CODE_TAG:
+                ToastUtils.success(SmsCheckCodeActivity.this, "已发送");
+                initGetTestCodeButtonStatusStart();
+                break;
+            default:
+                initGetTestCodeButtonStatusStop();
+                break;
+        }
+
+    }
+
+
+    @Override
+    public void onError(String tag, Object o) {
+        String msg = (String) o;
+        if ("短信验证码错误".equals(msg)) {
+            ToastUtils.error(SmsCheckCodeActivity.this, "验证码输入有误");
+            initGetTestCodeButtonStatusStop();
+        }
+        super.onError(tag, o);
+    }
 }

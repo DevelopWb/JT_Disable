@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
+import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.bean.business.detail.HandlerCardDetailBean;
@@ -29,7 +30,7 @@ public class HandlerCardDetailActivity extends BaseBusinessActivity {
     private TextView mCommitBusinessTv;
     @Override
     public void initData() {
-        mPresenter.getDisabilityCertificateInfo(businessId,"");
+        mPresenter.getDisabilityCertificateInfo(businessId, AppHttpPath.DISABLED_ID_CARD_DETAIL);
 
     }
 
@@ -74,12 +75,21 @@ public class HandlerCardDetailActivity extends BaseBusinessActivity {
 
     @Override
     public void onSuccess(String tag, Object o) {
-        HandlerCardDetailBean handlerCardDetailBean = (HandlerCardDetailBean) o;
-        if (handlerCardDetailBean != null) {
-            HandlerCardDetailBean.DataBean dataBean =   handlerCardDetailBean.getData();
-            adapter.setNewData(mPresenter.getHandlerIdCardAdapterData(dataBean));
-            ImageLoadUtil.loadImage(mContext,dataBean.getApplicantSign(),mGuardianNameSignIv);
-            mCommitmentTv.setText(dataBean.getCommitment());
+        if (AppHttpPath.DISABLED_ID_CARD_DETAIL.equals(tag)) {
+            HandlerCardDetailBean handlerCardDetailBean = (HandlerCardDetailBean) o;
+            if (handlerCardDetailBean != null) {
+                HandlerCardDetailBean.DataBean dataBean =   handlerCardDetailBean.getData();
+                if (1==dataBean.getEstatus()&&checkStatusId==1) {
+                    //未评价
+                    showScoreDialog(businessItemId);
+                }
+                adapter.setNewData(mPresenter.getHandlerIdCardAdapterData(dataBean));
+                ImageLoadUtil.loadImage(mContext,dataBean.getApplicantSign(),mGuardianNameSignIv);
+                mCommitmentTv.setText(dataBean.getCommitment());
+            }
+        }else {
+            super.onSuccess(tag,o);
         }
+
     }
 }

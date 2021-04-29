@@ -91,7 +91,8 @@ public interface RegistContract {
          * @param newAccount
          * @param password
          */
-        void updateAccount(String tag, String phoneNumber,String newAccount, String password, String oldPassword);
+        void updateAccount(String tag, String phoneNumber,String newAccount, String password,
+                           String code);
 
         /**
          * 补充用户信息

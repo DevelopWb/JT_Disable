@@ -5,7 +5,7 @@ import android.annotation.SuppressLint;
 
 import com.juntai.disabled.basecomponent.base.BaseObserver;
 import com.juntai.disabled.basecomponent.base.BaseResult;
-import com.juntai.disabled.basecomponent.mvp.BaseIView;
+import com.juntai.disabled.basecomponent.mvp.IView;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.utils.PubUtil;
@@ -23,9 +23,9 @@ import okhttp3.RequestBody;
  * @UpdateUser: 更新者
  * @UpdateDate: 2020/3/5 15:55
  */
-public class EntrancePresent extends BasePresenter<IModel, EntranceContract.BaseIEntranceView> implements EntranceContract.IEntrancePresent {
-    private BaseIView iView;
-    public void  setCallBack(BaseIView iView) {
+public class EntrancePresent extends BasePresenter<IModel, EntranceContract.IEntranceView> implements EntranceContract.IEntrancePresent {
+    private IView iView;
+    public void  setCallBack(IView iView) {
         this.iView = iView;
     }
 
@@ -38,7 +38,7 @@ public class EntrancePresent extends BasePresenter<IModel, EntranceContract.Base
     @SuppressLint("CheckResult")
     @Override
     public void login(String account, String password, String weChatId, String qqId,String tag) {
-        BaseIView viewCallBack = null;
+        IView viewCallBack = null;
         if (getView()==null) {
             if (iView != null) {
                 viewCallBack = iView;
@@ -48,7 +48,7 @@ public class EntrancePresent extends BasePresenter<IModel, EntranceContract.Base
             viewCallBack = getView();
             viewCallBack.showLoading();
         }
-        BaseIView finalViewCallBack = viewCallBack;
+        IView finalViewCallBack = viewCallBack;
         AppNetModule
                 .createrRetrofit()
                 .login(account, password, weChatId, qqId)
@@ -77,7 +77,7 @@ public class EntrancePresent extends BasePresenter<IModel, EntranceContract.Base
     public void bindQQOrWeChat(String account, String token,String weChatId, String weChatName, String qqId,
                                String qqName,
                                String tag) {
-        BaseIView viewCallBack = null;
+        IView viewCallBack = null;
         if (getView()==null) {
             if (iView != null) {
                 viewCallBack = iView;
@@ -87,7 +87,7 @@ public class EntrancePresent extends BasePresenter<IModel, EntranceContract.Base
             viewCallBack = getView();
             viewCallBack.showLoading();
         }
-        BaseIView finalViewCallBack = viewCallBack;
+        IView finalViewCallBack = viewCallBack;
         AppNetModule.createrRetrofit()
                 .bindQQAndWeChat(account, token,7, weChatId, weChatName, qqId, qqName)
                 .compose(RxScheduler.ObsIoMain(viewCallBack))
@@ -109,39 +109,7 @@ public class EntrancePresent extends BasePresenter<IModel, EntranceContract.Base
                 });
     }
 
-    public void bindPhoneNum(RequestBody requestBody, String tag) {
-        BaseIView viewCallBack = null;
-        if (getView()==null) {
-            if (iView != null) {
-                viewCallBack = iView;
-                viewCallBack.showLoading();
-            }
-        }else{
-            viewCallBack = getView();
-            viewCallBack.showLoading();
-        }
-        BaseIView finalViewCallBack = viewCallBack;
-        AppNetModule.createrRetrofit()
-                .bindPhoneNum(requestBody)
-                .compose(RxScheduler.ObsIoMain(viewCallBack))
-                .subscribe(new Consumer<BaseResult>() {
-                    @Override
-                    public void accept(BaseResult baseResult) throws Exception {
-                        if (finalViewCallBack != null) {
-                            finalViewCallBack.hideLoading();
-                            finalViewCallBack.onSuccess(tag, baseResult);
-                        }
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        if (finalViewCallBack != null) {
-                            finalViewCallBack.hideLoading();
-                            finalViewCallBack.onError(tag, PubUtil.ERROR_NOTICE);
-                        }
-                    }
-                });
-    }
+
 
 
     public void regist(RequestBody body,String tag) {

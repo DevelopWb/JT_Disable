@@ -20,6 +20,7 @@ import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.base.BaseSelectPicsAndVedioActivity;
 import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragmentNormal;
 import com.juntai.disabled.federation.bean.case_bean.CaseInfoBean;
 import com.juntai.disabled.federation.bean.case_bean.CaseTypeBean;
 import com.juntai.disabled.federation.entrance.regist.RegistPresent;
@@ -104,8 +105,8 @@ public class PublishCaseActivity extends BaseSelectPicsAndVedioActivity<PublishP
     }
 
     @Override
-    protected SelectPhotosFragment getFragment() {
-        return SelectPhotosFragment.newInstance().setPhotoTitle("")
+    protected SelectPhotosFragmentNormal getFragment() {
+        return SelectPhotosFragmentNormal.newInstance().setPhotoTitle("")
                 .setPhotoSpace(60)
                 .setMaxCount(3);
     }

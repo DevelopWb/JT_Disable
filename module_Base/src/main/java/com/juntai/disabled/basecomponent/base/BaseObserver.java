@@ -62,7 +62,13 @@ public abstract class BaseObserver<T> extends DisposableObserver<T> {
                 if (model.status == 200) {
                     onSuccess(bean);
                 }else {
-                    onError(model.message == null? "服务器开小差了" : model.message);
+                    if (304==model.status) {
+                        //短信验证码错误
+                        onError("短信验证码错误");
+                    }else {
+                        onError(model.message == null? "服务器开小差了" : model.message);
+                    }
+
                 }
             } else {
                 //单点登录   被顶后 服务端的success值为false status没有赋值

@@ -26,7 +26,6 @@ public interface EntranceContract {
         void bindQQOrWeChat(String account, String token,String weChatId, String weChatName, String qqId, String qqName,
                             String tag);
 
-        void bindPhoneNum(RequestBody requestBody, String tag);
 
 
     }

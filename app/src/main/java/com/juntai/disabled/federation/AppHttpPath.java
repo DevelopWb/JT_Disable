@@ -18,7 +18,7 @@ import retrofit2.http.POST;
 public class AppHttpPath {
     /**
      */
-//            public static final String BASE = "http://192.168.124.115:8080/disabledPersonsFederation/u/app";
+//            public static final String BASE = "http://192.168.124.119:8080/disabledPersonsFederation/u/app";
     public static final String BASE = "https://wx.juntaikeji.com:19153/disabledPersonsFederation/u/app";
 
 
@@ -965,6 +965,24 @@ public class AppHttpPath {
      * 根据身份证号码查询残疾人信息（用户申请时使用，简化填写项目）
      */
     public static final String GET_DISABLED_BASE_INFO = BASE + "/getDisabledInfo.shtml";
+
+    /**
+     * 业务评价打分接口
+     */
+    public static final String SCORE = BASE + "/evaluate.shtml";
+
+    /**
+     * 查询残疾辅具自提地址接口
+     */
+    public static final String GET_SELF_TAKE_ADDR = BASE + "/getAidsDelivery.shtml";
+    /**
+     * 获取短信验证码
+     */
+    public static final String GET_SMS_CODE = BASE + "/getSMSCode.shtml";
+    /**
+     * 校验验证码
+     */
+    public static final String CHECK_CODE = BASE + "/validateCode.shtml";
 
 
 

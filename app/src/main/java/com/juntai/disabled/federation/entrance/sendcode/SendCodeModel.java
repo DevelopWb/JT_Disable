@@ -26,50 +26,12 @@ public class SendCodeModel implements ISendCode {
 
     private ISendCode.IUpdateView iUpdateView;
     private Disposable disposable;
+    public static String CODE_WRONG = "短信验证码错误";
 
     public SendCodeModel(IUpdateView iUpdateView) {
         this.iUpdateView = iUpdateView;
-        // 注册一个事件回调，用于处理SMSSDK接口请求的结果
-        SMSSDK.registerEventHandler(eventHandler);
     }
 
-    EventHandler eventHandler = new EventHandler() {
-        public void afterEvent(int event, int result, Object data) {
-            // afterEvent会在子线程被调用，因此如果后续有UI相关操作，需要将数据发送到UI线程
-            Message msg = new Message();
-            msg.arg1 = event;
-            msg.arg2 = result;
-            msg.obj = data;
-            new Handler(Looper.getMainLooper(), new Handler.Callback() {
-                @Override
-                public boolean handleMessage(Message msg) {
-                    int event = msg.arg1;
-                    int result = msg.arg2;
-                    Object data = msg.obj;
-                    if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
-                        if (result == SMSSDK.RESULT_COMPLETE) {
-//                            ToastUtils.success(mContext,"发送成功");
-                            //  处理成功得到验证码的结果
-                        } else {
-                            //  处理错误的结果
-                            ((Throwable) data).printStackTrace();
-                        }
-                    } else if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
-                        if (result == SMSSDK.RESULT_COMPLETE) {
-//                            isVerifyed = true;
-//                            submit();
-                            //  处理验证码验证通过的结果
-                        } else {
-                            //  处理错误的结果
-                            ((Throwable) data).printStackTrace();
-                        }
-                    }
-                    //  其他接口的返回结果也类似，根据event判断当前数据属于哪个接口
-                    return false;
-                }
-            }).sendMessage(msg);
-        }
-    };
     @Override
     public void initGetTestCodeButtonStatus() {
         disposable = Observable.interval(0, 1000, TimeUnit.MILLISECONDS)

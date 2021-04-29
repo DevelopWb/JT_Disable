@@ -16,8 +16,8 @@
 <Tumblr Enable="false" />
 <Email Enable="false" />
 <ShortMessage Enable="false" />
-<Wechat AppId="wxfa0af7477eb173a5" AppSecret="fd1fd3ff4469750b1ec9bc5337847e40" userName="gh_afb25ac019c9" path="pages/index/index.html?id=1" WithShareTicket="true" MiniprogramType="2" />
-<WechatMoments AppId="wxfa0af7477eb173a5" AppSecret="fd1fd3ff4469750b1ec9bc5337847e40" />
+<Wechat AppId="wxdf698fd6bffbea97" AppSecret="b1fd7e1557144adf722b0d9631649166" />
+<WechatMoments AppId="wxdf698fd6bffbea97" AppSecret="b1fd7e1557144adf722b0d9631649166" />
 <QQ AppId="101935239" AppKey="87267714beb24352f2b2ffc5c9a14317" />
 <Instapaper Enable="false" />
 <Pocket Enable="false" />
@@ -26,7 +26,7 @@
 <Flickr Enable="false" />
 <Dropbox Enable="false" />
 <VKontakte Enable="false" />
-<WechatFavorite AppId="wxfa0af7477eb173a5" AppSecret="fd1fd3ff4469750b1ec9bc5337847e40" />
+<WechatFavorite AppId="wxdf698fd6bffbea97" AppSecret="b1fd7e1557144adf722b0d9631649166" />
 <Yixin Enable="false" />
 <YixinMoments Enable="false" />
 <Mingdao Enable="false" />

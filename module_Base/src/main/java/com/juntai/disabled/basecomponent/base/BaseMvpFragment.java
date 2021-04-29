@@ -19,7 +19,6 @@ public abstract class BaseMvpFragment<P extends IPresenter> extends BaseLazyFrag
 
     protected P mPresenter;
     protected abstract P createPresenter();
-    ProgressDialog progressDialog;
 
     @Override
     public void onAttach(Context context) {

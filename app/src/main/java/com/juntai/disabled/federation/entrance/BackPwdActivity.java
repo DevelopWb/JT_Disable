@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.disabled.basecomponent.utils.PubUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.entrance.regist.RegistContract;
 import com.juntai.disabled.federation.entrance.regist.RegistPresent;
@@ -21,6 +22,7 @@ import com.juntai.disabled.federation.utils.StringTools;
 import com.juntai.disabled.federation.utils.UserInfoManager;
 import com.orhanobut.hawk.Hawk;
 
+import cn.rongcloud.rtc.entity.UserInfo;
 import cn.smssdk.SMSSDK;
 
 /**
@@ -28,7 +30,7 @@ import cn.smssdk.SMSSDK;
  * @description 描述  找回密码/修改手机号
  * @date 2020/3/10 9:33
  */
-public class BackPwdActivity extends SmsCheckCodeActivity<RegistPresent> implements RegistContract.BaseIRegistView,
+public class BackPwdActivity extends SmsCheckCodeActivity implements RegistContract.IRegistView,
         View.OnClickListener {
 
     /**
@@ -104,13 +106,13 @@ public class BackPwdActivity extends SmsCheckCodeActivity<RegistPresent> impleme
         switch (pageType) {
             case 0:
                 setTitleName("找回密码");
-                mRegistPhoneEt.setTextColor(ContextCompat.getColor(mContext,R.color.black));
+                mRegistPhoneEt.setTextColor(ContextCompat.getColor(mContext, R.color.black));
                 break;
             case 1:
                 mRegistPhoneEt.setText("");
                 mRegistPhoneEt.setFocusable(true);
                 mRegistPhoneEt.setClickable(true);
-                mRegistPhoneEt.setTextColor(ContextCompat.getColor(mContext,R.color.black));
+                mRegistPhoneEt.setTextColor(ContextCompat.getColor(mContext, R.color.black));
                 mRegistTv.setText("确认");
                 setTitleName("修改手机号");
                 topTagLayout.setVisibility(View.GONE);
@@ -123,7 +125,7 @@ public class BackPwdActivity extends SmsCheckCodeActivity<RegistPresent> impleme
                 setTitleName("修改密码");
                 mRegistPhoneEt.setFocusable(false);
                 mRegistPhoneEt.setClickable(false);
-                mRegistPhoneEt.setTextColor(ContextCompat.getColor(mContext,R.color.gray));
+                mRegistPhoneEt.setTextColor(ContextCompat.getColor(mContext, R.color.gray));
                 break;
             default:
                 break;
@@ -155,51 +157,42 @@ public class BackPwdActivity extends SmsCheckCodeActivity<RegistPresent> impleme
     }
 
     @Override
-    protected void checkCodeSuccessed() {
-        if (getTextViewValue(mRegistTv).equals("下一步")) {
-            verify = false;
-            mCheckPhoneLl.setVisibility(View.GONE);
-            mSetNewPwdLl.setVisibility(View.VISIBLE);
-            mRegistTv.setText("提交");
-            mSetPwdTagTv.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
-            mCheckPhoneTagTv.setTextColor(ContextCompat.getColor(this, R.color.gray_deeper));
-        } else if (getTextViewValue(mRegistTv).equals("确认")) {
-            mPresenter.updateAccount(RegistContract.SET_PHONE,
-                    UserInfoManager.getPhoneNumber(), getTextViewValue(mRegistPhoneEt),
-                    MD5.md5(String.format("%s#%s", getTextViewValue(mRegistPhoneEt),
-                            getTextViewValue(mRegistCheckPwdEt))),
-                    MD5.md5(String.format("%s#%s", UserInfoManager.getPhoneNumber(), getTextViewValue(mRegistCheckPwdEt))));
-        }
-    }
-
-    @Override
     public void onSuccess(String tag, Object o) {
-
-        ToastUtils.success(mContext, "修改成功！");
-        //        SPTools.saveString(mContext,"login","");
-        Hawk.delete(AppUtils.SP_KEY_USER);
-        //        MyApp.app.clearActivitys();//清理掉之前的所有activity
-        finish();
+        super.onSuccess(tag,o);
         switch (tag) {
+            case AppHttpPath.CHECK_CODE:
+                //校验验证码
+                if (getTextViewValue(mRegistTv).equals("下一步")) {
+                    mCheckPhoneLl.setVisibility(View.GONE);
+                    mSetNewPwdLl.setVisibility(View.VISIBLE);
+                    mRegistTv.setText("提交");
+                    mSetPwdTagTv.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+                    mCheckPhoneTagTv.setTextColor(ContextCompat.getColor(this, R.color.gray_deeper));
+                } else if (getTextViewValue(mRegistTv).equals("确认")) {
+                    //修改手机号 确认
+                    mPresenter.updateAccount(RegistContract.SET_PHONE,
+                            UserInfoManager.getPhoneNumber(), getTextViewValue(mRegistPhoneEt),
+                            MD5.md5(String.format("%s#%s", getTextViewValue(mRegistPhoneEt),
+                                    getTextViewValue(mRegistCheckPwdEt))),getTextViewValue(mRegistCheckCodeEt));
+                }
+                break;
             case RegistContract.SET_PWD:
+                ToastUtils.success(mContext, "修改成功！");
+                //        SPTools.saveString(mContext,"login","");
+                Hawk.delete(AppUtils.SP_KEY_USER);
+                //        MyApp.app.clearActivitys();//清理掉之前的所有activity
+                finish();
                 startActivity(new Intent(this, LoginActivity.class));
                 break;
             case RegistContract.SET_PHONE:
-                startActivity(new Intent(mContext, LoginActivity.class));
-                break;
-            case RegistContract.MODIFY_PWD:
-                startActivity(new Intent(this, LoginActivity.class));
+                ToastUtils.success(mContext, "修改成功！");
+                finish();
                 break;
             default:
                 break;
         }
 
-    }
 
-    @Override
-    public void onError(String tag, Object o) {
-        verify = false;
-        ToastUtils.error(mContext, (String) o);
     }
 
     @Override
@@ -208,7 +201,7 @@ public class BackPwdActivity extends SmsCheckCodeActivity<RegistPresent> impleme
             default:
                 break;
             case R.id.regist_send_check_code_tv:
-                mPresenter.sendCheckCode(getTextViewValue(mRegistPhoneEt), SMS_TEMP_CODE);
+                mPresenter.sendCheckCode(getTextViewValue(mRegistPhoneEt), GET_CODE_TAG);
                 break;
             case R.id.regist_tv:
                 if (getTextViewValue(mRegistTv).equals("下一步")) {
@@ -221,16 +214,9 @@ public class BackPwdActivity extends SmsCheckCodeActivity<RegistPresent> impleme
                         checkFormatError("验证码不能为空");
                         return;
                     }
-                    if (!verify) {
-                        SMSSDK.submitVerificationCode("+86", getTextViewValue(mRegistPhoneEt),
-                                getTextViewValue(mRegistCheckCodeEt));
-                    } else {
-                        mCheckPhoneLl.setVisibility(View.GONE);
-                        mSetNewPwdLl.setVisibility(View.VISIBLE);
-                        mRegistTv.setText("提交");
-                        mSetPwdTagTv.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
-                        mCheckPhoneTagTv.setTextColor(ContextCompat.getColor(mContext, R.color.gray_deeper));
-                    }
+                    //调用验证注册码是否正确的接口
+                    mPresenter.checkCode(getTextViewValue(mRegistPhoneEt),getTextViewValue(mRegistCheckCodeEt),
+                            AppHttpPath.CHECK_CODE);
 
                 } else if (getTextViewValue(mRegistTv).equals("确认")) {
                     //用于修改手机号
@@ -245,21 +231,11 @@ public class BackPwdActivity extends SmsCheckCodeActivity<RegistPresent> impleme
                         checkFormatError("登录密码不能为空");
                         return;
                     }
-                    if (!verify) {
-                        SMSSDK.submitVerificationCode("+86", getTextViewValue(mRegistPhoneEt),
-                                getTextViewValue(mRegistCheckCodeEt));
-                    } else {
-                        mPresenter.updateAccount(RegistContract.SET_PHONE, UserInfoManager.getPhoneNumber(),
-                                getTextViewValue(mRegistPhoneEt),
-                                MD5.md5(String.format("%s#%s", getTextViewValue(mRegistPhoneEt),
-                                        getTextViewValue(mRegistCheckPwdEt))),
-                                MD5.md5(String.format("%s#%s", UserInfoManager.getPhoneNumber(),
-                                        getTextViewValue(mRegistCheckPwdEt))));
-                    }
-
-
+                    //调用验证注册码是否正确的接口
+                    mPresenter.checkCode(getTextViewValue(mRegistPhoneEt),getTextViewValue(mRegistCheckCodeEt),
+                            AppHttpPath.CHECK_CODE);
                 } else if (getTextViewValue(mRegistTv).equals("提交")) {
-                    //用于设置密码和修改密码
+                    //用于找回密码和修改密码
                     //校验密码
                     String pwd = getTextViewValue(mRegistSetPwdEt);
                     if (!StringTools.isStringValueOk(pwd)) {
@@ -322,24 +298,5 @@ public class BackPwdActivity extends SmsCheckCodeActivity<RegistPresent> impleme
         ToastUtils.warning(mContext, error);
     }
 
-    //    private void showWarnDialog(){
-    //        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-    //        builder.setMessage("修改手机号成功后需要重新登录，现在修改吗？");
-    //        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-    //            @Override
-    //            public void onClick(DialogInterface dialog, int which) {
-    //                mPresenter.updateAccount(RegistContract.SET_PHONE, getTextViewValue(mRegistPhoneEt),
-    //                        MD5.md5(String.format("%s#%s", getTextViewValue(mRegistPhoneEt), getTextViewValue
-    //                        (mRegistCheckPwdEt))),
-    //                        MD5.md5(String.format("%s#%s", MyApp.getAccount(), getTextViewValue(mRegistCheckPwdEt))));
-    //            }
-    //        });
-    //        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-    //            @Override
-    //            public void onClick(DialogInterface dialog, int which) {
-    //            }
-    //        });
-    //        builder.show();
-    //    }
 
 }

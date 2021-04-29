@@ -30,28 +30,6 @@ public class HomePagePresent extends BasePresenter<IModel, HomePageContract.Base
 
 
     @Override
-    public void userAuth(String tag, RequestBody requestBody) {
-        AppNetModule.createrRetrofit()
-                .userAuth(requestBody)
-                .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new BaseObserver<BaseResult>(getView()) {
-                    @Override
-                    public void onSuccess(BaseResult o) {
-                        if (getView() != null) {
-                            getView().onSuccess(tag, o.message);
-                        }
-
-                    }
-
-                    @Override
-                    public void onError(String msg) {
-                        if (getView() != null) {
-                            getView().onError(tag, msg);
-                        }
-                    }
-                });
-    }
-    @Override
     public void getHealthOrganizeDetail(RequestBody requestBody, String tag) {
         AppNetModule.createrRetrofit()
                 .getHealthOrganizeDetail(requestBody)

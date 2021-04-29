@@ -32,7 +32,7 @@ import okhttp3.RequestBody;
  * @description 描述  注册
  * @date 2020/3/8 14:27
  */
-public class RegistActivity extends SmsCheckCodeActivity<RegistPresent> implements RegistContract.BaseIRegistView,
+public class RegistActivity extends SmsCheckCodeActivity implements RegistContract.IRegistView,
         View.OnClickListener {
     private BaiDuLocationUtils baiDuLocationUtils = null;
 
@@ -87,10 +87,7 @@ public class RegistActivity extends SmsCheckCodeActivity<RegistPresent> implemen
 
     public static  String REGIST_PHONE = "regist_phone";
 
-    @Override
-    protected RegistPresent createPresenter() {
-        return new RegistPresent();
-    }
+
 
     @Override
     public int getLayoutView() {
@@ -139,7 +136,7 @@ public class RegistActivity extends SmsCheckCodeActivity<RegistPresent> implemen
         mRegistSendCheckCodeTv.setOnClickListener(new OnMultiClickListener() {
             @Override
             public void onMultiClick(View v) {
-                mPresenter.sendCheckCode(getTextViewValue(mRegistPhoneEt), SMS_TEMP_CODE);
+                mPresenter.sendCheckCode(getTextViewValue(mRegistPhoneEt), GET_CODE_TAG);
             }
         });
         mRegistSetPwdEt = (EditText) findViewById(R.id.regist_set_pwd_et);
@@ -203,13 +200,14 @@ public class RegistActivity extends SmsCheckCodeActivity<RegistPresent> implemen
         mRegistSendCheckCodeTv.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
     }
 
-    @Override
-    protected void checkCodeSuccessed() {
-        mPresenter.regist(RegistContract.REGIST, requestBody);
-    }
+//    @Override
+//    protected void checkCodeSuccessed() {
+//        mPresenter.regist(RegistContract.REGIST, requestBody);
+//    }
 
     @Override
     public void onSuccess(String tag, Object o) {
+        super.onSuccess(tag,o);
         switch (tag) {
             case RegistContract.REGIST:
                 ToastUtils.success(mContext, "注册成功");
@@ -267,16 +265,19 @@ public class RegistActivity extends SmsCheckCodeActivity<RegistPresent> implemen
                 builder.add("password", MD5.md5(String.format("%s#%s", account, getTextViewValue(mRegistCheckPwdEt))));
                 builder.add("nickname", getTextViewValue(mRegistNameEt));
                 builder.add("userSource", "10");//（1警小宝；2巡小管；3邻小帮   注册来源（10河东残联APP））
-                requestBody = builder.build();
+
                 if (!isAgreeProtocal) {
                     ToastUtils.toast(mContext, "请阅读并同意《隐私协议》和《用户协议》");
                     return;
                 }
-                if (!verify) {
-                    SMSSDK.submitVerificationCode("+86", account, getTextViewValue(mRegistCheckCodeEt));
-                } else {
-                    mPresenter.regist(RegistContract.REGIST, requestBody);
-                }
+                builder.add("code",getTextViewValue(mRegistCheckCodeEt));
+                mPresenter.regist(RegistContract.REGIST, builder.build());
+//                if (!verify) {
+//                    requestBody = builder.build();
+//                    SMSSDK.submitVerificationCode("+86", account, getTextViewValue(mRegistCheckCodeEt));
+//                } else {
+//
+//                }
                 break;
             //用户协议
             case R.id.regist_protoca_user_tv:
@@ -330,7 +331,6 @@ public class RegistActivity extends SmsCheckCodeActivity<RegistPresent> implemen
     public void onError(String tag, Object o) {
         switch (tag) {
             case RegistContract.REGIST:
-                verify = false;
                 break;
             default:
                 break;

@@ -2,20 +2,25 @@ package com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBu
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.hedgehog.ratingbar.RatingBar;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
@@ -26,6 +31,7 @@ import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseAppActivity;
 import com.juntai.disabled.federation.base.customview.GestureSignatureView;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.bean.business.BusinessPicBean;
 import com.juntai.disabled.federation.bean.business.BusinessPropertyBean;
@@ -59,7 +65,7 @@ import okhttp3.RequestBody;
  * @UpdateUser: 更新者
  * @UpdateDate: 2021/1/19 9:36
  */
-public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPresent> implements BusinessContract.BaseIBusinessView, View.OnClickListener {
+public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPresent> implements BusinessContract.IBusinessView, View.OnClickListener, SelectPhotosFragment.OnPhotoItemClick {
     private RecyclerView mRecyclerview;
     private SmartRefreshLayout mSmartrefreshlayout;
     protected HandlerBusinessAdapter adapter;
@@ -73,7 +79,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     private ImageView mSignIv = null;
     private ImageView mHandlerSignIv = null;//办理残疾证的时候的签名
     private TextView mSelectTv;
-    private int methodsId = 1;//配送方式
+    private int methodsId = 0;//配送方式
     private int selectedIQId = 1;//（1<=25；2<=26-39；3<=40-54；4<=55-75）
     private int selectedBrainId = 1;//（1<=25；2<=26-39；3<=40-54；4<=55-75）
     private int selectedMarrayStatus = 0;//0未婚；1已婚(有配偶)；2丧偶；3离婚
@@ -83,11 +89,19 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     private int categoryId = 0;//残疾类别
     private int jobStatusId = 0;//就业状态
     private int trainIntentId = 0;//何种培训类型
+    private int selfTakeAddrId = 0;//自提地址
     private int levelId = 0;//残疾等级
     private int toolId = 0;//辅具id
+    private int speedStarAmount = 0;//办理速度打星
+    private int qualityStarAmount = 0;//质量
+    private int statusStarAmount = 0;//态度
     private BusinessTextValueBean selectBean;
     public static String BUSINESS_ID = "businessid";
+    public static String BUSINESS_ITEM_ID = "businessitemid";
+    public static String CHECK_STATUS = "审核状态";
     protected int businessId = -1;
+    protected int businessItemId = -1;
+    protected int checkStatusId = -1;//审批状态（0：审核中）（1：审核通过）（2：审核失败）
     private ItemSignBean itemSignBean = null;
     private OnPicSelectedCallBack picSelectedCallBack;
     private BusinessPicBean businessPicBean;
@@ -102,6 +116,24 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     private TextView mReserveTv;
     private WebView mToolInfoDesWb;
     private DisabledBaseInfoBean.DataBean mDisabledInfo = null;
+    private ImageView mCloseDialogIv;
+    private RatingBar mRatingbarSpeed;
+    private RatingBar mRatingbarQuality;
+    private RatingBar mRatingbarAttitude;
+    private TextView mItemBusinessBigTitleTv;
+    /**
+     * 点击输入评价内容
+     */
+    private EditText mDescriptionEt;
+    /**
+     * 已输入0/200
+     */
+    private TextView mInputNumTv;
+    /**
+     * 提交
+     */
+    private TextView mCommitScoreTv;
+    private AlertDialog alertDialog;
 
     protected abstract String getTitleName();
 
@@ -135,12 +167,15 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     public void initView() {
         ////businessId=-1进入详情模式
         businessId = getIntent().getIntExtra(BUSINESS_ID, -1);
+        businessItemId = getIntent().getIntExtra(BUSINESS_ITEM_ID, -1);
+        checkStatusId = getIntent().getIntExtra(CHECK_STATUS, -1);
         setTitleName(getTitleName());
         mRecyclerview = (RecyclerView) findViewById(R.id.recyclerview);
         mSmartrefreshlayout = (SmartRefreshLayout) findViewById(R.id.smartrefreshlayout);
         mSmartrefreshlayout.setEnableLoadMore(false);
         mSmartrefreshlayout.setEnableRefresh(false);
-        adapter = new HandlerBusinessAdapter(getAdapterData(), businessId == -1 ? false : true);
+        adapter = new HandlerBusinessAdapter(getAdapterData(), businessId == -1 ? false :
+                true, getSupportFragmentManager());
         adapter.setOnIdCardSearchCallBack(new OnIdCardSearchCallBack() {
             @Override
             public void searchDisabledInfoByIdCard(String idNo) {
@@ -247,19 +282,23 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                 }
                                 mPresenter.getDisabledAIDS(categoryId, AppHttpPath.GET_DISABLED_AIDS);
                                 break;
-                            case BusinessContract.TABLE_TITLE_DELIVERY_METHOD:
-                                //配送方式
-                                List<String> methods = getDeliveryMode();
-                                PickerManager.getInstance().showOptionPicker(mContext, methods,
-                                        new PickerManager.OnOptionPickerSelectedListener() {
-                                            @Override
-                                            public void onOptionsSelect(int options1, int option2, int options3,
-                                                                        View v) {
-                                                methodsId = options1 + 1;
-                                                mSelectTv.setText(methods.get(options1));
-                                                selectBean.setValue(methods.get(options1));
-                                            }
-                                        });
+//                            case BusinessContract.TABLE_TITLE_DELIVERY_METHOD:
+//                                //配送方式
+//                                List<String> methods = getDeliveryMode();
+//                                PickerManager.getInstance().showOptionPicker(mContext, methods,
+//                                        new PickerManager.OnOptionPickerSelectedListener() {
+//                                            @Override
+//                                            public void onOptionsSelect(int options1, int option2, int options3,
+//                                                                        View v) {
+//                                                methodsId = options1 + 1;
+//                                                mSelectTv.setText(methods.get(options1));
+//                                                selectBean.setValue(methods.get(options1));
+//                                            }
+//                                        });
+//                                break;
+                            case BusinessContract.TABLE_TITLE_ADDR_SELF_TAKE:
+                                //自提地址
+                                mPresenter.getSelfTakeAddr(AppHttpPath.GET_SELF_TAKE_ADDR);
                                 break;
                             case BusinessContract.TABLE_TITLE_CHILD_IQ:
                                 //儿童发育商
@@ -322,6 +361,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         });
     }
 
+
     /**
      * 辅具详情的view
      *
@@ -364,6 +404,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         webView.loadDataWithBaseURL("", urlString, "text/html",
                 "utf-8", null);
     }
+
 
     private class WebViewClientDemo extends WebViewClient {
         @Override
@@ -426,7 +467,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     protected List<String> getDeliveryMode() {
         List<String> arrays = new ArrayList<>();
         arrays.add("自提");
-        arrays.add("送货上门");
+        //        arrays.add("送货上门");
         return arrays;
     }
 
@@ -560,11 +601,11 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    //                    mSignNameTagIv.setVisibility(ViewBase.GONE);
-                    //                    mSignNameNoticeTv.setVisibility(ViewBase.GONE);
-                    //                    mSignRedactImg.setVisibility(ViewBase.VISIBLE);
+                    //                    mSignNameTagIv.setVisibility(View.GONE);
+                    //                    mSignNameNoticeTv.setVisibility(View.GONE);
+                    //                    mSignRedactImg.setVisibility(View.VISIBLE);
                     bottomSheetDialog.dismiss();
-                    //                    mSignResign.getRightTextView().setVisibility(ViewBase.VISIBLE);
+                    //                    mSignResign.getRightTextView().setVisibility(View.VISIBLE);
                 } else {
                     ToastUtils.toast(mContext, "请签名！");
                 }
@@ -735,6 +776,14 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         case BusinessContract.TABLE_TITLE_WORKER_TYPE:
                             //职业工种
                             formKey = "profession";
+                            break;
+                        case BusinessContract.TABLE_TITLE_APPLY_REASON:
+                            //  申请原因
+                            formKey = "reason";
+                            break;
+                        case BusinessContract.TABLE_TITLE_MOVE_IN_PLACE:
+                            //  迁入地
+                            formKey = "moveinAddress";
                             break;
                         case BusinessContract.TABLE_TITLE_UNIT_NATURE:
                             //单位性质
@@ -985,7 +1034,19 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         case BusinessContract.TABLE_TITLE_DELIVERY_METHOD:
                             //配送方式
                             if (StringTools.isStringValueOk(textValueSelectBean.getValue())) {
-                                builder.addFormDataPart("deliveryWay ", String.valueOf(methodsId));
+//                                builder.addFormDataPart("deliveryWay ", String.valueOf(methodsId));
+                                //现在写死 只能自提
+                                builder.addFormDataPart("deliveryWay ", "1");
+                            }
+                            break;
+                        case BusinessContract.TABLE_TITLE_ADDR_SELF_TAKE:
+                            //自提地址
+//                            if (methodsId==0) {
+//                                ToastUtils.toast(mContext,"请先选择配送方式");
+//                                return null;
+//                            }
+                            if (StringTools.isStringValueOk(textValueSelectBean.getValue())) {
+                                builder.addFormDataPart("deliveryId ", String.valueOf(selfTakeAddrId));
                             }
                             break;
                         case BusinessContract.TABLE_TITLE_BRAIN_PALSY_STYLE:
@@ -1086,9 +1147,9 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                         RequestBody.create(MediaType.parse("file"),
                                                 new File(picBean.getPicPath())));
                                 break;
-                            case BusinessContract.TABLE_TITLE_PIC_IDCARD:
+                            case BusinessContract.TABLE_TITLE_PIC_IDCARD_FRONT:
                                 if (!StringTools.isStringValueOk(picBean.getPicPath())) {
-                                    ToastUtils.toast(mContext, "请选择身份证照片");
+                                    ToastUtils.toast(mContext, "请选择身份证正面照片");
                                     return null;
                                 }
                                 //身份证照片
@@ -1096,13 +1157,33 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                         RequestBody.create(MediaType.parse("file"),
                                                 new File(picBean.getPicPath())));
                                 break;
-                            case BusinessContract.TABLE_TITLE_GUARDIAN_ID_PIC:
+                            case BusinessContract.TABLE_TITLE_PIC_IDCARD_BACK:
                                 if (!StringTools.isStringValueOk(picBean.getPicPath())) {
-                                    ToastUtils.toast(mContext, "请选择监护人身份证照片");
+                                    ToastUtils.toast(mContext, "请选择身份证反面照片");
                                     return null;
                                 }
-                                //残疾证照片
+                                //身份证照片
+                                builder.addFormDataPart("idPictureBackFile", "idPictureBackFile",
+                                        RequestBody.create(MediaType.parse("file"),
+                                                new File(picBean.getPicPath())));
+                                break;
+                            case BusinessContract.TABLE_TITLE_GUARDIAN_ID_PIC:
+                                if (!StringTools.isStringValueOk(picBean.getPicPath())) {
+                                    ToastUtils.toast(mContext, "请选择监护人身份证正面照片");
+                                    return null;
+                                }
+                                //监护人身份证正面照
                                 builder.addFormDataPart("guardianIdPictureFile", "guardianIdPictureFile",
+                                        RequestBody.create(MediaType.parse("file"),
+                                                new File(picBean.getPicPath())));
+                                break;
+                            case BusinessContract.TABLE_TITLE_GUARDIAN_ID_PIC_BACK:
+                                if (!StringTools.isStringValueOk(picBean.getPicPath())) {
+                                    ToastUtils.toast(mContext, "请选择监护人身份证反面照片");
+                                    return null;
+                                }
+                                //监护人身份证反面照
+                                builder.addFormDataPart("guardianIdPictureBackFile", "guardianIdPictureBackFile",
                                         RequestBody.create(MediaType.parse("file"),
                                                 new File(picBean.getPicPath())));
                                 break;
@@ -1171,6 +1252,44 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                 break;
                         }
                     }
+                    break;
+
+                case MultipleItem.ITEM_BUSINESS_FRAGMENT:
+                    //多选图片
+                    BusinessPicBean fragmentPicBean = (BusinessPicBean) array.getObject();
+                    List<String> photos = fragmentPicBean.getFragmentPics();
+
+                    String name = fragmentPicBean.getPicName();
+                    String msg = null;
+                    switch (name) {
+                        case BusinessContract.TABLE_TITLE_MATERIAL_HANDLE_PIC:
+                            msg = "请选择申请材料照片";
+                            break;
+                        case BusinessContract.TABLE_TITLE_MATERIAL_PIC_RENEWAL:
+                            msg = "请选择换证材料照片";
+                            break;
+                        default:
+                            break;
+                    }
+                    if (photos.isEmpty()) {
+                        ToastUtils.toast(mContext, msg);
+                        return null;
+                    } else {
+
+                    }
+                    for (int i = 0; i < photos.size(); i++) {
+                        String picPah = photos.get(i);
+                        if (0 == i) {
+                            builder.addFormDataPart("casePictureFile", "casePictureFile",
+                                    RequestBody.create(MediaType.parse("file"),
+                                            new File(picPah)));
+                        } else {
+                            builder.addFormDataPart("casePictureFile" + (i + 1), "casePictureFile" + (i + 1),
+                                    RequestBody.create(MediaType.parse("file"),
+                                            new File(picPah)));
+                        }
+                    }
+
                     break;
 
                 case MultipleItem.ITEM_BUSINESS_SIGN:
@@ -1417,7 +1536,8 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
         List<BusinessPropertyBean.DataBean> data = null;
         if (BusinessContract.TABLE_TITLE_NATION.equals(tag) || BusinessContract.TABLE_TITLE_EDUCATION_LEVEL.equals(tag)
                 || AppHttpPath.GET_DISABLED_TYPE.equals(tag) || AppHttpPath.GET_DISABLED_LEVEL.equals(tag)
-                || AppHttpPath.GET_DISABLED_AIDS.equals(tag) || AppHttpPath.GET_TRAIN_INTENT_TYPES.equals(tag)) {
+                || AppHttpPath.GET_DISABLED_AIDS.equals(tag) || AppHttpPath.GET_TRAIN_INTENT_TYPES.equals(tag)
+        ||AppHttpPath.GET_SELF_TAKE_ADDR.equals(tag)) {
             propertyNationBean = (BusinessPropertyBean) o;
             data = propertyNationBean.getData();
             if (propertyNationBean != null && data.size() > 0) {
@@ -1449,6 +1569,9 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                                         break;
                                     case AppHttpPath.GET_TRAIN_INTENT_TYPES:
                                         trainIntentId = dataBean.getId();
+                                        break;
+                                    case AppHttpPath.GET_SELF_TAKE_ADDR:
+                                        selfTakeAddrId = dataBean.getId();
                                         break;
                                     default:
                                         break;
@@ -1529,13 +1652,21 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         }
                     }
                     adapter.notifyDataSetChanged();
-                }else {
+                } else {
                     //没有查到相应残疾人的信息
                     mDisabledInfo = null;
 
                 }
             }
 
+        } else if (AppHttpPath.SCORE.equals(tag)) {
+            BaseResult baseResult = (BaseResult) o;
+            ToastUtils.toast(mContext, baseResult.message);
+            if (alertDialog != null) {
+                if (alertDialog.isShowing()) {
+                    alertDialog.dismiss();
+                }
+            }
         } else {
             BaseResult baseResult = (BaseResult) o;
             ToastUtils.toast(mContext, baseResult.message);
@@ -1592,5 +1723,100 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
 
 
         void searchDisabledInfoByIdCard(String idNo);
+    }
+
+    /**
+     * 展示评分的对话框
+     */
+    protected void showScoreDialog(int businessId) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.score_dialog, null);
+        alertDialog = new AlertDialog.Builder(mContext)
+                .setView(view)
+                .create();
+        mCloseDialogIv = (ImageView) view.findViewById(R.id.close_dialog_iv);
+        mCloseDialogIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        mRatingbarSpeed = (RatingBar) view.findViewById(R.id.ratingbar_speed);
+        mRatingbarSpeed.setOnRatingChangeListener(new RatingBar.OnRatingChangeListener() {
+            @Override
+            public void onRatingChange(float RatingCount) {
+                speedStarAmount = (int) RatingCount;
+            }
+        });
+        mRatingbarQuality = (RatingBar) view.findViewById(R.id.ratingbar_quality);
+        mRatingbarQuality.setOnRatingChangeListener(new RatingBar.OnRatingChangeListener() {
+            @Override
+            public void onRatingChange(float RatingCount) {
+                qualityStarAmount = (int) RatingCount;
+            }
+        });
+        mRatingbarAttitude = (RatingBar) view.findViewById(R.id.ratingbar_attitude);
+        mRatingbarAttitude.setOnRatingChangeListener(new RatingBar.OnRatingChangeListener() {
+            @Override
+            public void onRatingChange(float RatingCount) {
+                statusStarAmount = (int) RatingCount;
+            }
+        });
+        mItemBusinessBigTitleTv = (TextView) view.findViewById(R.id.item_business_big_title_tv);
+        mItemBusinessBigTitleTv.setText("评价内容");
+        mDescriptionEt = (EditText) view.findViewById(R.id.description_et);
+        mInputNumTv = (TextView) view.findViewById(R.id.input_num_tv);
+        mCommitScoreTv = (TextView) view.findViewById(R.id.commit_score_tv);
+        mCommitScoreTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (speedStarAmount == 0) {
+                    ToastUtils.toast(mContext, "办理速度您还没有评分");
+                    return;
+                }
+                if (qualityStarAmount == 0) {
+                    ToastUtils.toast(mContext, "办理质量您还没有评分");
+                    return;
+                }
+                if (statusStarAmount == 0) {
+                    ToastUtils.toast(mContext, "办理态度您还没有评分");
+                    return;
+                }
+                mPresenter.score(getPublishMultipartBody().addFormDataPart("id", String.valueOf(businessId))
+                        .addFormDataPart("speed", String.valueOf(speedStarAmount))
+                        .addFormDataPart("quality", String.valueOf(qualityStarAmount))
+                        .addFormDataPart("attitude", String.valueOf(statusStarAmount))
+                        .addFormDataPart("evaluate", getTextViewValue(mDescriptionEt)).build(), AppHttpPath.SCORE);
+
+            }
+        });
+        alertDialog.show();
+        mDescriptionEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s != null) {
+                    mInputNumTv.setText("已输入" + s.length() + "/200");
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onVedioPicClick(BaseQuickAdapter adapter, int position) {
+
+    }
+
+    @Override
+    public void onPicClick(BaseQuickAdapter adapter, int position) {
+
     }
 }

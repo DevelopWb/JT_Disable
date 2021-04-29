@@ -18,6 +18,6 @@ public class DeafDumbChildRecoveryDetailActivity extends BaseRecoveryDetailActiv
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mPresenter.getDisabledChildrenDeafInfo(businessId,"");
+        mPresenter.getDisabledChildrenDeafInfo(businessId,RECOVERY_DETAIL);
     }
 }

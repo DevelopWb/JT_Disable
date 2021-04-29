@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.bean.business.detail.EmploymentRegDetailBean;
 import com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBusiness.BaseBusinessActivity;
@@ -21,7 +22,7 @@ public class EmploymentRegistDetailActivity extends BaseBusinessActivity {
     @Override
     public void initData() {
 
-        mPresenter.getDisabledObtainEmploymentInfo(businessId,"");
+        mPresenter.getDisabledObtainEmploymentInfo(businessId, AppHttpPath.DISABLED_CARD_EMPLOYMENT_REGIST_DETAIL);
     }
 
     @Override
@@ -56,12 +57,21 @@ public class EmploymentRegistDetailActivity extends BaseBusinessActivity {
 
     @Override
     public void onSuccess(String tag, Object o) {
-        EmploymentRegDetailBean regDetailBean = (EmploymentRegDetailBean) o;
-        if (regDetailBean != null) {
-            EmploymentRegDetailBean.DataBean dataBean = regDetailBean.getData();
-            if (dataBean != null) {
-                adapter.setNewData(mPresenter.getEmploymentRegistAdapterData(dataBean));
+        if (AppHttpPath.DISABLED_CARD_EMPLOYMENT_REGIST_DETAIL.equals(tag)) {
+            EmploymentRegDetailBean regDetailBean = (EmploymentRegDetailBean) o;
+            if (regDetailBean != null) {
+                EmploymentRegDetailBean.DataBean dataBean = regDetailBean.getData();
+                if (1==dataBean.getEstatus()&&checkStatusId==1) {
+                    //未评价
+                    showScoreDialog(businessItemId);
+                }
+                if (dataBean != null) {
+                    adapter.setNewData(mPresenter.getEmploymentRegistAdapterData(dataBean));
+                }
             }
+        }else {
+            super.onSuccess(tag,o);
         }
+
     }
 }

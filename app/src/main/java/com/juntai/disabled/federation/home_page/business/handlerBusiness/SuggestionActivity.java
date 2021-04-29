@@ -9,12 +9,14 @@ import android.widget.TextView;
 
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
+import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragmentNormal;
+import com.juntai.disabled.federation.base.selectPics.ShowSelectedPicsAdapter;
 import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.entrance.regist.RegistContract;
-import com.juntai.disabled.federation.entrance.regist.RegistPresent;
 import com.juntai.disabled.federation.entrance.sendcode.SmsCheckCodeActivity;
 import com.juntai.disabled.federation.utils.StringTools;
 import com.juntai.disabled.federation.utils.UserInfoManager;
@@ -32,7 +34,7 @@ import okhttp3.RequestBody;
  * @description 描述  意见建议
  * @date 2021/3/2 8:33
  */
-public class SuggestionActivity extends SmsCheckCodeActivity<RegistPresent> implements RegistContract.BaseIRegistView,
+public class SuggestionActivity extends SmsCheckCodeActivity implements RegistContract.IRegistView,
         View.OnClickListener {
 
 
@@ -91,10 +93,6 @@ public class SuggestionActivity extends SmsCheckCodeActivity<RegistPresent> impl
         mPhoneValueEt.setText(userBean.getData().getPhoneNumber());
     }
 
-    @Override
-    protected RegistPresent createPresenter() {
-        return new RegistPresent();
-    }
 
 
     @Override
@@ -108,17 +106,22 @@ public class SuggestionActivity extends SmsCheckCodeActivity<RegistPresent> impl
     }
 
     @Override
-    protected SelectPhotosFragment getFragment() {
-        return SelectPhotosFragment.newInstance().setPhotoTitle("")
+    protected SelectPhotosFragmentNormal getFragment() {
+        return SelectPhotosFragmentNormal.newInstance().setPhotoTitle("")
                 .setPhotoSpace(60)
+                .setSpanCount(3)
                 .setMaxCount(3);
     }
 
 
     @Override
     public void onSuccess(String tag, Object o) {
-        ToastUtils.toast(mContext, ((BaseResult)o).message);
-        finish();
+        super.onSuccess(tag,o);
+        if (AppHttpPath.REQUEST_SUGGESTION.equals(tag)) {
+            ToastUtils.toast(mContext, ((BaseResult)o).message);
+            finish();
+        }
+
     }
 
 
@@ -129,7 +132,7 @@ public class SuggestionActivity extends SmsCheckCodeActivity<RegistPresent> impl
             default:
                 break;
             case R.id.send_check_code_tv:
-                mPresenter.sendCheckCode(getTextViewValue(mPhoneValueEt), SMS_TEMP_CODE);
+                mPresenter.sendCheckCode(getTextViewValue(mPhoneValueEt), GET_CODE_TAG);
                 break;
             case R.id.commit_tv:
                 if (!StringTools.isStringValueOk(getTextViewValue(mCodeValueEt))) {
@@ -149,10 +152,29 @@ public class SuggestionActivity extends SmsCheckCodeActivity<RegistPresent> impl
                     ToastUtils.warning(mContext, "请选择视频");
                     return;
                 }
-                if (!verify) {
-                    SMSSDK.submitVerificationCode("+86", getTextViewValue(mPhoneValueEt),
-                            getTextViewValue(mCodeValueEt));
+                MultipartBody.Builder builder = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        .addFormDataPart("account", MyApp.getAccount())
+                        .addFormDataPart("userId", String.valueOf(MyApp.getUid()))
+                        .addFormDataPart("token", MyApp.getUserToken())
+                        .addFormDataPart("phoneNumber", UserInfoManager.getPhoneNumber())
+                        .addFormDataPart("code",getTextViewValue(mCodeValueEt));
+                //（0意见；1建议）
+                builder.addFormDataPart("typeId", R.id.radio_zero_rb == mItemRadioG.getCheckedRadioButtonId() ? "0" : "1");
+                builder.addFormDataPart("content", getTextViewValue(mContentValueEt));
+
+                if (pics.size() > 0) {
+                    for (int i = 0; i < pics.size(); i++) {
+                        String path = pics.get(i);
+                        builder.addFormDataPart("pictureFile", "pictureFile", RequestBody.create(MediaType.parse("file"), new
+                                File(path)));
+                    }
                 }
+                if (StringTools.isStringValueOk(videoPath)) {
+                    builder.addFormDataPart("videoFile", "videoFile", RequestBody.create(MediaType.parse("file"),
+                            new File(videoPath)));
+                }
+                mPresenter.addOpinionsAndSuggestions(builder.build(), AppHttpPath.REQUEST_SUGGESTION);
 
 
                 break;
@@ -161,7 +183,6 @@ public class SuggestionActivity extends SmsCheckCodeActivity<RegistPresent> impl
 
     @Override
     public void onError(String tag, Object o) {
-        verify = false;
         ToastUtils.error(mContext, (String) o);
     }
 
@@ -183,31 +204,6 @@ public class SuggestionActivity extends SmsCheckCodeActivity<RegistPresent> impl
         mSendCheckCodeTv.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
     }
 
-    @Override
-    protected void checkCodeSuccessed() {
-        List<String> pics = selectPhotosFragment.getPhotosPath();
-        MultipartBody.Builder builder = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("account", MyApp.getAccount())
-                .addFormDataPart("userId", String.valueOf(MyApp.getUid()))
-                .addFormDataPart("token", MyApp.getUserToken());
-        //（0意见；1建议）
-        builder.addFormDataPart("typeId", R.id.radio_zero_rb == mItemRadioG.getCheckedRadioButtonId() ? "0" : "1");
-        builder.addFormDataPart("content", getTextViewValue(mContentValueEt));
-
-        if (pics.size() > 0) {
-            for (int i = 0; i < pics.size(); i++) {
-                String path = pics.get(i);
-                builder.addFormDataPart("pictureFile", "pictureFile", RequestBody.create(MediaType.parse("file"), new
-                        File(path)));
-            }
-        }
-        if (StringTools.isStringValueOk(videoPath)) {
-            builder.addFormDataPart("videoFile", "videoFile", RequestBody.create(MediaType.parse("file"),
-                    new File(videoPath)));
-        }
-        mPresenter.addOpinionsAndSuggestions(builder.build(), "");
-    }
 
     @Override
     public void updateSendCheckCodeViewStatus(long second) {

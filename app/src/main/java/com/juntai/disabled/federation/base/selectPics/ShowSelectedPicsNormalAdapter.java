@@ -14,26 +14,21 @@ import com.juntai.disabled.federation.R;
  * Time:2018/7/19 10:52
  * Description:This is ShowSelectedPicsAdapter
  */
-public class ShowSelectedPicsAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+public class ShowSelectedPicsNormalAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
 
-    private boolean isShowTag = false;
     private int widthAndHeigh = 60;
-
-    public void setShowTag(boolean showTag) {
-        isShowTag = showTag;
-    }
-
     private boolean delateable = true;
 
     public void setWidthAndHeigh(int widthAndHeigh) {
         this.widthAndHeigh = widthAndHeigh;
     }
+
     public void setDelateable(boolean delateable) {
         this.delateable = delateable;
     }
 
-    public ShowSelectedPicsAdapter(int layoutResId) {
+    public ShowSelectedPicsNormalAdapter(int layoutResId) {
         super(layoutResId);
     }
 
@@ -41,14 +36,14 @@ public class ShowSelectedPicsAdapter extends BaseQuickAdapter<String, BaseViewHo
     @Override
     protected void convert(BaseViewHolder helper, String item) {
         if ("-1".equals(item)) {
-            ImageLoadUtil.loadCentercropImage(mContext.getApplicationContext(), 0,
+            ImageLoadUtil.loadCentercropImage(mContext.getApplicationContext(), R.mipmap.add_icons,
                     (ImageView) helper.getView(R.id.select_pic_icon_iv));
             helper.setGone(R.id.delete_pushed_news_iv, false);
         } else {
             ImageLoadUtil.loadImageNoCache(mContext, item, (ImageView) helper.getView(R.id.select_pic_icon_iv));
             if (delateable) {
                 helper.setGone(R.id.delete_pushed_news_iv, true);
-            }else{
+            } else {
                 helper.setGone(R.id.delete_pushed_news_iv, false);
             }
 
@@ -58,32 +53,13 @@ public class ShowSelectedPicsAdapter extends BaseQuickAdapter<String, BaseViewHo
                 helper.setGone(R.id.item_video_tag, false);
             }
         }
-
-        if (isShowTag){
-            helper.setVisible(R.id.item_tag,true);
-            switch (helper.getLayoutPosition()){
-                case 0:
-                    helper.setText(R.id.item_tag,"人员");
-                    break;
-                case 1:
-                    helper.setText(R.id.item_tag,"房屋");
-                    break;
-                case 2:
-                    helper.setText(R.id.item_tag,"室内");
-                    break;
-                default:
-                    helper.setVisible(R.id.item_tag,false);
-                    break;
-            }
-        }else {
-            helper.setVisible(R.id.item_tag,false);
-        }
         helper.addOnClickListener(R.id.select_pic_icon_iv);
         helper.addOnClickListener(R.id.delete_pushed_news_iv);
-//        ImageView imageView = helper.getView(R.id.select_pic_icon_iv);
-//        ConstraintLayout.LayoutParams linearParams = (ConstraintLayout.LayoutParams) imageView.getLayoutParams(); //取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
-//        linearParams.width = DisplayUtil.dp2px(mContext, widthAndHeigh);// 控件的宽强制设成30
-//        linearParams.height = DisplayUtil.dp2px(mContext, widthAndHeigh);// 控件的高强制设成30
-//        imageView.setLayoutParams(linearParams); //使设置好的布局参数应用到控件
+        ImageView imageView = helper.getView(R.id.select_pic_icon_iv);
+        ConstraintLayout.LayoutParams linearParams = (ConstraintLayout.LayoutParams) imageView.getLayoutParams();
+        //取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
+        linearParams.width = DisplayUtil.dp2px(mContext, widthAndHeigh);// 控件的宽强制设成30
+        linearParams.height = DisplayUtil.dp2px(mContext, widthAndHeigh);// 控件的高强制设成30
+        imageView.setLayoutParams(linearParams); //使设置好的布局参数应用到控件
     }
 }
