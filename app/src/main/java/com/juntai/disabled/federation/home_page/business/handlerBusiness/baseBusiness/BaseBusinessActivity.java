@@ -2,7 +2,6 @@ package com.juntai.disabled.federation.home_page.business.handlerBusiness.baseBu
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,7 +30,7 @@ import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseAppActivity;
 import com.juntai.disabled.federation.base.customview.GestureSignatureView;
-import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosBusinessFragment;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.bean.business.BusinessPicBean;
 import com.juntai.disabled.federation.bean.business.BusinessPropertyBean;
@@ -65,7 +64,7 @@ import okhttp3.RequestBody;
  * @UpdateUser: 更新者
  * @UpdateDate: 2021/1/19 9:36
  */
-public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPresent> implements BusinessContract.BaseIBusinessView, View.OnClickListener, SelectPhotosFragment.OnPhotoItemClick {
+public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPresent> implements BusinessContract.IBusinessView, View.OnClickListener, SelectPhotosBusinessFragment.OnPhotoItemClick {
     private RecyclerView mRecyclerview;
     private SmartRefreshLayout mSmartrefreshlayout;
     protected HandlerBusinessAdapter adapter;

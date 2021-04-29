@@ -31,7 +31,7 @@ import com.juntai.disabled.bdmap.act.SelectLocationActivity;
 import com.juntai.disabled.bdmap.service.LocateAndUpload;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
-import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosBusinessFragment;
 import com.juntai.disabled.federation.bean.inspection.InspectionForScanBean;
 import com.juntai.disabled.federation.bean.inspection.InspectionScanResult;
 import com.juntai.disabled.federation.home_page.PublishContract;
@@ -55,7 +55,7 @@ import okhttp3.RequestBody;
  */
 public class PublishInspectionActivity extends BaseMvpActivity<PublishPresent> implements PublishContract.BaseIPublishView,
         View.OnClickListener,
-        SelectPhotosFragment.OnPhotoItemClick, SelectPhotosFragment.OnPicCalculateed {
+        SelectPhotosBusinessFragment.OnPhotoItemClick, SelectPhotosBusinessFragment.OnPicCalculateed {
 
     /**
      * 请输入标题
@@ -97,7 +97,7 @@ public class PublishInspectionActivity extends BaseMvpActivity<PublishPresent> i
     private String videoPath;//视频地址
 
     private String xjContent;
-    private SelectPhotosFragment selectPhotosFragment;
+    private SelectPhotosBusinessFragment selectPhotosFragment;
     private int imgMaxCount = 3;//图片数量
     private InspectionScanResult inspectionScanResult;//二维码直接读取巡检点信息
     private InspectionForScanBean.DataBean pointInfoBean;//根据id网络获取巡检点信息
@@ -167,7 +167,7 @@ public class PublishInspectionActivity extends BaseMvpActivity<PublishPresent> i
         videoBroadcastReceiver = new VideoBroadcastReceiver();
         intentFilter.addAction(ActionConfig.BROAD_VIDEO);
         registerReceiver(videoBroadcastReceiver, intentFilter);
-        selectPhotosFragment = SelectPhotosFragment.newInstance().setPhotoTitle("")
+        selectPhotosFragment = SelectPhotosBusinessFragment.newInstance().setPhotoTitle("")
                 .setPhotoSpace(60).setPicCalculateCallBack(this);
 
         setTitleName("发布巡检");

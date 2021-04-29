@@ -30,7 +30,7 @@ import com.juntai.disabled.bdmap.act.SelectLocationActivity;
 import com.juntai.disabled.bdmap.service.LocateAndUpload;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
-import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosBusinessFragment;
 import com.juntai.disabled.federation.home_page.PublishContract;
 import com.juntai.disabled.federation.home_page.PublishPresent;
 import com.juntai.disabled.federation.home_page.site_manager.SiteManagerContract;
@@ -52,7 +52,7 @@ import okhttp3.RequestBody;
  */
 public class AddUnitInspectionActivity extends BaseMvpActivity<SiteManagerPresent> implements SiteManagerContract.BaseISiteManagerView,
         View.OnClickListener,
-        SelectPhotosFragment.OnPhotoItemClick, SelectPhotosFragment.OnPicCalculateed  {
+        SelectPhotosBusinessFragment.OnPhotoItemClick, SelectPhotosBusinessFragment.OnPicCalculateed  {
     /**
      * 请输入标题
      */
@@ -91,7 +91,7 @@ public class AddUnitInspectionActivity extends BaseMvpActivity<SiteManagerPresen
     private String videoScreen;//视频封面
     private String videoPath;//视频地址
 
-    private SelectPhotosFragment selectPhotosFragment;
+    private SelectPhotosBusinessFragment selectPhotosFragment;
     private int imgMaxCount = 9;//图片数量
     private int unitId;//单位id
     PublishPresent publishPresent;
@@ -157,7 +157,7 @@ public class AddUnitInspectionActivity extends BaseMvpActivity<SiteManagerPresen
         intentFilter.addAction(ActionConfig.BROAD_VIDEO);
         registerReceiver(videoBroadcastReceiver, intentFilter);
 
-        selectPhotosFragment = SelectPhotosFragment.newInstance().setPhotoTitle("")
+        selectPhotosFragment = SelectPhotosBusinessFragment.newInstance().setPhotoTitle("")
                 .setPhotoSpace(60).setType(1).setPicCalculateCallBack(this);
         mDescriptionEt.setFilters(new InputFilter[]{new InputFilter.LengthFilter(500)});
         mDescriptionEt.setHint("请输入检查描述");

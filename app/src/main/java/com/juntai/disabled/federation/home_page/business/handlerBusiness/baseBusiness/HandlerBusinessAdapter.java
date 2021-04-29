@@ -23,7 +23,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.federation.R;
-import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosBusinessFragment;
 import com.juntai.disabled.federation.bean.MultipleItem;
 import com.juntai.disabled.federation.bean.business.BusinessPicBean;
 import com.juntai.disabled.federation.bean.business.BusinessRadioBean;
@@ -415,7 +415,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
             case MultipleItem.ITEM_BUSINESS_FRAGMENT:
                 //上传材料时 多选照片
                 BusinessPicBean picBean = (BusinessPicBean) item.getObject();
-                SelectPhotosFragment fragment = (SelectPhotosFragment) mFragmentManager.findFragmentById(R.id.photo_fg);
+                SelectPhotosBusinessFragment fragment = (SelectPhotosBusinessFragment) mFragmentManager.findFragmentById(R.id.photo_fg);
                 fragment.setT(picBean);
 
                 if (isDetail) {
@@ -427,7 +427,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                     fragment.setPhotoDelateable(true).setMaxCount(5);
                 }
 
-                fragment.setSpanCount(1).setOnPicLoadSuccessCallBack(new SelectPhotosFragment.OnPicLoadSuccessCallBack() {
+                fragment.setSpanCount(1).setOnPicLoadSuccessCallBack(new SelectPhotosBusinessFragment.OnPicLoadSuccessCallBack() {
                     @Override
                     public void loadSuccess(List<String> icons) {
                         BusinessPicBean picBean = (BusinessPicBean) fragment.getT();

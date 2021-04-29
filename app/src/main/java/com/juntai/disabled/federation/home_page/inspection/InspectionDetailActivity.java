@@ -15,7 +15,7 @@ import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.R;
-import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosBusinessFragment;
 import com.juntai.disabled.federation.bean.inspection.InspectionDetailBean;
 import com.juntai.disabled.federation.bean.TextListBean;
 import com.juntai.disabled.federation.home_page.baseInfo.TextListAdapter;
@@ -37,14 +37,14 @@ import java.util.List;
  * @aouther ZhangZhenlong
  * @date 2020-3-31
  */
-public class InspectionDetailActivity extends BaseMvpActivity<InfoDetailPresent> implements InfoDetailContract.BaseIInfoDetailView,
-        SelectPhotosFragment.OnPhotoItemClick {
+public class InspectionDetailActivity extends BaseMvpActivity<InfoDetailPresent> implements InfoDetailContract.IInfoDetailView,
+        SelectPhotosBusinessFragment.OnPhotoItemClick {
 
     private RecyclerView mRecyclerViewTextRv;
     private ArrayList<String> photos = new ArrayList<>();
     private List<TextListBean> textListBeans = new ArrayList<>();
     private TextListAdapter textListAdapter;
-    private SelectPhotosFragment selectPhotosFragment;
+    private SelectPhotosBusinessFragment selectPhotosFragment;
     private SmartRefreshLayout smartRefreshLayout;
 
 //    private TextView desTv;
@@ -82,7 +82,7 @@ public class InspectionDetailActivity extends BaseMvpActivity<InfoDetailPresent>
         if (inspectionId == 0) {
             finish();
         }
-        selectPhotosFragment = (SelectPhotosFragment) getSupportFragmentManager().findFragmentById(R.id.photo_fg);
+        selectPhotosFragment = (SelectPhotosBusinessFragment) getSupportFragmentManager().findFragmentById(R.id.photo_fg);
         selectPhotosFragment.setSpanCount(4)
                 .setPhotoDelateable(false);
         smartRefreshLayout = findViewById(R.id.case_detail_srl);
@@ -110,7 +110,7 @@ public class InspectionDetailActivity extends BaseMvpActivity<InfoDetailPresent>
 //     * 设置头部
 //     */
 //    public void setHeadView() {
-//        ViewBase view = LayoutInflater.from(this).inflate(R.layout.head_layout_inspection, null);
+//        View view = LayoutInflater.from(this).inflate(R.layout.head_layout_inspection, null);
 //        desTv = view.findViewById(R.id.description_et);
 //        textListAdapter.setHeaderView(view);
 //    }

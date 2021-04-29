@@ -25,11 +25,11 @@ import com.juntai.disabled.basecomponent.utils.EventManager;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.disabled.bdmap.act.SelectLocationActivity;
+import com.juntai.disabled.bdmap.act.LocationSeltionActivity;
 import com.juntai.disabled.bdmap.service.LocateAndUpload;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
-import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosBusinessFragment;
 import com.juntai.disabled.federation.entrance.sendcode.SendCodeModel;
 import com.juntai.disabled.federation.home_page.PublishContract;
 import com.juntai.disabled.federation.home_page.PublishPresent;
@@ -50,8 +50,8 @@ import okhttp3.RequestBody;
  * @aouther ZhangZhenlong
  * @date 2020-7-4
  */
-public class AddEmployeeActivity extends BaseMvpActivity<SiteManagerPresent> implements SiteManagerContract.BaseISiteManagerView,
-        SelectPhotosFragment.OnPhotoItemClick, SelectPhotosFragment.OnPicCalculateed, View.OnClickListener,RadioGroup.OnCheckedChangeListener {
+public class AddEmployeeActivity extends BaseMvpActivity<SiteManagerPresent> implements SiteManagerContract.ISiteManagerView,
+        SelectPhotosBusinessFragment.OnPhotoItemClick, SelectPhotosBusinessFragment.OnPicCalculateed, View.OnClickListener,RadioGroup.OnCheckedChangeListener {
     /**
      * 请输入姓名
      */
@@ -102,7 +102,7 @@ public class AddEmployeeActivity extends BaseMvpActivity<SiteManagerPresent> imp
     private String videoScreen;//视频封面
     private String videoPath;//视频地址
 
-    private SelectPhotosFragment selectPhotosFragment;
+    private SelectPhotosBusinessFragment selectPhotosFragment;
     PublishPresent publishPresent;
 
     private int unitId;
@@ -164,7 +164,7 @@ public class AddEmployeeActivity extends BaseMvpActivity<SiteManagerPresent> imp
         videoBroadcastReceiver = new VideoBroadcastReceiver();
         intentFilter.addAction(ActionConfig.BROAD_VIDEO);
         registerReceiver(videoBroadcastReceiver, intentFilter);
-        selectPhotosFragment = SelectPhotosFragment.newInstance().setPhotoTitle("")
+        selectPhotosFragment = SelectPhotosBusinessFragment.newInstance().setPhotoTitle("")
                 .setPhotoSpace(60).setType(1).setPicCalculateCallBack(this);
         selectPhotosFragment.setMaxCount(1);
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -207,7 +207,7 @@ public class AddEmployeeActivity extends BaseMvpActivity<SiteManagerPresent> imp
                 break;
             case R.id.address_tv:
             case R.id.address_iv:
-                startActivityForResult(new Intent(mContext, SelectLocationActivity.class), PublishContract.REQUEST_CODE_CHOOSE_PLACE);
+                startActivityForResult(new Intent(mContext, LocationSeltionActivity.class), PublishContract.REQUEST_CODE_CHOOSE_PLACE);
                 break;
             case R.id.item_video_pic:
                 //选择视频

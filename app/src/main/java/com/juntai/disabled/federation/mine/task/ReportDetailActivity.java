@@ -11,7 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.R;
-import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosBusinessFragment;
 import com.juntai.disabled.federation.bean.task.TaskSubmitedBean;
 import com.juntai.disabled.federation.mine.MyCenterContract;
 import com.juntai.disabled.federation.utils.StringTools;
@@ -27,10 +27,10 @@ import java.util.List;
  * @aouther tobato
  * @date 2020-5-16
  */
-public class ReportDetailActivity extends BaseMvpActivity<MyTaskPresent> implements MyCenterContract.BaseITaskView, SelectPhotosFragment.OnPhotoItemClick, View.OnClickListener {
+public class ReportDetailActivity extends BaseMvpActivity<MyTaskPresent> implements MyCenterContract.ITaskView, SelectPhotosBusinessFragment.OnPhotoItemClick, View.OnClickListener {
 
     private int reportId;
-    private SelectPhotosFragment selectPhotosFragment;
+    private SelectPhotosBusinessFragment selectPhotosFragment;
     private ArrayList<String> photos = new ArrayList<>();
     private boolean hasVideo;
     /**
@@ -66,7 +66,7 @@ public class ReportDetailActivity extends BaseMvpActivity<MyTaskPresent> impleme
     public void initView() {
         setTitleName("任务详情");
         reportId = getIntent().getIntExtra("reportId", 0);
-        selectPhotosFragment = (SelectPhotosFragment) getSupportFragmentManager().findFragmentById(R.id.photo_fg);
+        selectPhotosFragment = (SelectPhotosBusinessFragment) getSupportFragmentManager().findFragmentById(R.id.photo_fg);
         selectPhotosFragment.setSpanCount(4).setPhotoDelateable(false);
         mQualityStarRb = (RatingBar) findViewById(R.id.quality_star_rb);
         mSpeedStarRb = (RatingBar) findViewById(R.id.speed_star_rb);

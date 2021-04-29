@@ -9,7 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.federation.R;
-import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosBusinessFragment;
 import com.juntai.disabled.federation.bean.TextListBean;
 import com.juntai.disabled.federation.utils.StringTools;
 import com.juntai.disabled.video.img.ImageZoomActivity;
@@ -26,12 +26,12 @@ import java.util.List;
  * @description 描述   详情的父类
  * @date 2020/4/5 15:24
  */
-public abstract class BaseInfoDetail<P extends BasePresenter> extends BaseMvpActivity<P> implements SelectPhotosFragment.OnPhotoItemClick {
+public abstract class BaseInfoDetail<P extends BasePresenter> extends BaseMvpActivity<P> implements SelectPhotosBusinessFragment.OnPhotoItemClick {
     private RecyclerView recyclerViewRv;
     private List<TextListBean> textListBeans = new ArrayList<>();
     protected TextListAdapter textListAdapter;
     protected int INFO_ID;//信息的id
-    protected SelectPhotosFragment selectPhotosFragment;
+    protected SelectPhotosBusinessFragment selectPhotosFragment;
     protected SmartRefreshLayout smartRefreshLayout;
     protected boolean hasVideo = false;//是否有视频文件
     protected TextView mDesTv;
@@ -45,7 +45,7 @@ public abstract class BaseInfoDetail<P extends BasePresenter> extends BaseMvpAct
     @Override
     public void initView() {
         setTitleName(getTitleContent());
-        selectPhotosFragment = (SelectPhotosFragment) getSupportFragmentManager().findFragmentById(R.id.photo_fg);
+        selectPhotosFragment = (SelectPhotosBusinessFragment) getSupportFragmentManager().findFragmentById(R.id.photo_fg);
         selectPhotosFragment.setSpanCount(4)
                 .setPhotoDelateable(false);
         smartRefreshLayout = findViewById(R.id.case_detail_srl);

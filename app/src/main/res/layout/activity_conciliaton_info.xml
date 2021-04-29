@@ -220,7 +220,7 @@
 
         <fragment
             android:id="@+id/photo_fg"
-            class="com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment"
+            class="com.juntai.disabled.federation.base.selectPics.SelectPhotosBusinessFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"

@@ -23,11 +23,11 @@ import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.widght.BaseBottomDialog;
-import com.juntai.disabled.bdmap.act.SelectLocationActivity;
+import com.juntai.disabled.bdmap.act.LocationSeltionActivity;
 import com.juntai.disabled.bdmap.service.LocateAndUpload;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
-import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosBusinessFragment;
 import com.juntai.disabled.federation.bean.task.TaskDetailBean;
 import com.juntai.disabled.federation.mine.MyCenterContract;
 import com.juntai.disabled.federation.home_page.PublishContract;
@@ -47,8 +47,8 @@ import okhttp3.RequestBody;
  * @aouther ZhangZhenlong
  * @date 2020-5-16
  */
-public class PublishTReportActivity extends BaseMvpActivity<PublishPresent> implements PublishContract.BaseIPublishView,
-        View.OnClickListener, SelectPhotosFragment.OnPhotoItemClick, SelectPhotosFragment.OnPicCalculateed {
+public class PublishTReportActivity extends BaseMvpActivity<PublishPresent> implements PublishContract.IPublishView,
+        View.OnClickListener, SelectPhotosBusinessFragment.OnPhotoItemClick, SelectPhotosBusinessFragment.OnPicCalculateed {
     /**
      * 请输入标题
      */
@@ -97,7 +97,7 @@ public class PublishTReportActivity extends BaseMvpActivity<PublishPresent> impl
     private String videoScreen;//视频封面
     private String videoPath;//视频地址
 
-    private SelectPhotosFragment selectPhotosFragment;
+    private SelectPhotosBusinessFragment selectPhotosFragment;
 
     private MyTaskPresent myTaskPresent;
     private TaskDetailBean taskDetailBean;
@@ -155,7 +155,7 @@ public class PublishTReportActivity extends BaseMvpActivity<PublishPresent> impl
         intentFilter.addAction(ActionConfig.BROAD_VIDEO);
         registerReceiver(videoBroadcastReceiver, intentFilter);
 
-        selectPhotosFragment = SelectPhotosFragment.newInstance().setPhotoTitle("").setType(1)
+        selectPhotosFragment = SelectPhotosBusinessFragment.newInstance().setPhotoTitle("").setType(1)
                 .setMaxCount(3).setPhotoSpace(60).setPicCalculateCallBack(this);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -198,7 +198,7 @@ public class PublishTReportActivity extends BaseMvpActivity<PublishPresent> impl
             case R.id.address_iv:
             case R.id.address_tv:
                 //选择位置
-                startActivityForResult(new Intent(mContext, SelectLocationActivity.class), PublishContract.REQUEST_CODE_CHOOSE_PLACE);
+                startActivityForResult(new Intent(mContext, LocationSeltionActivity.class), PublishContract.REQUEST_CODE_CHOOSE_PLACE);
                 break;
             case R.id.item_video_pic:
                 if (taskDetailBean != null && taskDetailBean.getData().getFlag() == 1){
