@@ -14,11 +14,11 @@ import com.baidu.location.BDLocation;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.utils.PubUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.disabled.bdmap.act.LocateSelectionActivity;
+import com.juntai.disabled.bdmap.act.SelectLocationActivity;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseAppActivity;
 import com.juntai.disabled.federation.base.selectPics.BaseSelectPicsActivity;
-import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragmentNormal;
 import com.juntai.disabled.federation.bean.TextListBean;
 import com.juntai.disabled.federation.bean.careTaker.CareTakerBaseInfoBean;
 import com.juntai.disabled.federation.bean.careTaker.CareTakerInfoBean;
@@ -45,7 +45,7 @@ import okhttp3.RequestBody;
  * @date 2020/7/10 16:53
  */
 public class AddCareTakerActivity extends BaseAppActivity<CarePresent> implements CareContract.ICareView,
-        View.OnClickListener, SelectPhotosFragment.OnPhotoItemClick {
+        View.OnClickListener, SelectPhotosFragmentNormal.OnPhotoItemClick {
 
     private TextListAdapter textListAdapter;
     private CareTakerPicsAdapter mTakerPicsAdapter;
@@ -268,8 +268,8 @@ public class AddCareTakerActivity extends BaseAppActivity<CarePresent> implement
                 break;
             case R.id.add_taker_addr_tv:
                 //选择地点
-                Intent intent = new Intent(mContext, LocateSelectionActivity.class);
-                startActivityForResult(intent, LocateSelectionActivity.SELECT_ADDR);
+                Intent intent = new Intent(mContext, SelectLocationActivity.class);
+                startActivityForResult(intent, SelectLocationActivity.SELECT_ADDR);
                 break;
             case R.id.add_taker_commit_tv:
 
@@ -415,7 +415,7 @@ public class AddCareTakerActivity extends BaseAppActivity<CarePresent> implement
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == LocateSelectionActivity.SELECT_ADDR && resultCode == RESULT_OK) {
+        if (requestCode == SelectLocationActivity.SELECT_ADDR && resultCode == RESULT_OK) {
             //地址选择
             lat = data.getDoubleExtra("lat", 0.0);
             lng = data.getDoubleExtra("lng", 0.0);

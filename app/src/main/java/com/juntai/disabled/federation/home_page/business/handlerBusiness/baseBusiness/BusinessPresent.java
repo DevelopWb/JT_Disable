@@ -49,7 +49,7 @@ import okhttp3.RequestBody;
  * @aouther Ma
  * @date 2019/3/14
  */
-public class BusinessPresent extends BasePresenter<IModel, BusinessContract.BaseIBusinessView> implements BusinessContract.IBusinessPresent {
+public class BusinessPresent extends BasePresenter<IModel, BusinessContract.IBusinessView> implements BusinessContract.IBusinessPresent {
 
     public String FAMILY_TAG = "F";
     public String PERSIONAL_TAG = "P";

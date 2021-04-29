@@ -37,6 +37,7 @@ import java.util.List;
 
 
 public class SelectLocationActivity extends BaseActivity implements BaiduMap.OnMapClickListener{
+    public static int SELECT_ADDR = 998;
     private String address = "";
     private int adCode;
     private RecyclerView addressListRV;

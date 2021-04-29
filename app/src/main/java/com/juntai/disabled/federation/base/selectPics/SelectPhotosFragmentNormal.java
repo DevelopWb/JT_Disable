@@ -88,6 +88,7 @@ public class SelectPhotosFragmentNormal extends BaseMvpFragment implements View.
     private OnPhotoItemClick onPhotoItemClick;
     private OnPicCalculateed onPicCalculateed;
     private int type;//0拍照照片，1拍照
+    private boolean isShowTag;//
 
     public String cameraPath;
 
@@ -155,6 +156,10 @@ public class SelectPhotosFragmentNormal extends BaseMvpFragment implements View.
 
     public SelectPhotosFragmentNormal setType(int type) {
         this.type = type;
+        return this;
+    }
+    public SelectPhotosFragmentNormal setShowTag(boolean showTag) {
+        isShowTag = showTag;
         return this;
     }
 

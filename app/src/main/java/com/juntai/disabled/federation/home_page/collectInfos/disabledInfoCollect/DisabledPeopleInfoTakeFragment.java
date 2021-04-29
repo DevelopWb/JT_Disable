@@ -7,7 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.search.BaseSearchFragment;
-import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragmentNormal;
 import com.juntai.disabled.federation.bean.collect.CollectSearchResultBean;
 import com.juntai.disabled.federation.home_page.collectInfos.CollectInfoContract;
 
@@ -21,7 +21,7 @@ import java.util.List;
  * @UpdateDate: 2021/3/17 16:46
  */
 public class DisabledPeopleInfoTakeFragment extends BaseSearchFragment implements CollectInfoContract.TakeInfoViewBase,
-        SelectPhotosFragment.OnPhotoItemClick {
+        SelectPhotosFragmentNormal.OnPhotoItemClick {
 
 
     private DisabledPeoplesAdapter adapter;

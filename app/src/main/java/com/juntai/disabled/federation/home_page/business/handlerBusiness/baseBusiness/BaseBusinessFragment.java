@@ -50,7 +50,7 @@ import okhttp3.RequestBody;
  * @UpdateUser: 更新者
  * @UpdateDate: 2021/1/19 9:36
  */
-public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<BusinessPresent> implements BusinessContract.BaseIBusinessView,
+public abstract class BaseBusinessFragment extends BaseSelectPhotoFragment<BusinessPresent> implements BusinessContract.IBusinessView,
         View.OnClickListener, BaseBusinessActivity.OnPicSelectedCallBack {
     private RecyclerView mRecyclerview;
     private SmartRefreshLayout mSmartrefreshlayout;

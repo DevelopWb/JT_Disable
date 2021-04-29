@@ -30,7 +30,7 @@ import java.util.List;
  * @date 2020-7-18
  */
 public class ConciliatonInfoActivity extends BaseMvpActivity<ConciliationPresent> implements
-        ConciliationContract.IConciliationView, View.OnClickListener,
+        ConciliationContract.BaseIConciliationView, View.OnClickListener,
         SelectPhotosBusinessFragment.OnPhotoItemClick {
     ConciliationInfoBean conciliationInfoBean;
     int conciliationId;

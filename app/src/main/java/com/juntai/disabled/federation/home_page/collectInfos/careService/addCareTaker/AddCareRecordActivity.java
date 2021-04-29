@@ -19,11 +19,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.utils.PickerManager;
 import com.juntai.disabled.basecomponent.utils.TimeUtils;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.disabled.bdmap.act.LocateSelectionActivity;
+import com.juntai.disabled.bdmap.act.SelectLocationActivity;
+import com.juntai.disabled.bdmap.act.SelectLocationActivity;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseAppActivity;
-import com.juntai.disabled.federation.base.selectPics.BaseSelectPicsActivity;
-import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragmentNormal;
 import com.juntai.disabled.federation.bean.careTaker.CareRecoredSavedBean;
 import com.juntai.disabled.federation.bean.careTaker.CareTakerInfoBean;
 import com.juntai.disabled.federation.bean.careTaker.CareTakerPicBean;
@@ -53,7 +53,7 @@ import okhttp3.RequestBody;
  * @date 2020/7/13 17:17
  */
 public class AddCareRecordActivity extends BaseAppActivity<CarePresent> implements CareContract.ICareView,
-        View.OnClickListener, SelectPhotosFragment.OnPhotoItemClick {
+        View.OnClickListener, SelectPhotosFragmentNormal.OnPhotoItemClick {
 
     /**
      * 地址：
@@ -343,7 +343,7 @@ public class AddCareRecordActivity extends BaseAppActivity<CarePresent> implemen
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == LocateSelectionActivity.SELECT_ADDR && resultCode == RESULT_OK) {
+        if (requestCode == SelectLocationActivity.SELECT_ADDR && resultCode == RESULT_OK) {
             //地址选择
             lat = data.getDoubleExtra("lat", 0.0);
             lng = data.getDoubleExtra("lng", 0.0);
@@ -493,8 +493,8 @@ public class AddCareRecordActivity extends BaseAppActivity<CarePresent> implemen
             case R.id.add_location_addr_tv:
                 //选择地点
                 if (isInnerAccount()) {
-                    Intent intent = new Intent(mContext, LocateSelectionActivity.class);
-                    startActivityForResult(intent, LocateSelectionActivity.SELECT_ADDR);
+                    Intent intent = new Intent(mContext, SelectLocationActivity.class);
+                    startActivityForResult(intent, SelectLocationActivity.SELECT_ADDR);
                 }
                 break;
             default:

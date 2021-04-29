@@ -20,7 +20,7 @@ import java.util.List;
  * @description 描述  业务办理
  * @date 2021/1/8 17:18
  */
-public class HandlerBusinessFragment extends BaseMvpFragment<BusinessPresent> implements BusinessContract.BaseIBusinessView {
+public class HandlerBusinessFragment extends BaseMvpFragment<BusinessPresent> implements BusinessContract.IBusinessView {
 
     private RecyclerView mRecyclerview;
     private BusinessItemAdapter adapter;

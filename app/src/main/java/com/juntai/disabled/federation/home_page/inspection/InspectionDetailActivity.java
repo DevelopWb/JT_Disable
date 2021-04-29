@@ -37,7 +37,7 @@ import java.util.List;
  * @aouther ZhangZhenlong
  * @date 2020-3-31
  */
-public class InspectionDetailActivity extends BaseMvpActivity<InfoDetailPresent> implements InfoDetailContract.IInfoDetailView,
+public class InspectionDetailActivity extends BaseMvpActivity<InfoDetailPresent> implements InfoDetailContract.BaseIInfoDetailView,
         SelectPhotosBusinessFragment.OnPhotoItemClick {
 
     private RecyclerView mRecyclerViewTextRv;

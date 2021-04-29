@@ -20,7 +20,7 @@ import com.juntai.disabled.federation.home_page.business.handlerBusiness.disabil
  * @description 描述  大学生助学金
  * @date 2021/1/26 9:45
  */
-public abstract class BaseStudentBursaryActivity extends BaseBusinessActivity implements BusinessContract.BaseIBusinessView {
+public abstract class BaseStudentBursaryActivity extends BaseBusinessActivity implements BusinessContract.IBusinessView {
 
     private String[] tabs = {"首次申请", "第2年以后申请"};
     private TabLayout mBursaryTab;

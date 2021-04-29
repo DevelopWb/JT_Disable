@@ -24,7 +24,7 @@ import java.util.List;
  * @description 描述
  * @date 2021/1/23 16:22
  */
-public class StudentBursaryActivity extends BaseAppActivity<BusinessPresent> implements BusinessContract.BaseIBusinessView {
+public class StudentBursaryActivity extends BaseAppActivity<BusinessPresent> implements BusinessContract.IBusinessView {
 
     private RecyclerView mRecyclerview;
     private SmartRefreshLayout mSmartrefreshlayout;

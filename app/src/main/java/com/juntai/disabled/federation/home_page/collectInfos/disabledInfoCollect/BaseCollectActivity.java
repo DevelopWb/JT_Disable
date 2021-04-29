@@ -18,7 +18,7 @@ import com.juntai.disabled.bdmap.act.SelectLocationActivity;
 import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseSelectVideoActivity;
-import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragmentNormal;
 import com.juntai.disabled.federation.home_page.PublishContract;
 import com.juntai.disabled.federation.home_page.collectInfos.CollectInfoContract;
 import com.juntai.disabled.federation.home_page.collectInfos.CollectInfoPresent;
@@ -42,7 +42,7 @@ import okhttp3.RequestBody;
  * @UpdateUser: 更新者
  * @UpdateDate: 2021/3/28 14:19
  */
-public abstract class BaseCollectActivity extends BaseSelectVideoActivity<CollectInfoPresent> implements SelectPhotosFragment.OnPicCalculateed, CollectInfoContract.TakeInfoViewBase {
+public abstract class BaseCollectActivity extends BaseSelectVideoActivity<CollectInfoPresent> implements SelectPhotosFragmentNormal.OnPicCalculateed, CollectInfoContract.TakeInfoViewBase {
     /**
      * 请选择地点
      */
@@ -58,7 +58,7 @@ public abstract class BaseCollectActivity extends BaseSelectVideoActivity<Collec
      * 上传
      */
     private TextView mPushVideoCrashTv;
-    private SelectPhotosFragment selectPhotosFragment;
+    private SelectPhotosFragmentNormal selectPhotosFragment;
 
     private boolean isVideoCollect = false;
     private String idNum;
@@ -127,7 +127,7 @@ public abstract class BaseCollectActivity extends BaseSelectVideoActivity<Collec
         if (getIntent() != null) {
             idNum = getIntent().getStringExtra(DisabledDetailActivity.DISABLED_ID_NUM);
         }
-        selectPhotosFragment = SelectPhotosFragment.newInstance()
+        selectPhotosFragment = SelectPhotosFragmentNormal.newInstance()
                 .setPhotoSpace(45)
                 .setMaxCount(isVideoCollect ? 3 : 9)
                 .setPicCalculateCallBack(this)

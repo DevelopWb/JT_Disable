@@ -154,11 +154,11 @@ public interface BusinessContract {
     String TABLE_TITLE_HOPE_TRAIN_TYPE = "希望参加何种培训";//
 
 
-    interface BaseIBusinessView extends BaseIView {
+    interface IBusinessView extends BaseIView {
 
     }
 
-    interface IBusinessPresent extends IPresenter<BaseIBusinessView> {
+    interface IBusinessPresent extends IPresenter<IBusinessView> {
         void businessList(String account, String token, String keyWord, int pageSize, int currentPage, String tag);
 
         void businessDataNeeded(int declareId, String tag);

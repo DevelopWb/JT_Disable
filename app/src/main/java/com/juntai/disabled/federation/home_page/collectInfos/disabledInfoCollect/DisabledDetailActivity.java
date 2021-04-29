@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.BaseAppActivity;
-import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragmentNormal;
 import com.juntai.disabled.federation.bean.TextListBean;
 import com.juntai.disabled.federation.bean.collect.CollectDisabledDetailBean;
 import com.juntai.disabled.federation.home_page.collectInfos.CollectInfoContract;
@@ -29,8 +29,8 @@ import java.util.List;
 public class DisabledDetailActivity extends BaseAppActivity<CollectInfoPresent> implements
         CollectInfoContract.TakeInfoViewBase, View.OnClickListener {
 
-    private SelectPhotosFragment videoCollectfg;
-    private SelectPhotosFragment accessableCollectfg;
+    private SelectPhotosFragmentNormal videoCollectfg;
+    private SelectPhotosFragmentNormal accessableCollectfg;
     private KPInfoAdapter textListAdapter;
     private RecyclerView mDisabledInfoRv;
     /**
@@ -72,8 +72,8 @@ public class DisabledDetailActivity extends BaseAppActivity<CollectInfoPresent> 
     }
 
     private void initFragment() {
-        videoCollectfg = SelectPhotosFragment.newInstance();
-        accessableCollectfg = SelectPhotosFragment.newInstance();
+        videoCollectfg = SelectPhotosFragmentNormal.newInstance();
+        accessableCollectfg = SelectPhotosFragmentNormal.newInstance();
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.add(R.id.video_collect_fl, videoCollectfg);

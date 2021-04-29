@@ -27,7 +27,8 @@ import java.util.List;
  * @aouther tobato
  * @date 2020-5-16
  */
-public class ReportDetailActivity extends BaseMvpActivity<MyTaskPresent> implements MyCenterContract.ITaskView, SelectPhotosBusinessFragment.OnPhotoItemClick, View.OnClickListener {
+public class ReportDetailActivity extends BaseMvpActivity<MyTaskPresent> implements MyCenterContract.BaseITaskView,
+        SelectPhotosBusinessFragment.OnPhotoItemClick, View.OnClickListener {
 
     private int reportId;
     private SelectPhotosBusinessFragment selectPhotosFragment;

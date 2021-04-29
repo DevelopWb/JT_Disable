@@ -17,13 +17,7 @@ import com.juntai.disabled.federation.R;
 public class ShowSelectedPicsBusinessAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
 
-    private boolean isShowTag = false;
     private int widthAndHeigh = 60;
-
-    public void setShowTag(boolean showTag) {
-        isShowTag = showTag;
-    }
-
     private boolean delateable = true;
 
     public void setWidthAndHeigh(int widthAndHeigh) {
@@ -58,32 +52,12 @@ public class ShowSelectedPicsBusinessAdapter extends BaseQuickAdapter<String, Ba
                 helper.setGone(R.id.item_video_tag, false);
             }
         }
-
-        if (isShowTag){
-            helper.setVisible(R.id.item_tag,true);
-            switch (helper.getLayoutPosition()){
-                case 0:
-                    helper.setText(R.id.item_tag,"人员");
-                    break;
-                case 1:
-                    helper.setText(R.id.item_tag,"房屋");
-                    break;
-                case 2:
-                    helper.setText(R.id.item_tag,"室内");
-                    break;
-                default:
-                    helper.setVisible(R.id.item_tag,false);
-                    break;
-            }
-        }else {
-            helper.setVisible(R.id.item_tag,false);
-        }
         helper.addOnClickListener(R.id.select_pic_icon_iv);
         helper.addOnClickListener(R.id.delete_pushed_news_iv);
-//        ImageView imageView = helper.getView(R.id.select_pic_icon_iv);
-//        ConstraintLayout.LayoutParams linearParams = (ConstraintLayout.LayoutParams) imageView.getLayoutParams(); //取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
-//        linearParams.width = DisplayUtil.dp2px(mContext, widthAndHeigh);// 控件的宽强制设成30
-//        linearParams.height = DisplayUtil.dp2px(mContext, widthAndHeigh);// 控件的高强制设成30
-//        imageView.setLayoutParams(linearParams); //使设置好的布局参数应用到控件
+        //        ImageView imageView = helper.getView(R.id.select_pic_icon_iv);
+        //        ConstraintLayout.LayoutParams linearParams = (ConstraintLayout.LayoutParams) imageView.getLayoutParams(); //取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
+        //        linearParams.width = DisplayUtil.dp2px(mContext, widthAndHeigh);// 控件的宽强制设成30
+        //        linearParams.height = DisplayUtil.dp2px(mContext, widthAndHeigh);// 控件的高强制设成30
+        //        imageView.setLayoutParams(linearParams); //使设置好的布局参数应用到控件
     }
 }

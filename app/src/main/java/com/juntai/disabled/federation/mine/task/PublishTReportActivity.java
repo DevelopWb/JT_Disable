@@ -23,7 +23,6 @@ import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.basecomponent.widght.BaseBottomDialog;
-import com.juntai.disabled.bdmap.act.LocationSeltionActivity;
 import com.juntai.disabled.bdmap.service.LocateAndUpload;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
@@ -47,7 +46,7 @@ import okhttp3.RequestBody;
  * @aouther ZhangZhenlong
  * @date 2020-5-16
  */
-public class PublishTReportActivity extends BaseMvpActivity<PublishPresent> implements PublishContract.IPublishView,
+public class PublishTReportActivity extends BaseMvpActivity<PublishPresent> implements PublishContract.BaseIPublishView,
         View.OnClickListener, SelectPhotosBusinessFragment.OnPhotoItemClick, SelectPhotosBusinessFragment.OnPicCalculateed {
     /**
      * 请输入标题
@@ -198,7 +197,7 @@ public class PublishTReportActivity extends BaseMvpActivity<PublishPresent> impl
             case R.id.address_iv:
             case R.id.address_tv:
                 //选择位置
-                startActivityForResult(new Intent(mContext, LocationSeltionActivity.class), PublishContract.REQUEST_CODE_CHOOSE_PLACE);
+//                startActivityForResult(new Intent(mContext, LocationSeltionActivity.class), PublishContract.REQUEST_CODE_CHOOSE_PLACE);
                 break;
             case R.id.item_video_pic:
                 if (taskDetailBean != null && taskDetailBean.getData().getFlag() == 1){

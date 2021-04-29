@@ -15,7 +15,7 @@ import java.util.List;
  * @description 描述  残疾人大学生助学金
  * @date 2021/1/26 9:45
  */
-public class DisabilityStudentBursaryActivity extends BaseStudentBursaryActivity implements BusinessContract.BaseIBusinessView {
+public class DisabilityStudentBursaryActivity extends BaseStudentBursaryActivity implements BusinessContract.IBusinessView {
 
 
     @Override
