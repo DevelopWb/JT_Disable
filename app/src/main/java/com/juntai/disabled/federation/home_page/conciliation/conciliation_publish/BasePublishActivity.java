@@ -28,7 +28,7 @@ import com.juntai.disabled.basecomponent.widght.BaseBottomDialog;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.customview.MediatorInfoDialog;
-import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosBusinessFragment;
 import com.juntai.disabled.federation.bean.CityBean;
 import com.juntai.disabled.federation.bean.conciliation.ConciliationTypesBean;
 import com.juntai.disabled.federation.bean.conciliation.MediatorAllListBean;
@@ -50,7 +50,7 @@ import java.util.List;
  */
 public abstract class BasePublishActivity extends BaseMvpActivity<ConciliationPresent> implements ConciliationContract.IConciliationView,
         View.OnClickListener,
-        SelectPhotosFragment.OnPhotoItemClick, SelectPhotosFragment.OnPicCalculateed {
+        SelectPhotosBusinessFragment.OnPhotoItemClick, SelectPhotosBusinessFragment.OnPicCalculateed {
     /**
      * 请填写申请人姓名
      */
@@ -92,7 +92,7 @@ public abstract class BasePublishActivity extends BaseMvpActivity<ConciliationPr
 
     protected BaseBottomDialog baseBottomDialog;
     protected BaseBottomDialog.OnItemClick onItemClick;
-    protected SelectPhotosFragment selectPhotosFragment;
+    protected SelectPhotosBusinessFragment selectPhotosFragment;
 
     protected MediatorAllListBean.MediatorBean policeBean;//警员
     protected MediatorAllListBean.MediatorBean lawyerBean;//律师
@@ -202,7 +202,7 @@ public abstract class BasePublishActivity extends BaseMvpActivity<ConciliationPr
         intentFilter.addAction(ActionConfig.BROAD_VIDEO);
         registerReceiver(videoBroadcastReceiver, intentFilter);
 
-        selectPhotosFragment = SelectPhotosFragment.newInstance().setPhotoTitle("")
+        selectPhotosFragment = SelectPhotosBusinessFragment.newInstance().setPhotoTitle("")
                 .setPhotoSpace(60).setMaxCount(10).setType(0).setPicCalculateCallBack(this);
         FragmentManager fragmentManager = getSupportFragmentManager();
         //开启事务

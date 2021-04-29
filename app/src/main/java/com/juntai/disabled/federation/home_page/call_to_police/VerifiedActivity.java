@@ -18,7 +18,7 @@ import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
-import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosBusinessFragment;
 import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.bean.VerifiedInfoBean;
 import com.juntai.disabled.federation.entrance.regist.RegistContract;
@@ -34,7 +34,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.smssdk.SMSSDK;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -45,7 +44,7 @@ import okhttp3.RequestBody;
  * @date 2020/3/11 15:52
  */
 public class VerifiedActivity extends SmsCheckCodeActivity implements RegistContract.IRegistView,
-        View.OnClickListener, SelectPhotosFragment.OnPhotoItemClick {
+        View.OnClickListener, SelectPhotosBusinessFragment.OnPhotoItemClick {
 
     /**
      * 请填写真实姓名

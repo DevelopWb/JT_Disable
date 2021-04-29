@@ -12,7 +12,7 @@ import com.juntai.disabled.federation.R;
 /**
  * Author:wang_sir
  * Time:2018/7/19 10:52
- * Description:This is ShowSelectedPicsAdapter
+ * Description:This is ShowSelectedPicsBusinessAdapter
  */
 public class ShowSelectedPicsNormalAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 

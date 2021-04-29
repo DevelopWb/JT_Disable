@@ -1,30 +1,15 @@
 package com.juntai.disabled.federation.entrance.sendcode;
 
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 
 import com.baidu.location.BDLocation;
-import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
-import com.juntai.disabled.basecomponent.base.BaseObserver;
-import com.juntai.disabled.basecomponent.base.BaseResult;
-import com.juntai.disabled.basecomponent.mvp.BasePresenter;
-import com.juntai.disabled.basecomponent.utils.LogUtil;
-import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.disabled.federation.AppNetModule;
-import com.juntai.disabled.federation.base.BaseSelectPicsActivity;
 import com.juntai.disabled.federation.base.BaseSelectPicsAndVedioActivity;
-import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
 import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragmentNormal;
 import com.juntai.disabled.federation.entrance.regist.RegistPresent;
 
 import java.util.List;
-
-import cn.smssdk.EventHandler;
-import cn.smssdk.SMSSDK;
 
 /**
  * @aouther tobato 短信验证码接收

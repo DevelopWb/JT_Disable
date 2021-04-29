@@ -27,7 +27,7 @@ import com.juntai.disabled.bdmap.act.LocationSeltionActivity;
 import com.juntai.disabled.bdmap.service.LocateAndUpload;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
-import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosBusinessFragment;
 import com.juntai.disabled.federation.bean.task.TaskDetailBean;
 import com.juntai.disabled.federation.mine.MyCenterContract;
 import com.juntai.disabled.federation.home_page.PublishContract;
@@ -48,7 +48,7 @@ import okhttp3.RequestBody;
  * @date 2020-5-16
  */
 public class PublishTReportActivity extends BaseMvpActivity<PublishPresent> implements PublishContract.IPublishView,
-        View.OnClickListener, SelectPhotosFragment.OnPhotoItemClick, SelectPhotosFragment.OnPicCalculateed {
+        View.OnClickListener, SelectPhotosBusinessFragment.OnPhotoItemClick, SelectPhotosBusinessFragment.OnPicCalculateed {
     /**
      * 请输入标题
      */
@@ -97,7 +97,7 @@ public class PublishTReportActivity extends BaseMvpActivity<PublishPresent> impl
     private String videoScreen;//视频封面
     private String videoPath;//视频地址
 
-    private SelectPhotosFragment selectPhotosFragment;
+    private SelectPhotosBusinessFragment selectPhotosFragment;
 
     private MyTaskPresent myTaskPresent;
     private TaskDetailBean taskDetailBean;
@@ -155,7 +155,7 @@ public class PublishTReportActivity extends BaseMvpActivity<PublishPresent> impl
         intentFilter.addAction(ActionConfig.BROAD_VIDEO);
         registerReceiver(videoBroadcastReceiver, intentFilter);
 
-        selectPhotosFragment = SelectPhotosFragment.newInstance().setPhotoTitle("").setType(1)
+        selectPhotosFragment = SelectPhotosBusinessFragment.newInstance().setPhotoTitle("").setType(1)
                 .setMaxCount(3).setPhotoSpace(60).setPicCalculateCallBack(this);
 
         FragmentManager fragmentManager = getSupportFragmentManager();

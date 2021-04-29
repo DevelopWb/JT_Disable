@@ -19,7 +19,6 @@ import com.juntai.disabled.bdmap.service.LocateAndUpload;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.base.BaseSelectPicsAndVedioActivity;
-import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
 import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragmentNormal;
 import com.juntai.disabled.federation.bean.case_bean.CaseInfoBean;
 import com.juntai.disabled.federation.bean.case_bean.CaseTypeBean;

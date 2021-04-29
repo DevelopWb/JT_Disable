@@ -11,7 +11,7 @@ import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
-import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosBusinessFragment;
 import com.juntai.disabled.federation.bean.conciliation.ConciliationInfoBean;
 import com.juntai.disabled.federation.bean.conciliation.ConciliationPeopleBean;
 import com.juntai.disabled.federation.home_page.conciliation.conciliation.ConciliationContract;
@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class ConciliatonInfoActivity extends BaseMvpActivity<ConciliationPresent> implements
         ConciliationContract.IConciliationView, View.OnClickListener,
-        SelectPhotosFragment.OnPhotoItemClick {
+        SelectPhotosBusinessFragment.OnPhotoItemClick {
     ConciliationInfoBean conciliationInfoBean;
     int conciliationId;
     /**
@@ -65,7 +65,7 @@ public class ConciliatonInfoActivity extends BaseMvpActivity<ConciliationPresent
      */
     private TextView zhengJuTagTv;
 
-    SelectPhotosFragment selectPhotosFragment;
+    SelectPhotosBusinessFragment selectPhotosFragment;
     ConciliationPeopleAdapter conciliationPeopleAdapter;
     List<ConciliationPeopleBean> people = new ArrayList<>();//第三方调解人员
     private ArrayList<String> photos = new ArrayList<>();
@@ -109,7 +109,7 @@ public class ConciliatonInfoActivity extends BaseMvpActivity<ConciliationPresent
                 //
             }
         });
-        selectPhotosFragment = (SelectPhotosFragment) getSupportFragmentManager().findFragmentById(R.id.photo_fg);
+        selectPhotosFragment = (SelectPhotosBusinessFragment) getSupportFragmentManager().findFragmentById(R.id.photo_fg);
         selectPhotosFragment.setSpanCount(3).setPhotoDelateable(false);
     }
 

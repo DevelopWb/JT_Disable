@@ -4,9 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
+import com.juntai.disabled.federation.base.selectPics.SelectPhotosBusinessFragment;
 
-public class TestActivity extends AppCompatActivity  implements  SelectPhotosFragment.OnPhotoItemClick {
+public class TestActivity extends AppCompatActivity  implements  SelectPhotosBusinessFragment.OnPhotoItemClick {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

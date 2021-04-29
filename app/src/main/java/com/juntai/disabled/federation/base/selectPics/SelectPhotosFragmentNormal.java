@@ -55,13 +55,13 @@ import static android.app.Activity.RESULT_OK;
  * FragmentManager fragmentManager = getSupportFragmentManager();
  * //开启事务
  * FragmentTransaction beginTransaction = fragmentManager.beginTransaction();
- * beginTransaction.replace(R.id.id_card_positive_fl, SelectPhotosFragment.newInstance().setPhotoTitle("身份证正面照片")
+ * beginTransaction.replace(R.id.id_card_positive_fl, SelectPhotosBusinessFragment.newInstance().setPhotoTitle("身份证正面照片")
  * .setPhotoSpace(45)
  * .setMaxCount(1));
- * beginTransaction.replace(R.id.id_card_obverse_fl, SelectPhotosFragment.newInstance().setPhotoTitle("身份证反面照片")
+ * beginTransaction.replace(R.id.id_card_obverse_fl, SelectPhotosBusinessFragment.newInstance().setPhotoTitle("身份证反面照片")
  * .setPhotoSpace(45)
  * .setMaxCount(1));
- * beginTransaction.replace(R.id.id_card_with_hand_fl, SelectPhotosFragment.newInstance().setPhotoTitle(getString(R.string.id_card_notice))
+ * beginTransaction.replace(R.id.id_card_with_hand_fl, SelectPhotosBusinessFragment.newInstance().setPhotoTitle(getString(R.string.id_card_notice))
  * .setPhotoSpace(45)
  * .setMaxCount(1));
  * //最后一步 记得commit
@@ -321,7 +321,7 @@ public class SelectPhotosFragmentNormal extends BaseMvpFragment implements View.
         if (context instanceof SelectPhotosFragmentNormal.OnPhotoItemClick) {
             onPhotoItemClick = (SelectPhotosFragmentNormal.OnPhotoItemClick) context;
         } else {
-            throw new RuntimeException(context.toString() + " must implement SelectPhotosFragment.OnPhotoItemClick");
+            throw new RuntimeException(context.toString() + " must implement SelectPhotosBusinessFragment.OnPhotoItemClick");
         }
     }
 

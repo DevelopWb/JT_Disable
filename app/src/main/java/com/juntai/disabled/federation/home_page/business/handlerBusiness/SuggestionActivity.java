@@ -12,9 +12,7 @@ import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.AppHttpPath;
 import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
-import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
 import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragmentNormal;
-import com.juntai.disabled.federation.base.selectPics.ShowSelectedPicsAdapter;
 import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.entrance.regist.RegistContract;
 import com.juntai.disabled.federation.entrance.sendcode.SmsCheckCodeActivity;
@@ -24,7 +22,6 @@ import com.juntai.disabled.federation.utils.UserInfoManager;
 import java.io.File;
 import java.util.List;
 
-import cn.smssdk.SMSSDK;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;

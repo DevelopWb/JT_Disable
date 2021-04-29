@@ -12,9 +12,9 @@ import com.juntai.disabled.federation.R;
 /**
  * Author:wang_sir
  * Time:2018/7/19 10:52
- * Description:This is ShowSelectedPicsAdapter
+ * Description:This is ShowSelectedPicsBusinessAdapter
  */
-public class ShowSelectedPicsAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+public class ShowSelectedPicsBusinessAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
 
     private int widthAndHeigh = 60;
@@ -27,7 +27,7 @@ public class ShowSelectedPicsAdapter extends BaseQuickAdapter<String, BaseViewHo
         this.delateable = delateable;
     }
 
-    public ShowSelectedPicsAdapter(int layoutResId) {
+    public ShowSelectedPicsBusinessAdapter(int layoutResId) {
         super(layoutResId);
     }
 

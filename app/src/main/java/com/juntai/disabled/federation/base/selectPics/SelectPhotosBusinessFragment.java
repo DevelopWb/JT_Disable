@@ -11,11 +11,9 @@ import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -57,25 +55,25 @@ import static android.app.Activity.RESULT_OK;
  * FragmentManager fragmentManager = getSupportFragmentManager();
  * //开启事务
  * FragmentTransaction beginTransaction = fragmentManager.beginTransaction();
- * beginTransaction.replace(R.id.id_card_positive_fl, SelectPhotosFragment.newInstance().setPhotoTitle("身份证正面照片")
+ * beginTransaction.replace(R.id.id_card_positive_fl, SelectPhotosBusinessFragment.newInstance().setPhotoTitle("身份证正面照片")
  * .setPhotoSpace(45)
  * .setMaxCount(1));
- * beginTransaction.replace(R.id.id_card_obverse_fl, SelectPhotosFragment.newInstance().setPhotoTitle("身份证反面照片")
+ * beginTransaction.replace(R.id.id_card_obverse_fl, SelectPhotosBusinessFragment.newInstance().setPhotoTitle("身份证反面照片")
  * .setPhotoSpace(45)
  * .setMaxCount(1));
- * beginTransaction.replace(R.id.id_card_with_hand_fl, SelectPhotosFragment.newInstance().setPhotoTitle(getString(R
+ * beginTransaction.replace(R.id.id_card_with_hand_fl, SelectPhotosBusinessFragment.newInstance().setPhotoTitle(getString(R
  * .string.id_card_notice))
  * .setPhotoSpace(45)
  * .setMaxCount(1));
  * //最后一步 记得commit
  * beginTransaction.commit();
  */
-public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnClickListener {
+public class SelectPhotosBusinessFragment<T> extends BaseMvpFragment implements View.OnClickListener {
 
     private RecyclerView mSelectPhotosRv;
     private TextView mSelectPhotosTitleTv;
     private List<String> icons = new ArrayList<>();
-    private ShowSelectedPicsAdapter selectedPicsAdapter;
+    private ShowSelectedPicsBusinessAdapter selectedPicsAdapter;
     private Context mContext;
     private int mSpanCount = 1;//一行的个数，默认4
     private int widthParama = 0;//
@@ -114,8 +112,8 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
      *
      * @return
      */
-    public static SelectPhotosFragment newInstance() {
-        SelectPhotosFragment fragment = new SelectPhotosFragment();
+    public static SelectPhotosBusinessFragment newInstance() {
+        SelectPhotosBusinessFragment fragment = new SelectPhotosBusinessFragment();
         return fragment;
     }
 
@@ -123,7 +121,7 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
      * @param spanCount 一行的个数，
      * @return
      */
-    public SelectPhotosFragment setSpanCount(int spanCount) {
+    public SelectPhotosBusinessFragment setSpanCount(int spanCount) {
         this.mSpanCount = spanCount;
         if (manager != null) {
             manager.setSpanCount(spanCount);
@@ -135,7 +133,7 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
      * @param maxCount //最大个数，默认9个
      * @return
      */
-    public SelectPhotosFragment setMaxCount(int maxCount) {
+    public SelectPhotosBusinessFragment setMaxCount(int maxCount) {
         this.mMaxCount = maxCount;
         return this;
     }
@@ -143,7 +141,7 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
      * @param onPicLoadSuccessCallBack //选择图片  图片压缩后
      * @return
      */
-    public SelectPhotosFragment setOnPicLoadSuccessCallBack(OnPicLoadSuccessCallBack onPicLoadSuccessCallBack) {
+    public SelectPhotosBusinessFragment setOnPicLoadSuccessCallBack(OnPicLoadSuccessCallBack onPicLoadSuccessCallBack) {
         this.onPicLoadSuccessCallBack = onPicLoadSuccessCallBack;
         return this;
     }
@@ -161,7 +159,7 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
      * @param photoSpace //图片距离左边父窗体的距离 dp  以距离左边父窗口和距离右边父窗口相同为标准
      * @return
      */
-    public SelectPhotosFragment setPhotoSpace(int photoSpace) {
+    public SelectPhotosBusinessFragment setPhotoSpace(int photoSpace) {
         this.marginLeftParents = photoSpace;
         return this;
     }
@@ -169,7 +167,7 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
     /**
      * @title 设置标题
      */
-    public SelectPhotosFragment setPhotoTitle(String title) {
+    public SelectPhotosBusinessFragment setPhotoTitle(String title) {
         this.title = title;
         return this;
     }
@@ -177,7 +175,7 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
     /**
      * @title 设置图片删除状态
      */
-    public SelectPhotosFragment setPhotoDelateable(boolean deleteable) {
+    public SelectPhotosBusinessFragment setPhotoDelateable(boolean deleteable) {
         if (selectedPicsAdapter != null) {
             selectedPicsAdapter.setDelateable(deleteable);
         }
@@ -185,7 +183,7 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
         return this;
     }
 
-    public SelectPhotosFragment setType(int type) {
+    public SelectPhotosBusinessFragment setType(int type) {
         this.type = type;
         return this;
     }
@@ -196,7 +194,7 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
      * @param onPicCalculateed
      * @return
      */
-    public SelectPhotosFragment setPicCalculateCallBack(OnPicCalculateed onPicCalculateed) {
+    public SelectPhotosBusinessFragment setPicCalculateCallBack(OnPicCalculateed onPicCalculateed) {
         this.onPicCalculateed = onPicCalculateed;
         return this;
     }
@@ -356,10 +354,10 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = context;
-        if (context instanceof SelectPhotosFragment.OnPhotoItemClick) {
-            onPhotoItemClick = (SelectPhotosFragment.OnPhotoItemClick) context;
+        if (context instanceof SelectPhotosBusinessFragment.OnPhotoItemClick) {
+            onPhotoItemClick = (SelectPhotosBusinessFragment.OnPhotoItemClick) context;
         } else {
-            throw new RuntimeException(context.toString() + " must implement SelectPhotosFragment.OnPhotoItemClick");
+            throw new RuntimeException(context.toString() + " must implement SelectPhotosBusinessFragment.OnPhotoItemClick");
         }
     }
 
@@ -373,7 +371,7 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
         mSelectPhotosRv = (RecyclerView) getView(R.id.select_photos_rv);
 
         mSelectPhotosTitleTv = (TextView) getView(R.id.select_photos_title_tv);
-        selectedPicsAdapter = new ShowSelectedPicsAdapter(R.layout.show_selected_pic_item);
+        selectedPicsAdapter = new ShowSelectedPicsBusinessAdapter(R.layout.show_selected_pic_item);
         selectedPicsAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
 
 
@@ -387,7 +385,7 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
                     case R.id.select_pic_icon_iv:
                         if ("-1".equals(icon_path)) {
                             int count = mMaxCount - (icons.size() - 1);
-                            choseImageFromFragment(type, SelectPhotosFragment.this, count, SELECT_PIC_RESULT);
+                            choseImageFromFragment(type, SelectPhotosBusinessFragment.this, count, SELECT_PIC_RESULT);
                         } else {
                             if (icon_path.contains(".mp4")) {
                                 //视频路径
