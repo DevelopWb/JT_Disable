@@ -23,7 +23,7 @@ import okhttp3.RequestBody;
  * @UpdateUser: 更新者
  * @UpdateDate: 2020/3/5 15:55
  */
-public class EntrancePresent extends BasePresenter<IModel, EntranceContract.IEntranceView> implements EntranceContract.IEntrancePresent {
+public class EntrancePresent extends BasePresenter<IModel, EntranceContract.BaseIEntranceView> implements EntranceContract.IEntrancePresent {
     private IView iView;
     public void  setCallBack(IView iView) {
         this.iView = iView;

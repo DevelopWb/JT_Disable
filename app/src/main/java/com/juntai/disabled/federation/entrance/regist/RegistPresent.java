@@ -36,7 +36,7 @@ import okhttp3.RequestBody;
  * @UpdateUser: 更新者
  * @UpdateDate: 2020/3/5 15:55
  */
-public class RegistPresent extends BasePresenter<IModel, RegistContract.BaseIRegistView> implements RegistContract.IRegistPresent, ISendCode.IUpdateView {
+public class RegistPresent extends BasePresenter<IModel, RegistContract.IRegistView> implements RegistContract.IRegistPresent, ISendCode.IUpdateView {
 
     private SendCodeModel sendCodeModel;
     private BaseIView iView;

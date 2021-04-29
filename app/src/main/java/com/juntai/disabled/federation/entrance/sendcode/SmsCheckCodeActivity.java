@@ -15,7 +15,6 @@ import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.AppNetModule;
-import com.juntai.disabled.federation.base.BaseSelectPicsActivity;
 import com.juntai.disabled.federation.base.BaseSelectPicsAndVedioActivity;
 import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragment;
 import com.juntai.disabled.federation.base.selectPics.SelectPhotosFragmentNormal;

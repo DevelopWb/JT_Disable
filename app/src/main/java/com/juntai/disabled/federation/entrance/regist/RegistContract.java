@@ -23,7 +23,7 @@ public interface RegistContract {
     String REGIST = "regist";//注册
     String ADD_USER_INFO = "add_user_info";//补充用户信息
 
-    interface BaseIRegistView extends BaseIView {
+    interface IRegistView extends BaseIView {
         /**
          * 接收到验证码后更改view得状态
          *

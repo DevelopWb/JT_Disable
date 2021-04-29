@@ -65,7 +65,7 @@ import okhttp3.RequestBody;
  * @UpdateUser: 更新者
  * @UpdateDate: 2021/1/19 9:36
  */
-public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPresent> implements BusinessContract.IBusinessView, View.OnClickListener, SelectPhotosFragment.OnPhotoItemClick {
+public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPresent> implements BusinessContract.BaseIBusinessView, View.OnClickListener, SelectPhotosFragment.OnPhotoItemClick {
     private RecyclerView mRecyclerview;
     private SmartRefreshLayout mSmartrefreshlayout;
     protected HandlerBusinessAdapter adapter;
