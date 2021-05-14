@@ -1274,8 +1274,6 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                     if (photos.isEmpty()) {
                         ToastUtils.toast(mContext, msg);
                         return null;
-                    } else {
-
                     }
                     for (int i = 0; i < photos.size(); i++) {
                         String picPah = photos.get(i);

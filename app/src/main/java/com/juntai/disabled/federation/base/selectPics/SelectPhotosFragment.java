@@ -98,14 +98,14 @@ public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnC
     private OnPicLoadSuccessCallBack onPicLoadSuccessCallBack;
 
 
-    private T  t;
+    private T  object;
 
-    public T getT() {
-        return t;
+    public T getObject() {
+        return object;
     }
 
-    public void setT(T t) {
-        this.t = t;
+    public void setObject(T object) {
+        this.object = object;
     }
 
     /**

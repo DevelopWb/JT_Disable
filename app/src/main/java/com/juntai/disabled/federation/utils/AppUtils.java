@@ -28,7 +28,10 @@ import java.util.List;
  * @date 2019/3/13
  */
 public class AppUtils {
-
+    /**
+     * 播放的时候是否需要网络提示，默认显示网络提示，true为显示网络提示，false不显示网络提示
+     */
+    public static boolean isGNetWork = true;
     public final static String SP_KEY_USER = BaseAppUtils.getAppName() + "login";
     public final static String SP_KEY_TOKEN = BaseAppUtils.getAppName() + "token";
     public final static String SP_RONGYUN_TOKEN = BaseAppUtils.getAppName() + "rongYunToken";

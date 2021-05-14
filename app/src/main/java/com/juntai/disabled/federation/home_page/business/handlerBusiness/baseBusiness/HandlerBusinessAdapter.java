@@ -416,7 +416,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 //上传材料时 多选照片
                 BusinessPicBean picBean = (BusinessPicBean) item.getObject();
                 SelectPhotosFragment fragment = (SelectPhotosFragment) mFragmentManager.findFragmentById(R.id.photo_fg);
-                fragment.setT(picBean);
+                fragment.setObject(picBean);
 
                 if (isDetail) {
                     fragment.setPhotoDelateable(false).setMaxCount(picBean.getFragmentPics().size());
@@ -430,7 +430,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 fragment.setSpanCount(1).setOnPicLoadSuccessCallBack(new SelectPhotosFragment.OnPicLoadSuccessCallBack() {
                     @Override
                     public void loadSuccess(List<String> icons) {
-                        BusinessPicBean picBean = (BusinessPicBean) fragment.getT();
+                        BusinessPicBean picBean = (BusinessPicBean) fragment.getObject();
                         picBean.setFragmentPics(icons);
                     }
                 });

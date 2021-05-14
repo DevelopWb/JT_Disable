@@ -38,6 +38,7 @@ import com.dou361.ijkplayer.widget.PlayStateParams;
 import com.juntai.disabled.basecomponent.utils.ImageLoadUtil;
 import com.juntai.disabled.basecomponent.utils.ScreenUtils;
 import com.juntai.disabled.federation.R;
+import com.juntai.disabled.federation.utils.AppUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -243,10 +244,7 @@ public class PlayerView implements View.OnClickListener {
      * 是否在拖动进度条中，默认为停止拖动，true为在拖动中，false为停止拖动
      */
     private boolean isDragging;
-    /**
-     * 播放的时候是否需要网络提示，默认显示网络提示，true为显示网络提示，false不显示网络提示
-     */
-    private boolean isGNetWork = true;
+
 
     private boolean isCharge;
     private int maxPlaytime;
@@ -358,7 +356,7 @@ public class PlayerView implements View.OnClickListener {
                 break;
             case R.id.app_video_netTie_icon:
                 /**使用移动网络提示继续播放*/
-                isGNetWork = false;
+                AppUtils.isGNetWork = false;
                 //                isShowNetTie = false;
                 //                hideStatusUI();
                 //                startPlay();
@@ -1080,7 +1078,7 @@ public class PlayerView implements View.OnClickListener {
                 query.id(R.id.app_video_loading).visible();
             }
             videoView.start();
-            if (isGNetWork && (NetworkUtils.getNetworkType(mContext) == 4 || NetworkUtils.getNetworkType(mContext) == 5 || NetworkUtils.getNetworkType(mContext) == 6)) {
+            if (AppUtils.isGNetWork && (NetworkUtils.getNetworkType(mContext) == 4 || NetworkUtils.getNetworkType(mContext) == 5 || NetworkUtils.getNetworkType(mContext) == 6)) {
                 query.id(R.id.app_video_netTie).visible();
                 query.id(R.id.play_icon).gone();
                 isShowNetTie = false;
@@ -1187,16 +1185,16 @@ public class PlayerView implements View.OnClickListener {
         return duration;
     }
 
-    /**
-     * 设置2/3/4/5G和WiFi网络类型提示，
-     *
-     * @param isGNetWork true为进行2/3/4/5G网络类型提示
-     *                   false 不进行网络类型提示
-     */
-    public PlayerView setNetWorkTypeTie(boolean isGNetWork) {
-        this.isGNetWork = isGNetWork;
-        return this;
-    }
+//    /**
+//     * 设置2/3/4/5G和WiFi网络类型提示，
+//     *
+//     * @param isGNetWork true为进行2/3/4/5G网络类型提示
+//     *                   false 不进行网络类型提示
+//     */
+//    public PlayerView setNetWorkTypeTie(boolean isGNetWork) {
+//        this.isGNetWork = isGNetWork;
+//        return this;
+//    }
 
     /**
      * 设置最大观看时长
@@ -1660,7 +1658,7 @@ public class PlayerView implements View.OnClickListener {
                 || newStatus == PlayStateParams.MEDIA_ERROR_TIMED_OUT
                 || newStatus == PlayStateParams.MEDIA_ERROR_SERVER_DIED) {
             status = PlayStateParams.STATE_ERROR;
-            if (!(isGNetWork && (NetworkUtils.getNetworkType(mContext) == 4 || NetworkUtils.getNetworkType(mContext) == 5 || NetworkUtils.getNetworkType(mContext) == 6))) {
+            if (!(AppUtils.isGNetWork && (NetworkUtils.getNetworkType(mContext) == 4 || NetworkUtils.getNetworkType(mContext) == 5 || NetworkUtils.getNetworkType(mContext) == 6))) {
                 if (isCharge && maxPlaytime < getCurrentPosition()) {
                     //                    query.id(R.id.app_video_freeTie).visible();
                 } else {
