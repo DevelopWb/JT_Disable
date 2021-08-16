@@ -7,11 +7,11 @@
 
     <ImageView
         android:id="@+id/business_iv"
-        android:layout_width="50dp"
-        android:layout_height="50dp"></ImageView>
+        android:layout_width="40dp"
+        android:layout_height="40dp"></ImageView>
     <TextView
         android:id="@+id/business_tv"
-        android:textSize="13dp"
+        android:textSize="12dp"
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="35dp"></TextView>

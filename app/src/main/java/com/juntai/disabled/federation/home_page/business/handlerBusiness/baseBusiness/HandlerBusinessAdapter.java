@@ -81,6 +81,7 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
     protected void convert(BaseViewHolder helper, MultipleItem item) {
         switch (item.getItemType()) {
             case MultipleItem.ITEM_BUSINESS_HEAD_PIC:
+                // TODO: 2021/6/14 详情的时候 头像也可点击看大图 这个功能后期加上 
                 if (!isDetail) {
                     helper.addOnClickListener(R.id.form_head_pic_iv);
                 }
@@ -112,9 +113,11 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 if (isDetail || BusinessContract.TABLE_TITLE_ASSIST_TOOL_AMOUNT.equals(textValueEditBean.getKey())) {
                     editText.setClickable(false);
                     editText.setFocusable(false);
+                    helper.setBackgroundRes(R.id.edit_value_et, R.drawable.sp_filled_gray_lighter);
                 } else {
                     editText.setClickable(true);
                     editText.setFocusable(true);
+                    helper.setBackgroundRes(R.id.edit_value_et, R.drawable.stroke_gray_square_bg);
                 }
                 int editType = textValueEditBean.getType();
                 LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) editText.getLayoutParams();
@@ -260,6 +263,9 @@ public class HandlerBusinessAdapter extends BaseMultiItemQuickAdapter<MultipleIt
                 if (!isDetail) {
                     helper.addOnClickListener(R.id.select_value_tv);
                     helper.addOnClickListener(R.id.tool_pic_iv);
+                    helper.setBackgroundRes(R.id.select_value_tv, R.drawable.stroke_gray_square_bg);
+                }else {
+                    helper.setBackgroundRes(R.id.select_value_tv, R.drawable.sp_filled_gray_lighter);
                 }
                 if (textValueSelectBean.getDataBean() != null && !TextUtils.isEmpty(textValueSelectBean.getDataBean().getImg())) {
                     helper.setGone(R.id.tool_pic_iv, true);

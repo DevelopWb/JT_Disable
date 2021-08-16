@@ -34,10 +34,9 @@ import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
 /**
- * Describe:
- * Create by zhangzhenlong
- * 2020/3/10
- * email:954101549@qq.com
+ * @aouther tobato
+ * @description 描述  我的信息
+ * @date 2021/6/1 16:36
  */
 public class MyInfoPresent extends BasePresenter<IModel, MyCenterContract.IMyInfoView> implements MyCenterContract.IMyInfoPresent {
     @Override

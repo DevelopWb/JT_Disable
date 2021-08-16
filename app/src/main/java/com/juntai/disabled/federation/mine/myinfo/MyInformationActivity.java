@@ -27,10 +27,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 我的信息
- *
- * @aouther ZhangZhenlong
- * @date 2020/3/10
+ * @aouther tobato
+ * @description 描述  我的信息
+ * @date 2021/6/1 16:36
  */
 public class MyInformationActivity extends BaseMvpActivity<MyInfoPresent> implements MyCenterContract.IMyInfoView {
 

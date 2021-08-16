@@ -301,7 +301,6 @@ public class LoginActivity extends BaseMvpActivity<EntrancePresent> implements E
             @Override
             public void onError(Platform platform, int i, Throwable throwable) {
                 LogUtil.e(throwable.toString());
-                //                plat.removeAccount(true); //移除授权状态和本地缓存，下次授权会重新授权
             }
 
             @Override

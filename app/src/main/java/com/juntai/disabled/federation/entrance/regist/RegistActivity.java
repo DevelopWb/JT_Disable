@@ -272,12 +272,6 @@ public class RegistActivity extends SmsCheckCodeActivity implements RegistContra
                 }
                 builder.add("code",getTextViewValue(mRegistCheckCodeEt));
                 mPresenter.regist(RegistContract.REGIST, builder.build());
-//                if (!verify) {
-//                    requestBody = builder.build();
-//                    SMSSDK.submitVerificationCode("+86", account, getTextViewValue(mRegistCheckCodeEt));
-//                } else {
-//
-//                }
                 break;
             //用户协议
             case R.id.regist_protoca_user_tv:

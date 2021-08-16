@@ -74,7 +74,6 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
     private int currentPosition;
     private GestureSignatureView gsv_signature;
     private BottomSheetDialog bottomSheetDialog;
-    private String signPath = null;
     private String birthDay = null;
     private ImageView mSignIv = null;
     private ImageView mHandlerSignIv = null;//办理残疾证的时候的签名
@@ -215,6 +214,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         }
                         break;
                     case R.id.form_head_pic_iv:
+                        // TODO: 2021/6/14 详情的时候 头像也可点击看大图 这个功能后期加上
                         choseImage(0, BaseBusinessActivity.this, 1);
                         break;
 
@@ -583,7 +583,7 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
             case R.id.signature_view_save:
                 if (gsv_signature.getTouched()) {
                     try {
-                        signPath = FileCacheUtils.getAppImagePath() + FileCacheUtils.SIGN_PIC_NAME;
+                      String  signPath = FileCacheUtils.getAppImagePath() + FileCacheUtils.SIGN_PIC_NAME;
                         //保存到本地
                         gsv_signature.save(signPath);
                         Bitmap bitmap1 =
@@ -1271,7 +1271,8 @@ public abstract class BaseBusinessActivity extends BaseAppActivity<BusinessPrese
                         default:
                             break;
                     }
-                    if (photos.isEmpty()) {
+                    //申请材料改为非必填   2021-8-16
+                    if (!BusinessContract.TABLE_TITLE_MATERIAL_HANDLE_PIC.equals(name)&&photos.isEmpty()) {
                         ToastUtils.toast(mContext, msg);
                         return null;
                     }
