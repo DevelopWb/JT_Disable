@@ -6,14 +6,9 @@
     <string name="rc_voip_audio">Voice Call</string>
     <string name="rc_voip_call_waiting">Waiting for response...</string>
     <string name="rc_voip_call_connecting">Connecting</string>
-    <string name="rc_voip_call_busy">Busy line</string>
-    <string name="rc_voip_call_no_response">No answer</string>
-    <string name="rc_voip_call_hangup">Cancelled</string>
     <string name="rc_voip_call_network_error">Network connection is not reachable, please check it</string>
     <string name="rc_voip_call_interrupt">Cancelled</string>
     <string name="rc_voip_call_terminalted">Call ended</string>
-    <string name="rc_voip_call_started">Call started</string>
-    <string name="rc_voip_select_member">Select members</string>
     <string name="rc_voip_call_audio_start_fail">Voice call is on. Try again later.</string>
     <string name="rc_voip_call_video_start_fail">Video call is on. Try again later.</string>
     <string name="rc_voip_call_other">Other devices have been answered</string>
@@ -56,7 +51,6 @@
     <string name="rc_call_on_going">Call in progress</string>
     <string name="rc_audio_call_on_going">Tap to continue as voice call in progress</string>
     <string name="rc_video_call_on_going">Tap to continue as video call is on</string>
-    <string name="rc_voip_over_limit">Up to %d members</string>
     <string name="rc_voip_connecting">Connecting...</string>
     <string name="rc_voip_unstable_call_connection">Unstable call connection</string>
     <string name="rc_voip_add_member">Select Members</string>

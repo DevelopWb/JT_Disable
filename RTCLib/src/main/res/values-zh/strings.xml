@@ -12,15 +12,8 @@
     <string name="room_userName">请输入姓名</string>
     <string name="blink_description">欢迎体验实时高质量的音视频会议</string>
     <string name="blink_description_version">SealRTC V</string>
-    <string name="debug_select_dialog_message">请选择你要测试的网络</string>
-    <string name="debug_select_dialog_exbutton">生产环境</string>
-    <string name="debug_select_dialog_innerbutton">开发环境</string>
-    <string name="debug_select_dialog_testbutton">测试环境</string>
-    <string name="debug_select_dialog_oraclebutton">Oracle</string>
-    <string name="debug_select_dialog_shanchatbutton">图灵</string>
     <string name="room_input_hint">请输入会议室ID</string>
     <string name="room_input_hint_username">请输入用户名称</string>
-    <string name="room_input_hint_country">选择国家/地区 $s</string>
     <string name="room_connect_button">开始会议</string>
     <string name="room_number">会议室 ID:&#160;</string>
     <string name="connection_duration">通话时间</string>
@@ -43,7 +36,6 @@
     <string name="settings_text_rate">码率</string>
     <string name="settings_text_connection_mode">连接方式</string>
     <string name="settings_text_connection_mode_relay">Relay</string>
-    <string name="settings_text_connection_mode_P2P">P2P</string>
     <string name="settings_text_coding_mode">编码方式</string>
     <string name="settings_text_resolution">分辨率</string>
     <string name="settings_text_fps">帧率</string>
@@ -58,46 +50,19 @@
     <string name="settings_text_userid">用户ID（长按可复制到剪切板）</string>
     <string name="settings_text_copy_userid">用户ID已复制到剪切板</string>
     <string name="btnsolpstr">Please do not click repeatedly</string>
-    <string name="meeting_control_invite_url">会议邀请：\n\n 请输入以下会议ID加入会议 \n 会议ID：%1$s \n \n如果您尚未安装客户端，请使用Chrome或Safari 11 打开以下地址加入会议：\n会议地址：%2$s</string>
-    <string name="meeting_control_invite_tips">会议地址已经复制，请粘贴至任意沟通工具并发送给您要邀请的人即可。</string>
-    <string name="meeting_control_inviteToOpen_camera">主持人邀请您打开摄像头\n是否接受？</string>
-    <string name="meeting_control_inviteToOpen_microphone">主持人邀请您打开麦克风\n是否接受？</string>
-    <string name="meeting_control_inviteToUpgrade">主持人邀请您参与讨论\n是否接受？</string>
-    <string name="meeting_control_destroy_whiteBoard">退出后白板将被销毁\n是否继续退出？</string>
-    <string name="meeting_control_no_whiteBoard">当前没有白板供查看，请等待其他人创建白板</string>
-    <string name="meeting_control_OpenWiteBoard">建议横屏，能看的更清楚</string>
     <string name="room_join_observer">旁听者模式</string>
     <string name="room_join_close_camera">音频模式</string>
-    <string name="Waitingforinput">请输入会议室名称和用户名称!</string>
     <string name="Thecurrentnetworkisnotavailable">当前网络不可用</string>
     <string name="saveSuccess">保存成功!</string>
     <string name="serverCMPToast">请输入符合格式的服务器CMP地址！</string>
     <string name="serverCMPcannotbeempty">服务器CMP地址不能为空!</string>
     <string name="serverTOKENcannotbeempty">服务器Token地址不能为空!</string>
     <string name="tokenAddressisINcorrect">服务器Token地址不正确!</string>
-    <string name="pleasetryagain">获取token/deviceID失败，请重新尝试！</string>
-    <string name="Createdawhiteboard">创建了白板！</string>
-    <string name="resolutionmunimum">分辨率已经降到最低!</string>
-    <string name="resolutionhighest">分辨率已经升到最高!</string>
     <string name="plsopenit">已被禁止，请手动开启！</string>
     <string name="PermissionStr">权限:</string>
-    <string name="Requestsentsuccessfully">请求发送成功！</string>
-    <string name="Requestfailedtosend">请求发送失败！Code=</string>
-    <string name="Failedtogetinvitationlink">获取邀请链接失败！</string>
-    <string name="Youbecomethehostofthemeeting">您成为会议主持人</string>
-    <string name="removedfromthecoversation">您已被主持人移出会话！</string>
-    <string name="plscalllater">主持人忙，请稍后再拨</string>
-    <string name="downgradedtoanobserver">您已被主持人降级为观察者</string>
-    <string name="userdowngradedtoanobserver">已被主持人降级为观察者</string>
-    <string name="userstr">用户:</string>
-    <string name="becomesthemeetinghost">成为会议主持人</string>
-    <string name="agree">同意</string>
-    <string name="Refuse">拒绝</string>
-    <string name="Upgradetonormaluser">升级成正常用户</string>
     <string name="settings_text_MediaStreamTiny_yes">是</string>
     <string name="settings_text_MediaStreamTiny_no">否</string>
     <string name="Opensizestream">开启大小流</string>
-    <string name="app_btn_loading">正在初始化</string>
     <string name="autotest">自动化测试</string>
     <string name="watermark">后置摄像头水印</string>
     <string name="islive">直播模式</string>
@@ -109,9 +74,6 @@
 
     <string name="get_code">重新获取验证码</string>
     <string name="VerificationCodeError">验证码错误，请重新获取</string>
-    <string name="input_roomId">请输入会议室ID!</string>
-    <string name="input_room_phoneNum">请输入手机号码!</string>
-    <string name="input_room_phoneNum_error">手机号码格式有误!</string>
     <string name="SendVerificationCode">获取验证码</string>
     <string name="MobilePhoneVerificationCode">手机验证码</string>
     <string name="phoneNumber">手机号</string>
@@ -142,7 +104,6 @@
     <string name="mode_observer">旁观者模式</string>
     <string name="verify_code_invalid">无效的验证码</string>
     <string name="user_video_custom">自定义视频</string>
-    <string name="username_empty_hint">用户名不能为空</string>
 
     <string name="white_board_service_error">白板服务错误，请稍后重试</string>
     <string name="white_board_loading">白板加载中...</string>
@@ -152,13 +113,10 @@
     <string name="white_board_clear">清空</string>
     <string name="white_board_add">新建</string>
     <string name="white_board_delete">删除</string>
-    <string name="white_board_room_not_exist">房间内未创建白板</string>
     <string name="publish_failed">发布失败</string>
     <string name="publish_disabled">房间中已有人发布视频文件</string>
     <string name="rtc_status_im_error">IM 连接断开</string>
     <string name="rtc_unstable_call_connection">当前通话连接质量不佳</string>
-    <string name="loacation_download">本地下载</string>
-    <string name="browser_download">浏览器打开</string>
     <string name="apk_update_title">检测到新版本 V%s 是否升级?</string>
     <string name="downloading_apk">正在后台下载...</string>
     <string name="update_app_model_prepare">准备下载</string>
@@ -174,12 +132,10 @@
     <string name="private_address_hint">http(s)://cn.xxx.com or IP + port address</string>
     <string name="private_server_api_address">私有环境 Server API 地址</string>
     <string name="private_media_server_address">私有环境 MediaServer 地址（可选）</string>
-    <string name="appserver_address_optional">AppServer(可选，未部署 AppServer 可不设置)</string>
     <string name="save">保存</string>
     <string name="private_cloud_connection_settings">私有环境基础设置</string>
     <string name="update_configuration_successful">更新配置成功!</string>
     <string name="save_successful">保存成功！</string>
-    <string name="private_clouconfiguration_cannot_be_empty">设置私有环境基本设置后，才能进入房间.</string>
     <string name="volume_settings">音量设置</string>
 
     <string name="member_operate_remove">移除用户</string>

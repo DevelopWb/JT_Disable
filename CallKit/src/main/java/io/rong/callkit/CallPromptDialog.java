@@ -65,10 +65,10 @@ public class CallPromptDialog extends AlertDialog {
         super.onStart();
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View view = inflater.inflate(mLayoutResId, null);
-        TextView txtViewTitle = (TextView) view.findViewById(io.rong.imkit.R.id.popup_dialog_title);
-        TextView txtViewMessage = (TextView) view.findViewById(io.rong.imkit.R.id.popup_dialog_message);
-        TextView txtViewOK = (TextView) view.findViewById(io.rong.imkit.R.id.popup_dialog_button_ok);
-        TextView txtViewCancel = (TextView) view.findViewById(io.rong.imkit.R.id.popup_dialog_button_cancel);
+        TextView txtViewTitle = (TextView) view.findViewById(R.id.popup_dialog_title);
+        TextView txtViewMessage = (TextView) view.findViewById(R.id.popup_dialog_message);
+        TextView txtViewOK = (TextView) view.findViewById(R.id.popup_dialog_button_ok);
+        TextView txtViewCancel = (TextView) view.findViewById(R.id.popup_dialog_button_cancel);
         if (disableCancel) txtViewCancel.setVisibility(View.GONE);
         if (positiveTxtColor != 0) {
             txtViewOK.setTextColor(positiveTxtColor);
