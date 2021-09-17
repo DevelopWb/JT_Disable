@@ -17,7 +17,6 @@ import com.juntai.disabled.federation.bean.MyMenuBean;
 import com.juntai.disabled.federation.bean.UserBean;
 import com.juntai.disabled.federation.bean.message.UnReadCountBean;
 import com.juntai.disabled.federation.home_page.business.my_business.MyBusinessActivity;
-import com.juntai.disabled.federation.home_page.conciliation.conciliation_list.ConciliationListActivity;
 import com.juntai.disabled.federation.mine.message.MyMessageActivity;
 import com.juntai.disabled.federation.mine.mycollect.MyCollectActivity;
 import com.juntai.disabled.federation.mine.mypublish.MyPublishListActivity;

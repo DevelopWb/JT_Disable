@@ -11,7 +11,6 @@ import android.widget.EditText;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.googlecode.mp4parser.authoring.Edit;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.bean.business.BusinessTextValueBean;

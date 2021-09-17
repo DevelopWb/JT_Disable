@@ -55,8 +55,6 @@ import com.juntai.disabled.federation.utils.AppUtils;
 import com.juntai.disabled.federation.utils.StringTools;
 import com.juntai.disabled.federation.utils.UserInfoManager;
 import com.juntai.disabled.federation.utils.ViewUtil;
-import com.juntai.disabled.im.ModuleIm_Init;
-import com.juntai.disabled.im.UserIM;
 import com.mob.MobSDK;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
@@ -67,8 +65,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import me.leolin.shortcutbadger.ShortcutBadger;
 
 public class MainActivity extends BaseAppActivity<MainPagePresent> implements ViewPager.OnPageChangeListener,
@@ -131,9 +127,9 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
      * 登录后初始化，获取融云用户列表及开启轨迹上传任务
      */
     private void initForLogin() {
-        getIMUsers();
-        /**登录IM*/
-        ModuleIm_Init.connectIM(MyApp.getUserRongYunToken());
+//        getIMUsers();
+//        /**登录IM*/
+//        ModuleIm_Init.connectIM(MyApp.getUserRongYunToken());
         if (MyApp.getUser().getData().getSettleStatus() == 2) {
             //主线程中调用：
             mHandler.postDelayed(runnable, 1000 * 1);//延时1秒
@@ -252,7 +248,7 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
         public void onReceive(Context context, Intent intent) {
             if (ActionConfig.BROAD_LOGIN.equals(intent.getAction())) {
                 //重新登录
-                ModuleIm_Init.logout();
+//                ModuleIm_Init.logout();
                 //登录信息设置为空
                 String error = intent.getStringExtra("error");
                 ToastUtils.info(MyApp.app, error);
@@ -401,26 +397,26 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
      * 获取im - - users
      */
     public void getIMUsers() {
-        AppNetModule.createrRetrofit()
-                .getIMUsers(MyApp.getUserToken(), MyApp.getAccount())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(new BaseObserver<IMUsersBean>(null) {
-                    @Override
-                    public void onSuccess(IMUsersBean o) {
-                        ArrayList<UserIM> arrayList = new ArrayList<>();
-                        for (IMUsersBean.DataBean bean : o.getData()) {
-                            arrayList.add(new UserIM(bean.getAccount(), bean.getRealName(), bean.getHeadPortrait()));
-                        }
-                        ModuleIm_Init.setUsers(arrayList);
-                    }
-
-                    @Override
-                    public void onError(String msg) {
-                        ToastUtils.error(MyApp.app, msg);
-                    }
-                });
+//        AppNetModule.createrRetrofit()
+//                .getIMUsers(MyApp.getUserToken(), MyApp.getAccount())
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .compose(bindUntilEvent(ActivityEvent.DESTROY))
+//                .subscribe(new BaseObserver<IMUsersBean>(null) {
+//                    @Override
+//                    public void onSuccess(IMUsersBean o) {
+//                        ArrayList<UserIM> arrayList = new ArrayList<>();
+//                        for (IMUsersBean.DataBean bean : o.getData()) {
+//                            arrayList.add(new UserIM(bean.getAccount(), bean.getRealName(), bean.getHeadPortrait()));
+//                        }
+////                        ModuleIm_Init.setUsers(arrayList);
+//                    }
+//
+//                    @Override
+//                    public void onError(String msg) {
+//                        ToastUtils.error(MyApp.app, msg);
+//                    }
+//                });
     }
 
     @Override
@@ -467,7 +463,7 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         MyApp.app.isFinish = true;
-                        ModuleIm_Init.logout();
+//                        ModuleIm_Init.logout();
                         finish();
                     }
                 })

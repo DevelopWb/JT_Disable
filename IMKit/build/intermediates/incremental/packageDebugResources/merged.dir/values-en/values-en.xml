@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="rc_dialog_item_message_recall">Recall</string>
-    <string name="rc_permission_grant_needed">You have to grant permissions in setting</string>
-    <string name="rc_search">Search</string>
-    <string name="rc_voip_call_audio_start_fail">Voice call is on. Try again later.</string>
-    <string name="rc_voip_call_video_start_fail">Video call is on. Try again later.</string>
-</resources>

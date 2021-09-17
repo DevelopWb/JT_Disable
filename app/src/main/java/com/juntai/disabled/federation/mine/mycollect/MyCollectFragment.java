@@ -261,7 +261,7 @@ public class MyCollectFragment extends BaseMvpFragment<MyCollectPresent> impleme
                     break;
                 case 8:
                     // TODO: 2021/3/3   二期再开放
-                    ToastUtils.toast(mContext,getString(R.string.not_open_notice));
+//                    ToastUtils.toast(mContext,getString(R.string.not_open_notice));
 //                    mPresenter.getCollectListNews(page, pagesize, MyCenterContract.LOAD_COLLECT_LIST, showProgress);
                     break;
             }
@@ -273,7 +273,7 @@ public class MyCollectFragment extends BaseMvpFragment<MyCollectPresent> impleme
                     break;
                 case 8:
                     // TODO: 2021/3/3   二期再开放
-                    ToastUtils.toast(mContext,getString(R.string.not_open_notice));
+//                    ToastUtils.toast(mContext,getString(R.string.not_open_notice));
 //                    mPresenter.getShareListNews(page, pagesize, MyCenterContract.LOAD_COLLECT_LIST, showProgress);
                     break;
             }

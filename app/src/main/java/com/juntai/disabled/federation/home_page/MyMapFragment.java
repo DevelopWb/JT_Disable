@@ -92,7 +92,6 @@ import com.juntai.disabled.federation.utils.DateUtil;
 import com.juntai.disabled.federation.utils.ImageUtil;
 import com.juntai.disabled.federation.utils.StringTools;
 import com.juntai.disabled.federation.utils.UserInfoManager;
-import com.juntai.disabled.im.ModuleIm_Init;
 import com.orhanobut.hawk.Hawk;
 import com.sunfusheng.marqueeview.MarqueeView;
 
@@ -848,7 +847,7 @@ public class MyMapFragment extends BaseAppFragment<MapPresenter> implements MapC
                 (ImageView) infowindowPeople.findViewById(R.id.head_image));
         infowindowPeople.findViewById(R.id.people_chat).setOnClickListener(v -> {
             try {
-                ModuleIm_Init.chat(mContext, people.getAccount(), "指挥调度:" + people.getNickname());
+//                ModuleIm_Init.chat(mContext, people.getAccount(), "指挥调度:" + people.getNickname());
             } catch (IllegalArgumentException e) {
                 ToastUtils.toast(mContext, "通讯参数错误");
             }

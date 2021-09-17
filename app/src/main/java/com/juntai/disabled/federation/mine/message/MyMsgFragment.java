@@ -4,7 +4,6 @@ import android.widget.TextView;
 
 import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.federation.R;
-import com.juntai.disabled.im.MsgFragment;
 
 /**
  * 互动消息
@@ -30,10 +29,10 @@ public class MyMsgFragment extends BaseMvpFragment<MessagePresent> implements IM
 //        null_view.getLayoutParams().height = MyApp.statusBarH;
 //        titleTv.setText("消息");
         //my_msg
-        getChildFragmentManager()
-                .beginTransaction()
-                .add(R.id.my_msg,new MsgFragment())
-                .commit();
+//        getChildFragmentManager()
+//                .beginTransaction()
+//                .add(R.id.my_msg,new MsgFragment())
+//                .commit();
     }
 
     @Override

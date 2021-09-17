@@ -12,6 +12,6 @@
     <color name="text_content">#777777</color>
     <color name="text_label">#AAABAB</color>
     <color name="phone_bg">#D9DAEB</color>
-
+    <color name="divider_color">#eeeeee</color>
     <color name="transparent_black">#60000000</color>
 </resources>

@@ -14,7 +14,6 @@ import com.juntai.disabled.federation.MyApp;
 import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.MainPagerAdapter;
 import com.juntai.disabled.federation.base.customview.CustomViewPager;
-import com.juntai.disabled.im.ModuleIm_Init;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -51,7 +50,7 @@ public class MyMessageActivity extends BaseActivity implements ViewPager.OnPageC
         getTitleRightTv().setText("全部已读");
         getTitleRightTv().setOnClickListener(v -> {
             if (nowFragment == 1){
-                ModuleIm_Init.readAllMessage();
+//                ModuleIm_Init.readAllMessage();
 //                MyApp.getUser().getData().setImCount(0);
 //                setUnReadView(mCollectTablayout.getTabAt(1),0);
             }else {

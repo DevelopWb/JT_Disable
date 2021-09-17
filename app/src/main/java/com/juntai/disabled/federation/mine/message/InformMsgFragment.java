@@ -18,7 +18,6 @@ import com.juntai.disabled.federation.R;
 import com.juntai.disabled.federation.base.customview.DeleteMsgDialog;
 import com.juntai.disabled.federation.bean.message.LikeMsgListBean;
 import com.juntai.disabled.federation.bean.message.UnReadCountBean;
-import com.juntai.disabled.federation.home_page.conciliation.conciliation_common.ConciliatonInfoActivity;
 import com.juntai.disabled.federation.home_page.law_case.CaseInfoActivity;
 import com.juntai.disabled.federation.home_page.inspection.InspectionDetailActivity;
 import com.juntai.disabled.federation.home_page.news.news_comment.CommentChildActivity;
@@ -116,7 +115,7 @@ public class InformMsgFragment extends BaseMvpFragment<MessagePresent> implement
                         startActivity(new Intent(mContext, ReportDetailActivity.class).putExtra("reportId", messageBean.getContentId()));
                         break;
                     case AppHttpPath.NOTICE_TYPE_CONCILIATION:
-                        startActivity(new Intent(mContext, ConciliatonInfoActivity.class).putExtra("id", messageBean.getContentId()));
+//                        startActivity(new Intent(mContext, ConciliatonInfoActivity.class).putExtra("id", messageBean.getContentId()));
                         break;
                     default:
                         startActivity(new Intent(getContext(),InformMsgInfoActivity.class).putExtra("id",messageBean.getId()));

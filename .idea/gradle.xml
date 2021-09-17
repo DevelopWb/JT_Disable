@@ -10,17 +10,11 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/CallKit" />
-            <option value="$PROJECT_DIR$/CallLib" />
-            <option value="$PROJECT_DIR$/IMKit" />
-            <option value="$PROJECT_DIR$/IMLib" />
-            <option value="$PROJECT_DIR$/RTCLib" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/appTuoyb" />
             <option value="$PROJECT_DIR$/banner" />
             <option value="$PROJECT_DIR$/jjdxm-ijkplayer" />
             <option value="$PROJECT_DIR$/module_Base" />
-            <option value="$PROJECT_DIR$/module_IM" />
             <option value="$PROJECT_DIR$/module_Map" />
             <option value="$PROJECT_DIR$/module_Video" />
             <option value="$PROJECT_DIR$/pushpermission" />

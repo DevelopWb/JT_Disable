@@ -22,7 +22,6 @@ import com.juntai.disabled.federation.utils.StringTools;
 import com.juntai.disabled.federation.utils.UserInfoManager;
 import com.orhanobut.hawk.Hawk;
 
-import cn.rongcloud.rtc.entity.UserInfo;
 import cn.smssdk.SMSSDK;
 
 /**

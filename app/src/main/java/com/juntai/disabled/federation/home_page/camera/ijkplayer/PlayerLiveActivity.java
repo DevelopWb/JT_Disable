@@ -59,7 +59,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
-import io.rong.callkit.util.GlideUtils;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;

@@ -172,7 +172,7 @@
                 android:padding="10dp"
                 android:maxLength="200"
                 android:textSize="15dp"
-                android:textColor="@color/color_normal_text"/>
+                />
 
             <TextView
                 android:id="@+id/input_num_tv"

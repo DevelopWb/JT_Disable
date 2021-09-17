@@ -31,7 +31,6 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.juntai.disabled.im.ModuleIm_Init.chat;
 
 /**
  * @aouther tobato
@@ -105,9 +104,9 @@ public class SearchActivity extends BaseMvpActivity<HomePagePresent> implements 
                                         .putExtra(PlayerLiveActivity.STREAM_CAMERA_THUM_URL, databean.getPicture()));
                                 break;
                             case INFO_TYPE_POLICE:
-                                if (StringTools.isStringValueOk(databean.getAccount())) {
-                                    chat(mContext, databean.getAccount(), "指挥调度:" + databean.getName());
-                                }
+//                                if (StringTools.isStringValueOk(databean.getAccount())) {
+//                                    chat(mContext, databean.getAccount(), "指挥调度:" + databean.getName());
+//                                }
                                 break;
                             case INFO_TYPE_CAR:
                                 startActivity(new Intent(mContext, SelectTime.class).putExtra("type", HistoryTrack.CAR).putExtra("carImei", databean.getImEi()));

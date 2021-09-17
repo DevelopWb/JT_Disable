@@ -28,7 +28,6 @@ import com.juntai.disabled.federation.home_page.news.news_search.NewsSearchActiv
 import com.juntai.disabled.federation.mine.myinfo.MyInformationActivity;
 import com.juntai.disabled.federation.utils.AppUtils;
 import com.juntai.disabled.federation.utils.ToolShare;
-import com.juntai.disabled.im.ModuleIm_Init;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.HashMap;
@@ -268,7 +267,7 @@ public class PersonalHomepageActivity extends BaseMvpActivity<NewsPresent> imple
                 break;
             case R.id.sixin_btn:
                 //私信
-                ModuleIm_Init.chat(mContext, authorInfo.getAccount(), authorInfo.getNickName());
+//                ModuleIm_Init.chat(mContext, authorInfo.getAccount(), authorInfo.getNickName());
                 break;
             case R.id.guanzhu_tag:
                 //关注列表

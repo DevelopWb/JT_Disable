@@ -92,7 +92,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':module_Base')
     implementation project(':module_Map')
-    implementation project(':module_IM')
+//    implementation project(':module_IM')
     implementation project(':banner')
     implementation project(path: ':ruler')
     implementation project(':module_Video')
@@ -100,7 +100,7 @@ dependencies {
     implementation 'com.sunfusheng:MarqueeView:1.4.1'//跑马灯
     implementation 'com.oginotihiro:cropview:1.0.0'
     implementation 'com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat'
-    implementation project(':RTCLib')
+//    implementation project(':RTCLib')
     implementation project(':jjdxm-ijkplayer')
     implementation project(':richeditor')
     implementation "me.leolin:ShortcutBadger:1.1.22@aar"

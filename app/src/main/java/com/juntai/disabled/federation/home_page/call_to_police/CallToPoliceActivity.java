@@ -12,7 +12,6 @@ import com.juntai.disabled.federation.bean.PolicePickerBean;
 import com.juntai.disabled.federation.home_page.HomePageContract;
 import com.juntai.disabled.federation.home_page.HomePagePresent;
 import com.juntai.disabled.federation.utils.StringTools;
-import com.juntai.disabled.im.ModuleIm_Init;
 
 import java.util.List;
 
@@ -77,7 +76,7 @@ public class CallToPoliceActivity extends BaseMvpActivity<HomePagePresent> imple
                 dataBean = policePickerBean.getData().get(index);
                 if (dataBean != null) {
                     if (StringTools.isStringValueOk(dataBean.getAccount()) && StringTools.isStringValueOk(dataBean.getNickname())) {
-                        ModuleIm_Init.callVideo(mContext, dataBean.getAccount());
+//                        ModuleIm_Init.callVideo(mContext, dataBean.getAccount());
                     }
                 }
             } else {

@@ -30,8 +30,6 @@ import com.juntai.disabled.federation.home_page.news.news_info.NewsNormalInfoAct
 import com.juntai.disabled.federation.home_page.news.news_info.NewsVideoInfoActivity;
 import com.juntai.disabled.federation.utils.AppUtils;
 import com.juntai.disabled.federation.utils.StringTools;
-import com.juntai.disabled.im.ModuleIm_Init;
-import com.juntai.disabled.im.UserIM;
 import com.juntai.disabled.video.ModuleVideo_Init;
 import com.mob.MobSDK;
 import com.orhanobut.hawk.Hawk;
@@ -40,7 +38,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import cn.rongcloud.rtc.initRoom.IMRoom_Init;
 
 import static com.juntai.disabled.basecomponent.app.BaseApplication.app;
 
@@ -70,8 +67,8 @@ public class MyApp extends BaseApplication {
         Hawk.init(this).build();
         MobSDK.init(this);
         //Im模块初始化
-        ModuleIm_Init.init(this);
-        IMRoom_Init.init(this);
+//        ModuleIm_Init.init(this);
+//        IMRoom_Init.init(this);
         //Video模块初始化
         ModuleVideo_Init.init();
         //百度地图初始化
@@ -280,7 +277,7 @@ public class MyApp extends BaseApplication {
      * @param image
      */
     public static void addImUserInfo(String id, String name, String image) {
-        ModuleIm_Init.setUser(new UserIM(id, name, image));
+//        ModuleIm_Init.setUser(new UserIM(id, name, image));
     }
 
     /**

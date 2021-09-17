@@ -30,8 +30,7 @@
             android:inputType="text"
             android:maxLines="1"
             android:singleLine="true"
-            android:textColor="@color/blink_text_grey"
-            android:textColorHint="@color/blink_grey" />
+           />
 
         <EditText
             android:id="@+id/room_inputnumber"
@@ -47,8 +46,7 @@
             android:inputType="text"
             android:maxLines="1"
             android:singleLine="true"
-            android:textColor="@color/blink_text_grey"
-            android:textColorHint="@color/blink_grey" />
+          />
 
         <TextView
             android:id="@+id/connect_button"
