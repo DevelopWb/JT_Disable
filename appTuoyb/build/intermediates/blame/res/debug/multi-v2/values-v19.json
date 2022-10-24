@@ -1,0 +1,28 @@
+{
+    "logs": [
+        {
+            "outputFile": "D:\\Project\\disabled\\appTuoyb\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v19\\values-v19.xml",
+            "map": [
+                {
+                    "source": "D:\\Project\\disabled\\appTuoyb\\src\\main\\res\\values-v19\\styles.xml",
+                    "from": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "106",
+                        "endLines": "8",
+                        "endColumns": "12",
+                        "endOffsets": "493"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "100",
+                        "endLines": "7",
+                        "endColumns": "12",
+                        "endOffsets": "480"
+                    }
+                }
+            ]
+        }
+    ]
+}

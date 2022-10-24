@@ -1,0 +1,1299 @@
+-- Merging decision tree log ---
+provider#com.juntai.tyb.uitils.MyFileProvider
+INJECTED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:88:9-96:20
+	android:authorities
+		INJECTED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml
+manifest
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:2:1-308:12
+INJECTED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:2:1-308:12
+INJECTED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:2:1-308:12
+INJECTED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:2:1-308:12
+MERGED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:2:1-308:12
+MERGED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-42:12
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-75:12
+MERGED from [:module_Base] D:\Project\disabled\module_Base\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-24:12
+MERGED from [com.android.support:multidex:1.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\34d35c13e7775f38fa7e7e360d8cfd4e\AndroidManifest.xml:17:1-22:12
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:2:1-133:12
+MERGED from [cn.jiguang.sdk:jcore:1.1.9] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\7014bca48e233b3e8d54664229ced56c\AndroidManifest.xml:2:1-14:12
+MERGED from [:zXingLiteLib] D:\Project\disabled\zXingLiteLib\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-18:12
+MERGED from [com.android.support:design:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\89550f310a9be941c4345026f7b4ecd9\AndroidManifest.xml:17:1-24:12
+MERGED from [com.trello.rxlifecycle2:rxlifecycle-components:2.2.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\b0c63c7c1ed3aac622485383a549e51f\AndroidManifest.xml:13:1-19:12
+MERGED from [com.github.GrenderG:Toasty:1.4.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\46a9c91f284fd56dec7456b97d6fbc4e\AndroidManifest.xml:2:1-11:12
+MERGED from [com.gyf.immersionbar:immersionbar:2.3.2-beta01] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\29d057bc7c52589d55b273adb377dbf6\AndroidManifest.xml:2:1-12:12
+MERGED from [com.zhihu.android:matisse:0.5.2-beta4] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\aba111eb4d84950d614ae848fa596a48\AndroidManifest.xml:17:1-33:12
+MERGED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:2:1-66:12
+MERGED from [com.shuyu:GSYVideoPlayer:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\358c8c2ec089073d59c384d39b5ea77e\AndroidManifest.xml:2:1-17:12
+MERGED from [com.shuyu:gsyVideoPlayer-java:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\0438f0453fee5bcfb1247fa693fe0ba6\AndroidManifest.xml:2:1-17:12
+MERGED from [com.android.support:appcompat-v7:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\10855adcaccbd1a86962351a641341ba\AndroidManifest.xml:17:1-22:12
+MERGED from [com.github.chrisbanes.photoview:library:1.2.4] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\561a5a14788d95f3529b3171a4701a61\AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\c95e3b1ba56d7d5b24ae138ee596d054\AndroidManifest.xml:2:1-11:12
+MERGED from [:banner] D:\Project\disabled\banner\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-11:12
+MERGED from [com.github.bumptech.glide:glide:4.9.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\9462c209a4834240e1d545d3b62909f2\AndroidManifest.xml:2:1-12:12
+MERGED from [com.github.tbruyelle:rxpermissions:0.10.2] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\9aadc0c722289465ad1d3149ee67fa93\AndroidManifest.xml:2:1-11:12
+MERGED from [com.andkulikov:transitionseverywhere:1.7.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\23f36007de314f60527f04fda5b5114f\AndroidManifest.xml:2:1-14:12
+MERGED from [com.android.support:support-v4:27.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\50478381492e4c30768b24ba996aadc0\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-fragment:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\c0d55943de577eb415446fef3ef6a840\AndroidManifest.xml:17:1-22:12
+MERGED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:17:1-72:12
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\18d8873d9b7978a6e7315afe35e9522f\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:recyclerview-v7:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\f12f78811e7767e4d10058a1fbfb0957\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\e05f950a9539464f3f49b7b3181bf3e1\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\db750840bd9fad9bbfe0fb7373de2e81\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fca693a6d098fa7db55d5d0b96fbca13\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:loader:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\9c7dc511f30066461b56dc6a8ba1103b\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:transition:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\1d757e0a859353f0dd85bcbcd786983d\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:viewpager:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\5ce8fa4301d661551beeca531e13f620\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:coordinatorlayout:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\4876c20fb50b6065f051d6d30ed750eb\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:drawerlayout:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ca95c4af0e90124bd88d20b41d2843fa\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:slidingpanelayout:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\211960b56ad2b63f38aa809e5229ee4b\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:customview:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fe319509e0f5a07ea27babbbb9846445\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\05a1452d2e68b0f3997a9639e0252f9e\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\aa068bebb84738fc364a1976ba6a81fa\AndroidManifest.xml:17:1-22:12
+MERGED from [com.shuyu:GSYVideoPlayer-exo2:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\b9c9d8403e817d398e1be82dfabecd7f\AndroidManifest.xml:2:1-11:12
+MERGED from [tv.danmaku.ijk.media:ijkplayer-exo:0.8.8] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\3c73836ff21e5383cfabc7021c2c1ba2\AndroidManifest.xml:2:1-15:12
+MERGED from [com.google.android.exoplayer:exoplayer:2.9.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\9512e52ddc79bbdcf202afaf808ad997\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.exoplayer:exoplayer-ui:2.9.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\52735cd5665c569975b02f9913982c83\AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:support-media-compat:27.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ee75dcc806fb5a7f1d97ca9347f951f3\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\5cf8a90b602646d48ce78d1739913800\AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\88a7545b18f95aaf65518c7eab87adbd\AndroidManifest.xml:17:1-25:12
+MERGED from [com.android.support:cursoradapter:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\d76828af7befa31a63ebb103560edd20\AndroidManifest.xml:17:1-22:12
+MERGED from [com.trello.rxlifecycle2:rxlifecycle-android:2.2.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\18e66f3c0036695be1225fb06d3ec24a\AndroidManifest.xml:13:1-19:12
+MERGED from [com.orhanobut:logger:2.2.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\4192a170c4d2922e58b3ad936647ad7c\AndroidManifest.xml:2:1-8:12
+MERGED from [com.contrarywind:Android-PickerView:4.1.8] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\c72219d44dbde80cfc97bbfac3829a07\AndroidManifest.xml:2:1-11:12
+MERGED from [android.arch.lifecycle:runtime:1.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ee8b4e95ea3c05e66c806072ba2b403b\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:documentfile:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\a4c9fe9ee9ad230d5579c788d8df3641\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\6375c75bd957a120642cc455f4603274\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:print:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ece6522757318ac508690f87a83a82b2\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\c459c5a8c2b1bb4970a904c409b39617\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:cardview-v7:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\844135eb27614362f2b415d7561011fa\AndroidManifest.xml:17:1-22:12
+MERGED from [com.github.bumptech.glide:gifdecoder:4.9.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\858ff898deb62080f069353107a5f7bd\AndroidManifest.xml:2:1-11:12
+MERGED from [com.contrarywind:wheelview:4.0.9] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\2ab3e43cec54ccd498aed237813be4d9\AndroidManifest.xml:2:1-11:12
+MERGED from [android.arch.lifecycle:livedata:1.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\e2a2b7cd4d5998a5a089c0fe09664221\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\5efb7ff21f959a819759bdd59b4715a7\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.core:runtime:1.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\60f285f32638d3fcf9de2182bcb6e8de\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:interpolator:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\b2c8f1bfdd25a617acf1db597c7fb4ec\AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.android.exoplayer:extension-rtmp:2.9.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\f2d7d7c318c3fc8277d2b4eb312c1a62\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.exoplayer:exoplayer-dash:2.9.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\aab569f34ad6dba94305f2f87b9d70aa\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.exoplayer:exoplayer-hls:2.9.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae68b19f919edd003adc9ac60182976d\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.exoplayer:exoplayer-smoothstreaming:2.9.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\c354245531900c4a1e59e2f11941b626\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.exoplayer:exoplayer-core:2.9.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\0a19262804785f96a40a4235b2a7e2cd\AndroidManifest.xml:17:1-26:12
+MERGED from [com.mabeijianxi:small-video-record2:2.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\264e21592c8a87e79825082f179b041b\AndroidManifest.xml:2:1-17:12
+MERGED from [com.orhanobut:hawk:2.0.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\7b888fa3fbeb638a2a32eebc857296ed\AndroidManifest.xml:2:1-8:12
+MERGED from [io.reactivex.rxjava2:rxandroid:2.1.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\2d11c9a0cb77daa21e4e0a18c90c5633\AndroidManifest.xml:15:1-20:12
+MERGED from [com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\da3a6987e588abe72ce5a37ebabb2384\AndroidManifest.xml:2:1-11:12
+MERGED from [top.zibin:Luban:1.1.8] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\390a9348f6a44398b3d27660ffb4fa5b\AndroidManifest.xml:2:1-11:12
+MERGED from [com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\171ac8500cd81a05e34e7b5f3a27746a\AndroidManifest.xml:2:1-17:12
+MERGED from [com.scwang.smartrefresh:SmartRefreshHeader:1.0.5.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\6e4945df5b15fd4c0fa840bfc79d9e57\AndroidManifest.xml:2:1-17:12
+MERGED from [com.shuyu:gsyVideoPlayer-armv5:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\cf1ea2b8c219e413cb5a143afed74b58\AndroidManifest.xml:2:1-17:12
+MERGED from [com.shuyu:gsyVideoPlayer-armv7a:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\e4b262f7ee00b55d6fe64ea270c60a30\AndroidManifest.xml:2:1-17:12
+MERGED from [com.shuyu:gsyVideoPlayer-arm64:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\f926a34c585b2bf214b99847ae6c8026\AndroidManifest.xml:2:1-17:12
+MERGED from [com.shuyu:gsyVideoPlayer-x64:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\b4791c27953b775b077df081acb85413\AndroidManifest.xml:2:1-17:12
+MERGED from [com.shuyu:gsyVideoPlayer-x86:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\94b8db31e797ed358a1cc5081e57844c\AndroidManifest.xml:2:1-17:12
+MERGED from [com.facebook.conceal:conceal:1.1.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\6289746c5941f4c9f31894b667bf82b4\AndroidManifest.xml:7:1-16:12
+MERGED from [it.sephiroth.android.library.imagezoom:library:1.0.4] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\bd9ae127f6728e8ac1016963599b77be\AndroidManifest.xml:1:106-7:12
+MERGED from [com.squareup.leakcanary:leakcanary-analyzer:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\e3efe996d8425f82b865493b90b7dd4d\AndroidManifest.xml:17:1-24:12
+MERGED from [com.shuyu:gsyVideoPlayer-base:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\f61f3db180139067c31fcbc6519b3994\AndroidManifest.xml:2:1-11:12
+MERGED from [tv.danmaku.ijk.media:ijkplayer-java:0.8.8] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\17e2a1217deb8dc73681039f128962ac\AndroidManifest.xml:2:1-9:12
+MERGED from [com.shuyu:gsyvideoplayer-androidvideocache:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ed7f4dcbad8d83b0c5afad384335a5cf\AndroidManifest.xml:2:1-17:12
+MERGED from [it.sephiroth.android.library.easing:library:1.0.2] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\b499727971cb590bc02738d0ad6b50d3\AndroidManifest.xml:1:116-8:12
+MERGED from [net.butterflytv.utils:rtmp-client:3.0.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\75a7b7aab05ede3401db07fac3ce3b5b\AndroidManifest.xml:2:1-13:12
+INJECTED from D:\Project\disabled\appTuoyb\src\debug\AndroidManifest.xml:2:1-6:12
+INJECTED from D:\Project\disabled\appTuoyb\src\debug\AndroidManifest.xml:2:1-6:12
+INJECTED from D:\Project\disabled\appTuoyb\src\debug\AndroidManifest.xml:2:1-6:12
+	package
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:4:5-33
+		INJECTED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:4:5-33
+		INJECTED from D:\Project\disabled\appTuoyb\src\debug\AndroidManifest.xml
+	android:versionName
+		INJECTED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:2:1-308:12
+		INJECTED from D:\Project\disabled\appTuoyb\src\debug\AndroidManifest.xml
+	xmlns:tools
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:3:5-51
+	android:versionCode
+		INJECTED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:2:1-308:12
+		INJECTED from D:\Project\disabled\appTuoyb\src\debug\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:2:11-69
+permission#com.juntai.tyb.hcb.permission.JPUSH_MESSAGES
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:6:5-8:47
+	android:protectionLevel
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:8:9-44
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:7:9-68
+uses-feature#android.hardware.camera
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:10:5-60
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:10:19-57
+uses-feature#android.hardware.camera.autofocus
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:11:5-70
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:11:19-67
+uses-permission#android.permission.RECORD_AUDIO
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:13:5-71
+MERGED from [com.mabeijianxi:small-video-record2:2.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\264e21592c8a87e79825082f179b041b\AndroidManifest.xml:12:5-71
+MERGED from [com.mabeijianxi:small-video-record2:2.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\264e21592c8a87e79825082f179b041b\AndroidManifest.xml:12:5-71
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:13:22-68
+uses-permission#android.permission.RECEIVE_USER_PRESENT
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:14:5-79
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:17:5-79
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:17:5-79
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:14:22-76
+uses-permission#android.permission.WAKE_LOCK
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:15:5-68
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:32:5-68
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:32:5-68
+MERGED from [:module_Base] D:\Project\disabled\module_Base\build\intermediates\library_manifest\debug\AndroidManifest.xml:19:5-68
+MERGED from [:module_Base] D:\Project\disabled\module_Base\build\intermediates\library_manifest\debug\AndroidManifest.xml:19:5-68
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:19:5-68
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:19:5-68
+MERGED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:16:5-68
+MERGED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:16:5-68
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:15:22-65
+uses-permission#android.permission.VIBRATE
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:16:5-66
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:30:5-66
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:30:5-66
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:24:5-66
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:24:5-66
+MERGED from [:zXingLiteLib] D:\Project\disabled\zXingLiteLib\build\intermediates\library_manifest\debug\AndroidManifest.xml:11:5-66
+MERGED from [:zXingLiteLib] D:\Project\disabled\zXingLiteLib\build\intermediates\library_manifest\debug\AndroidManifest.xml:11:5-66
+MERGED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:14:5-66
+MERGED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:14:5-66
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:16:22-63
+uses-permission#android.permission.SYSTEM_ALERT_WINDOW
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:17:5-78
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:30:5-78
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:30:5-78
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:17:22-75
+uses-permission#android.permission.ACCESS_LOCATION_EXTRA_COMMANDS
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:18:5-89
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:34:5-89
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:34:5-89
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:18:22-86
+uses-permission#android.permission.CHANGE_NETWORK_STATE
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:19:5-79
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:35:5-79
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:35:5-79
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:19:22-76
+uses-permission#com.android.launcher.permission.READ_SETTINGS
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:20:5-85
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:20:22-82
+uses-permission#android.permission.GET_TASKS
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:22:5-68
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:22:22-65
+uses-permission#android.permission.CAMERA
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:23:5-65
+MERGED from [:zXingLiteLib] D:\Project\disabled\zXingLiteLib\build\intermediates\library_manifest\debug\AndroidManifest.xml:9:5-65
+MERGED from [:zXingLiteLib] D:\Project\disabled\zXingLiteLib\build\intermediates\library_manifest\debug\AndroidManifest.xml:9:5-65
+MERGED from [com.mabeijianxi:small-video-record2:2.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\264e21592c8a87e79825082f179b041b\AndroidManifest.xml:11:5-65
+MERGED from [com.mabeijianxi:small-video-record2:2.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\264e21592c8a87e79825082f179b041b\AndroidManifest.xml:11:5-65
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:23:22-62
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:24:5-81
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:12:5-81
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:12:5-81
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:31:5-81
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:31:5-81
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:24:22-78
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:25:5-79
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:14:5-79
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:14:5-79
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:33:5-79
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:33:5-79
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:25:22-76
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:26:5-76
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:16:5-76
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:16:5-76
+MERGED from [:module_Base] D:\Project\disabled\module_Base\build\intermediates\library_manifest\debug\AndroidManifest.xml:14:5-76
+MERGED from [:module_Base] D:\Project\disabled\module_Base\build\intermediates\library_manifest\debug\AndroidManifest.xml:14:5-76
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:27:5-76
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:27:5-76
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:26:22-73
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:27:5-79
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:18:5-79
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:18:5-79
+MERGED from [:module_Base] D:\Project\disabled\module_Base\build\intermediates\library_manifest\debug\AndroidManifest.xml:13:5-79
+MERGED from [:module_Base] D:\Project\disabled\module_Base\build\intermediates\library_manifest\debug\AndroidManifest.xml:13:5-79
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:26:5-79
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:26:5-79
+MERGED from [com.google.android.exoplayer:exoplayer-core:2.9.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\0a19262804785f96a40a4235b2a7e2cd\AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.exoplayer:exoplayer-core:2.9.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\0a19262804785f96a40a4235b2a7e2cd\AndroidManifest.xml:24:5-79
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:27:22-76
+uses-permission#android.permission.CHANGE_WIFI_STATE
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:28:5-76
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:20:5-76
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:20:5-76
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:32:5-76
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:32:5-76
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:28:22-73
+uses-permission#android.permission.READ_PHONE_STATE
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:29:5-75
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:38:5-75
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:38:5-75
+MERGED from [:module_Base] D:\Project\disabled\module_Base\build\intermediates\library_manifest\debug\AndroidManifest.xml:12:5-75
+MERGED from [:module_Base] D:\Project\disabled\module_Base\build\intermediates\library_manifest\debug\AndroidManifest.xml:12:5-75
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:20:5-75
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:20:5-75
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:29:22-72
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:30:5-81
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:22:5-81
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:22:5-81
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:21:5-81
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:21:5-81
+MERGED from [:zXingLiteLib] D:\Project\disabled\zXingLiteLib\build\intermediates\library_manifest\debug\AndroidManifest.xml:13:5-81
+MERGED from [:zXingLiteLib] D:\Project\disabled\zXingLiteLib\build\intermediates\library_manifest\debug\AndroidManifest.xml:13:5-81
+MERGED from [com.zhihu.android:matisse:0.5.2-beta4] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\aba111eb4d84950d614ae848fa596a48\AndroidManifest.xml:24:5-81
+MERGED from [com.zhihu.android:matisse:0.5.2-beta4] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\aba111eb4d84950d614ae848fa596a48\AndroidManifest.xml:24:5-81
+MERGED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:12:5-81
+MERGED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:12:5-81
+MERGED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:24:5-81
+MERGED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:24:5-81
+MERGED from [com.mabeijianxi:small-video-record2:2.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\264e21592c8a87e79825082f179b041b\AndroidManifest.xml:15:5-81
+MERGED from [com.mabeijianxi:small-video-record2:2.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\264e21592c8a87e79825082f179b041b\AndroidManifest.xml:15:5-81
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:30:22-78
+uses-permission#android.permission.INTERNET
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:31:5-67
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:24:5-67
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:24:5-67
+MERGED from [:module_Base] D:\Project\disabled\module_Base\build\intermediates\library_manifest\debug\AndroidManifest.xml:11:5-67
+MERGED from [:module_Base] D:\Project\disabled\module_Base\build\intermediates\library_manifest\debug\AndroidManifest.xml:11:5-67
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:18:5-67
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:18:5-67
+MERGED from [:zXingLiteLib] D:\Project\disabled\zXingLiteLib\build\intermediates\library_manifest\debug\AndroidManifest.xml:10:5-67
+MERGED from [:zXingLiteLib] D:\Project\disabled\zXingLiteLib\build\intermediates\library_manifest\debug\AndroidManifest.xml:10:5-67
+MERGED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:11:5-67
+MERGED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:11:5-67
+MERGED from [net.butterflytv.utils:rtmp-client:3.0.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\75a7b7aab05ede3401db07fac3ce3b5b\AndroidManifest.xml:11:5-67
+MERGED from [net.butterflytv.utils:rtmp-client:3.0.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\75a7b7aab05ede3401db07fac3ce3b5b\AndroidManifest.xml:11:5-67
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:31:22-64
+uses-permission#android.permission.FLASHLIGHT
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:32:5-69
+MERGED from [:zXingLiteLib] D:\Project\disabled\zXingLiteLib\build\intermediates\library_manifest\debug\AndroidManifest.xml:12:5-69
+MERGED from [:zXingLiteLib] D:\Project\disabled\zXingLiteLib\build\intermediates\library_manifest\debug\AndroidManifest.xml:12:5-69
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:32:22-66
+uses-permission#android.permission.GET_ACCOUNTS
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:33:5-71
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:33:22-68
+uses-permission#android.permission.READ_PROFILE
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:34:5-71
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:34:22-68
+uses-permission#android.permission.READ_CONTACTS
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:35:5-72
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:35:22-69
+uses-permission#android.permission.SYSTEM_OVERLAY_WINDOW
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:36:5-80
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:36:22-77
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:37:5-80
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:40:5-80
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:40:5-80
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:22:5-80
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:22:5-80
+MERGED from [com.zhihu.android:matisse:0.5.2-beta4] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\aba111eb4d84950d614ae848fa596a48\AndroidManifest.xml:25:5-80
+MERGED from [com.zhihu.android:matisse:0.5.2-beta4] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\aba111eb4d84950d614ae848fa596a48\AndroidManifest.xml:25:5-80
+MERGED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:13:5-80
+MERGED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:13:5-80
+MERGED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:23:5-80
+MERGED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:23:5-80
+MERGED from [com.mabeijianxi:small-video-record2:2.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\264e21592c8a87e79825082f179b041b\AndroidManifest.xml:13:5-80
+MERGED from [com.mabeijianxi:small-video-record2:2.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\264e21592c8a87e79825082f179b041b\AndroidManifest.xml:13:5-80
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:37:22-77
+uses-permission#android.permission.BLUETOOTH
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:38:5-68
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:38:22-65
+uses-permission#android.permission.BLUETOOTH_ADMIN
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:39:5-74
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:39:22-71
+uses-permission#android.permission.MODIFY_AUDIO_SETTINGS
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:40:5-80
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:40:22-77
+uses-permission#android.permission.BROADCAST_STICKY
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:41:5-75
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:41:22-72
+uses-feature#0x00020000
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:43:5-45:35
+	android:glEsVersion
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:44:9-41
+	android:required
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:45:9-32
+permission#com.juntai.tyb.hcb.permission.RECEIVE_MSG
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:47:5-49:47
+	android:protectionLevel
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:49:9-44
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:48:9-65
+uses-permission#com.juntai.dell.hcb.permission.RECEIVE_MSG
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:51:5-82
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:51:22-79
+application
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:53:5-306:19
+MERGED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:11:5-40:19
+MERGED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:11:5-40:19
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:45:5-73:19
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:45:5-73:19
+MERGED from [:module_Base] D:\Project\disabled\module_Base\build\intermediates\library_manifest\debug\AndroidManifest.xml:21:5-22:19
+MERGED from [:module_Base] D:\Project\disabled\module_Base\build\intermediates\library_manifest\debug\AndroidManifest.xml:21:5-22:19
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:37:5-131:19
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:37:5-131:19
+MERGED from [cn.jiguang.sdk:jcore:1.1.9] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\7014bca48e233b3e8d54664229ced56c\AndroidManifest.xml:11:5-12:19
+MERGED from [cn.jiguang.sdk:jcore:1.1.9] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\7014bca48e233b3e8d54664229ced56c\AndroidManifest.xml:11:5-12:19
+MERGED from [:zXingLiteLib] D:\Project\disabled\zXingLiteLib\build\intermediates\library_manifest\debug\AndroidManifest.xml:15:5-16:19
+MERGED from [:zXingLiteLib] D:\Project\disabled\zXingLiteLib\build\intermediates\library_manifest\debug\AndroidManifest.xml:15:5-16:19
+MERGED from [com.android.support:design:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\89550f310a9be941c4345026f7b4ecd9\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:design:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\89550f310a9be941c4345026f7b4ecd9\AndroidManifest.xml:22:5-20
+MERGED from [com.zhihu.android:matisse:0.5.2-beta4] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\aba111eb4d84950d614ae848fa596a48\AndroidManifest.xml:27:5-31:19
+MERGED from [com.zhihu.android:matisse:0.5.2-beta4] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\aba111eb4d84950d614ae848fa596a48\AndroidManifest.xml:27:5-31:19
+MERGED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:19:5-64:19
+MERGED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:19:5-64:19
+MERGED from [com.shuyu:GSYVideoPlayer:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\358c8c2ec089073d59c384d39b5ea77e\AndroidManifest.xml:11:5-15:19
+MERGED from [com.shuyu:GSYVideoPlayer:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\358c8c2ec089073d59c384d39b5ea77e\AndroidManifest.xml:11:5-15:19
+MERGED from [com.shuyu:gsyVideoPlayer-java:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\0438f0453fee5bcfb1247fa693fe0ba6\AndroidManifest.xml:11:5-15:19
+MERGED from [com.shuyu:gsyVideoPlayer-java:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\0438f0453fee5bcfb1247fa693fe0ba6\AndroidManifest.xml:11:5-15:19
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\c95e3b1ba56d7d5b24ae138ee596d054\AndroidManifest.xml:9:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\c95e3b1ba56d7d5b24ae138ee596d054\AndroidManifest.xml:9:5-20
+MERGED from [com.github.bumptech.glide:glide:4.9.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\9462c209a4834240e1d545d3b62909f2\AndroidManifest.xml:10:5-20
+MERGED from [com.github.bumptech.glide:glide:4.9.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\9462c209a4834240e1d545d3b62909f2\AndroidManifest.xml:10:5-20
+MERGED from [com.github.tbruyelle:rxpermissions:0.10.2] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\9aadc0c722289465ad1d3149ee67fa93\AndroidManifest.xml:9:5-20
+MERGED from [com.github.tbruyelle:rxpermissions:0.10.2] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\9aadc0c722289465ad1d3149ee67fa93\AndroidManifest.xml:9:5-20
+MERGED from [com.andkulikov:transitionseverywhere:1.7.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\23f36007de314f60527f04fda5b5114f\AndroidManifest.xml:12:5-20
+MERGED from [com.andkulikov:transitionseverywhere:1.7.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\23f36007de314f60527f04fda5b5114f\AndroidManifest.xml:12:5-20
+MERGED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:26:5-70:19
+MERGED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:26:5-70:19
+MERGED from [tv.danmaku.ijk.media:ijkplayer-exo:0.8.8] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\3c73836ff21e5383cfabc7021c2c1ba2\AndroidManifest.xml:9:5-13:19
+MERGED from [tv.danmaku.ijk.media:ijkplayer-exo:0.8.8] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\3c73836ff21e5383cfabc7021c2c1ba2\AndroidManifest.xml:9:5-13:19
+MERGED from [com.android.support:support-compat:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\5cf8a90b602646d48ce78d1739913800\AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:support-compat:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\5cf8a90b602646d48ce78d1739913800\AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\88a7545b18f95aaf65518c7eab87adbd\AndroidManifest.xml:22:5-23:19
+MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\88a7545b18f95aaf65518c7eab87adbd\AndroidManifest.xml:22:5-23:19
+MERGED from [com.github.bumptech.glide:gifdecoder:4.9.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\858ff898deb62080f069353107a5f7bd\AndroidManifest.xml:9:5-20
+MERGED from [com.github.bumptech.glide:gifdecoder:4.9.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\858ff898deb62080f069353107a5f7bd\AndroidManifest.xml:9:5-20
+MERGED from [com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\171ac8500cd81a05e34e7b5f3a27746a\AndroidManifest.xml:11:5-15:19
+MERGED from [com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\171ac8500cd81a05e34e7b5f3a27746a\AndroidManifest.xml:11:5-15:19
+MERGED from [com.scwang.smartrefresh:SmartRefreshHeader:1.0.5.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\6e4945df5b15fd4c0fa840bfc79d9e57\AndroidManifest.xml:11:5-15:19
+MERGED from [com.scwang.smartrefresh:SmartRefreshHeader:1.0.5.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\6e4945df5b15fd4c0fa840bfc79d9e57\AndroidManifest.xml:11:5-15:19
+MERGED from [com.shuyu:gsyVideoPlayer-armv5:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\cf1ea2b8c219e413cb5a143afed74b58\AndroidManifest.xml:11:5-15:19
+MERGED from [com.shuyu:gsyVideoPlayer-armv5:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\cf1ea2b8c219e413cb5a143afed74b58\AndroidManifest.xml:11:5-15:19
+MERGED from [com.shuyu:gsyVideoPlayer-armv7a:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\e4b262f7ee00b55d6fe64ea270c60a30\AndroidManifest.xml:11:5-15:19
+MERGED from [com.shuyu:gsyVideoPlayer-armv7a:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\e4b262f7ee00b55d6fe64ea270c60a30\AndroidManifest.xml:11:5-15:19
+MERGED from [com.shuyu:gsyVideoPlayer-arm64:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\f926a34c585b2bf214b99847ae6c8026\AndroidManifest.xml:11:5-15:19
+MERGED from [com.shuyu:gsyVideoPlayer-arm64:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\f926a34c585b2bf214b99847ae6c8026\AndroidManifest.xml:11:5-15:19
+MERGED from [com.shuyu:gsyVideoPlayer-x64:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\b4791c27953b775b077df081acb85413\AndroidManifest.xml:11:5-15:19
+MERGED from [com.shuyu:gsyVideoPlayer-x64:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\b4791c27953b775b077df081acb85413\AndroidManifest.xml:11:5-15:19
+MERGED from [com.shuyu:gsyVideoPlayer-x86:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\94b8db31e797ed358a1cc5081e57844c\AndroidManifest.xml:11:5-15:19
+MERGED from [com.shuyu:gsyVideoPlayer-x86:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\94b8db31e797ed358a1cc5081e57844c\AndroidManifest.xml:11:5-15:19
+MERGED from [it.sephiroth.android.library.imagezoom:library:1.0.4] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\bd9ae127f6728e8ac1016963599b77be\AndroidManifest.xml:5:5-19
+MERGED from [it.sephiroth.android.library.imagezoom:library:1.0.4] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\bd9ae127f6728e8ac1016963599b77be\AndroidManifest.xml:5:5-19
+MERGED from [com.squareup.leakcanary:leakcanary-analyzer:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\e3efe996d8425f82b865493b90b7dd4d\AndroidManifest.xml:22:5-20
+MERGED from [com.squareup.leakcanary:leakcanary-analyzer:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\e3efe996d8425f82b865493b90b7dd4d\AndroidManifest.xml:22:5-20
+MERGED from [com.shuyu:gsyvideoplayer-androidvideocache:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ed7f4dcbad8d83b0c5afad384335a5cf\AndroidManifest.xml:11:5-15:19
+MERGED from [com.shuyu:gsyvideoplayer-androidvideocache:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ed7f4dcbad8d83b0c5afad384335a5cf\AndroidManifest.xml:11:5-15:19
+MERGED from [it.sephiroth.android.library.easing:library:1.0.2] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\b499727971cb590bc02738d0ad6b50d3\AndroidManifest.xml:5:5-6:19
+MERGED from [it.sephiroth.android.library.easing:library:1.0.2] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\b499727971cb590bc02738d0ad6b50d3\AndroidManifest.xml:5:5-6:19
+	android:appComponentFactory
+		ADDED from [com.android.support:support-compat:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\5cf8a90b602646d48ce78d1739913800\AndroidManifest.xml:22:18-91
+	android:supportsRtl
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:60:9-35
+	android:label
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:57:9-41
+	tools:ignore
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:62:9-48
+	android:roundIcon
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:59:9-47
+	android:largeHeap
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:58:9-33
+	android:icon
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:56:9-42
+	android:allowBackup
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:55:9-35
+	android:networkSecurityConfig
+		ADDED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:45:18-78
+	android:theme
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:61:9-40
+	android:usesCleartextTraffic
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:22:9-44
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:54:9-52
+activity#com.juntai.tyb.mine.myMsg.MyMsgActivity
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:63:9-85
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:63:19-73
+activity#com.juntai.tyb.mine.MyBaseInfoActivity
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:64:9-75
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:64:19-72
+activity#com.juntai.tyb.homePage.healthOrganize.HealthOrganizeActivity
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:65:9-98
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:65:19-95
+activity#com.juntai.tyb.mine.about.UserProtocalActivity
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:66:9-83
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:66:19-80
+activity#com.juntai.tyb.mine.about.AboutUsActivity
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:67:9-78
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:67:19-75
+activity#com.juntai.tyb.mine.serviceRecord.ServiceRecordActivity
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:68:9-92
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:68:19-89
+activity#com.juntai.tyb.homePage.careTaker.addCareTaker.AddCareRecordActivity
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:69:9-105
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:69:19-102
+activity#com.juntai.tyb.homePage.careTaker.careInfo.CareInfoMoreActivity
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:70:9-100
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:70:19-97
+activity#com.juntai.tyb.homePage.careTaker.careInfo.CareTakerInfoActivity
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:71:9-73:46
+	android:launchMode
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:73:13-43
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:72:13-92
+activity#com.juntai.tyb.homePage.careTaker.addCareTaker.AddCareTakerActivity
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:74:9-76:46
+	android:launchMode
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:76:13-43
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:75:13-95
+uses-library#org.apache.http.legacy
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:78:9-80:40
+MERGED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:37:9-39:40
+MERGED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:37:9-39:40
+	android:required
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:80:13-37
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:79:13-50
+meta-data#com.netease.nim.appKey
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:82:9-84:64
+	android:value
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:84:13-61
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:83:13-50
+meta-data#RONG_CLOUD_APP_KEY
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:85:9-87:45
+	android:value
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:87:13-42
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:86:13-46
+activity#com.juntai.tyb.login.SplashActivity
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:98:9-106:20
+	android:theme
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:100:13-51
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:99:13-63
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:101:13-105:29
+action#android.intent.action.MAIN
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:102:17-69
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:102:25-66
+category#android.intent.category.LAUNCHER
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:104:17-77
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:104:27-74
+activity#com.juntai.tyb.MainActivity
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:107:9-110:73
+	android:launchMode
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:109:13-44
+	android:windowSoftInputMode
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:110:13-70
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:108:13-55
+meta-data#com.baidu.lbsapi.API_KEY
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:112:9-114:64
+	android:value
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:114:13-61
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:113:13-52
+service#cn.jpush.android.service.DaemonService
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:116:9-125:19
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:75:9-84:19
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:75:9-84:19
+	android:enabled
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:118:13-35
+	android:exported
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:119:13-36
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:117:13-66
+intent-filter#action:name:cn.jpush.android.intent.DaemonService+category:name:com.juntai.dell.hcb
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:120:13-124:29
+action#cn.jpush.android.intent.DaemonService
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:121:17-80
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:121:25-77
+category#com.juntai.dell.hcb
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:123:17-64
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:123:27-61
+service#com.baidu.location.f
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:126:9-129:41
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:51:9-54:41
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:51:9-54:41
+	android:process
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:129:13-38
+	android:enabled
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:128:13-35
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:127:13-48
+activity#com.juntai.tyb.login.LoginActivity
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:131:9-135:58
+	android:label
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:133:13-57
+	android:launchMode
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:134:13-44
+	android:windowSoftInputMode
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:135:13-55
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:132:13-62
+activity#cn.jpush.android.ui.PushActivity
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:136:9-148:20
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:46:9-57:20
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:46:9-57:20
+	android:launchMode
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:140:13-44
+	android:exported
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:139:13-37
+	android:configChanges
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:138:13-63
+	android:theme
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:141:13-60
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:137:13-60
+intent-filter#action:name:cn.jpush.android.ui.PushActivity+category:name:android.intent.category.DEFAULT+category:name:com.juntai.dell.hcb
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:142:13-147:29
+action#cn.jpush.android.ui.PushActivity
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:143:17-75
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:143:25-72
+category#android.intent.category.DEFAULT
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:145:17-76
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:145:27-73
+service#cn.jpush.android.service.PushService
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:150:9-162:19
+REJECTED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:60:9-71:19
+	tools:node
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:154:13-33
+	android:process
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:153:13-44
+	android:exported
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:152:13-37
+	tools:replace
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:155:13-44
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:151:13-64
+intent-filter#action:name:cn.jpush.android.intent.PUSH_TIME+action:name:cn.jpush.android.intent.PushService+action:name:cn.jpush.android.intent.REGISTER+action:name:cn.jpush.android.intent.REPORT
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:156:13-161:29
+action#cn.jpush.android.intent.REGISTER
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:157:17-75
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:157:25-72
+action#cn.jpush.android.intent.REPORT
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:158:17-73
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:158:25-70
+action#cn.jpush.android.intent.PushService
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:159:17-78
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:159:25-75
+action#cn.jpush.android.intent.PUSH_TIME
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:160:17-76
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:160:25-73
+provider#cn.jpush.android.service.DataProvider
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:163:9-167:51
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:113:9-116:40
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:113:9-116:40
+	android:authorities
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:165:13-66
+		REJECTED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:115:13-64
+	android:exported
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:166:13-37
+	tools:replace
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:167:13-48
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:164:13-65
+provider#cn.jpush.android.service.DownloadProvider
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:170:9-174:51
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:118:9-121:39
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:118:9-121:39
+	android:authorities
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:172:13-70
+		REJECTED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:120:13-68
+	android:exported
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:173:13-36
+	tools:replace
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:174:13-48
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:171:13-69
+receiver#cn.jpush.android.service.PushReceiver
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:175:9-194:20
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:87:9-106:20
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:87:9-106:20
+	android:enabled
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:177:13-35
+	android:exported
+		ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:90:13-37
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:176:13-65
+intent-filter#action:name:cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY+category:name:com.juntai.dell.hcb
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:178:13-182:29
+	android:priority
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:178:28-51
+action#cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:179:17-94
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:179:25-91
+intent-filter#action:name:android.intent.action.USER_PRESENT+action:name:android.net.conn.CONNECTIVITY_CHANGE
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:183:13-186:29
+action#android.intent.action.USER_PRESENT
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:184:17-77
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:184:25-74
+action#android.net.conn.CONNECTIVITY_CHANGE
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:185:17-79
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:185:25-76
+intent-filter#action:name:android.intent.action.PACKAGE_ADDED+action:name:android.intent.action.PACKAGE_REMOVED+data:scheme:package
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:188:13-193:29
+action#android.intent.action.PACKAGE_ADDED
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:189:17-78
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:189:25-75
+action#android.intent.action.PACKAGE_REMOVED
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:190:17-80
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:190:25-77
+data
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:192:17-50
+	android:scheme
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:192:23-47
+meta-data#JPUSH_CHANNEL
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:204:9-206:49
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:124:9-126:48
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:124:9-126:48
+	android:value
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:206:13-46
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:205:13-41
+receiver#cn.jpush.android.service.AlarmReceiver
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:207:9-209:38
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:109:9-111:40
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:109:9-111:40
+	android:enabled
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:209:13-35
+	android:exported
+		ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:111:13-37
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:208:13-66
+activity#com.juntai.tyb.homePage.olderCareData.CareInfoActivity
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:240:9-242:47
+	android:launchMode
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:242:13-44
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:241:13-82
+activity#com.juntai.tyb.homePage.olderCareData.CareDetailActivity
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:243:9-245:47
+	android:launchMode
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:245:13-44
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:244:13-84
+activity#com.juntai.tyb.homePage.careTaker.careInfo.CareRecordDetailActivity
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:246:9-248:47
+	android:launchMode
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:248:13-44
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:247:13-95
+activity#com.juntai.tyb.base.BaseAppActivity
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:249:9-253:59
+	android:label
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:251:13-56
+	android:launchMode
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:252:13-44
+	android:theme
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:253:13-56
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:250:13-63
+activity#com.juntai.tyb.homePage.weather.WeatherActivity
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:288:9-290:55
+	android:theme
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:290:13-52
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:289:13-75
+activity#com.juntai.tyb.homePage.weather.SelectLocationForWeatherActivity
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:291:9-293:46
+	android:launchMode
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:293:13-43
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:292:13-92
+activity#com.juntai.tyb.homePage.search.SearchActivity
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:294:9-296:64
+	android:windowSoftInputMode
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:296:13-61
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:295:13-73
+activity#com.juntai.tyb.homePage.camera.ijkplayer.PlayerLiveActivity
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:297:9-301:16
+	android:launchMode
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:300:13-44
+	android:configChanges
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:299:13-74
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:298:13-87
+service#com.juntai.tyb.homePage.camera.ijkplayer.KeepAliveService
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:303:9-93
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:303:18-90
+activity#com.juntai.tyb.homePage.camera.ijkplayer.StreamCameraFullScreenActivity
+ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:305:9-108
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml:305:19-105
+uses-sdk
+INJECTED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml
+INJECTED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml
+MERGED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:module_Base] D:\Project\disabled\module_Base\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:module_Base] D:\Project\disabled\module_Base\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:multidex:1.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\34d35c13e7775f38fa7e7e360d8cfd4e\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:multidex:1.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\34d35c13e7775f38fa7e7e360d8cfd4e\AndroidManifest.xml:20:5-43
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:7:5-9:41
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:7:5-9:41
+MERGED from [cn.jiguang.sdk:jcore:1.1.9] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\7014bca48e233b3e8d54664229ced56c\AndroidManifest.xml:7:5-9:41
+MERGED from [cn.jiguang.sdk:jcore:1.1.9] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\7014bca48e233b3e8d54664229ced56c\AndroidManifest.xml:7:5-9:41
+MERGED from [:zXingLiteLib] D:\Project\disabled\zXingLiteLib\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:zXingLiteLib] D:\Project\disabled\zXingLiteLib\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:design:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\89550f310a9be941c4345026f7b4ecd9\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:design:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\89550f310a9be941c4345026f7b4ecd9\AndroidManifest.xml:20:5-44
+MERGED from [com.trello.rxlifecycle2:rxlifecycle-components:2.2.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\b0c63c7c1ed3aac622485383a549e51f\AndroidManifest.xml:17:5-44
+MERGED from [com.trello.rxlifecycle2:rxlifecycle-components:2.2.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\b0c63c7c1ed3aac622485383a549e51f\AndroidManifest.xml:17:5-44
+MERGED from [com.github.GrenderG:Toasty:1.4.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\46a9c91f284fd56dec7456b97d6fbc4e\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.GrenderG:Toasty:1.4.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\46a9c91f284fd56dec7456b97d6fbc4e\AndroidManifest.xml:7:5-9:41
+MERGED from [com.gyf.immersionbar:immersionbar:2.3.2-beta01] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\29d057bc7c52589d55b273adb377dbf6\AndroidManifest.xml:8:5-10:41
+MERGED from [com.gyf.immersionbar:immersionbar:2.3.2-beta01] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\29d057bc7c52589d55b273adb377dbf6\AndroidManifest.xml:8:5-10:41
+MERGED from [com.zhihu.android:matisse:0.5.2-beta4] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\aba111eb4d84950d614ae848fa596a48\AndroidManifest.xml:20:5-22:41
+MERGED from [com.zhihu.android:matisse:0.5.2-beta4] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\aba111eb4d84950d614ae848fa596a48\AndroidManifest.xml:20:5-22:41
+MERGED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:7:5-9:41
+MERGED from [com.shuyu:GSYVideoPlayer:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\358c8c2ec089073d59c384d39b5ea77e\AndroidManifest.xml:7:5-9:41
+MERGED from [com.shuyu:GSYVideoPlayer:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\358c8c2ec089073d59c384d39b5ea77e\AndroidManifest.xml:7:5-9:41
+MERGED from [com.shuyu:gsyVideoPlayer-java:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\0438f0453fee5bcfb1247fa693fe0ba6\AndroidManifest.xml:7:5-9:41
+MERGED from [com.shuyu:gsyVideoPlayer-java:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\0438f0453fee5bcfb1247fa693fe0ba6\AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:appcompat-v7:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\10855adcaccbd1a86962351a641341ba\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\10855adcaccbd1a86962351a641341ba\AndroidManifest.xml:20:5-44
+MERGED from [com.github.chrisbanes.photoview:library:1.2.4] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\561a5a14788d95f3529b3171a4701a61\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.chrisbanes.photoview:library:1.2.4] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\561a5a14788d95f3529b3171a4701a61\AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\c95e3b1ba56d7d5b24ae138ee596d054\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\c95e3b1ba56d7d5b24ae138ee596d054\AndroidManifest.xml:5:5-7:41
+MERGED from [:banner] D:\Project\disabled\banner\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:banner] D:\Project\disabled\banner\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.bumptech.glide:glide:4.9.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\9462c209a4834240e1d545d3b62909f2\AndroidManifest.xml:6:5-8:41
+MERGED from [com.github.bumptech.glide:glide:4.9.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\9462c209a4834240e1d545d3b62909f2\AndroidManifest.xml:6:5-8:41
+MERGED from [com.github.tbruyelle:rxpermissions:0.10.2] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\9aadc0c722289465ad1d3149ee67fa93\AndroidManifest.xml:5:5-7:41
+MERGED from [com.github.tbruyelle:rxpermissions:0.10.2] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\9aadc0c722289465ad1d3149ee67fa93\AndroidManifest.xml:5:5-7:41
+MERGED from [com.andkulikov:transitionseverywhere:1.7.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\23f36007de314f60527f04fda5b5114f\AndroidManifest.xml:8:5-10:41
+MERGED from [com.andkulikov:transitionseverywhere:1.7.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\23f36007de314f60527f04fda5b5114f\AndroidManifest.xml:8:5-10:41
+MERGED from [com.android.support:support-v4:27.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\50478381492e4c30768b24ba996aadc0\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:27.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\50478381492e4c30768b24ba996aadc0\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\c0d55943de577eb415446fef3ef6a840\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\c0d55943de577eb415446fef3ef6a840\AndroidManifest.xml:20:5-44
+MERGED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:20:5-44
+MERGED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\18d8873d9b7978a6e7315afe35e9522f\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\18d8873d9b7978a6e7315afe35e9522f\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\f12f78811e7767e4d10058a1fbfb0957\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\f12f78811e7767e4d10058a1fbfb0957\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\e05f950a9539464f3f49b7b3181bf3e1\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\e05f950a9539464f3f49b7b3181bf3e1\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\db750840bd9fad9bbfe0fb7373de2e81\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\db750840bd9fad9bbfe0fb7373de2e81\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fca693a6d098fa7db55d5d0b96fbca13\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fca693a6d098fa7db55d5d0b96fbca13\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\9c7dc511f30066461b56dc6a8ba1103b\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\9c7dc511f30066461b56dc6a8ba1103b\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\1d757e0a859353f0dd85bcbcd786983d\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\1d757e0a859353f0dd85bcbcd786983d\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\5ce8fa4301d661551beeca531e13f620\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\5ce8fa4301d661551beeca531e13f620\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\4876c20fb50b6065f051d6d30ed750eb\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\4876c20fb50b6065f051d6d30ed750eb\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ca95c4af0e90124bd88d20b41d2843fa\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ca95c4af0e90124bd88d20b41d2843fa\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\211960b56ad2b63f38aa809e5229ee4b\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\211960b56ad2b63f38aa809e5229ee4b\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fe319509e0f5a07ea27babbbb9846445\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fe319509e0f5a07ea27babbbb9846445\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\05a1452d2e68b0f3997a9639e0252f9e\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\05a1452d2e68b0f3997a9639e0252f9e\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\aa068bebb84738fc364a1976ba6a81fa\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\aa068bebb84738fc364a1976ba6a81fa\AndroidManifest.xml:20:5-44
+MERGED from [com.shuyu:GSYVideoPlayer-exo2:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\b9c9d8403e817d398e1be82dfabecd7f\AndroidManifest.xml:7:5-9:41
+MERGED from [com.shuyu:GSYVideoPlayer-exo2:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\b9c9d8403e817d398e1be82dfabecd7f\AndroidManifest.xml:7:5-9:41
+MERGED from [tv.danmaku.ijk.media:ijkplayer-exo:0.8.8] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\3c73836ff21e5383cfabc7021c2c1ba2\AndroidManifest.xml:5:5-7:41
+MERGED from [tv.danmaku.ijk.media:ijkplayer-exo:0.8.8] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\3c73836ff21e5383cfabc7021c2c1ba2\AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.android.exoplayer:exoplayer:2.9.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\9512e52ddc79bbdcf202afaf808ad997\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer:2.9.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\9512e52ddc79bbdcf202afaf808ad997\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-ui:2.9.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\52735cd5665c569975b02f9913982c83\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-ui:2.9.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\52735cd5665c569975b02f9913982c83\AndroidManifest.xml:20:5-22:41
+MERGED from [com.android.support:support-media-compat:27.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ee75dcc806fb5a7f1d97ca9347f951f3\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ee75dcc806fb5a7f1d97ca9347f951f3\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\5cf8a90b602646d48ce78d1739913800\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\5cf8a90b602646d48ce78d1739913800\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\88a7545b18f95aaf65518c7eab87adbd\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\88a7545b18f95aaf65518c7eab87adbd\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\d76828af7befa31a63ebb103560edd20\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\d76828af7befa31a63ebb103560edd20\AndroidManifest.xml:20:5-44
+MERGED from [com.trello.rxlifecycle2:rxlifecycle-android:2.2.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\18e66f3c0036695be1225fb06d3ec24a\AndroidManifest.xml:17:5-44
+MERGED from [com.trello.rxlifecycle2:rxlifecycle-android:2.2.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\18e66f3c0036695be1225fb06d3ec24a\AndroidManifest.xml:17:5-44
+MERGED from [com.orhanobut:logger:2.2.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\4192a170c4d2922e58b3ad936647ad7c\AndroidManifest.xml:6:5-43
+MERGED from [com.orhanobut:logger:2.2.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\4192a170c4d2922e58b3ad936647ad7c\AndroidManifest.xml:6:5-43
+MERGED from [com.contrarywind:Android-PickerView:4.1.8] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\c72219d44dbde80cfc97bbfac3829a07\AndroidManifest.xml:7:5-9:41
+MERGED from [com.contrarywind:Android-PickerView:4.1.8] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\c72219d44dbde80cfc97bbfac3829a07\AndroidManifest.xml:7:5-9:41
+MERGED from [android.arch.lifecycle:runtime:1.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ee8b4e95ea3c05e66c806072ba2b403b\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ee8b4e95ea3c05e66c806072ba2b403b\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\a4c9fe9ee9ad230d5579c788d8df3641\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\a4c9fe9ee9ad230d5579c788d8df3641\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\6375c75bd957a120642cc455f4603274\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\6375c75bd957a120642cc455f4603274\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ece6522757318ac508690f87a83a82b2\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ece6522757318ac508690f87a83a82b2\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\c459c5a8c2b1bb4970a904c409b39617\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\c459c5a8c2b1bb4970a904c409b39617\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\844135eb27614362f2b415d7561011fa\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\844135eb27614362f2b415d7561011fa\AndroidManifest.xml:20:5-44
+MERGED from [com.github.bumptech.glide:gifdecoder:4.9.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\858ff898deb62080f069353107a5f7bd\AndroidManifest.xml:5:5-7:41
+MERGED from [com.github.bumptech.glide:gifdecoder:4.9.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\858ff898deb62080f069353107a5f7bd\AndroidManifest.xml:5:5-7:41
+MERGED from [com.contrarywind:wheelview:4.0.9] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\2ab3e43cec54ccd498aed237813be4d9\AndroidManifest.xml:7:5-9:41
+MERGED from [com.contrarywind:wheelview:4.0.9] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\2ab3e43cec54ccd498aed237813be4d9\AndroidManifest.xml:7:5-9:41
+MERGED from [android.arch.lifecycle:livedata:1.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\e2a2b7cd4d5998a5a089c0fe09664221\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\e2a2b7cd4d5998a5a089c0fe09664221\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\5efb7ff21f959a819759bdd59b4715a7\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\5efb7ff21f959a819759bdd59b4715a7\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\60f285f32638d3fcf9de2182bcb6e8de\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\60f285f32638d3fcf9de2182bcb6e8de\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\b2c8f1bfdd25a617acf1db597c7fb4ec\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\b2c8f1bfdd25a617acf1db597c7fb4ec\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.exoplayer:extension-rtmp:2.9.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\f2d7d7c318c3fc8277d2b4eb312c1a62\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:extension-rtmp:2.9.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\f2d7d7c318c3fc8277d2b4eb312c1a62\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-dash:2.9.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\aab569f34ad6dba94305f2f87b9d70aa\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-dash:2.9.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\aab569f34ad6dba94305f2f87b9d70aa\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-hls:2.9.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae68b19f919edd003adc9ac60182976d\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-hls:2.9.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae68b19f919edd003adc9ac60182976d\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-smoothstreaming:2.9.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\c354245531900c4a1e59e2f11941b626\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-smoothstreaming:2.9.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\c354245531900c4a1e59e2f11941b626\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-core:2.9.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\0a19262804785f96a40a4235b2a7e2cd\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-core:2.9.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\0a19262804785f96a40a4235b2a7e2cd\AndroidManifest.xml:20:5-22:41
+MERGED from [com.mabeijianxi:small-video-record2:2.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\264e21592c8a87e79825082f179b041b\AndroidManifest.xml:7:5-9:41
+MERGED from [com.mabeijianxi:small-video-record2:2.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\264e21592c8a87e79825082f179b041b\AndroidManifest.xml:7:5-9:41
+MERGED from [com.orhanobut:hawk:2.0.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\7b888fa3fbeb638a2a32eebc857296ed\AndroidManifest.xml:6:5-44
+MERGED from [com.orhanobut:hawk:2.0.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\7b888fa3fbeb638a2a32eebc857296ed\AndroidManifest.xml:6:5-44
+MERGED from [io.reactivex.rxjava2:rxandroid:2.1.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\2d11c9a0cb77daa21e4e0a18c90c5633\AndroidManifest.xml:18:5-43
+MERGED from [io.reactivex.rxjava2:rxandroid:2.1.0] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\2d11c9a0cb77daa21e4e0a18c90c5633\AndroidManifest.xml:18:5-43
+MERGED from [com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\da3a6987e588abe72ce5a37ebabb2384\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\da3a6987e588abe72ce5a37ebabb2384\AndroidManifest.xml:7:5-9:41
+MERGED from [top.zibin:Luban:1.1.8] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\390a9348f6a44398b3d27660ffb4fa5b\AndroidManifest.xml:7:5-9:41
+MERGED from [top.zibin:Luban:1.1.8] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\390a9348f6a44398b3d27660ffb4fa5b\AndroidManifest.xml:7:5-9:41
+MERGED from [com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\171ac8500cd81a05e34e7b5f3a27746a\AndroidManifest.xml:7:5-9:41
+MERGED from [com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\171ac8500cd81a05e34e7b5f3a27746a\AndroidManifest.xml:7:5-9:41
+MERGED from [com.scwang.smartrefresh:SmartRefreshHeader:1.0.5.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\6e4945df5b15fd4c0fa840bfc79d9e57\AndroidManifest.xml:7:5-9:41
+MERGED from [com.scwang.smartrefresh:SmartRefreshHeader:1.0.5.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\6e4945df5b15fd4c0fa840bfc79d9e57\AndroidManifest.xml:7:5-9:41
+MERGED from [com.shuyu:gsyVideoPlayer-armv5:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\cf1ea2b8c219e413cb5a143afed74b58\AndroidManifest.xml:7:5-9:41
+MERGED from [com.shuyu:gsyVideoPlayer-armv5:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\cf1ea2b8c219e413cb5a143afed74b58\AndroidManifest.xml:7:5-9:41
+MERGED from [com.shuyu:gsyVideoPlayer-armv7a:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\e4b262f7ee00b55d6fe64ea270c60a30\AndroidManifest.xml:7:5-9:41
+MERGED from [com.shuyu:gsyVideoPlayer-armv7a:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\e4b262f7ee00b55d6fe64ea270c60a30\AndroidManifest.xml:7:5-9:41
+MERGED from [com.shuyu:gsyVideoPlayer-arm64:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\f926a34c585b2bf214b99847ae6c8026\AndroidManifest.xml:7:5-9:41
+MERGED from [com.shuyu:gsyVideoPlayer-arm64:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\f926a34c585b2bf214b99847ae6c8026\AndroidManifest.xml:7:5-9:41
+MERGED from [com.shuyu:gsyVideoPlayer-x64:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\b4791c27953b775b077df081acb85413\AndroidManifest.xml:7:5-9:41
+MERGED from [com.shuyu:gsyVideoPlayer-x64:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\b4791c27953b775b077df081acb85413\AndroidManifest.xml:7:5-9:41
+MERGED from [com.shuyu:gsyVideoPlayer-x86:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\94b8db31e797ed358a1cc5081e57844c\AndroidManifest.xml:7:5-9:41
+MERGED from [com.shuyu:gsyVideoPlayer-x86:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\94b8db31e797ed358a1cc5081e57844c\AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.conceal:conceal:1.1.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\6289746c5941f4c9f31894b667bf82b4\AndroidManifest.xml:12:5-14:41
+MERGED from [com.facebook.conceal:conceal:1.1.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\6289746c5941f4c9f31894b667bf82b4\AndroidManifest.xml:12:5-14:41
+MERGED from [it.sephiroth.android.library.imagezoom:library:1.0.4] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\bd9ae127f6728e8ac1016963599b77be\AndroidManifest.xml:3:5-72
+MERGED from [it.sephiroth.android.library.imagezoom:library:1.0.4] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\bd9ae127f6728e8ac1016963599b77be\AndroidManifest.xml:3:5-72
+MERGED from [com.squareup.leakcanary:leakcanary-analyzer:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\e3efe996d8425f82b865493b90b7dd4d\AndroidManifest.xml:20:5-44
+MERGED from [com.squareup.leakcanary:leakcanary-analyzer:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\e3efe996d8425f82b865493b90b7dd4d\AndroidManifest.xml:20:5-44
+MERGED from [com.shuyu:gsyVideoPlayer-base:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\f61f3db180139067c31fcbc6519b3994\AndroidManifest.xml:7:5-9:41
+MERGED from [com.shuyu:gsyVideoPlayer-base:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\f61f3db180139067c31fcbc6519b3994\AndroidManifest.xml:7:5-9:41
+MERGED from [tv.danmaku.ijk.media:ijkplayer-java:0.8.8] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\17e2a1217deb8dc73681039f128962ac\AndroidManifest.xml:5:5-7:41
+MERGED from [tv.danmaku.ijk.media:ijkplayer-java:0.8.8] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\17e2a1217deb8dc73681039f128962ac\AndroidManifest.xml:5:5-7:41
+MERGED from [com.shuyu:gsyvideoplayer-androidvideocache:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ed7f4dcbad8d83b0c5afad384335a5cf\AndroidManifest.xml:7:5-9:41
+MERGED from [com.shuyu:gsyvideoplayer-androidvideocache:6.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ed7f4dcbad8d83b0c5afad384335a5cf\AndroidManifest.xml:7:5-9:41
+MERGED from [it.sephiroth.android.library.easing:library:1.0.2] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\b499727971cb590bc02738d0ad6b50d3\AndroidManifest.xml:3:5-72
+MERGED from [it.sephiroth.android.library.easing:library:1.0.2] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\b499727971cb590bc02738d0ad6b50d3\AndroidManifest.xml:3:5-72
+MERGED from [net.butterflytv.utils:rtmp-client:3.0.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\75a7b7aab05ede3401db07fac3ce3b5b\AndroidManifest.xml:7:5-9:41
+MERGED from [net.butterflytv.utils:rtmp-client:3.0.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\75a7b7aab05ede3401db07fac3ce3b5b\AndroidManifest.xml:7:5-9:41
+INJECTED from D:\Project\disabled\appTuoyb\src\debug\AndroidManifest.xml
+INJECTED from D:\Project\disabled\appTuoyb\src\debug\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml
+		INJECTED from D:\Project\disabled\appTuoyb\src\debug\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\Project\disabled\appTuoyb\src\main\AndroidManifest.xml
+		INJECTED from D:\Project\disabled\appTuoyb\src\debug\AndroidManifest.xml
+uses-permission#android.permission.ACCESS_MOCK_LOCATION
+ADDED from D:\Project\disabled\appTuoyb\src\debug\AndroidManifest.xml:4:5-5:47
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:42:5-79
+MERGED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:42:5-79
+	tools:ignore
+		ADDED from D:\Project\disabled\appTuoyb\src\debug\AndroidManifest.xml:5:9-44
+	android:name
+		ADDED from D:\Project\disabled\appTuoyb\src\debug\AndroidManifest.xml:4:22-76
+activity#com.juntai.disabled.video.player.DronePlayer
+ADDED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:12:9-16:52
+	android:screenOrientation
+		ADDED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:16:13-49
+	android:launchMode
+		ADDED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:15:13-43
+	android:configChanges
+		ADDED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-74
+	android:name
+		ADDED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-72
+activity#com.mabeijianxi.smallvideorecord2.MediaRecorderActivity
+ADDED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:18:9-21:54
+	android:launchMode
+		ADDED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:20:13-43
+	android:theme
+		ADDED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:21:13-51
+	android:name
+		ADDED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:19:13-83
+activity#com.juntai.disabled.video.record.VideoPreviewActivity
+ADDED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:22:9-24:46
+	android:launchMode
+		ADDED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:24:13-43
+	android:name
+		ADDED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:23:13-81
+activity#com.juntai.disabled.video.player.PlayerActivity
+ADDED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:25:9-29:52
+	android:screenOrientation
+		ADDED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:29:13-49
+	android:launchMode
+		ADDED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:28:13-43
+	android:configChanges
+		ADDED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:27:13-74
+	android:name
+		ADDED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:26:13-75
+activity#com.juntai.disabled.video.img.ImageZoomActivity
+ADDED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:30:9-32:46
+	android:launchMode
+		ADDED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:32:13-43
+	android:name
+		ADDED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:31:13-75
+activity#com.juntai.disabled.video.record.SendSmallVideoActivity2
+ADDED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:33:9-35:46
+	android:launchMode
+		ADDED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:35:13-43
+	android:name
+		ADDED from [:module_Video] D:\Project\disabled\module_Video\build\intermediates\library_manifest\debug\AndroidManifest.xml:34:13-84
+uses-permission#android.permission.MOUNT_UNMOUNT_FILESYSTEMS
+ADDED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:26:5-84
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:25:5-84
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:25:5-84
+MERGED from [com.mabeijianxi:small-video-record2:2.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\264e21592c8a87e79825082f179b041b\AndroidManifest.xml:14:5-84
+MERGED from [com.mabeijianxi:small-video-record2:2.0.3] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\264e21592c8a87e79825082f179b041b\AndroidManifest.xml:14:5-84
+	android:name
+		ADDED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:26:22-81
+uses-permission#android.permission.READ_LOGS
+ADDED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:28:5-68
+MERGED from [:module_Base] D:\Project\disabled\module_Base\build\intermediates\library_manifest\debug\AndroidManifest.xml:15:5-68
+MERGED from [:module_Base] D:\Project\disabled\module_Base\build\intermediates\library_manifest\debug\AndroidManifest.xml:15:5-68
+	android:name
+		ADDED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:28:22-65
+uses-permission#android.permission.WRITE_SETTINGS
+ADDED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:34:5-73
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:23:5-73
+MERGED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:23:5-73
+	android:name
+		ADDED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:34:22-70
+uses-permission#android.permission.FOREGROUND_SERVICE
+ADDED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:36:5-77
+MERGED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:17:5-77
+MERGED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:17:5-77
+	android:name
+		ADDED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:36:22-74
+uses-permission#android.permission.ACCESS_BACKGROUND_LOCATION
+ADDED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:43:5-85
+	android:name
+		ADDED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:43:22-82
+service#com.juntai.disabled.bdmap.service.LocateAndUpload
+ADDED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:46:9-50:39
+	android:enabled
+		ADDED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:48:13-35
+	android:exported
+		ADDED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:49:13-36
+	android:priority
+		ADDED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:50:13-36
+	android:name
+		ADDED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:47:13-77
+activity#com.juntai.disabled.bdmap.act.LocateSelectionActivity
+ADDED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:56:9-62:20
+	android:name
+		ADDED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:56:19-87
+intent-filter#action:name:${applicationId}.im.location.seltion+category:name:android.intent.category.DEFAULT
+ADDED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:57:13-61:29
+intent-filter#action:name:com.juntai.tyb.im.location.seltion+category:name:android.intent.category.DEFAULT
+ADDED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:57:13-61:29
+action#${applicationId}.im.location.seltion
+ADDED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:58:17-79
+	android:name
+		ADDED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:58:25-76
+action#com.juntai.tyb.im.location.seltion
+ADDED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:58:17-79
+	android:name
+		ADDED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:58:25-76
+activity#com.juntai.disabled.bdmap.act.LocationSeltionActivity
+ADDED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:64:9-70:20
+	android:name
+		ADDED from [:module_Map] D:\Project\disabled\module_Map\build\intermediates\library_manifest\debug\AndroidManifest.xml:64:19-87
+uses-permission#com.huawei.android.launcher.permission.CHANGE_BADGE
+ADDED from [:module_Base] D:\Project\disabled\module_Base\build\intermediates\library_manifest\debug\AndroidManifest.xml:16:5-91
+	android:name
+		ADDED from [:module_Base] D:\Project\disabled\module_Base\build\intermediates\library_manifest\debug\AndroidManifest.xml:16:22-88
+permission#${JPUSH_PKGNAME}.permission.JPUSH_MESSAGE
+ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:11:5-13:47
+	android:protectionLevel
+		ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:13:9-44
+	android:name
+		ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:12:9-65
+permission#com.juntai.tyb.hcb.permission.JPUSH_MESSAGE
+ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:11:5-13:47
+	android:protectionLevel
+		ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:13:9-44
+	android:name
+		ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:12:9-65
+uses-permission#${JPUSH_PKGNAME}.permission.JPUSH_MESSAGE
+ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:16:5-81
+	android:name
+		ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:16:22-78
+uses-permission#com.juntai.tyb.hcb.permission.JPUSH_MESSAGE
+ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:16:5-81
+	android:name
+		ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:16:22-78
+activity#cn.jpush.android.ui.PopWinActivity
+ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:40:9-43:52
+	android:exported
+		ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:42:13-37
+	android:theme
+		ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:43:13-49
+	android:name
+		ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:41:13-62
+intent-filter#action:name:cn.jpush.android.ui.PushActivity+category:name:${JPUSH_PKGNAME}+category:name:android.intent.category.DEFAULT
+ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:51:13-56:29
+intent-filter#action:name:cn.jpush.android.ui.PushActivity+category:name:android.intent.category.DEFAULT+category:name:com.juntai.tyb.hcb
+ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:51:13-56:29
+category#${JPUSH_PKGNAME}
+ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:55:17-61
+	android:name
+		ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:55:27-58
+category#com.juntai.tyb.hcb
+ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:55:17-61
+	android:name
+		ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:55:27-58
+intent-filter#action:name:cn.jpush.android.intent.DaemonService+category:name:${JPUSH_PKGNAME}
+ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:79:13-83:29
+intent-filter#action:name:cn.jpush.android.intent.DaemonService+category:name:com.juntai.tyb.hcb
+ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:79:13-83:29
+intent-filter#action:name:cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY+category:name:${JPUSH_PKGNAME}
+ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:91:13-94:29
+	android:priority
+		ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:91:28-51
+intent-filter#action:name:cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY+category:name:com.juntai.tyb.hcb
+ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:91:13-94:29
+	android:priority
+		ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:91:28-51
+meta-data#JPUSH_APPKEY
+ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:127:9-129:47
+	android:value
+		ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:129:13-44
+	android:name
+		ADDED from [cn.jiguang.sdk:jpush:3.1.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\fa43061da2796316c64908e4176b84e9\AndroidManifest.xml:128:13-40
+activity#com.zhihu.matisse.ui.MatisseActivity
+ADDED from [com.zhihu.android:matisse:0.5.2-beta4] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\aba111eb4d84950d614ae848fa596a48\AndroidManifest.xml:28:9-73
+	android:name
+		ADDED from [com.zhihu.android:matisse:0.5.2-beta4] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\aba111eb4d84950d614ae848fa596a48\AndroidManifest.xml:28:19-70
+activity#com.zhihu.matisse.internal.ui.AlbumPreviewActivity
+ADDED from [com.zhihu.android:matisse:0.5.2-beta4] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\aba111eb4d84950d614ae848fa596a48\AndroidManifest.xml:29:9-87
+	android:name
+		ADDED from [com.zhihu.android:matisse:0.5.2-beta4] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\aba111eb4d84950d614ae848fa596a48\AndroidManifest.xml:29:19-84
+activity#com.zhihu.matisse.internal.ui.SelectedPreviewActivity
+ADDED from [com.zhihu.android:matisse:0.5.2-beta4] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\aba111eb4d84950d614ae848fa596a48\AndroidManifest.xml:30:9-90
+	android:name
+		ADDED from [com.zhihu.android:matisse:0.5.2-beta4] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\aba111eb4d84950d614ae848fa596a48\AndroidManifest.xml:30:19-87
+uses-permission#android.permission.REQUEST_INSTALL_PACKAGES
+ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:15:5-83
+	android:name
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:15:22-80
+activity#com.allenliu.versionchecklib.core.VersionDialogActivity
+ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:23:9-26:71
+	android:launchMode
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:25:13-44
+	android:theme
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:26:13-68
+	android:name
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:24:13-83
+provider#com.allenliu.versionchecklib.core.VersionFileProvider
+ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:28:9-36:20
+	android:grantUriPermissions
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:32:13-47
+	android:authorities
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:30:13-67
+	android:exported
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:31:13-37
+	android:name
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:29:13-81
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:33:13-35:70
+	android:resource
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:35:17-67
+	android:name
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:34:17-67
+activity#com.allenliu.versionchecklib.core.PermissionDialogActivity
+ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:38:9-41:71
+	android:launchMode
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:40:13-44
+	android:theme
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:41:13-68
+	android:name
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:39:13-86
+service#com.allenliu.versionchecklib.core.MyService
+ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:43:9-46:39
+	android:enabled
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:45:13-35
+	android:exported
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:46:13-36
+	android:name
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:44:13-71
+service#com.allenliu.versionchecklib.v2.ui.VersionService
+ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:47:9-50:39
+	android:exported
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:49:13-37
+	android:priority
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:50:13-36
+	android:name
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:48:13-77
+activity#com.allenliu.versionchecklib.v2.ui.UIActivity
+ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:52:9-55:71
+	android:launchMode
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:54:13-44
+	android:theme
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:55:13-68
+	android:name
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:53:13-73
+activity#com.allenliu.versionchecklib.v2.ui.DownloadingActivity
+ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:56:9-59:71
+	android:launchMode
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:58:13-44
+	android:theme
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:59:13-68
+	android:name
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:57:13-82
+activity#com.allenliu.versionchecklib.v2.ui.DownloadFailedActivity
+ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:60:9-63:71
+	android:launchMode
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:62:13-44
+	android:theme
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:63:13-68
+	android:name
+		ADDED from [com.github.AlexLiuSheng:CheckVersionLib:2.3.3.1_appcompat] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\268bcef93d84a5573b41cf707d0444e1\AndroidManifest.xml:61:13-85
+service#com.squareup.leakcanary.internal.HeapAnalyzerService
+ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:27:9-30:45
+	android:process
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:30:13-42
+	android:enabled
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:29:13-36
+	android:name
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:28:13-80
+service#com.squareup.leakcanary.DisplayLeakService
+ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:31:9-34:45
+	android:process
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:34:13-42
+	android:enabled
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:33:13-36
+	android:name
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:32:13-70
+provider#com.squareup.leakcanary.internal.LeakCanaryFileProvider
+ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:36:9-44:20
+	android:grantUriPermissions
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:40:13-47
+	android:authorities
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:38:13-88
+	android:exported
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:39:13-37
+	android:name
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:37:13-83
+activity#com.squareup.leakcanary.internal.DisplayLeakActivity
+ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:46:9-59:20
+	android:process
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:51:13-42
+	android:enabled
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:48:13-36
+	android:label
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:50:13-71
+	android:icon
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:49:13-52
+	android:theme
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:53:13-63
+	android:taskAffinity
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:52:13-76
+	android:name
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:47:13-80
+activity#com.squareup.leakcanary.internal.RequestStoragePermissionActivity
+ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:60:9-69:68
+	android:process
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:66:13-42
+	android:enabled
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:62:13-36
+	android:label
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:65:13-82
+	android:excludeFromRecents
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:63:13-46
+	android:roundIcon
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:67:13-57
+	android:icon
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:64:13-52
+	android:theme
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:69:13-65
+	android:taskAffinity
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:68:13-76
+	android:name
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.6.1] C:\Users\tobato\.gradle\caches\transforms-2\files-2.1\ae980bcc906034deb7969fb29508c60f\AndroidManifest.xml:61:13-93

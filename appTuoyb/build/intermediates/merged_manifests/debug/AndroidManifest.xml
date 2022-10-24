@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.juntai.tyb"
+    android:versionCode="165"
+    android:versionName="1.6.5" >
+
+    <uses-sdk
+        android:minSdkVersion="19"
+        android:targetSdkVersion="28" />
+
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+
+    <permission
+        android:name="com.juntai.tyb.hcb.permission.JPUSH_MESSAGES"
+        android:protectionLevel="signature" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" /> <!-- 读取系统信息，包含系统版本等信息，用作统计 -->
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" /> <!-- 获取统计数据 -->
+    <!-- 鉴权所需该权限获取进程列表 -->
+    <uses-permission android:name="android.permission.GET_TASKS" /> <!-- 使用步行AR导航，配置Camera权限 -->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 这个权限用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 访问网络，网络定位需要上网 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- SD卡读取权限，用户写入离线定位数据 -->
+    <uses-permission android:name="android.permission.FLASHLIGHT" /> <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 如果需要实时音视频通话模块，下面的权限也是必须的。否则，可以不加 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" /> <!-- SDK 权限申明, 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
+    <!-- 和下面的 uses-permission 一起加入到你的 AndroidManifest 文件中。 -->
+    <permission
+        android:name="com.juntai.tyb.hcb.permission.RECEIVE_MSG"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.juntai.dell.hcb.permission.RECEIVE_MSG" /> <!-- 允许挂载和反挂载文件系统可移动存储 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" /> <!-- 允许程序读取底层系统日志文件 -->
+    <uses-permission android:name="android.permission.READ_LOGS" /> <!-- 允许程序读取或写入系统设置 -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" /> <!-- android 9.0上使用前台服务，需要添加权限 -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE" />
+
+    <permission
+        android:name="com.juntai.tyb.hcb.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" /> <!-- Required  一些系统要求的权限，如访问网络等 -->
+    <uses-permission android:name="com.juntai.tyb.hcb.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <application
+        android:name="com.juntai.tyb.MyApplication"
+        android:allowBackup="true"
+        android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
+        android:debuggable="true"
+        android:icon="@drawable/app_logo"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@drawable/app_logo"
+        android:supportsRtl="true"
+        android:testOnly="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true" >
+        <activity android:name="com.juntai.tyb.mine.myMsg.MyMsgActivity" />
+        <activity android:name="com.juntai.tyb.mine.MyBaseInfoActivity" />
+        <activity android:name="com.juntai.tyb.homePage.healthOrganize.HealthOrganizeActivity" />
+        <activity android:name="com.juntai.tyb.mine.about.UserProtocalActivity" />
+        <activity android:name="com.juntai.tyb.mine.about.AboutUsActivity" />
+        <activity android:name="com.juntai.tyb.mine.serviceRecord.ServiceRecordActivity" />
+        <activity android:name="com.juntai.tyb.homePage.careTaker.addCareTaker.AddCareRecordActivity" />
+        <activity android:name="com.juntai.tyb.homePage.careTaker.careInfo.CareInfoMoreActivity" />
+        <activity
+            android:name="com.juntai.tyb.homePage.careTaker.careInfo.CareTakerInfoActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="com.juntai.tyb.homePage.careTaker.addCareTaker.AddCareTakerActivity"
+            android:launchMode="singleTop" /> <!-- android:hardwareAccelerated="false" -->
+        <!-- android:largeHeap="true" -->
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <meta-data
+            android:name="com.netease.nim.appKey"
+            android:value="b1c523b88ae3d7a26ae4703c19c616d7" />
+        <meta-data
+            android:name="RONG_CLOUD_APP_KEY"
+            android:value="sfci50a7sxefi" /> <!-- 融云配置   end ||| -->
+        <provider
+            android:name="com.juntai.tyb.uitils.MyFileProvider"
+            android:authorities="com.juntai.tyb.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity
+            android:name="com.juntai.tyb.login.SplashActivity"
+            android:theme="@style/AppTheme.Splash" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.juntai.tyb.MainActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="jb0Kawz1rlYzPKg4TXk8Pl2ALukWGhWP" />
+
+        <service
+            android:name="cn.jpush.android.service.DaemonService"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.DaemonService" />
+
+                <category android:name="com.juntai.dell.hcb" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.DaemonService" />
+
+                <category android:name="com.juntai.tyb.hcb" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+
+        <activity
+            android:name="com.juntai.tyb.login.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize" /> <!-- Required SDK核心功能 -->
+        <activity
+            android:name="cn.jpush.android.ui.PushActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar" >
+            <intent-filter>
+                <action android:name="cn.jpush.android.ui.PushActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.juntai.dell.hcb" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="cn.jpush.android.ui.PushActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.juntai.tyb.hcb" />
+            </intent-filter>
+        </activity> <!-- Required SDK 核心功能 -->
+        <!-- 可配置android:process参数将PushService放在其他进程中 -->
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:exported="false"
+            android:process=":multiprocess" >
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTER" />
+                <action android:name="cn.jpush.android.intent.REPORT" />
+                <action android:name="cn.jpush.android.intent.PushService" />
+                <action android:name="cn.jpush.android.intent.PUSH_TIME" />
+            </intent-filter>
+        </service> <!-- since 3.0.9 Required SDK 核心功能 -->
+        <provider
+            android:name="cn.jpush.android.service.DataProvider"
+            android:authorities="com.juntai.tyb.hcb.DataProvider"
+            android:exported="false" /> <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
+        <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
+        <!-- since 3.1.0 Required SDK 核心功能 -->
+        <provider
+            android:name="cn.jpush.android.service.DownloadProvider"
+            android:authorities="com.juntai.tyb.hcb.DownloadProvider"
+            android:exported="true" /> <!-- Required SDK核心功能 -->
+        <receiver
+            android:name="cn.jpush.android.service.PushReceiver"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter android:priority="1000" >
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
+
+                <category android:name="com.juntai.dell.hcb" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <!-- Optional -->
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+            <intent-filter android:priority="1000" >
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" /> <!-- Required  显示通知栏 -->
+                <category android:name="com.juntai.tyb.hcb" />
+            </intent-filter>
+        </receiver>
+        <!-- <receiver -->
+        <!-- android:name="cn.jpush.im.android.helpers.IMReceiver" -->
+        <!-- android:enabled="true" -->
+        <!-- android:exported="false" /> &lt;!&ndash; Required. For publish channel feature &ndash;&gt; -->
+        <!-- JPUSH_CHANNEL 是为了方便开发者统计APK分发渠道。 -->
+        <!-- 例如: -->
+        <!-- 发到 Google Play 的APK可以设置为 google-play; -->
+        <!-- 发到其他市场的 APK 可以设置为 xxx-market。 -->
+        <!-- 目前这个渠道统计功能的报表还未开放。 -->
+        <meta-data
+            android:name="JPUSH_CHANNEL"
+            android:value="developer-default" /> <!-- Required SDK核心功能 -->
+        <receiver
+            android:name="cn.jpush.android.service.AlarmReceiver"
+            android:enabled="true"
+            android:exported="false" /> <!-- User defined.  For test only  用户自定义的广播接收器 -->
+        <!-- <receiver -->
+        <!-- android:name="tybbean.model.MyReceiver" -->
+        <!-- android:enabled="true" -->
+        <!-- android:exported="false"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="cn.jpush.android.intent.REGISTRATION" /> &lt;!&ndash; Required  用户注册SDK的intent &ndash;&gt; -->
+        <!-- <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> &lt;!&ndash; Required  用户接收SDK消息的intent &ndash;&gt; -->
+        <!-- <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> &lt;!&ndash; Required  用户接收SDK通知栏信息的intent &ndash;&gt; -->
+        <!-- <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> &lt;!&ndash; Required  用户打开自定义通知栏的intent &ndash;&gt; -->
+        <!-- <action android:name="cn.jpush.android.intent.CONNECTION" /> &lt;!&ndash; 接收网络变化 连接/断开 since 1.6.3 &ndash;&gt; -->
+        <!-- <category android:name="tybhcb" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> &lt;!&ndash; &lt;!&ndash; User defined.  For test only  用户自定义接收消息器,3.0.7开始支持,目前新tag/alias接口设置结果会在该广播接收器对应的方法中回调&ndash;&gt; &ndash;&gt; -->
+        <!-- <receiver android:name="tybMyReceiver"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" /> -->
+        <!-- <category android:name="tyb></category> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
+        <!-- &lt;!&ndash; Required  . Enable it you can get statistics data with channel &ndash;&gt; -->
+        <!-- <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/> -->
+        <!-- <meta-data android:name="JPUSH_APPKEY" android:value="d9faf72aa589fca36ea65362" /> &lt;!&ndash;  </>值来自开发者平台取得的AppKey&ndash;&gt; -->
+        <!-- <activity -->
+        <!-- android:name="me.iwf.photopicker.PhotoPickerActivity" -->
+        <!-- android:launchMode="singleTask" -->
+        <!-- android:theme="@style/Theme.AppCompat.NoActionBar" /> -->
+        <!-- <activity -->
+        <!-- android:name="me.iwf.photopicker.PhotoPagerActivity" -->
+        <!-- android:launchMode="singleTask" -->
+        <!-- android:theme="@style/Theme.AppCompat.NoActionBar" /> -->
+        <activity
+            android:name="com.juntai.tyb.homePage.olderCareData.CareInfoActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="com.juntai.tyb.homePage.olderCareData.CareDetailActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="com.juntai.tyb.homePage.careTaker.careInfo.CareRecordDetailActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="com.juntai.tyb.base.BaseAppActivity"
+            android:label="@string/title_activity_base"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!-- <service -->
+        <!-- android:name="com.netease.nimlib.service.NimService" -->
+        <!-- android:process=":core" /> &lt;!&ndash; 云信后台辅助服务 &ndash;&gt; -->
+        <!-- <service -->
+        <!-- android:name="com.netease.nimlib.service.NimService$Aux" -->
+        <!-- android:process=":core" /> &lt;!&ndash; 云信后台辅助服务 &ndash;&gt; -->
+        <!-- <service -->
+        <!-- android:name="com.netease.nimlib.job.NIMJobService" -->
+        <!-- android:exported="true" -->
+        <!-- android:permission="android.permission.BIND_JOB_SERVICE" -->
+        <!-- android:process=":core" /> &lt;!&ndash; 云信监视系统启动和网络变化的广播接收器，保持和 NimService 同一进程 &ndash;&gt; -->
+        <!-- <receiver -->
+        <!-- android:name="com.netease.nimlib.service.NimReceiver" -->
+        <!-- android:exported="false" -->
+        <!-- android:process=":core"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.BOOT_COMPLETED" /> -->
+        <!-- <action android:name="android.net.conn.CONNECTIVITY_CHANGE" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> &lt;!&ndash; 云信进程间通信 Receiver &ndash;&gt; -->
+        <!-- <receiver android:name="com.netease.nimlib.service.ResponseReceiver" /> &lt;!&ndash; 云信进程间通信service &ndash;&gt; -->
+        <!-- <service android:name="com.netease.nimlib.service.ResponseService" /> &lt;!&ndash; 云信进程间通信provider &ndash;&gt; -->
+        <!-- &lt;!&ndash; android:authorities="{包名}.ipc.provider", 请将com.netease.nim.demo替换为自己的包名 &ndash;&gt; -->
+        <!-- <provider -->
+        <!-- android:name="com.netease.nimlib.ipc.NIMContentProvider" -->
+        <!-- android:authorities="tybhcb.ipc.provider" -->
+        <!-- android:exported="false" -->
+        <!-- android:process=":core" /> -->
+
+
+        <!-- <activity -->
+        <!-- android:name="com.videogo.main.EzvizWebViewActivity" -->
+        <!-- android:configChanges="orientation|keyboardHidden" -->
+        <!-- android:screenOrientation="portrait" /> -->
+
+        <activity
+            android:name="com.juntai.tyb.homePage.weather.WeatherActivity"
+            android:theme="@style/TranslucentTheme" />
+        <activity
+            android:name="com.juntai.tyb.homePage.weather.SelectLocationForWeatherActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="com.juntai.tyb.homePage.search.SearchActivity"
+            android:windowSoftInputMode="stateAlwaysVisible" />
+        <activity
+            android:name="com.juntai.tyb.homePage.camera.ijkplayer.PlayerLiveActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask" />
+
+        <service android:name="com.juntai.tyb.homePage.camera.ijkplayer.KeepAliveService" />
+
+        <activity android:name="com.juntai.tyb.homePage.camera.ijkplayer.StreamCameraFullScreenActivity" />
+        <activity
+            android:name="com.juntai.disabled.video.player.DronePlayer"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" /> <!-- 短视频录制 -->
+        <activity
+            android:name="com.mabeijianxi.smallvideorecord2.MediaRecorderActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/MediaStyleTheme" />
+        <activity
+            android:name="com.juntai.disabled.video.record.VideoPreviewActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="com.juntai.disabled.video.player.PlayerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.juntai.disabled.video.img.ImageZoomActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="com.juntai.disabled.video.record.SendSmallVideoActivity2"
+            android:launchMode="singleTop" />
+
+        <service
+            android:name="com.juntai.disabled.bdmap.service.LocateAndUpload"
+            android:enabled="true"
+            android:exported="true"
+            android:priority="1000" />
+
+        <activity android:name="com.juntai.disabled.bdmap.act.LocateSelectionActivity" >
+            <intent-filter>
+                <action android:name="com.juntai.tyb.im.location.seltion" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity> <!-- 即时通讯 位置选择 -->
+        <activity android:name="com.juntai.disabled.bdmap.act.LocationSeltionActivity" >
+            <intent-filter>
+                <action android:name="com.juntai.tyb.im.location.seltion" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity> <!-- Rich push 核心功能 since 2.0.6 -->
+        <activity
+            android:name="cn.jpush.android.ui.PopWinActivity"
+            android:exported="false"
+            android:theme="@style/MyDialogStyle" />
+
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="6f17b89abe64d61a3773feb2" />
+
+        <activity android:name="com.zhihu.matisse.ui.MatisseActivity" />
+        <activity android:name="com.zhihu.matisse.internal.ui.AlbumPreviewActivity" />
+        <activity android:name="com.zhihu.matisse.internal.ui.SelectedPreviewActivity" />
+        <activity
+            android:name="com.allenliu.versionchecklib.core.VersionDialogActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/versionCheckLibvtransparentTheme" />
+
+        <provider
+            android:name="com.allenliu.versionchecklib.core.VersionFileProvider"
+            android:authorities="com.juntai.tyb.versionProvider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/versionchecklib_file_paths" />
+        </provider>
+
+        <activity
+            android:name="com.allenliu.versionchecklib.core.PermissionDialogActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/versionCheckLibvtransparentTheme" />
+
+        <service
+            android:name="com.allenliu.versionchecklib.core.MyService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name="com.allenliu.versionchecklib.v2.ui.VersionService"
+            android:exported="false"
+            android:priority="1000" />
+
+        <activity
+            android:name="com.allenliu.versionchecklib.v2.ui.UIActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/versionCheckLibvtransparentTheme" />
+        <activity
+            android:name="com.allenliu.versionchecklib.v2.ui.DownloadingActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/versionCheckLibvtransparentTheme" />
+        <activity
+            android:name="com.allenliu.versionchecklib.v2.ui.DownloadFailedActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/versionCheckLibvtransparentTheme" />
+
+        <service
+            android:name="com.squareup.leakcanary.internal.HeapAnalyzerService"
+            android:enabled="false"
+            android:process=":leakcanary" />
+        <service
+            android:name="com.squareup.leakcanary.DisplayLeakService"
+            android:enabled="false"
+            android:process=":leakcanary" />
+
+        <provider
+            android:name="com.squareup.leakcanary.internal.LeakCanaryFileProvider"
+            android:authorities="com.squareup.leakcanary.fileprovider.com.juntai.tyb"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/leak_canary_file_paths" />
+        </provider>
+
+        <activity
+            android:name="com.squareup.leakcanary.internal.DisplayLeakActivity"
+            android:enabled="false"
+            android:icon="@mipmap/leak_canary_icon"
+            android:label="@string/leak_canary_display_activity_label"
+            android:process=":leakcanary"
+            android:taskAffinity="com.squareup.leakcanary.com.juntai.tyb"
+            android:theme="@style/leak_canary_LeakCanary.Base" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.squareup.leakcanary.internal.RequestStoragePermissionActivity"
+            android:enabled="false"
+            android:excludeFromRecents="true"
+            android:icon="@mipmap/leak_canary_icon"
+            android:label="@string/leak_canary_storage_permission_activity_label"
+            android:process=":leakcanary"
+            android:roundIcon="@mipmap/leak_canary_icon"
+            android:taskAffinity="com.squareup.leakcanary.com.juntai.tyb"
+            android:theme="@style/leak_canary_Theme.Transparent" />
+    </application>
+
+</manifest>
