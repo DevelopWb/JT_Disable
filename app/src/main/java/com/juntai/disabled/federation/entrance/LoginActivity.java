@@ -153,7 +153,7 @@ public class LoginActivity extends BaseMvpActivity<EntrancePresent> implements E
                         } else {
                             builder.add("qqId", UserInfoManager.QQ_ID);
                         }
-                        builder.add("source", "1");//（1警小宝；2巡小管；3邻小帮）
+                        builder.add("source", "1");//
                         mPresenter.regist(builder.build(), EntranceContract.OTHER_REGIST);
 
                         //                        ToastUtils.error(mContext, loginBean.message);

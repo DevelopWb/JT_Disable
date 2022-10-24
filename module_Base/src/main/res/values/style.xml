@@ -12,7 +12,7 @@
         <!--左边边距-->
         <item name="contentInsetStart">0dp</item>
     </style>
-
+    bg_white_corner_top_left_right
     <style name="CusDialog" parent="Theme.AppCompat.Dialog">
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:backgroundDimAmount">0.6</item>

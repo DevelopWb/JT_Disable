@@ -298,7 +298,7 @@
             android:name="com.juntai.tyb.homePage.camera.ijkplayer.PlayerLiveActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"
-            android:theme="@style/edit_AlertDialog_style" />
+             />
 
         <service android:name="com.juntai.tyb.homePage.camera.ijkplayer.KeepAliveService" />
 
